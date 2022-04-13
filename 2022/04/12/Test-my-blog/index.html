@@ -199,7 +199,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      755 字
+      769 字
     </span>
   
 
@@ -240,16 +240,26 @@
             <h1 style="display: none">Test my blog</h1>
             
             <div class="markdown-body">
-              <h1 id="这是第一篇博文，用于测试以及练习markdown语法"><a href="#这是第一篇博文，用于测试以及练习markdown语法" class="headerlink" title="这是第一篇博文，用于测试以及练习markdown语法"></a>这是第一篇博文，用于测试以及练习markdown语法</h1><h2 id="打两个-就是二级标题"><a href="#打两个-就是二级标题" class="headerlink" title="打两个##就是二级标题"></a>打两个##就是二级标题</h2><h3 id="Markdown字体"><a href="#Markdown字体" class="headerlink" title="Markdown字体"></a>Markdown字体</h3><p><em>斜体文本一个*</em><br><strong>粗体文本两个*</strong><br><em><strong>斜粗体文本三个*</strong></em>  </p>
-<h3 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h3><hr>
-<p><font size=3 face='Microsoft YaHei'>用三个-或者三个*把文本围起来(上面一行下面一行)</font><br>虽然但是为什么分割线里的文本默认挺大的（思考🤔（（这里我用&lt;font size&gt;改了</p>
-<hr>
-<h3 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h3><p>两个波浪线括起来就能<del>删除</del>了</p>
-<p><del>这样我就能乱说话乐！</del></p>
+              <h1 id="这是第一篇博文用于测试以及练习markdown语法"><a class="markdownIt-Anchor" href="#这是第一篇博文用于测试以及练习markdown语法"></a> 这是第一篇博文，用于测试以及练习markdown语法</h1>
+<h2 id="打两个就是二级标题"><a class="markdownIt-Anchor" href="#打两个就是二级标题"></a> 打两个##就是二级标题</h2>
+<h3 id="markdown字体"><a class="markdownIt-Anchor" href="#markdown字体"></a> Markdown字体</h3>
+<p><em>斜体文本一个*</em><br />
+<strong>粗体文本两个*</strong><br />
+<em><strong>斜粗体文本三个*</strong></em></p>
+<h3 id="分隔线"><a class="markdownIt-Anchor" href="#分隔线"></a> 分隔线</h3>
+<hr />
+<h2 id="font-size3-facemicrosoft-yahei用三个-或者三个把文本围起来上面一行下面一行font虽然但是为什么分割线里的文本默认挺大的思考这里我用font-size改了"><a class="markdownIt-Anchor" href="#font-size3-facemicrosoft-yahei用三个-或者三个把文本围起来上面一行下面一行font虽然但是为什么分割线里的文本默认挺大的思考这里我用font-size改了"></a> <font size=3 face='Microsoft YaHei'>用三个-或者三个*把文本围起来(上面一行下面一行)</font><br />
+虽然但是为什么分割线里的文本默认挺大的（思考🤔（（这里我用&lt;font size&gt;改了</h2>
+<h3 id="删除线"><a class="markdownIt-Anchor" href="#删除线"></a> 删除线</h3>
+<p>两个波浪线括起来就能<s>删除</s>了</p>
+<p><s>这样我就能乱说话乐！</s></p>
 <p>为什么用空格不能换行啊！</p>
-<h3 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h3><p><u>直接用html的&lt;u&gt;标签</u></p>
-<h3 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h3><p>这里有一个脚注<a href="%E5%8A%A0VX%E8%AF%B7%E5%90%83KFC%E7%96%AF%E7%8B%82%E6%9C%A8%E6%9B%9C%E6%97%A5%E6%8D%8F">^<del>别点，要脸</del></a></p>
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ul>
+<h3 id="下划线"><a class="markdownIt-Anchor" href="#下划线"></a> 下划线</h3>
+<p><u>直接用html的&lt;u&gt;标签</u></p>
+<h3 id="脚注"><a class="markdownIt-Anchor" href="#脚注"></a> 脚注</h3>
+<p>这里有一个脚注<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<h3 id="列表"><a class="markdownIt-Anchor" href="#列表"></a> 列表</h3>
+<ul>
 <li>星号+空格+内容</li>
 <li>或者</li>
 <li>+号也行</li>
@@ -257,13 +267,15 @@
 <li>有序列表用序号</li>
 </ul>
 <ol>
-<li>这是有序嵌套无序：<ul>
+<li>这是有序嵌套无序：
+<ul>
 <li>我是无序</li>
 </ul>
 </li>
 <li>我是有序</li>
 </ol>
-<h3 id="Markdown区块"><a href="#Markdown区块" class="headerlink" title="Markdown区块"></a>Markdown区块</h3><blockquote>
+<h3 id="markdown区块"><a class="markdownIt-Anchor" href="#markdown区块"></a> Markdown区块</h3>
+<blockquote>
 <p>用&gt;加上一个空格再加上文本就好了</p>
 <blockquote>
 <p>区块嵌套就写多点&gt;</p>
@@ -275,34 +287,52 @@
 </blockquote>
 </blockquote>
 <ul>
-<li>反过来列表里用区块也行<blockquote>
+<li>反过来列表里用区块也行
+<blockquote>
 <p>在最前边摁个tab就好啦</p>
 </blockquote>
 </li>
 </ul>
-<h3 id="Markdown-代码"><a href="#Markdown-代码" class="headerlink" title="Markdown 代码"></a>Markdown 代码</h3><p>在一行里直接用`包起来就好啦 -&gt; <code>print()</code>函数<br>代码块就用三个`包起来</p>
+<h3 id="markdown-代码"><a class="markdownIt-Anchor" href="#markdown-代码"></a> Markdown 代码</h3>
+<p>在一行里直接用`包起来就好啦 -&gt; <code>print()</code>函数<br />
+代码块就用三个`包起来</p>
 <figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@login_required</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">topics</span>(<span class="hljs-params">request</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;显示所有的主题&quot;&quot;&quot;</span><br>    topics = Topic.objects.order_by(<span class="hljs-string">&#x27;data_added&#x27;</span>)<br>    context = &#123;<span class="hljs-string">&#x27;topics&#x27;</span>: topics&#125;<br>    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">&#x27;learning_logs/topics.html&#x27;</span>, context)<br></code></pre></td></tr></table></figure>
-
-<h3 id="Markdown-链接"><a href="#Markdown-链接" class="headerlink" title="Markdown 链接"></a>Markdown 链接</h3><p>休息一下，听首歌吧~ <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ty4y1y76V?share_source=copy_web"><del>神必链接</del></a></p>
-<h3 id="Markdown-图片"><a href="#Markdown-图片" class="headerlink" title="Markdown 图片"></a>Markdown 图片</h3><p>如图：<br><img src="https://pic1.zhimg.com/v2-e81ff8868ed8bde326ae6074eb8dab40_r.jpg" srcset="/img/loading.gif" lazyload alt="野兽红茶"></p>
-<h3 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h3><p>用 | 来分隔不同单元格，用 - 来分隔表头和其他行</p>
+<h3 id="markdown-链接"><a class="markdownIt-Anchor" href="#markdown-链接"></a> Markdown 链接</h3>
+<p>休息一下，听首歌吧~ <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ty4y1y76V?share_source=copy_web"><s>神必链接</s></a></p>
+<h3 id="markdown-图片"><a class="markdownIt-Anchor" href="#markdown-图片"></a> Markdown 图片</h3>
+<p>如图：<br />
+<img src="https://pic1.zhimg.com/v2-e81ff8868ed8bde326ae6074eb8dab40_r.jpg" srcset="/img/loading.gif" lazyload alt="野兽红茶" /></p>
+<h3 id="markdown-表格"><a class="markdownIt-Anchor" href="#markdown-表格"></a> Markdown 表格</h3>
+<p>用 | 来分隔不同单元格，用 - 来分隔表头和其他行</p>
 <table>
 <thead>
 <tr>
-<th align="left">114</th>
-<th align="right">514</th>
-<th align="center">1919810</th>
+<th style="text-align:left">114</th>
+<th style="text-align:right">514</th>
+<th style="text-align:center">1919810</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">哼</td>
-<td align="right">哼  啊</td>
-<td align="center">啊啊啊</td>
+<tbody>
+<tr>
+<td style="text-align:left">哼</td>
+<td style="text-align:right">哼  啊</td>
+<td style="text-align:center">啊啊啊</td>
 </tr>
-</tbody></table>
-<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><p>$$<br>E&#x3D;mc^2<br>$$</p>
-<hr>
-<h2 id="堂堂完结"><a href="#堂堂完结" class="headerlink" title="堂堂完结"></a>堂堂完结</h2><p>（<del>其实是想上床摆烂了</del></p>
+</tbody>
+</table>
+<h3 id="数学公式"><a class="markdownIt-Anchor" href="#数学公式"></a> 数学公式</h3>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E=mc^2
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8641079999999999em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></p>
+<hr />
+<h2 id="堂堂完结"><a class="markdownIt-Anchor" href="#堂堂完结"></a> 堂堂完结</h2>
+<p>（<s>其实是想上床摆烂了</s></p>
+<hr class="footnotes-sep" />
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>加VX请吃KFC疯狂木曜日捏 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
             </div>
             <hr>
