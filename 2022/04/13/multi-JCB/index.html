@@ -23,14 +23,16 @@
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
 <meta property="og:description" content="操作系统的多道系统作业调度模拟程序。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://map1e-g.github.io/img/alice_happy.jpg">
 <meta property="article:published_time" content="2022-04-13T15:12:39.000Z">
-<meta property="article:modified_time" content="2022-04-14T02:56:27.206Z">
+<meta property="article:modified_time" content="2022-04-14T09:18:52.078Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://map1e-g.github.io/img/alice_happy.jpg">
   
   
   <title>操作系统原理——多道系统作业调度 - MaP1e-G&#39;s Blog</title>
@@ -240,16 +242,19 @@
             <!-- SEO header -->
             <h1 style="display: none">操作系统原理——多道系统作业调度</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年4月14日 下午
+                
+              </p>
+            
             <div class="markdown-body">
-              <div class="note note-primary">
-            <p>本文最后更新：2022/04/13</p>
-          </div>
-<div class="note note-info">
+              <div class="note note-success">
             <p>本文章用到的语言：Python</p>
           </div>
 <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>其实一周前就把程序写完了，但是因为博客最近才搭好以及最近才学习了一手markdown所以现在才开始写~~<em>（绝对不是我懒！）</em>~~<br />
-操作系统课程的作业，其实挺不想写的~~（真的）~~，毕竟我数据结构与算法学得很垃圾www，就当顺便学习python好了</p>
+<p>其实一周前就把程序写完了，但是因为博客最近才搭好以及最近才学习了一手markdown所以现在才开始写<s><em>（绝对不是我懒！）</em></s><br />
+操作系统课程的作业，其实挺不想写的<s>（真的）</s>，毕竟我数据结构与算法学得很垃圾www，就当顺便学习python好了</p>
 <h1 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h1>
 <p>这部分略过。（因为真的没什么好写的，以后再补充一下吧）</p>
 <blockquote>
@@ -280,7 +285,7 @@
 现在可以这样理解：这么做重载了JCB类的默认比较方法，两个JCB之间可以比大小了，怎么比就看<code>__lt__()</code>里了。<br />
 那么能比较大小了，排序就能方便起来，而python里边提供了<code>sort()</code>函数来对列表进行永久排序，这个时候即使列表里是一堆JCB对象，我们也可以进行排序。</p>
 <h2 id="算法部分"><a class="markdownIt-Anchor" href="#算法部分"></a> 算法部分</h2>
-<p>注释写得算比较清楚所以在这里不多赘述了，以后有空说不定会更新~~（实打实的懒狗）~~</p>
+<p>注释写得算比较清楚所以在这里不多赘述了，以后有空说不定会更新<s>（实打实的懒狗）</s></p>
 <div class="note note-warning">
             <p>注意这里用到了<code>copy.deepcopy()</code>，需要导入copy模块</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> copy<br></code></pre></td></tr></table></figure>
           </div>
@@ -291,8 +296,11 @@
 <p>python测试代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    inputJCB()<br></code></pre></td></tr></table></figure>
 <h1 id="结语"><a class="markdownIt-Anchor" href="#结语"></a> 结语</h1>
-<p>日后补充~~（兄啊一篇文章下来省略了多少啊)~~</p>
-
+<p>日后补充<s>（兄啊一篇文章下来省略了多少啊）</s></p>
+<p align="center">
+<img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;">
+</p>
+<p align="center">希望本文章能够帮到您~</p>
             </div>
             <hr>
             <div>
