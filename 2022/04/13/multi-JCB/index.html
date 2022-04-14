@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://map1e-g.github.io/img/alice_happy.jpg">
 <meta property="article:published_time" content="2022-04-13T15:12:39.000Z">
-<meta property="article:modified_time" content="2022-04-14T09:18:52.078Z">
+<meta property="article:modified_time" content="2022-04-14T10:02:01.643Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="数据结构">
@@ -202,7 +202,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5k 字
+      5.1k 字
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      42 分钟
+      43 分钟
     </span>
   
 
@@ -244,7 +244,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年4月14日 下午
+                  本文最后更新于：2022年4月14日 晚上
                 
               </p>
             
@@ -285,7 +285,8 @@
 现在可以这样理解：这么做重载了JCB类的默认比较方法，两个JCB之间可以比大小了，怎么比就看<code>__lt__()</code>里了。<br />
 那么能比较大小了，排序就能方便起来，而python里边提供了<code>sort()</code>函数来对列表进行永久排序，这个时候即使列表里是一堆JCB对象，我们也可以进行排序。</p>
 <h2 id="算法部分"><a class="markdownIt-Anchor" href="#算法部分"></a> 算法部分</h2>
-<p>注释写得算比较清楚所以在这里不多赘述了，以后有空说不定会更新<s>（实打实的懒狗）</s></p>
+<p>注释写得算比较清楚所以在这里不多赘述了，以后有空说不定会更新<s>（实打实的懒狗）</s><br />
+其实写得不算好吧…自己感觉是写复杂了，某些地方凭感觉写了点东西保证不出错，比如那个删除队列，按道理来说有写判断条件的话就不会出错</p>
 <div class="note note-warning">
             <p>注意这里用到了<code>copy.deepcopy()</code>，需要导入copy模块</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> copy<br></code></pre></td></tr></table></figure>
           </div>
@@ -295,8 +296,12 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">inputJCB</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;初始化JCB队列&quot;&quot;&quot;</span><br>    JCB_queue = []<br>    src = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入系统资源数：&quot;</span>))<br>    JCB_num = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入作业数量：&quot;</span>))<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(JCB_num):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;当前是第<span class="hljs-subst">&#123;i + <span class="hljs-number">1</span>&#125;</span>个作业；&quot;</span>)<br>        jn = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入作业名字：&quot;</span>)<br>        ct = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入作业提交时间：&quot;</span>))<br>        rt = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入作业运行时间：&quot;</span>))<br>        sc = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入作业所需资源：&quot;</span>))<br>        new_JCB = JCB(jn, ct, rt, sc)<br>        JCB_queue.append(new_JCB)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n&quot;</span>)<br>    <span class="hljs-comment"># 打印JCB队列</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(JCB_num):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;第<span class="hljs-subst">&#123;i + <span class="hljs-number">1</span>&#125;</span>个作业名字：<span class="hljs-subst">&#123;JCB_queue[i].job_name&#125;</span>\t&quot;</span><br>              <span class="hljs-string">f&quot;作业提交时间：<span class="hljs-subst">&#123;JCB_queue[i].commit_time&#125;</span>\t&quot;</span><br>              <span class="hljs-string">f&quot;作业所需运行时间：<span class="hljs-subst">&#123;JCB_queue[i].run_time&#125;</span>\t&quot;</span><br>              <span class="hljs-string">f&quot;作业所需资源数：<span class="hljs-subst">&#123;JCB_queue[i].source&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;FCFS算法：&quot;</span>)<br>    simulator(JCB_queue, <span class="hljs-string">&quot;FCFS&quot;</span>, src)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;SJF算法：&quot;</span>)<br>    simulator(JCB_queue, <span class="hljs-string">&quot;SJF&quot;</span>, src)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;HRRF算法：&quot;</span>)<br>    simulator(JCB_queue, <span class="hljs-string">&quot;HRRF&quot;</span>, src)<br></code></pre></td></tr></table></figure>
 <p>python测试代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    inputJCB()<br></code></pre></td></tr></table></figure>
+<h1 id="运行结果"><a class="markdownIt-Anchor" href="#运行结果"></a> 运行结果</h1>
+<p>暂时不贴结果，没找到一个好云图库放图，上传到github也不合适www<br />
+麻烦各位自己运行一下了</p>
 <h1 id="结语"><a class="markdownIt-Anchor" href="#结语"></a> 结语</h1>
 <p>日后补充<s>（兄啊一篇文章下来省略了多少啊）</s></p>
+<hr />
 <p align="center">
 <img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;">
 </p>
@@ -341,6 +346,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/04/14/python-learning-1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python学习笔记——函数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
