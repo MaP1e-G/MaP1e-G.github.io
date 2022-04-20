@@ -4,6 +4,66 @@
   
   
   <entry>
+    <title>操作系统原理——可变分区存储管理</title>
+    <link href="/2022/04/20/variable-partition/"/>
+    <url>/2022/04/20/variable-partition/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-warning">            <p>本文章尚未更新完毕</p>          </div><h1 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h1><p>进行一个实验报告的抄~</p><blockquote><p>可变分区方式是按作业需要的主存空间大小来分区。<br />当装入一个作业时，首先要查看是否有足够的空闲空间来分配，若有则按指定的分配方式进行分配；否则作业不能装入。</p><blockquote><p>可变分区的三种分配算法就是为作业分配主存空间的方法。</p><ul><li>最先适应算法：在空闲区间中查询满足作业需要的空间，并将作业装入第一个满足条件的空间中去。</li><li>最佳适应算法：在空闲区间中查询满足作业需要的空间，并将作业装入满足条件的空闲空间中最小的一个空间中去。</li><li>最坏适应算法：在空闲区间中查询满足作业需要的空间，并将作业装入满足条件的空闲空间中最大的一个空间中去。</li></ul></blockquote><blockquote><p>从三种算法的说明可以看出，分配空间的过程主要可以分两步：</p><ol><li>查询所有满足作业需求的空间块。</li><li>按照指定的算法将作业装入空间块中。</li></ol></blockquote><blockquote><p>可变分区的回收算法：</p><ul><li>回收区有下邻空闲区</li><li>回收区有上邻空闲区</li><li>归还区既有上邻空闲区又有下邻空闲区</li><li>归还区既无上邻空闲区又有下邻空闲区</li></ul></blockquote></blockquote><h1 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h1><p>明天早八今天不写了，<s>开摆！</s></p><hr /><p align="center"><img src="/img/alice_happy.jpg" alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Learning Log</category>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+      <tag>数据结构</tag>
+      
+      <tag>算法</tag>
+      
+      <tag>Python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Python学习笔记——列表中的方法</title>
+    <link href="/2022/04/20/python-learning-2/"/>
+    <url>/2022/04/20/python-learning-2/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-warning">            <p>本文章尚未更新完毕</p>          </div><h1 id="列表中的方法"><a class="markdownIt-Anchor" href="#列表中的方法"></a> 列表中的方法</h1><p>我们先定义(约定好)一个用于示例的列表，以方便后续调用它。</p><figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>,]<br></code></pre></td></tr></table></figure><h2 id="appende方法"><a class="markdownIt-Anchor" href="#appende方法"></a> <code>append(e)</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />在尾部添加一个元素 e</p>          </div>  <p>示例：</p><h2 id="clear方法"><a class="markdownIt-Anchor" href="#clear方法"></a> <code>clear()</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />删除所有元素</p>          </div>  <p>示例：</p><h2 id="copy方法"><a class="markdownIt-Anchor" href="#copy方法"></a> <code>copy()</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />对列表进行<strong>浅复制</strong></p>          </div>  <p>示例：</p><h2 id="counte方法"><a class="markdownIt-Anchor" href="#counte方法"></a> <code>count(e)</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />列表中 e 元素出现的次数</p>          </div>  <p>示例：</p><h2 id="extendit方法"><a class="markdownIt-Anchor" href="#extendit方法"></a> <code>extend(it)</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />将可迭代对象 it 里的元素添加到尾部</p>          </div>  <p>示例：</p><h2 id="indexe方法"><a class="markdownIt-Anchor" href="#indexe方法"></a> <code>index(e)</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />找到 e 在序列中第一次出现的位置</p>          </div>  <p>示例：</p><h2 id="inserti-e方法"><a class="markdownIt-Anchor" href="#inserti-e方法"></a> <code>insert(i, e)</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />在索引 i 处添加空间，并将 e 元素插入到这个地方</p>          </div>  <p>示例：</p><h2 id="popi方法"><a class="markdownIt-Anchor" href="#popi方法"></a> <code>pop([i])</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />删除索引 i 位置的值并返回这个值，i 的默认值为最后一个元素的位置</p>          </div>  <p>示例：</p><h2 id="removee方法"><a class="markdownIt-Anchor" href="#removee方法"></a> <code>remove(e)</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />删除列表里第一次出现的 e 元素</p>          </div>  <p>示例：</p><h2 id="reverse方法"><a class="markdownIt-Anchor" href="#reverse方法"></a> <code>reverse()</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />反转列表元素的排列顺序</p>          </div>  <p>示例：</p><h2 id="sortkey-reverse方法"><a class="markdownIt-Anchor" href="#sortkey-reverse方法"></a> <code>sort([key], [reverse])</code>方法</h2><div class="note note-info">            <p><strong>描述：</strong><br />就地对列表进行排序，reverse默认值为False</p>          </div>  <p>示例：</p><hr /><p align="center"><img src="/img/alice_happy.jpg" alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Learning Log</category>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Python随笔-1</title>
     <link href="/2022/04/17/python-essay-1/"/>
     <url>/2022/04/17/python-essay-1/</url>
