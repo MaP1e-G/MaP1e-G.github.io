@@ -18,21 +18,21 @@
   
     <meta name="description" content="使用Python模块unittest中的工具来测试代码，测试编写的函数或类，简化测试流程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python学习笔记——列表中的方法">
+<meta property="og:title" content="Python学习笔记——测试代码">
 <meta property="og:url" content="https://map1e-g.github.io/2022/04/24/python-learning-3/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
 <meta property="og:description" content="使用Python模块unittest中的工具来测试代码，测试编写的函数或类，简化测试流程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://map1e-g.github.io/img/alice_happy.jpg">
 <meta property="article:published_time" content="2022-04-24T08:02:20.000Z">
-<meta property="article:modified_time" content="2022-04-25T15:40:50.007Z">
+<meta property="article:modified_time" content="2022-04-30T13:12:18.295Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://map1e-g.github.io/img/alice_happy.jpg">
   
   
-  <title>Python学习笔记——列表中的方法 - MaP1e-G&#39;s Blog</title>
+  <title>Python学习笔记——测试代码 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -178,7 +178,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Python学习笔记——列表中的方法">
+            <span class="h2" id="subtitle" title="Python学习笔记——测试代码">
               
             </span>
 
@@ -237,11 +237,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Python学习笔记——列表中的方法</h1>
+            <h1 style="display: none">Python学习笔记——测试代码</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年4月25日 晚上
+                  本文最后更新于：2022年4月30日 晚上
                 
               </p>
             
@@ -277,11 +277,11 @@ unittest provides a base class, TestCase, which may be used to create new test c
 <p>test runner</p>
 <blockquote>
 <p>A test runner is a component which orchestrates the execution of tests and provides the outcome to the user.<br />
-The runner may use a graphical interface, a textual interface, or return a special value to indicate the results of executing the tests.<br />
-官方文档讲了四种概念，但在这边目前仅涉及test case，即测试用例，这一概念的使用。<br />
+The runner may use a graphical interface, a textual interface, or return a special value to indicate the results of executing the tests.</p>
+</blockquote>
+</blockquote>
+<p>官方文档讲了四种概念，但在这边目前仅涉及test case，即测试用例，这一概念的使用。<br />
 正如官方文档所说，test case检查输入特定的数据时的响应。正因如此我们可以用它来简化我们的需要输入数据的测试。</p>
-</blockquote>
-</blockquote>
 <h1 id="unittest中的断言方法"><a class="markdownIt-Anchor" href="#unittest中的断言方法"></a> Unittest中的断言方法</h1>
 <p>因为我们需要检查输出的结果，所以就要用到<code>unittest</code>中的断言方法，在这里我列举了一些方法。</p>
 <h1 id="对函数进行测试"><a class="markdownIt-Anchor" href="#对函数进行测试"></a> 对函数进行测试</h1>
@@ -304,9 +304,12 @@ The runner may use a graphical interface, a textual interface, or return a speci
 在这里报的错是<strong>F</strong>，还有一种报错是<strong>E</strong>，这里一并演示一下：首先改下我们的函数<code>add</code>的代码，让它从现在开始接受三个参数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b, c</span>):<br>    <span class="hljs-keyword">return</span> a + b + c<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AddTestCase</span>(unittest.TestCase):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_two_num_add</span>(<span class="hljs-params">self</span>):<br>        result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>        self.assertEqual(result, <span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
 <p>然后运行，得到如下信息：</p>
-<h2 id="-code6-可以看到在这里出的错就是e即error了-通过对比我们就能知道e代表程序代码引发的测试错误f代表程序输出的结果没有得到预期的结果毕竟所谓预期的结果也是我们自己所定义的"><a class="markdownIt-Anchor" href="#-code6-可以看到在这里出的错就是e即error了-通过对比我们就能知道e代表程序代码引发的测试错误f代表程序输出的结果没有得到预期的结果毕竟所谓预期的结果也是我们自己所定义的"></a> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">E<br>======================================================================<br>ERROR: test_two_num_add (__main__.AddTestCase)<br>----------------------------------------------------------------------<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;G:\example1.py&quot;</span>, line <span class="hljs-number">10</span>, <span class="hljs-keyword">in</span> test_two_num_add<br>    result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>TypeError: add() missing <span class="hljs-number">1</span> required positional argument: <span class="hljs-string">&#x27;c&#x27;</span><br><br>----------------------------------------------------------------------<br>Ran <span class="hljs-number">1</span> test <span class="hljs-keyword">in</span> <span class="hljs-number">0.001</span>s<br><br>FAILED (errors=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure><br />
-可以看到，在这里出的错就是E，即error了。<br />
-通过对比我们就能知道，E代表程序代码引发的测试错误，F代表程序输出的结果没有得到“预期的结果”（毕竟所谓预期的结果也是我们自己所定义的）。</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">E<br>======================================================================<br>ERROR: test_two_num_add (__main__.AddTestCase)<br>----------------------------------------------------------------------<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;G:\example1.py&quot;</span>, line <span class="hljs-number">10</span>, <span class="hljs-keyword">in</span> test_two_num_add<br>    result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>TypeError: add() missing <span class="hljs-number">1</span> required positional argument: <span class="hljs-string">&#x27;c&#x27;</span><br><br>----------------------------------------------------------------------<br>Ran <span class="hljs-number">1</span> test <span class="hljs-keyword">in</span> <span class="hljs-number">0.001</span>s<br><br>FAILED (errors=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>可以看到，在这里出的错就是E，即error了。<br />
+通过对比我们就能知道，E代表程序代码引发的测试错误，F代表程序输出的结果没有得到“预期的结果”（毕竟所谓预期的结果也是我们自己所定义的）。</p>
+<h1 id="对类进行测试"><a class="markdownIt-Anchor" href="#对类进行测试"></a> 对类进行测试</h1>
+<p><em><strong>to do…</strong></em></p>
+<hr />
 <p align="center">
 <img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;">
 </p>
@@ -345,6 +348,12 @@ The runner may use a graphical interface, a textual interface, or return a speci
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/04/29/page-store/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">操作系统原理——虚拟存储管理实验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
