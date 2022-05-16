@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>python-essay-2</title>
+    <link href="/2022/05/13/python-essay-2/"/>
+    <url>/2022/05/13/python-essay-2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1><p>在学习装饰器的时候，其中有提到过*args和**kwargs可以让装饰器变得更加强大、有用。<br />文章也简单地说明了下他们的作用，不过想了想这部分<s>貌似也能水一篇文章</s>还是挺重要的，遂写了一篇随笔记一下。<br />当然相关的函数参数解包的内容也一起写在随笔里了。</p><h1 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h1><h2 id="它们有什么用"><a class="markdownIt-Anchor" href="#它们有什么用"></a> 它们有什么用</h2><p>它们能让函数接受<strong>可选参数</strong>。当然，这里的可选参数可能并不像你想的那样，我是说，不是这样的可选参数：</p><figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a=<span class="hljs-number">0</span>, b=<span class="hljs-number">0</span></span>)<br><span class="hljs-keyword">return</span> a + b<br></code></pre></td></tr></table></figure><p>而是这样的：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">*args, **kwargs</span>):<br><span class="hljs-built_in">print</span>(args)<br><span class="hljs-built_in">print</span>(kwargs)<br></code></pre></td></tr></table></figure><p>上述函数可以传递任意多的参数，也能不传递参数。在这里arg会收集位置参数组成元组，kwargs会收集额外的关键字参数组成字典。如果不传递参数，那么args和kwargs都为空。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>test(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,k=<span class="hljs-number">1</span>,j=<span class="hljs-number">2</span>,l=<span class="hljs-number">3</span>)<br>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br>&#123;<span class="hljs-string">&#x27;k&#x27;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;j&#x27;</span>: <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;l&#x27;</span>: <span class="hljs-number">3</span>&#125;<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>test()<br>()<br>&#123;&#125;<br></code></pre></td></tr></table></figure><div class="note note-info">            <p>实际起作用的是语法分别是星号（*）和双星号（**），args和kwargs只是命名约定。</p>          </div><h2 id="函数参数解包"><a class="markdownIt-Anchor" href="#函数参数解包"></a> 函数参数解包</h2><p>解包操作符*和**可以用来从序列和字典中“解包”函数参数。<br />比如我们现在有这么一个函数，接受三个参数并返回他们的和。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b, c</span>):<br><span class="hljs-keyword">return</span> a + b + c<br></code></pre></td></tr></table></figure><p>如果我们需要传递的参数在一个列表中，我们得这么做才能传递过去：<code>add(a_list[0], a_list[1], a_list[2])</code><br />但是这看上去非常笨不是吗？所幸我们有解包操作符*，现在，它可以这么写了：<code>add(*a_list)</code>在函数调用时，在可迭代对象前面放一个*能<strong>解包</strong>这个参数，将其中的元素作为单独的位置参数传递给被调用的函数。<br />另一个解包操作符**则是用于从字典中解包关键字参数，比如有这么一个字典：<code>a_dict = &#123;'a' = 1, 'b' = 2, 'c' = 3&#125;</code>，那么要将它传入<code>add()</code>中，就可以这么写：<code>add(**a_dict)</code>，则其中的值会按插入顺序传递给对应位置的参数。<br />需要说明的是，解包的时候会匹配字典键和函数参数，在上边，add中的a参数会接受字典中与’a’键相关的值。<br />而如果使用*对字典进行解包的话，则是将所有的<strong>键</strong>按插入顺序传递给函数。</p><h2 id="传递可选参数"><a class="markdownIt-Anchor" href="#传递可选参数"></a> 传递可选参数</h2><p>了解了函数参数解包后，我们就可以用它来从一个函数中将可选参数传递给另外一个函数了，并且，参数在传递之前还可以进行修改。<br />比如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test1</span>(<span class="hljs-params">*args, **kwargs</span>):<br>new_args = args + (<span class="hljs-number">5</span>, )<br>kwargs[<span class="hljs-string">&#x27;k&#x27;</span>] = <span class="hljs-number">5</span><br>test(*new_args, **kwargs)<br></code></pre></td></tr></table></figure><blockquote><blockquote><blockquote><p>这种技术适用于创建子类和编写包装函数（如装饰器）。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社">[1]</span></a></sup></p></blockquote></blockquote><blockquote><blockquote><p>例如在扩展父类的行为时，子类中的构造函数不用再带有完整的参数列表，因而适用于处理那些不受我们控制的API。<br />一般情况下，自己定义的类层次中并不会用到这种技术。这通常用于修改或覆盖某些外部类中的行为，而自己又无法控制这些外部类。</p></blockquote></blockquote></blockquote><hr /><p align="center"><img src="/img/alice_happy.jpg" alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
+    
+    
+    <categories>
+      
+      <category>Essay</category>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>操作系统原理——虚拟存储管理实验</title>
     <link href="/2022/04/29/page-store/"/>
     <url>/2022/04/29/page-store/</url>
@@ -15,7 +42,7 @@
       
       <category>Learning Log</category>
       
-      <category>Python</category>
+      <category>操作系统</category>
       
     </categories>
     
@@ -75,7 +102,7 @@
       
       <category>Learning Log</category>
       
-      <category>Python</category>
+      <category>操作系统</category>
       
     </categories>
     
@@ -189,7 +216,7 @@
       
       <category>Learning Log</category>
       
-      <category>Python</category>
+      <category>操作系统</category>
       
     </categories>
     
