@@ -16,22 +16,22 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一篇随笔，写了点关于sort方法和前后双下划线方法__lt__之间的关系的东西。">
+    <meta name="description" content="一篇随笔，写了点关于is与&#x3D;&#x3D;、字符串转换和python中的abc模块的东西。（也可以说：关于类与面向对象）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python随笔-1">
-<meta property="og:url" content="https://map1e-g.github.io/2022/04/17/python-essay-1/index.html">
+<meta property="og:title" content="python随笔-3">
+<meta property="og:url" content="https://map1e-g.github.io/2022/05/22/python-essay-3/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="一篇随笔，写了点关于sort方法和前后双下划线方法__lt__之间的关系的东西。">
+<meta property="og:description" content="一篇随笔，写了点关于is与&#x3D;&#x3D;、字符串转换和python中的abc模块的东西。（也可以说：关于类与面向对象）">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-17T13:04:20.000Z">
-<meta property="article:modified_time" content="2022-05-22T17:17:38.257Z">
+<meta property="article:published_time" content="2022-05-22T09:17:53.000Z">
+<meta property="article:modified_time" content="2022-05-22T17:24:06.261Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Python随笔-1 - MaP1e-G&#39;s Blog</title>
+  <title>python随笔-3 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Python随笔-1"></span>
+            <span id="subtitle" data-typed-text="python随笔-3"></span>
           
         </div>
 
@@ -205,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-17 21:04" pubdate>
-          2022年4月17日 晚上
+        <time datetime="2022-05-22 17:17" pubdate>
+          2022年5月22日 下午
         </time>
       </span>
     
@@ -217,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          3.5k 字
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
         
-          16 分钟
+          29 分钟
         
       </span>
     
@@ -266,7 +266,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Python随笔-1</h1>
+            <h1 style="display: none">python随笔-3</h1>
             
               <p class="note note-info">
                 
@@ -280,34 +280,63 @@
             <div class="markdown-body">
               
               <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>其实就是想补充下多道系统作业那篇文章里讲到的东西（指getMethod函数），补充下相关知识方便各位理解。</p>
+<p>最近挺忙的（指打游戏）所以导致摸了很久（包括学习），现在痛定思痛，于是乎毅然决然写<s>（水）</s>一篇博文来规避内疚感<s>（不是）</s>。<br />
+其实还是有看（一点）的，这篇随笔要介绍的都是和类与面向对象有关的，那么不（想）多说了直接进入正文了。</p>
 <h1 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h1>
-<h2 id="前后双下划线方法"><a class="markdownIt-Anchor" href="#前后双下划线方法"></a> 前后双下划线方法</h2>
-<p>同时具有前后双下划线的名称在Python中有特殊用途，我们最熟悉的应该就是<code>__init__</code>了，构造对象函数。当然啦，Python还是有非常多的对象属性的，如果想了解更多对象属性，可以调用<code>dir</code>函数，比如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">dir</span>(<span class="hljs-built_in">max</span>)<br>[<span class="hljs-string">&#x27;__call__&#x27;</span>, <span class="hljs-string">&#x27;__class__&#x27;</span>, <span class="hljs-string">&#x27;__delattr__&#x27;</span>, <span class="hljs-string">&#x27;__dir__&#x27;</span>, <span class="hljs-string">&#x27;__doc__&#x27;</span>, <br><span class="hljs-string">&#x27;__eq__&#x27;</span>, <span class="hljs-string">&#x27;__format__&#x27;</span>, <span class="hljs-string">&#x27;__ge__&#x27;</span>, <span class="hljs-string">&#x27;__getattribute__&#x27;</span>, <span class="hljs-string">&#x27;__gt__&#x27;</span>, <br><span class="hljs-string">&#x27;__hash__&#x27;</span>, <span class="hljs-string">&#x27;__init__&#x27;</span>, <span class="hljs-string">&#x27;__init_subclass__&#x27;</span>, <span class="hljs-string">&#x27;__le__&#x27;</span>, <span class="hljs-string">&#x27;__lt__&#x27;</span>, <br><span class="hljs-string">&#x27;__module__&#x27;</span>, <span class="hljs-string">&#x27;__name__&#x27;</span>, <span class="hljs-string">&#x27;__ne__&#x27;</span>, <span class="hljs-string">&#x27;__new__&#x27;</span>, <span class="hljs-string">&#x27;__qualname__&#x27;</span>,<br> <span class="hljs-string">&#x27;__reduce__&#x27;</span>, <span class="hljs-string">&#x27;__reduce_ex__&#x27;</span>, <span class="hljs-string">&#x27;__repr__&#x27;</span>, <span class="hljs-string">&#x27;__self__&#x27;</span>, <span class="hljs-string">&#x27;__setattr__&#x27;</span>,<br>  <span class="hljs-string">&#x27;__sizeof__&#x27;</span>, <span class="hljs-string">&#x27;__str__&#x27;</span>, <span class="hljs-string">&#x27;__subclasshook__&#x27;</span>, <span class="hljs-string">&#x27;__text_signature__&#x27;</span>]<br></code></pre></td></tr></table></figure>
-<p>在这里，我直接查看了一个内置函数<code>max</code>的属性，可以看到有非常多属性，我们也不必全部知道他们都用来干嘛。<br />
-仔细看的话会发现，<code>__lt__</code>也在里面，那么它到底是什么呢？其实它代表的是<strong>比较运算符’&lt;’</strong>。</p>
-<h2 id="sort函数"><a class="markdownIt-Anchor" href="#sort函数"></a> sort函数</h2>
-<p>先上Python官方文档<a target="_blank" rel="noopener" href="https://docs.python.org/3.9/library/stdtypes.html#list.sort">点我跳转</a>：</p>
+<h2 id="is-和"><a class="markdownIt-Anchor" href="#is-和"></a> is 和 ==</h2>
+<p>在python中，<code>==</code>比较的是相等性，而<code>is</code>比较的是相同性，当我们用<code>==</code>时，比较的是值，当我们用<code>is</code>时，比较的是标识符。这么说可能非常难懂，所以直接在python中写点代码会好很多。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>b = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>a == b<br><span class="hljs-literal">True</span><br><br><span class="hljs-meta">&gt;&gt;&gt; </span>a <span class="hljs-keyword">is</span> b<br><span class="hljs-literal">False</span><br><br>&gt;&gt;&gt;b = a<br>&gt;&gt;&gt;a <span class="hljs-keyword">is</span> b<br><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+<p>这里我们可以看到，由于 a 和 b 的值是相等的，所以<code>a == b</code>为True，但是很明显 a 和 b 的标识符是不同的，所以结果输出了False。而在执行了<code>b = a</code>后，由于标识符相同了，所以现在<code>a is b</code>的结果是True了。</p>
 <blockquote>
-<p>sort(*, key=None, reverse=False)</p>
+<p>来概括一下吧，用两条定义区分is和==的区别：<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
+">[1]</span></a></sup></p>
 <blockquote>
-<p>This method sorts the list in place, using only &lt; comparisons between items. Exceptions are not suppressed - if any comparison operations fail, the entire sort operation will fail (and the list will likely be left in a partially modified state).</p>
+<p>当两个变量指向同一个对象时，is表达式的结果为True；<br />
+当各变量指向的对象含有相同内容时，==表达式的结果为True。</p>
 </blockquote>
 </blockquote>
-<p>也就是说，<code>sort</code>方法其实是根据 &lt; 运算符来进行排序的，也就是升序排序，如果觉得文字难以读懂，不妨写点东西试试：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>=[<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>.sort()<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>)<br>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
-<p>我们也应该记住一点，<code>sort</code>的排序算法是稳定的，当两个值相等的时候，即使是排序后它们的相对位置也不会变。<br />
-<em><strong>扩展</strong></em></p>
+<h2 id="字符串转换"><a class="markdownIt-Anchor" href="#字符串转换"></a> 字符串转换</h2>
+<p>有的时候我们想把我们实例化类的对象的内容（信息）打印出来，我们希望最好是这么做：<code>print(a_object)</code>，但是理所当然的不会像你想的那样输出你想要的结果。<br />
+如果直接打印的话，我们的得到的是一个包含类名和实例对象的标识符。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, specie</span>):<br>        self.name = name<br>        self.specie = specie<br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_pet = Pet(<span class="hljs-string">&#x27;white&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(my_pet)<br>&lt;__main__.Pet <span class="hljs-built_in">object</span> at <span class="hljs-number">0x0000019E5BDFCF40</span>&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_pet<br>&lt;__main__.Pet <span class="hljs-built_in">object</span> at <span class="hljs-number">0x0000019E5BDFCF40</span>&gt;<br></code></pre></td></tr></table></figure>
+<p>为了解决这个问题，我们可以自己在类里构建一个方法来对打印的实例对象进行字符串转换，但是我们不需要这么做（不要构建自己的字符串转换机制），因为Python提供了两个双下划线方法<code>__str__</code>和<code>__repr__</code>在不同的情况下来将对象转换成字符串。<br />
+现在我们在上边的类中添加一个<code>__str__</code>方法，再用print输出，这时候就可以转换成我们想要的字符串了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, specie</span>):<br>        self.name = name<br>        self.specie = specie<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&#x27;The <span class="hljs-subst">&#123;self.specie&#125;</span>\&#x27;s name is <span class="hljs-subst">&#123;self.name&#125;</span>.&#x27;</span><br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_pet = Pet(<span class="hljs-string">&#x27;white&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(my_pet)<br>The cat<span class="hljs-string">&#x27;s name is white.</span><br></code></pre></td></tr></table></figure>
+<div class="note note-warning">
+            <p>“在Python解释器会话中查看对象得到的是对象的__repr__结果。<br />像列表和字典这样的容器总是使用__repr__的结果来表示所包含的对象，哪怕对容器本身调用str()也是如此。”</p>
+          </div>
+<p>我们也可以手动选择两种方法中的一种，用<code>str()</code>或是<code>repr()</code>即可，最好不要用<code>对象名.__str__</code>或是<code>对象名.__repr__</code>。<br />
+那他们的具体差别在哪里呢？这里我觉得书中的例子非常好，所以摘录书中内容来介绍。</p>
 <blockquote>
-<p>从上面我们能看到<code>sort</code>还支持两个额外的参数（注意是keyword-only arguments，传入必须像这样：<code>key=xxx, reverse=xxx</code>）<br />
-reverse很好理解，传入一个Boolean值（True or False），如果是True则倒序排列，默认为False。<br />
-key则用来产生排序算法所依赖的对比关键字，比如说，在对一些字符串排序时，可以用<code>key=str.lower</code>来实现忽略大小写的排序，或者用<code>key=len</code>来实现基于字符串长度的排序。</p>
+<p>对于这样的问题，可以看看Python标准库是怎么做的。现在再设计一个实验，创建一个datetime.date对象，看这个对象如何使用__repr__和__str__来控制字符串转换：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> datetime<br><span class="hljs-meta">&gt;&gt;&gt; </span>today = datetime.date.today()<br></code></pre></td></tr></table></figure>
+<p>在date对象上，__str__函数的结果侧重于<strong>可读性</strong>，旨在为人们返回一个简洁的文本表示，以便放心地向用户展示。因此在date对象上调用str()时，得到的是一些看起来像ISO日期格式的东西：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">str</span>(today)<br><span class="hljs-string">&#x27;2017-02-02&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>__repr__侧重的则是得到<strong>无歧义</strong>的结果，生成的字符串更多的是帮助开发人员调试程序。为此需要尽可能明确地说明这个对象是什么，因此在对象上调用repr()会得到相对更复杂的结果，其中甚至包括完整的模块和类名称：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">repr</span>()<br><span class="hljs-string">&#x27;datetime.date(2017, 2, 2)&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>我的经验法则是只要让__repr__生成的字符串对开发人员清晰且有帮助就可以了，并不需要能从中恢复对象的完整状态。</p>
 </blockquote>
-<h1 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h1>
-<p>看完上面这点，再结合函数学习笔记那里的一些知识，其实就应该能清楚知道<code>getMethod</code>的机制和作用什么的了，传入一个字符串，根据字符串的不同返回不同的函数对象，用来重载JCB类的<code>__lt__</code>属性（在Python中是可以重载运算符的），这样在之后，我们对含有JCB类对象的列表中调用<code>sort</code>方法，就可以按照我们想要的排序方式来排序列表了。</p>
+<div class="note note-warning">
+            <p>如果没有设置__str__方法的话，那么在需要调用该方法时会转为调用__repr__方法。</p>
+          </div>
+<h2 id="abc抽象基类"><a class="markdownIt-Anchor" href="#abc抽象基类"></a> abc——抽象基类</h2>
+<p>使用抽象基类可以避免我们在之后编写代码的时候不小心实例化了基类，并且可以确保派生类实现了我们想在其中实现的基类方法。<br />
+先来看看普通的基类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>:<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">raise</span> NotImplementedError()<br>		<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">behavior</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">raise</span> NotImplementedError()<br>		<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span>(<span class="hljs-title class_ inherited__">Pet</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self, name, specie</span>):<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;A <span class="hljs-subst">&#123;specie&#125;</span> called <span class="hljs-subst">&#123;name&#125;</span>.&quot;</span><br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>b = Pet()<br><span class="hljs-meta">&gt;&gt;&gt; </span>b.infor()<br>NotImplementedError<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>my_cat = Cat()<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_cat.infor(<span class="hljs-string">&#x27;white&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>)<br>A cat called white.<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_cat.behavior()<br>NotImplementedError<br></code></pre></td></tr></table></figure>
+<p>在上面的代码里，不仅基类被实例化了，而且只有在调用未实现的方法时才能发现编写了一个实现不完整的子类。<br />
+为了避免出现这种状况，就可以用到我们的abc模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> abc <span class="hljs-keyword">import</span> ABCMeta, abstractmethod<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>(metaclass=ABCMeta):<br><span class="hljs-meta">	@abstractmethod</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">pass</span><br>		<br><span class="hljs-meta">	@abstractmethod</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">behavior</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">pass</span><br>		<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span>(<span class="hljs-title class_ inherited__">Pet</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self, name, specie</span>):<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;A <span class="hljs-subst">&#123;specie&#125;</span> called <span class="hljs-subst">&#123;name&#125;</span>.&quot;</span><br><br><span class="hljs-meta">&gt;&gt;&gt; </span>b = Pet()<br>TypeError: Can<span class="hljs-string">&#x27;t instantiate abstract class Pet with abstract methods behavior, infor</span><br><span class="hljs-string"></span><br><span class="hljs-string">&gt;&gt;&gt; my_cat = Cat()</span><br><span class="hljs-string">TypeError: Can&#x27;</span>t instantiate abstract <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">with</span> abstract method behavior<br></code></pre></td></tr></table></figure>
+<p>如果我们尝试实例化基类，或者实例化一个不完整的子类，那么就会引发TypeError，并且会指出子类中缺少了哪些方法（未实现哪些抽象方法）。</p>
+<div class="note note-warning">
+            <p>在用多个装饰器修饰同一个方法时，<code>abstractmethod()</code>应当被应用为最内层的装饰器。</p>
+          </div>
+<div class="note note-warning">
+            <p>不同于Java 抽象方法，这些抽象方法可能具有一个实现。这个实现可在重载它的类上通过<code>super()</code>机制来调用。这在使用协作多重继承的框架中可以被用作超调用的一个端点。</p>
+          </div>
+<p>如果想进一步了解abc模块，可以阅读官方文档：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.9/library/abc.html?highlight=abc#module-abc">点这里跳转</a></p>
 <hr />
-
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
             <hr/>
@@ -358,8 +387,8 @@ key则用来产生排序算法所依赖的对比关键字，比如说，在对�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Python随笔-1</div>
-      <div>https://map1e-g.github.io/2022/04/17/python-essay-1/</div>
+      <div>python随笔-3</div>
+      <div>https://map1e-g.github.io/2022/05/22/python-essay-3/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +400,7 @@ key则用来产生排序算法所依赖的对比关键字，比如说，在对�
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月17日</div>
+          <div>2022年5月22日</div>
         </div>
       
       
@@ -401,18 +430,12 @@ key则用来产生排序算法所依赖的对比关键字，比如说，在对�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/20/python-learning-2/" title="Python学习笔记——列表中的方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Python学习笔记——列表中的方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/14/python-learning-1/" title="Python学习笔记——函数">
-                        <span class="hidden-mobile">Python学习笔记——函数</span>
+                      <a href="/2022/05/13/python-essay-2/" title="Python随笔-2">
+                        <span class="hidden-mobile">Python随笔-2</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
