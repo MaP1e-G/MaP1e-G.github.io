@@ -16,22 +16,23 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一篇随笔，写了点关于is与&#x3D;&#x3D;、字符串转换和python中的abc模块的东西。（也可以说：关于类与面向对象）">
+    <meta name="description" content="可作指令快速参考的一篇随笔。介绍Vim文本编辑器的指令及操作，以及Linux终端的指令及操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python随笔-3">
-<meta property="og:url" content="https://map1e-g.github.io/2022/05/22/python-essay-3/index.html">
+<meta property="og:title" content="Linux随笔-1">
+<meta property="og:url" content="https://map1e-g.github.io/2022/05/27/linux-essay-1/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="一篇随笔，写了点关于is与&#x3D;&#x3D;、字符串转换和python中的abc模块的东西。（也可以说：关于类与面向对象）">
+<meta property="og:description" content="可作指令快速参考的一篇随笔。介绍Vim文本编辑器的指令及操作，以及Linux终端的指令及操作。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-22T09:17:53.000Z">
-<meta property="article:modified_time" content="2022-05-22T17:24:06.261Z">
+<meta property="article:published_time" content="2022-05-27T08:19:44.000Z">
+<meta property="article:modified_time" content="2022-05-30T12:07:58.506Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Vim">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>python随笔-3 - MaP1e-G&#39;s Blog</title>
+  <title>Linux随笔-1 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="python随笔-3"></span>
+            <span id="subtitle" data-typed-text="Linux随笔-1"></span>
           
         </div>
 
@@ -205,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-22 17:17" pubdate>
-          2022年5月22日 下午
+        <time datetime="2022-05-27 16:19" pubdate>
+          2022年5月27日 下午
         </time>
       </span>
     
@@ -217,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          1.5k 字
         
       </span>
     
@@ -228,7 +229,7 @@
         
         
         
-          29 分钟
+          13 分钟
         
       </span>
     
@@ -266,77 +267,207 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">python随笔-3</h1>
+            <h1 style="display: none">Linux随笔-1</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年5月23日 凌晨
+                    本文最后更新于：2022年5月30日 晚上
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>最近挺忙的（指打游戏）所以导致摸了很久（包括学习），现在痛定思痛，于是乎毅然决然写<s>（水）</s>一篇博文来规避内疚感<s>（不是）</s>。<br />
-其实还是有看（一点）的，这篇随笔要介绍的都是和类与面向对象有关的，那么不（想）多说了直接进入正文了。</p>
+              <div class="note note-warning">
+            <p>文章内容来源：《Linux命令行与shell脚本编程大全（第3版）》 [美] Richard Blum  Christine Bresnahan 著 人民邮电出版社</p>
+          </div>
+<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>虽然说是前几天在操作系统上机课上就看完想写的东西但是由于各种事情拖到了今天。。。<br />
+算是刚接触Linux操作系统吧，所以就写了这么一个东西自用，作为快速参考。以后学到了什么相关内容可能也会在这里补充。</p>
 <h1 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h1>
-<h2 id="is-和"><a class="markdownIt-Anchor" href="#is-和"></a> is 和 ==</h2>
-<p>在python中，<code>==</code>比较的是相等性，而<code>is</code>比较的是相同性，当我们用<code>==</code>时，比较的是值，当我们用<code>is</code>时，比较的是标识符。这么说可能非常难懂，所以直接在python中写点代码会好很多。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>b = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>a == b<br><span class="hljs-literal">True</span><br><br><span class="hljs-meta">&gt;&gt;&gt; </span>a <span class="hljs-keyword">is</span> b<br><span class="hljs-literal">False</span><br><br>&gt;&gt;&gt;b = a<br>&gt;&gt;&gt;a <span class="hljs-keyword">is</span> b<br><span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
-<p>这里我们可以看到，由于 a 和 b 的值是相等的，所以<code>a == b</code>为True，但是很明显 a 和 b 的标识符是不同的，所以结果输出了False。而在执行了<code>b = a</code>后，由于标识符相同了，所以现在<code>a is b</code>的结果是True了。</p>
-<blockquote>
-<p>来概括一下吧，用两条定义区分is和==的区别：<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
-">[1]</span></a></sup></p>
-<blockquote>
-<p>当两个变量指向同一个对象时，is表达式的结果为True；<br />
-当各变量指向的对象含有相同内容时，==表达式的结果为True。</p>
-</blockquote>
-</blockquote>
-<h2 id="字符串转换"><a class="markdownIt-Anchor" href="#字符串转换"></a> 字符串转换</h2>
-<p>有的时候我们想把我们实例化类的对象的内容（信息）打印出来，我们希望最好是这么做：<code>print(a_object)</code>，但是理所当然的不会像你想的那样输出你想要的结果。<br />
-如果直接打印的话，我们的得到的是一个包含类名和实例对象的标识符。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, specie</span>):<br>        self.name = name<br>        self.specie = specie<br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_pet = Pet(<span class="hljs-string">&#x27;white&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(my_pet)<br>&lt;__main__.Pet <span class="hljs-built_in">object</span> at <span class="hljs-number">0x0000019E5BDFCF40</span>&gt;<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_pet<br>&lt;__main__.Pet <span class="hljs-built_in">object</span> at <span class="hljs-number">0x0000019E5BDFCF40</span>&gt;<br></code></pre></td></tr></table></figure>
-<p>为了解决这个问题，我们可以自己在类里构建一个方法来对打印的实例对象进行字符串转换，但是我们不需要这么做（不要构建自己的字符串转换机制），因为Python提供了两个双下划线方法<code>__str__</code>和<code>__repr__</code>在不同的情况下来将对象转换成字符串。<br />
-现在我们在上边的类中添加一个<code>__str__</code>方法，再用print输出，这时候就可以转换成我们想要的字符串了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, name, specie</span>):<br>        self.name = name<br>        self.specie = specie<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__str__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&#x27;The <span class="hljs-subst">&#123;self.specie&#125;</span>\&#x27;s name is <span class="hljs-subst">&#123;self.name&#125;</span>.&#x27;</span><br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_pet = Pet(<span class="hljs-string">&#x27;white&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(my_pet)<br>The cat<span class="hljs-string">&#x27;s name is white.</span><br></code></pre></td></tr></table></figure>
-<div class="note note-warning">
-            <p>“在Python解释器会话中查看对象得到的是对象的__repr__结果。<br />像列表和字典这样的容器总是使用__repr__的结果来表示所包含的对象，哪怕对容器本身调用str()也是如此。”</p>
+<h2 id="vim快速参考"><a class="markdownIt-Anchor" href="#vim快速参考"></a> Vim快速参考</h2>
+<h3 id="启动vim编辑器"><a class="markdownIt-Anchor" href="#启动vim编辑器"></a> 启动Vim编辑器</h3>
+<p>命令：<code>vim 文件名</code><br />
+示例：<code>vim myprog.c</code></p>
+<h3 id="插入文本编辑模式"><a class="markdownIt-Anchor" href="#插入文本编辑模式"></a> 插入（文本编辑）模式</h3>
+<p>按 <strong>i</strong> 键进入。该模式下有如下命令：<br />
+| x | 删除当前光标所在位置的字符 |<br />
+| dd | 删除当前光标所在行 |<br />
+| dw | 删除当前光标所在位置的单词 |<br />
+| d$ | 删除当前光标所在位置至行尾的内容 |<br />
+| J | 删除当前光标所在行行尾的换行符 |<br />
+| u | 撤销前一编辑命令 |<br />
+| a | 在当前光标后追加数据 |<br />
+| A | 在当前光标所在行行尾追加数据 |<br />
+| r <em>char</em> | 用<em>char</em>替换当前光标所在位置的单个字符 |<br />
+| R <em>text</em> | 用<em>text</em>覆盖当前光标所在位置的数据，直到按下ESC键 |</p>
+<div class="note note-info">
+            <p>有些编辑命令允许使用数字修饰符来指定重复该命令多少次。比如，命令<code>2x</code>会删除从光标当前位置开始的两个字符，命令<code>5dd</code>会删除从光标当前所在行开始的5行。</p>
           </div>
-<p>我们也可以手动选择两种方法中的一种，用<code>str()</code>或是<code>repr()</code>即可，最好不要用<code>对象名.__str__</code>或是<code>对象名.__repr__</code>。<br />
-那他们的具体差别在哪里呢？这里我觉得书中的例子非常好，所以摘录书中内容来介绍。</p>
-<blockquote>
-<p>对于这样的问题，可以看看Python标准库是怎么做的。现在再设计一个实验，创建一个datetime.date对象，看这个对象如何使用__repr__和__str__来控制字符串转换：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> datetime<br><span class="hljs-meta">&gt;&gt;&gt; </span>today = datetime.date.today()<br></code></pre></td></tr></table></figure>
-<p>在date对象上，__str__函数的结果侧重于<strong>可读性</strong>，旨在为人们返回一个简洁的文本表示，以便放心地向用户展示。因此在date对象上调用str()时，得到的是一些看起来像ISO日期格式的东西：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">str</span>(today)<br><span class="hljs-string">&#x27;2017-02-02&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>__repr__侧重的则是得到<strong>无歧义</strong>的结果，生成的字符串更多的是帮助开发人员调试程序。为此需要尽可能明确地说明这个对象是什么，因此在对象上调用repr()会得到相对更复杂的结果，其中甚至包括完整的模块和类名称：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">repr</span>()<br><span class="hljs-string">&#x27;datetime.date(2017, 2, 2)&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>我的经验法则是只要让__repr__生成的字符串对开发人员清晰且有帮助就可以了，并不需要能从中恢复对象的完整状态。</p>
-</blockquote>
+<h4 id="剪切-复制和粘贴"><a class="markdownIt-Anchor" href="#剪切-复制和粘贴"></a> 剪切、复制和粘贴</h4>
+<p>vim在删除数据时，实际上会将数据保存在单独的一个寄存器中，可以用<code>p</code>命令取回数据。<br />
+所以，vim中的剪切和粘贴操作其实就是先删除数据，再移动光标至想要粘贴的位置，然后用<code>p</code>命令。<br />
+vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>后面使用和<code>d</code>命令相同的第二字符（d、w、$）。<br />
+为了方便复制，我们可以按下<code>v</code>键进入<strong>可视模式</strong>，<strong>可视模式</strong>会在你移动光标时高亮显示文本。在覆盖了要复制的文本后，按下<code>y</code>键就好了。</p>
+<h3 id="普通模式"><a class="markdownIt-Anchor" href="#普通模式"></a> 普通模式</h3>
+<p>在插入模式下按 <strong>esc</strong> 键进入。该模式下可移动光标，命令如下：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h</td>
+<td>左移一个字符</td>
+</tr>
+<tr>
+<td>j</td>
+<td>下移一行（文本中的下一行）</td>
+</tr>
+<tr>
+<td>k</td>
+<td>上移一行（文本中的上一行）</td>
+</tr>
+<tr>
+<td>l</td>
+<td>右移一个字符</td>
+</tr>
+<tr>
+<td>PageDown（或Ctrl+F）</td>
+<td>下翻一屏</td>
+</tr>
+<tr>
+<td>PageUp（或Ctrl+B）</td>
+<td>下翻一屏</td>
+</tr>
+<tr>
+<td>G</td>
+<td>移到缓冲区的最后一行</td>
+</tr>
+<tr>
+<td>num G</td>
+<td>移动到缓冲区中的第num行</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>移到缓冲区的第一行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="命令行模式"><a class="markdownIt-Anchor" href="#命令行模式"></a> 命令行模式</h3>
+<p>普通模式下按 <strong>:</strong> 键进入。该模式下有如下命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>q</td>
+<td>如果未修改缓存区数据，退出</td>
+</tr>
+<tr>
+<td>q!</td>
+<td>取消所有对缓冲区数据的修改并退出</td>
+</tr>
+<tr>
+<td>w <em>filename</em></td>
+<td>将文件保存到另一个文件中</td>
+</tr>
+<tr>
+<td>wq</td>
+<td>将缓冲区数据保存到文件中并退出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="终端快速参考"><a class="markdownIt-Anchor" href="#终端快速参考"></a> 终端快速参考</h2>
+<h3 id="访问终端"><a class="markdownIt-Anchor" href="#访问终端"></a> 访问终端</h3>
+<p>图形化桌面下可尝试右键桌面，看弹出的菜单选项中有无该选项。<br />
+利用快捷键访问（进入）不同终端：<code>Ctrl + Alt + (F1~F7)</code></p>
+<h3 id="设置终端背景颜色"><a class="markdownIt-Anchor" href="#设置终端背景颜色"></a> 设置终端背景颜色</h3>
 <div class="note note-warning">
-            <p>如果没有设置__str__方法的话，那么在需要调用该方法时会转为调用__repr__方法。</p>
+            <p>*终端内输入指令</p>
           </div>
-<h2 id="abc抽象基类"><a class="markdownIt-Anchor" href="#abc抽象基类"></a> abc——抽象基类</h2>
-<p>使用抽象基类可以避免我们在之后编写代码的时候不小心实例化了基类，并且可以确保派生类实现了我们想在其中实现的基类方法。<br />
-先来看看普通的基类：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>:<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">raise</span> NotImplementedError()<br>		<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">behavior</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">raise</span> NotImplementedError()<br>		<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span>(<span class="hljs-title class_ inherited__">Pet</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self, name, specie</span>):<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;A <span class="hljs-subst">&#123;specie&#125;</span> called <span class="hljs-subst">&#123;name&#125;</span>.&quot;</span><br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>b = Pet()<br><span class="hljs-meta">&gt;&gt;&gt; </span>b.infor()<br>NotImplementedError<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>my_cat = Cat()<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_cat.infor(<span class="hljs-string">&#x27;white&#x27;</span>, <span class="hljs-string">&#x27;cat&#x27;</span>)<br>A cat called white.<br><span class="hljs-meta">&gt;&gt;&gt; </span>my_cat.behavior()<br>NotImplementedError<br></code></pre></td></tr></table></figure>
-<p>在上面的代码里，不仅基类被实例化了，而且只有在调用未实现的方法时才能发现编写了一个实现不完整的子类。<br />
-为了避免出现这种状况，就可以用到我们的abc模块：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> abc <span class="hljs-keyword">import</span> ABCMeta, abstractmethod<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pet</span>(metaclass=ABCMeta):<br><span class="hljs-meta">	@abstractmethod</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">pass</span><br>		<br><span class="hljs-meta">	@abstractmethod</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">behavior</span>(<span class="hljs-params">self</span>):<br>		<span class="hljs-keyword">pass</span><br>		<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span>(<span class="hljs-title class_ inherited__">Pet</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">infor</span>(<span class="hljs-params">self, name, specie</span>):<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;A <span class="hljs-subst">&#123;specie&#125;</span> called <span class="hljs-subst">&#123;name&#125;</span>.&quot;</span><br><br><span class="hljs-meta">&gt;&gt;&gt; </span>b = Pet()<br>TypeError: Can<span class="hljs-string">&#x27;t instantiate abstract class Pet with abstract methods behavior, infor</span><br><span class="hljs-string"></span><br><span class="hljs-string">&gt;&gt;&gt; my_cat = Cat()</span><br><span class="hljs-string">TypeError: Can&#x27;</span>t instantiate abstract <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">with</span> abstract method behavior<br></code></pre></td></tr></table></figure>
-<p>如果我们尝试实例化基类，或者实例化一个不完整的子类，那么就会引发TypeError，并且会指出子类中缺少了哪些方法（未实现哪些抽象方法）。</p>
-<div class="note note-warning">
-            <p>在用多个装饰器修饰同一个方法时，<code>abstractmethod()</code>应当被应用为最内层的装饰器。</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开启该设置选项</td>
+<td><code>settern -inversescreen on</code></td>
+</tr>
+<tr>
+<td>设置背景色</td>
+<td><code>settern -background white</code></td>
+</tr>
+<tr>
+<td>设置前景色</td>
+<td><code>settern -foreground black</code></td>
+</tr>
+</tbody>
+</table>
+<div class="note note-info">
+            <p>可供选择的颜色：black、red、green、yellow、blue、magenta、cyan、white</p>
           </div>
-<div class="note note-warning">
-            <p>不同于Java 抽象方法，这些抽象方法可能具有一个实现。这个实现可在重载它的类上通过<code>super()</code>机制来调用。这在使用协作多重继承的框架中可以被用作超调用的一个端点。</p>
-          </div>
-<p>如果想进一步了解abc模块，可以阅读官方文档：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.9/library/abc.html?highlight=abc#module-abc">点这里跳转</a></p>
-<hr />
-<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h3 id="gnome-terminal快捷键"><a class="markdownIt-Anchor" href="#gnome-terminal快捷键"></a> Gnome Terminal快捷键</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shift+Ctrl+N</td>
+<td>在新的窗口启动一个新的shell会话</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+T</td>
+<td>在当前窗口启动一个新的shell会话</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+W</td>
+<td>关闭当前标签中的会话</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+Q</td>
+<td>关闭当前的Gnome Terminal会话</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+C/V</td>
+<td>复制/粘贴</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+F</td>
+<td>打开Find窗口</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+H/G</td>
+<td>从终端会话的当前位置开始向后/向前搜索指定文本</td>
+</tr>
+<tr>
+<td>Shift+Ctrl+PageUp/PageDown</td>
+<td>使当前标签移动到前一个标签的前面/下一个标签的后面</td>
+</tr>
+<tr>
+<td>Ctrl+PageDown/PageUp</td>
+<td>使上一个/下一个标签成为活动标签</td>
+</tr>
+</tbody>
+</table>
+
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
             <hr/>
@@ -358,7 +489,7 @@
   
     <span>></span>
     
-  <a href="/categories/Essay/Python/" class="category-chain-item">Python</a>
+  <a href="/categories/Essay/Linux/" class="category-chain-item">Linux</a>
   
   
 
@@ -375,7 +506,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Python/">#Python</a>
+        <a href="/tags/Linux/">#Linux</a>
+      
+        <a href="/tags/Vim/">#Vim</a>
       
     </div>
   
@@ -387,8 +520,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>python随笔-3</div>
-      <div>https://map1e-g.github.io/2022/05/22/python-essay-3/</div>
+      <div>Linux随笔-1</div>
+      <div>https://map1e-g.github.io/2022/05/27/linux-essay-1/</div>
     </div>
     <div class="license-meta">
       
@@ -400,7 +533,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月22日</div>
+          <div>2022年5月27日</div>
         </div>
       
       
@@ -430,18 +563,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/27/linux-essay-1/" title="Linux随笔-1">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux随笔-1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/13/python-essay-2/" title="Python随笔-2">
-                        <span class="hidden-mobile">Python随笔-2</span>
+                      <a href="/2022/05/22/python-essay-3/" title="python随笔-3">
+                        <span class="hidden-mobile">python随笔-3</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
