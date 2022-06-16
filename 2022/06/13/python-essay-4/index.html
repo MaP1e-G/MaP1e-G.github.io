@@ -16,23 +16,26 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="可作指令快速参考的一篇随笔。介绍Vim文本编辑器的指令及操作，以及Linux终端的指令及操作。">
+    <meta name="description" content="关于Matplotlib的学习。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux随笔-1">
-<meta property="og:url" content="https://map1e-g.github.io/2022/05/27/linux-essay-1/index.html">
+<meta property="og:title" content="python随笔-4">
+<meta property="og:url" content="https://map1e-g.github.io/2022/06/13/python-essay-4/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="可作指令快速参考的一篇随笔。介绍Vim文本编辑器的指令及操作，以及Linux终端的指令及操作。">
+<meta property="og:description" content="关于Matplotlib的学习。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-27T08:19:44.000Z">
-<meta property="article:modified_time" content="2022-06-14T04:36:53.663Z">
+<meta property="og:image" content="https://s1.ax1x.com/2022/06/13/XRmj1A.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/06/13/XRmv6I.png">
+<meta property="og:image" content="https://s1.ax1x.com/2022/06/13/XRmxXt.png">
+<meta property="article:published_time" content="2022-06-13T05:00:33.000Z">
+<meta property="article:modified_time" content="2022-06-15T15:21:44.210Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Vim">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/06/13/XRmj1A.png">
   
   
   
-  <title>Linux随笔-1 - MaP1e-G&#39;s Blog</title>
+  <title>python随笔-4 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux随笔-1"></span>
+            <span id="subtitle" data-typed-text="python随笔-4"></span>
           
         </div>
 
@@ -206,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-27 16:19" pubdate>
-          2022年5月27日 下午
+        <time datetime="2022-06-13 13:00" pubdate>
+          2022年6月13日 下午
         </time>
       </span>
     
@@ -218,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.1k 字
         
       </span>
     
@@ -229,7 +232,7 @@
         
         
         
-          13 分钟
+          10 分钟
         
       </span>
     
@@ -267,246 +270,61 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux随笔-1</h1>
+            <h1 style="display: none">python随笔-4</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年6月14日 下午
+                    本文最后更新于：2022年6月15日 晚上
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <div class="note note-warning">
-            <p>文章内容来源：《Linux命令行与shell脚本编程大全（第3版）》 [美] Richard Blum  Christine Bresnahan 著 人民邮电出版社</p>
-          </div>
-<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>虽然说是前几天在操作系统上机课上就看完想写的东西但是由于各种事情拖到了今天。。。<br />
-算是刚接触Linux操作系统吧，所以就写了这么一个东西自用，作为快速参考。以后学到了什么相关内容可能也会在这里补充。</p>
+              <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>临近期末周了，所以人也闲下来一点了。什么？你问我期末不复习吗？啊，挂科嘛，不要紧的（迫真<br />
+刚好Matplotlib可能在某些地方要用上，某本书上也有讲例子，就跑来学学了。这篇随笔估计非常杂，关于Matplotlib的什么东西都可能扔上来www，不过有目录应该会清晰许多。</p>
 <h1 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h1>
-<h2 id="vim快速参考"><a class="markdownIt-Anchor" href="#vim快速参考"></a> Vim快速参考</h2>
-<h3 id="启动vim编辑器"><a class="markdownIt-Anchor" href="#启动vim编辑器"></a> 启动Vim编辑器</h3>
-<p>命令：<code>vim 文件名</code><br />
-示例：<code>vim myprog.c</code></p>
-<h3 id="插入文本编辑模式"><a class="markdownIt-Anchor" href="#插入文本编辑模式"></a> 插入（文本编辑）模式</h3>
-<p>按 <strong>i</strong> 键进入。该模式下有如下命令：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>x</td>
-<td>删除当前光标所在位置的字符</td>
-</tr>
-<tr>
-<td>dd</td>
-<td>删除当前光标所在行</td>
-</tr>
-<tr>
-<td>dw</td>
-<td>删除当前光标所在位置的单词</td>
-</tr>
-<tr>
-<td>d$</td>
-<td>删除当前光标所在位置至行尾的内容</td>
-</tr>
-<tr>
-<td>J</td>
-<td>删除当前光标所在行行尾的换行符</td>
-</tr>
-<tr>
-<td>u</td>
-<td>撤销前一编辑命令</td>
-</tr>
-<tr>
-<td>a</td>
-<td>在当前光标后追加数据</td>
-</tr>
-<tr>
-<td>A</td>
-<td>在当前光标所在行行尾追加数据</td>
-</tr>
-<tr>
-<td>r <em>char</em></td>
-<td>用<em>char</em>替换当前光标所在位置的单个字符</td>
-</tr>
-<tr>
-<td>R <em>text</em></td>
-<td>用<em>text</em>覆盖当前光标所在位置的数据，直到按下ESC键</td>
-</tr>
-</tbody>
-</table>
-<div class="note note-info">
-            <p>有些编辑命令允许使用数字修饰符来指定重复该命令多少次。比如，命令<code>2x</code>会删除从光标当前位置开始的两个字符，命令<code>5dd</code>会删除从光标当前所在行开始的5行。</p>
-          </div>
-<h4 id="剪切-复制和粘贴"><a class="markdownIt-Anchor" href="#剪切-复制和粘贴"></a> 剪切、复制和粘贴</h4>
-<p>vim在删除数据时，实际上会将数据保存在单独的一个寄存器中，可以用<code>p</code>命令取回数据。<br />
-所以，vim中的剪切和粘贴操作其实就是先删除数据，再移动光标至想要粘贴的位置，然后用<code>p</code>命令。<br />
-vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>后面使用和<code>d</code>命令相同的第二字符（d、w、$）。<br />
-为了方便复制，我们可以按下<code>v</code>键进入<strong>可视模式</strong>，<strong>可视模式</strong>会在你移动光标时高亮显示文本。在覆盖了要复制的文本后，按下<code>y</code>键就好了。</p>
-<h3 id="普通模式"><a class="markdownIt-Anchor" href="#普通模式"></a> 普通模式</h3>
-<p>在插入模式下按 <strong>esc</strong> 键进入。该模式下可移动光标，命令如下：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>h</td>
-<td>左移一个字符</td>
-</tr>
-<tr>
-<td>j</td>
-<td>下移一行（文本中的下一行）</td>
-</tr>
-<tr>
-<td>k</td>
-<td>上移一行（文本中的上一行）</td>
-</tr>
-<tr>
-<td>l</td>
-<td>右移一个字符</td>
-</tr>
-<tr>
-<td>PageDown（或Ctrl+F）</td>
-<td>下翻一屏</td>
-</tr>
-<tr>
-<td>PageUp（或Ctrl+B）</td>
-<td>下翻一屏</td>
-</tr>
-<tr>
-<td>G</td>
-<td>移到缓冲区的最后一行</td>
-</tr>
-<tr>
-<td>num G</td>
-<td>移动到缓冲区中的第num行</td>
-</tr>
-<tr>
-<td>gg</td>
-<td>移到缓冲区的第一行</td>
-</tr>
-</tbody>
-</table>
-<h3 id="命令行模式"><a class="markdownIt-Anchor" href="#命令行模式"></a> 命令行模式</h3>
-<p>普通模式下按 <strong>:</strong> 键进入。该模式下有如下命令：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>q</td>
-<td>如果未修改缓存区数据，退出</td>
-</tr>
-<tr>
-<td>q!</td>
-<td>取消所有对缓冲区数据的修改并退出</td>
-</tr>
-<tr>
-<td>w <em>filename</em></td>
-<td>将文件保存到另一个文件中</td>
-</tr>
-<tr>
-<td>wq</td>
-<td>将缓冲区数据保存到文件中并退出</td>
-</tr>
-</tbody>
-</table>
-<h2 id="终端快速参考"><a class="markdownIt-Anchor" href="#终端快速参考"></a> 终端快速参考</h2>
-<h3 id="访问终端"><a class="markdownIt-Anchor" href="#访问终端"></a> 访问终端</h3>
-<p>图形化桌面下可尝试右键桌面，看弹出的菜单选项中有无该选项。<br />
-利用快捷键访问（进入）不同终端：<code>Ctrl + Alt + (F1~F7)</code></p>
-<h3 id="设置终端背景颜色"><a class="markdownIt-Anchor" href="#设置终端背景颜色"></a> 设置终端背景颜色</h3>
+<h2 id="matplotlib的安装"><a class="markdownIt-Anchor" href="#matplotlib的安装"></a> Matplotlib的安装</h2>
+<p>CMD执行pip命令：<code>pip install --user matplotlib</code><br />
+终端执行pip命令：<code>$ python -m pip install --user matplotlib</code></p>
 <div class="note note-warning">
-            <p>*终端内输入指令</p>
+            <p>在macOS系统中，若操作不成功，请尝试删去–user再次执行。</p>
           </div>
-<table>
-<thead>
-<tr>
-<th>说明</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>开启该设置选项</td>
-<td><code>settern -inversescreen on</code></td>
-</tr>
-<tr>
-<td>设置背景色</td>
-<td><code>settern -background white</code></td>
-</tr>
-<tr>
-<td>设置前景色</td>
-<td><code>settern -foreground black</code></td>
-</tr>
-</tbody>
-</table>
+<p>在pyCharm中，用的解释器可能是虚拟环境中的解释器，可按如下步骤安装Matplotlib：<br />
+File -&gt; Settings -&gt; Project: Project Name -&gt; Project Interpreter<br />
+<img src="https://s1.ax1x.com/2022/06/13/XRmj1A.png" srcset="/img/loading.gif" lazyload alt="1-1" /><br />
+<img src="https://s1.ax1x.com/2022/06/13/XRmv6I.png" srcset="/img/loading.gif" lazyload alt="1-2" /><br />
+点击 + 号，然后在搜索框中输入Matplotlib，选中后安装即可。<br />
+<img src="https://s1.ax1x.com/2022/06/13/XRmxXt.png" srcset="/img/loading.gif" lazyload alt="1-3" /></p>
 <div class="note note-info">
-            <p>可供选择的颜色：black、red、green、yellow、blue、magenta、cyan、white</p>
+            <p>pyCharm懒狗型安装方法：直接在python文件中先用import导入matplotlib包，会报错，鼠标放到import代码上会显示浮动窗口，有直接安装操作。</p>
           </div>
-<h3 id="gnome-terminal快捷键"><a class="markdownIt-Anchor" href="#gnome-terminal快捷键"></a> Gnome Terminal快捷键</h3>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Shift+Ctrl+N</td>
-<td>在新的窗口启动一个新的shell会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+T</td>
-<td>在当前窗口启动一个新的shell会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+W</td>
-<td>关闭当前标签中的会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+Q</td>
-<td>关闭当前的Gnome Terminal会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+C/V</td>
-<td>复制/粘贴</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+F</td>
-<td>打开Find窗口</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+H/G</td>
-<td>从终端会话的当前位置开始向后/向前搜索指定文本</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+PageUp/PageDown</td>
-<td>使当前标签移动到前一个标签的前面/下一个标签的后面</td>
-</tr>
-<tr>
-<td>Ctrl+PageDown/PageUp</td>
-<td>使上一个/下一个标签成为活动标签</td>
-</tr>
-</tbody>
-</table>
+<div class="note note-info">
+            <p>如果pyCharm把matplotlib默认输出到Sciview了，而你又不想这么做，那么可以通过<strong>Settings -&gt; Tools -&gt; Python Scientific</strong>找到<strong>Show plots in toolwindow</strong>选项，取消勾选即可。</p>
+          </div>
+<h2 id="matplotlib的导入"><a class="markdownIt-Anchor" href="#matplotlib的导入"></a> Matplotlib的导入</h2>
+<p><code>import matplotlib.pyplot as plt</code><br />
+使用别名plt是因为官方这么用所以跟风（bushi）就完事了</p>
+<h2 id="matplotlib输出中文"><a class="markdownIt-Anchor" href="#matplotlib输出中文"></a> Matplotlib输出中文</h2>
+<p>建议不要使用Matplotlib输出中文（比如图表标题）以避免出现无法正确显示文字的问题，但是也不是没有办法。<br />
+输入这行代码即可：<code>plt.rcParams['font.sans-serif'] = ['SimHei']</code><br />
+SimHei是微软雅黑字体。</p>
+<div class="note note-warning">
+            <p>如果还需要执行其他代码如设置样式：<code>plt.style.use('seaborn')</code>，请在这一系列代码最后面加入字体设置代码，否则有可能出现仍然无法显示中文字体的问题。</p>
+          </div>
+<h2 id="使用内置样式"><a class="markdownIt-Anchor" href="#使用内置样式"></a> 使用内置样式</h2>
+<p>可以在终端执行如下命令来查看有哪些样式可供使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-meta">&gt;&gt;&gt; </span>plt.style.available<br></code></pre></td></tr></table></figure>
+<h2 id="某些注意事项"><a class="markdownIt-Anchor" href="#某些注意事项"></a> 某些注意事项</h2>
+<ol>
+<li>向<code>plot()</code>提供一系列数时，它假设第一个数据点对应的<strong>x</strong>坐标值为0。</li>
+<li>使用<code>plot()</code>时可指定各种实参，还可以使用众多函数对图形进行定制。</li>
+<li>可以使用列表解析生成需要的值，再传递列表。</li>
+</ol>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -529,7 +347,7 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
   
     <span>></span>
     
-  <a href="/categories/Essay/Linux/" class="category-chain-item">Linux</a>
+  <a href="/categories/Essay/Python/" class="category-chain-item">Python</a>
   
   
 
@@ -546,9 +364,7 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Linux/">#Linux</a>
-      
-        <a href="/tags/Vim/">#Vim</a>
+        <a href="/tags/Python/">#Python</a>
       
     </div>
   
@@ -560,8 +376,8 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux随笔-1</div>
-      <div>https://map1e-g.github.io/2022/05/27/linux-essay-1/</div>
+      <div>python随笔-4</div>
+      <div>https://map1e-g.github.io/2022/06/13/python-essay-4/</div>
     </div>
     <div class="license-meta">
       
@@ -573,7 +389,7 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月27日</div>
+          <div>2022年6月13日</div>
         </div>
       
       
@@ -603,9 +419,9 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/13/python-essay-4/" title="python随笔-4">
+                      <a href="/2022/06/15/pyqt-essay-1/" title="PYQT6疑难杂症解决方案">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">python随笔-4</span>
+                        <span class="hidden-mobile">PYQT6疑难杂症解决方案</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -613,8 +429,8 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/22/python-essay-3/" title="python随笔-3">
-                        <span class="hidden-mobile">python随笔-3</span>
+                      <a href="/2022/05/27/linux-essay-1/" title="Linux随笔-1">
+                        <span class="hidden-mobile">Linux随笔-1</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

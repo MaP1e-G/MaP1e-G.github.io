@@ -16,23 +16,23 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="可作指令快速参考的一篇随笔。介绍Vim文本编辑器的指令及操作，以及Linux终端的指令及操作。">
+    <meta name="description" content="关于我一个星期速通pyqt这件事（">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux随笔-1">
-<meta property="og:url" content="https://map1e-g.github.io/2022/05/27/linux-essay-1/index.html">
+<meta property="og:title" content="PYQT6疑难杂症解决方案">
+<meta property="og:url" content="https://map1e-g.github.io/2022/06/15/pyqt-essay-1/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="可作指令快速参考的一篇随笔。介绍Vim文本编辑器的指令及操作，以及Linux终端的指令及操作。">
+<meta property="og:description" content="关于我一个星期速通pyqt这件事（">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-27T08:19:44.000Z">
-<meta property="article:modified_time" content="2022-06-14T04:36:53.663Z">
+<meta property="article:published_time" content="2022-06-15T07:21:05.000Z">
+<meta property="article:modified_time" content="2022-06-16T16:03:40.316Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Vim">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="PyQt6">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Linux随笔-1 - MaP1e-G&#39;s Blog</title>
+  <title>PYQT6疑难杂症解决方案 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux随笔-1"></span>
+            <span id="subtitle" data-typed-text="PYQT6疑难杂症解决方案"></span>
           
         </div>
 
@@ -206,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-27 16:19" pubdate>
-          2022年5月27日 下午
+        <time datetime="2022-06-15 15:21" pubdate>
+          2022年6月15日 下午
         </time>
       </span>
     
@@ -218,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.9k 字
         
       </span>
     
@@ -229,7 +229,7 @@
         
         
         
-          13 分钟
+          16 分钟
         
       </span>
     
@@ -267,246 +267,52 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux随笔-1</h1>
+            <h1 style="display: none">PYQT6疑难杂症解决方案</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年6月14日 下午
+                    本文最后更新于：2022年6月17日 凌晨
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <div class="note note-warning">
-            <p>文章内容来源：《Linux命令行与shell脚本编程大全（第3版）》 [美] Richard Blum  Christine Bresnahan 著 人民邮电出版社</p>
-          </div>
-<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>虽然说是前几天在操作系统上机课上就看完想写的东西但是由于各种事情拖到了今天。。。<br />
-算是刚接触Linux操作系统吧，所以就写了这么一个东西自用，作为快速参考。以后学到了什么相关内容可能也会在这里补充。</p>
+              <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>谁能想到课程设计要用pyqt+qt来写呢？我是没想到的。还好是老师会给课件，这下一周速通了。问题是老师给的pyqt5，而我作死用pyqt6导致自己碰一大堆壁。<br />
+所以这篇随笔就是把碰的壁整合一下，不知道以后有没有机会用到（虽然我并不是很喜欢用python来干这种事情（指写GUI和操作数据库））。</p>
 <h1 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h1>
-<h2 id="vim快速参考"><a class="markdownIt-Anchor" href="#vim快速参考"></a> Vim快速参考</h2>
-<h3 id="启动vim编辑器"><a class="markdownIt-Anchor" href="#启动vim编辑器"></a> 启动Vim编辑器</h3>
-<p>命令：<code>vim 文件名</code><br />
-示例：<code>vim myprog.c</code></p>
-<h3 id="插入文本编辑模式"><a class="markdownIt-Anchor" href="#插入文本编辑模式"></a> 插入（文本编辑）模式</h3>
-<p>按 <strong>i</strong> 键进入。该模式下有如下命令：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>x</td>
-<td>删除当前光标所在位置的字符</td>
-</tr>
-<tr>
-<td>dd</td>
-<td>删除当前光标所在行</td>
-</tr>
-<tr>
-<td>dw</td>
-<td>删除当前光标所在位置的单词</td>
-</tr>
-<tr>
-<td>d$</td>
-<td>删除当前光标所在位置至行尾的内容</td>
-</tr>
-<tr>
-<td>J</td>
-<td>删除当前光标所在行行尾的换行符</td>
-</tr>
-<tr>
-<td>u</td>
-<td>撤销前一编辑命令</td>
-</tr>
-<tr>
-<td>a</td>
-<td>在当前光标后追加数据</td>
-</tr>
-<tr>
-<td>A</td>
-<td>在当前光标所在行行尾追加数据</td>
-</tr>
-<tr>
-<td>r <em>char</em></td>
-<td>用<em>char</em>替换当前光标所在位置的单个字符</td>
-</tr>
-<tr>
-<td>R <em>text</em></td>
-<td>用<em>text</em>覆盖当前光标所在位置的数据，直到按下ESC键</td>
-</tr>
-</tbody>
-</table>
-<div class="note note-info">
-            <p>有些编辑命令允许使用数字修饰符来指定重复该命令多少次。比如，命令<code>2x</code>会删除从光标当前位置开始的两个字符，命令<code>5dd</code>会删除从光标当前所在行开始的5行。</p>
-          </div>
-<h4 id="剪切-复制和粘贴"><a class="markdownIt-Anchor" href="#剪切-复制和粘贴"></a> 剪切、复制和粘贴</h4>
-<p>vim在删除数据时，实际上会将数据保存在单独的一个寄存器中，可以用<code>p</code>命令取回数据。<br />
-所以，vim中的剪切和粘贴操作其实就是先删除数据，再移动光标至想要粘贴的位置，然后用<code>p</code>命令。<br />
-vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>后面使用和<code>d</code>命令相同的第二字符（d、w、$）。<br />
-为了方便复制，我们可以按下<code>v</code>键进入<strong>可视模式</strong>，<strong>可视模式</strong>会在你移动光标时高亮显示文本。在覆盖了要复制的文本后，按下<code>y</code>键就好了。</p>
-<h3 id="普通模式"><a class="markdownIt-Anchor" href="#普通模式"></a> 普通模式</h3>
-<p>在插入模式下按 <strong>esc</strong> 键进入。该模式下可移动光标，命令如下：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>h</td>
-<td>左移一个字符</td>
-</tr>
-<tr>
-<td>j</td>
-<td>下移一行（文本中的下一行）</td>
-</tr>
-<tr>
-<td>k</td>
-<td>上移一行（文本中的上一行）</td>
-</tr>
-<tr>
-<td>l</td>
-<td>右移一个字符</td>
-</tr>
-<tr>
-<td>PageDown（或Ctrl+F）</td>
-<td>下翻一屏</td>
-</tr>
-<tr>
-<td>PageUp（或Ctrl+B）</td>
-<td>下翻一屏</td>
-</tr>
-<tr>
-<td>G</td>
-<td>移到缓冲区的最后一行</td>
-</tr>
-<tr>
-<td>num G</td>
-<td>移动到缓冲区中的第num行</td>
-</tr>
-<tr>
-<td>gg</td>
-<td>移到缓冲区的第一行</td>
-</tr>
-</tbody>
-</table>
-<h3 id="命令行模式"><a class="markdownIt-Anchor" href="#命令行模式"></a> 命令行模式</h3>
-<p>普通模式下按 <strong>:</strong> 键进入。该模式下有如下命令：</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>q</td>
-<td>如果未修改缓存区数据，退出</td>
-</tr>
-<tr>
-<td>q!</td>
-<td>取消所有对缓冲区数据的修改并退出</td>
-</tr>
-<tr>
-<td>w <em>filename</em></td>
-<td>将文件保存到另一个文件中</td>
-</tr>
-<tr>
-<td>wq</td>
-<td>将缓冲区数据保存到文件中并退出</td>
-</tr>
-</tbody>
-</table>
-<h2 id="终端快速参考"><a class="markdownIt-Anchor" href="#终端快速参考"></a> 终端快速参考</h2>
-<h3 id="访问终端"><a class="markdownIt-Anchor" href="#访问终端"></a> 访问终端</h3>
-<p>图形化桌面下可尝试右键桌面，看弹出的菜单选项中有无该选项。<br />
-利用快捷键访问（进入）不同终端：<code>Ctrl + Alt + (F1~F7)</code></p>
-<h3 id="设置终端背景颜色"><a class="markdownIt-Anchor" href="#设置终端背景颜色"></a> 设置终端背景颜色</h3>
+<h2 id="qpalettesetcolor"><a class="markdownIt-Anchor" href="#qpalettesetcolor"></a> QPalette.setColor</h2>
+<p>在pyqt5里边，是这么写的：<code>palette1.setColor(palette1.Background, QtGui.QColor(255, 210, 210))</code><br />
+但是在pyqt6里边，多了两个东西，ColorRole 和 ColorGroup，这就导致你要这么写：<code>palette1.setColor(palette1.ColorRole.Window, QtGui.QColor('gray'))</code><br />
+上边的Background是被弃用了的，取而代之的是Window，而Window归于ColorRole，所以写法大大地不同（闷了）。</p>
 <div class="note note-warning">
-            <p>*终端内输入指令</p>
+            <p>设置某些控件的字体颜色的时候不要用调色盘！！！比如QLabel和QPlainTextEdit，用他们自带的<code>setStyleSheet()</code>，向里面传字符串<code>&quot;color: xx&quot;</code>，xx替换成相应颜色。</p>
           </div>
-<table>
-<thead>
-<tr>
-<th>说明</th>
-<th>命令</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>开启该设置选项</td>
-<td><code>settern -inversescreen on</code></td>
-</tr>
-<tr>
-<td>设置背景色</td>
-<td><code>settern -background white</code></td>
-</tr>
-<tr>
-<td>设置前景色</td>
-<td><code>settern -foreground black</code></td>
-</tr>
-</tbody>
-</table>
-<div class="note note-info">
-            <p>可供选择的颜色：black、red、green、yellow、blue、magenta、cyan、white</p>
+<h2 id="关于鼠标相关的事件"><a class="markdownIt-Anchor" href="#关于鼠标相关的事件"></a> 关于鼠标相关的事件</h2>
+<p>其实每个组件都已经写好了相关事件，只不过有些组件本来就没必要和鼠标进行交互当然不会触发相关事件。但是我们可以自己编写自己的类，通过继承和重载来对鼠标的信号作出反应。<br />
+和鼠标事件有关的方法有：<code>mousePressEvent(self, event)</code>、<code>wheelEvent(self, event)</code>、<code>mouseDoubieCiickEvent(self, event)</code>、<code>mouseReleaseEvent(self, event)</code>、<code>mouseMoveEvent(self, event)</code>、<code>enterEvent(self, event)</code>和<code>leaveEvent(self, event)</code>。<br />
+分别是：鼠标按下事件、滚轮滚动事件、鼠标双击事件、鼠标释放事件、鼠标移动事件、鼠标进入控件事件和鼠标离开控件事件。鼠标按下事件中可以通过event来获取具体按下的键再来配置更详细的操作。</p>
+<div class="note note-warning">
+            <p>如果要实现实时监测鼠标移动，需要<code>setMouseTracking(True)</code>，否则只会在<code>mousePress</code>的时候触发鼠标移动事件。</p>
           </div>
-<h3 id="gnome-terminal快捷键"><a class="markdownIt-Anchor" href="#gnome-terminal快捷键"></a> Gnome Terminal快捷键</h3>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Shift+Ctrl+N</td>
-<td>在新的窗口启动一个新的shell会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+T</td>
-<td>在当前窗口启动一个新的shell会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+W</td>
-<td>关闭当前标签中的会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+Q</td>
-<td>关闭当前的Gnome Terminal会话</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+C/V</td>
-<td>复制/粘贴</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+F</td>
-<td>打开Find窗口</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+H/G</td>
-<td>从终端会话的当前位置开始向后/向前搜索指定文本</td>
-</tr>
-<tr>
-<td>Shift+Ctrl+PageUp/PageDown</td>
-<td>使当前标签移动到前一个标签的前面/下一个标签的后面</td>
-</tr>
-<tr>
-<td>Ctrl+PageDown/PageUp</td>
-<td>使上一个/下一个标签成为活动标签</td>
-</tr>
-</tbody>
-</table>
+<h2 id="关于pyqt6把pyrcc删除了这件事"><a class="markdownIt-Anchor" href="#关于pyqt6把pyrcc删除了这件事"></a> 关于pyqt6把pyrcc删除了这件事</h2>
+<p>老师给的课件用的是pyqt5，此时还存在pyrcc5这种东西，但是到了6能编译资源文件的pyrcc就惨遭阉割（误）。结果弄到我在这里卡了挺久，找了个什么pyqt6rc装一下不仅没用还把我pyqt6搞崩了，郁闷。<br />
+好吧其实应该是换成了另一种方式，即用pyside6-rcc进行编译。我们需要先安装pyside6：<code>pip install pyside6</code>，安装成功后，进入到资源文件所在文件夹中，使用命令：<code>pyside6-rcc res.qrc -o res.py</code>即可编译。<br />
+但是pyuic6编译后的py文件中不会自带<code>import res</code>，需要我们手动写进去。</p>
+<h2 id="关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事"><a class="markdownIt-Anchor" href="#关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事"></a> 关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事</h2>
+<p>如果你发现数字显示成苏州码子：〡〢〣〤〥〦〧〨〩<br />
+把电脑时区改回来！具体操作：控制面板 -&gt; 时钟和区域 -&gt; 区域，格式改成：中文(简体，中国)。</p>
+<h2 id="关于pycharm读取数据库或文件导致程序崩溃报错-1073740791-0xc0000409"><a class="markdownIt-Anchor" href="#关于pycharm读取数据库或文件导致程序崩溃报错-1073740791-0xc0000409"></a> 关于pyCharm读取数据库或文件导致程序崩溃报错-1073740791 (0xC0000409)</h2>
+<p>菜单栏Run -&gt; Edit Configuration，把Emulate terminal in output console勾选上。</p>
+<h2 id="关于pyqt6里边枚举类型是类名枚举名枚举值这件事"><a class="markdownIt-Anchor" href="#关于pyqt6里边枚举类型是类名枚举名枚举值这件事"></a> 关于pyqt6里边枚举类型是：类名.枚举名.枚举值这件事</h2>
+<p>简单的例子，pyqt5里边：<code>self.tabModel.setEditStrategy(QSqlTableModel.OnManualSubmit)</code>，pyqt6里边：<code>self.tabModel.setEditStrategy(QSqlTableModel.EditStrategy.OnManualSubmit)</code><br />
+就这么简单。虽然老师提醒过了但是我一开始根本就没想到这里面是枚举。查文档看到的确存在这种属性，然后又忽略了枚举。闷了很久，突然就灵光一闪这不是枚举值吗，不会是枚举的锅吧！然后就解决了。。。</p>
+<h2 id="关于某些时候一些行为触发两次相同的槽函数这件事"><a class="markdownIt-Anchor" href="#关于某些时候一些行为触发两次相同的槽函数这件事"></a> 关于某些时候一些行为触发两次相同的槽函数这件事</h2>
+<p>本来是不想管的，但是open两次数据库就直接炸了啊我能不管吗？最简单的解决办法：给槽函数上@pyqtSlot()装饰器。</p>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -529,7 +335,7 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
   
     <span>></span>
     
-  <a href="/categories/Essay/Linux/" class="category-chain-item">Linux</a>
+  <a href="/categories/Essay/Python/" class="category-chain-item">Python</a>
   
   
 
@@ -546,9 +352,9 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Linux/">#Linux</a>
+        <a href="/tags/Python/">#Python</a>
       
-        <a href="/tags/Vim/">#Vim</a>
+        <a href="/tags/PyQt6/">#PyQt6</a>
       
     </div>
   
@@ -560,8 +366,8 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux随笔-1</div>
-      <div>https://map1e-g.github.io/2022/05/27/linux-essay-1/</div>
+      <div>PYQT6疑难杂症解决方案</div>
+      <div>https://map1e-g.github.io/2022/06/15/pyqt-essay-1/</div>
     </div>
     <div class="license-meta">
       
@@ -573,7 +379,7 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月27日</div>
+          <div>2022年6月15日</div>
         </div>
       
       
@@ -603,18 +409,12 @@ vim中的复制命令是<code>y</code>（代表yank），可以在<code>y</code>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/13/python-essay-4/" title="python随笔-4">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">python随笔-4</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/22/python-essay-3/" title="python随笔-3">
-                        <span class="hidden-mobile">python随笔-3</span>
+                      <a href="/2022/06/13/python-essay-4/" title="python随笔-4">
+                        <span class="hidden-mobile">python随笔-4</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
