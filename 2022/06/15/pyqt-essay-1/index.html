@@ -24,7 +24,7 @@
 <meta property="og:description" content="关于我一个星期速通pyqt这件事（">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-15T07:21:05.000Z">
-<meta property="article:modified_time" content="2022-06-23T08:22:07.014Z">
+<meta property="article:modified_time" content="2022-06-23T08:25:20.783Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="PyQt6">
@@ -300,7 +300,7 @@
           </div>
 <h2 id="关于pyqt6把pyrcc删除了这件事"><a class="markdownIt-Anchor" href="#关于pyqt6把pyrcc删除了这件事"></a> 关于pyqt6把pyrcc删除了这件事</h2>
 <p>老师给的课件用的是pyqt5，此时还存在pyrcc5这种东西，但是到了6能编译资源文件的pyrcc就惨遭阉割（误）。结果弄到我在这里卡了挺久，找了个什么pyqt6rc装一下不仅没用还把我pyqt6搞崩了，郁闷。<br />
-好吧其实应该是换成了另一种方式，即用pyside6-rcc进行编译。我们需要先安装pyside6：<code>pip install pyside6</code>，安装成功后，进入到资源文件所在文件夹中，使用命令：<code>pyside6-rcc res.qrc -o res.py</code>即可编译。<br />
+但是我们可以用pyside6-rcc进行编译（我是没想到的）。我们需要先安装pyside6：<code>pip install pyside6</code>，安装成功后，进入到资源文件所在文件夹中，使用命令：<code>pyside6-rcc res.qrc -o res.py</code>即可编译。<br />
 但是pyuic6编译后的py文件中不会自带<code>import res</code>，需要我们手动写进去。</p>
 <h2 id="关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事"><a class="markdownIt-Anchor" href="#关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事"></a> 关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事</h2>
 <p>如果你发现数字显示成苏州码子：〡〢〣〤〥〦〧〨〩<br />
@@ -317,10 +317,10 @@
 在网络上也找了一点说法：</p>
 <blockquote>
 <p>提供了一个sql查询结果的只读数据模型。它从查询QSqlQueryModel获取数据。可以方便的用于在QListView, QTableView, QTreeView等各种view上展示数据。但它是只读的，不能编辑。<br />
-继承于QSqlQueryModel，与QSqlQueryModel功能相似。比QSqlQueryModel的限制在于不能是任意sql语句，只是对单个数据表操作。拓展在于在各种view上展示表格数据的同时，还允许用户进行编辑操作。<br />
-那<code>QSqlRelationalTableMode</code>是用来干什么的呢？在课件里边，它被用来做便捷的联合查询操作（也可以对数据表进行操作），且可以快速设置代理组件而不需要自己手写。<br />
-还有最后一个<code>QSqlQuery</code>，简单地说就是用来执行sql语句的。</p>
+继承于QSqlQueryModel，与QSqlQueryModel功能相似。比QSqlQueryModel的限制在于不能是任意sql语句，只是对单个数据表操作。拓展在于在各种view上展示表格数据的同时，还允许用户进行编辑操作。</p>
 </blockquote>
+<p>那<code>QSqlRelationalTableMode</code>是用来干什么的呢？在课件里边，它被用来做便捷的联合查询操作（也可以对数据表进行操作），且可以快速设置代理组件而不需要自己手写。<br />
+还有最后一个<code>QSqlQuery</code>，简单地说就是用来执行sql语句的。</p>
 <h2 id="关于pyqt6里的qchart没有axisx这个东西"><a class="markdownIt-Anchor" href="#关于pyqt6里的qchart没有axisx这个东西"></a> 关于pyqt6里的QChart没有axisX()这个东西</h2>
 <p>这是课件里pyqt5的做法:<code>chart.removeAxis(chart.axisX()) # 删除坐标轴</code><br />
 但是pyqt6他没有啊，他又没有了啊！找了半天有个可以返回全部坐标轴列表的方法，于是我改成了下边的写法：</p>
