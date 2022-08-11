@@ -24,7 +24,7 @@
 <meta property="og:description" content="写点Python中的循环、迭代器、生成器什么的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-19T13:07:55.000Z">
-<meta property="article:modified_time" content="2022-08-06T14:30:58.820Z">
+<meta property="article:modified_time" content="2022-08-11T13:08:39.686Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
@@ -217,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          8.8k 字
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
         
-          26 分钟
+          74 分钟
         
       </span>
     
@@ -272,7 +272,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年8月6日 晚上
+                    本文最后更新于：2022年8月11日 晚上
                   
                 
               </p>
@@ -350,9 +350,104 @@
             <p>创建浅副本意味着只复制元素的结构，而不复制元素本身。两个列表中的每个元素都是相同的实例。<br />如果需要复制所有内容（包括元素），则需要创建列表的深副本。创建深副本可以使用Python内置的copy模块。</p>
           </div>
 <h2 id="迭代器"><a class="markdownIt-Anchor" href="#迭代器"></a> 迭代器</h2>
-<p><em><strong>to do…</strong></em></p>
+<h3 id="什么是迭代器"><a class="markdownIt-Anchor" href="#什么是迭代器"></a> 什么是迭代器？</h3>
+<blockquote>
+<p>“迭代器（iterator），是确使用户可在容器对象（container，例如链表或数组）上遍访的对象，设计人员使用此接口无需关心容器对象的内存分配的实现细节。其行为很像数据库技术中的光标（cursor）。”——维基百科<br />
+举个例子，列表就属于迭代器，因此列表能用于for-in循环：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python">numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br><span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> numbers:<br>    <span class="hljs-built_in">print</span>(num)<br></code></pre></td></tr></table></figure>
+<p>在Python中，只要对象支持<code>__iter__</code>和<code>__next__</code>双下划线方法（或者说支持迭代器协议），那么就能使用for-in循环。正是由于这个特点，使得我们在需要遍历一个对象中的某些内容时能通过使用迭代器而变得十分方便。<br />
+所以我们可以编写一个支持迭代器协议的类，从而对这个类创建的实例使用for-in循环。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Repeater</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>            <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self.value<br></code></pre></td></tr></table></figure>
+<p>这里编写了一个Repeater类，该类在迭代时类的实例会重复返回同一个值，效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>repeater = Repeater(<span class="hljs-string">&#x27;Hello&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> repeater:<br>		<span class="hljs-built_in">print</span>(item)<br>    <br>Hello<br>Hello<br>...<br>Hello<br>Hello<br></code></pre></td></tr></table></figure>
+<p>其实到这迭代器就可以算介绍完了。看到这里，我相信有些人可以理解，但是有些人会觉得挺抽象的（因为我就觉得），也没搞明白到底是个什么工作原理，怎么iter返回个self啊，next返回个value什么的，所以下面会以书上的另一种方式再次解读迭代器。</p>
+<blockquote>
+<p>还是用到上面的Repeater类为例子，但是这里我们把它拆分为两个类（Repeater、RepeaterIterator）来分别实现迭代器协议中的两个方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Repeater</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value</span>):<br>        self.value = value<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> RepeaterIterator(self)<br>    <br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RepeaterIterator</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, source</span>):<br>        self.source = source<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self.source.value<br></code></pre></td></tr></table></figure>
+<p>我们要关注的是上面的<code>__iter__</code>和<code>__next__</code>两个方法以及RepeaterIterator类。<br />
+首先是<code>__iter__</code>。<code>__iter__</code>创建并返回了RepeaterIterator对象，从意思上看，也能说创建了一个Repeater类的迭代器对象。<br />
+然后就是RepeaterIterator类，我们要注意以下两点：<br />
+（1）在<code>__init__</code>方法中，每个RepeaterIterator实例都链接到创建它的Repeater对象。这样可以持有迭代的“源”（source）对象。<br />
+（2）在<code>RepeaterIterator.__next__</code>中，回到“源”Repeater实例并返回与其关联的值。<br />
+如此一来，我们便可以在for-in中使用Repeater实例。那么for-in循环又是怎么工作的呢？看下面一段代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python">repeater = Repeater(<span class="hljs-string">&#x27;Hello&#x27;</span>)<br>iterator = repeator.__iter__()<br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    item = iterator.__next__()<br>    <span class="hljs-built_in">print</span>(item)<br></code></pre></td></tr></table></figure>
+<p>首先让repeater对象准备迭代，即调用<code>__iter__</code>方法来返回实际的迭代器对象。<br />
+然后循环反复调用迭代器对象的<code>__next__</code>方法，从中获取值。<br />
+如果有数据库相关知识，你还会发现迭代器和游标的相似之处：首先初始化游标并准备读取，然后从中逐个取出数据存入局部变量中。<br />
+无论是元素列表、字典，还是Repeater类提供的无限序列，或是其他序列类型，对于迭代器来说只是实现细节不同。迭代器能以相同的方式遍历这些对象中的元素。</p>
+</blockquote>
+<h3 id="在python解释器会话中模拟循环使用迭代器协议的方式"><a class="markdownIt-Anchor" href="#在python解释器会话中模拟循环使用迭代器协议的方式"></a> 在Python解释器会话中模拟循环使用迭代器协议的方式</h3>
+<p>实际上，我们可以手动模拟这个过程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>repeater = Repeater(<span class="hljs-string">&#x27;Hello&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>iterator = <span class="hljs-built_in">iter</span>(repeater)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-string">&#x27;Hello&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-string">&#x27;Hello&#x27;</span><br>...<br></code></pre></td></tr></table></figure>
+<p>在这里，我们没有使用双下划线方法，作为替代，我们使用了Python内置函数<code>iter()</code>和<code>next()</code>。<br />
+这些内置函数在内部会调用相同的双下划线方法，为迭代器协议提供一个简洁的封装（facade）。</p>
+<h3 id="有限迭代"><a class="markdownIt-Anchor" href="#有限迭代"></a> 有限迭代</h3>
+<p>既然可以手动模拟迭代过程，我们不妨来学习一下其他实现了迭代器协议的对象是怎么停下迭代的。<br />
+就用开头那个列表作为例子，让我们手动模拟一下它的迭代过程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator = <span class="hljs-built_in">iter</span>(numbers)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-number">1</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-number">2</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-number">3</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br>StopIteration<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br>StopIteration<br>...<br></code></pre></td></tr></table></figure>
+<p>可以看到，在遍历完列表中的所有元素后，继续调用<code>next()</code>函数将会抛出StopIteration异常。<br />
+所以我们也可以在我们自己编写的支持迭代器协议的类中，通过抛出StopIteration异常来停止迭代。<br />
+下面是书上的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BoundedRepeater</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, value, max_repeats</span>):<br>        self.value = value<br>        self.max_repeats = max_repeats<br>        self.count = <span class="hljs-number">0</span><br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> self<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> self.count &gt;= self.max_repeats:<br>            <span class="hljs-keyword">raise</span> StopIteration<br>        self.count += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> self.value<br></code></pre></td></tr></table></figure>
 <h2 id="生成器"><a class="markdownIt-Anchor" href="#生成器"></a> 生成器</h2>
-<p><em><strong>to do…</strong></em></p>
+<h3 id="什么是生成器"><a class="markdownIt-Anchor" href="#什么是生成器"></a> 什么是生成器</h3>
+<p>生成器说白了吧，就是简化版的迭代器。它不是基于类的迭代器，而是基于函数的迭代器，因此也不需要实现两个双下划线方法，而且在生成器中不是使用return语句，而是使用yield语句将数据传回给调用者：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">repeater</span>(<span class="hljs-params">value</span>):<br>	<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>		<span class="hljs-keyword">yield</span> value<br></code></pre></td></tr></table></figure>
+<p>这样一个简单的无限生成器就写好了，很简单对吧！虽然它像普通函数，但是要注意，调用生成器函数并不会运行该函数，而是仅仅创建并返回一个生成器对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>repeater(<span class="hljs-string">&#x27;Hey&#x27;</span>)<br>&lt;generator <span class="hljs-built_in">object</span> repeater at <span class="hljs-number">0x00000188C0A32E40</span>&gt;<br></code></pre></td></tr></table></figure>
+<p>只有在生成器对象上调用<code>next()</code>时才会执行生成器函数中的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>generator_obj = repeater(<span class="hljs-string">&#x27;Hey&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(generator_obj)<br><span class="hljs-string">&#x27;Hey&#x27;</span><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>return 和 yield 的区别<br />
+1.当函数内部调用return语句时，控制权会永久性地交还给函数的调用者。在调用yield时，虽然控制权也是交还给函数的调用者，但只是暂时的。<br />
+2.return语句会丢弃函数的局部状态，而yield语句会暂停该函数并保留其局部状态。</p>
+</blockquote>
+<h3 id="有限生成器"><a class="markdownIt-Anchor" href="#有限生成器"></a> 有限生成器</h3>
+<p>在基于类的迭代器中，我们通过抛出StopIteration异常来表示迭代结束，那么在生成器中呢？<br />
+由于生成器与基于类的迭代器完全兼容，所以背后仍然使用这种方法。<br />
+或者，我们可以使用更好的接口。如果控制流从生成器函数中返回，但不是通过yield语句，那么生成器就会停止：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">def</span> <span class="hljs-title function_">repeat_three_times</span>(<span class="hljs-params">value</span>):<br>		<span class="hljs-keyword">yield</span> value<br>		<span class="hljs-keyword">yield</span> value<br>		<span class="hljs-keyword">yield</span> value<br><span class="hljs-meta">&gt;&gt;&gt; </span>iterator = repeat_three_times(<span class="hljs-string">&#x27;Hey there&#x27;</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-string">&#x27;Hey there&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br><span class="hljs-string">&#x27;Hey there&#x27;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br>StopIteration<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">next</span>(iterator)<br>StopIteration<br></code></pre></td></tr></table></figure>
+<p>知道了这些知识，我们就能够转化一下BoundedRepeater类了，让它变成一个生成器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bounded_repeater</span>(<span class="hljs-params">value, max_repeats</span>):<br>	count = <span class="hljs-number">0</span><br>	<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>		<span class="hljs-keyword">if</span> count &gt;= max_repeats:<br>			<span class="hljs-keyword">return</span><br>		count += <span class="hljs-number">1</span><br>		<span class="hljs-keyword">yield</span> value<br></code></pre></td></tr></table></figure>
+<p>当然，还有更简便的版本，利用Python为每个函数的末尾添加一个隐式<code>return None</code>语句的特性，我们甚至可以这样写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bounded_repeater</span>(<span class="hljs-params">value, max_repeats</span>):<br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(max_repeats):<br>		<span class="hljs-keyword">yield</span> value<br></code></pre></td></tr></table></figure>
+<h3 id="生成器表达式"><a class="markdownIt-Anchor" href="#生成器表达式"></a> 生成器表达式</h3>
+<p>生成器表达式通过一行代码来定义迭代器。看到这个，我们很快就能联想到列表解析式。是的，生成器表达式的确和列表表达式非常相似：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>listcomp = [<span class="hljs-string">&#x27;Hello&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)]<br><span class="hljs-meta">&gt;&gt;&gt; </span>genexpr = (<span class="hljs-string">&#x27;Hello&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>))<br></code></pre></td></tr></table></figure>
+<p>和列表解析式相同，生成器表达式也可以添加条件从而来过滤一些元素：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>even_squares = (x * x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">if</span> x % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> even_squares:<br>...	   <span class="hljs-built_in">print</span>(x)<br><span class="hljs-number">0</span><br><span class="hljs-number">4</span><br><span class="hljs-number">16</span><br><span class="hljs-number">36</span><br><span class="hljs-number">64</span><br></code></pre></td></tr></table></figure>
+<p>和列表解析式不同，生成器表达式不会构造列表对象，而是像基于类的迭代器或生成器函数那样“即时”生成值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span>listcomp<br>[<span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;Hello&#x27;</span>, <span class="hljs-string">&#x27;Hello&#x27;</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>genexpr<br>&lt;generator <span class="hljs-built_in">object</span> &lt;genexpr&gt; at <span class="hljs-number">0x00000188C0A32DD0</span>&gt;<br></code></pre></td></tr></table></figure>
+<p>我们也可以归纳一下，得出一个生成器表达式的模板：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Python">genexpr = (expression <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> collection <span class="hljs-keyword">if</span> condition)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>这个模板也可以看成下边的生成器函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">generator</span>():<br>    <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> collection:<br>        <span class="hljs-keyword">if</span> condition:<br>            <span class="hljs-keyword">yield</span> expression<br></code></pre></td></tr></table></figure>
+</blockquote>
+<div class="note note-warning">
+            <p>生成器表达式一经使用就不能重新启动或重用，所以在某些情况下生成器函数或基于类的迭代器更加合适。</p>
+          </div>
+<h3 id="内联生成器表达式"><a class="markdownIt-Anchor" href="#内联生成器表达式"></a> 内联生成器表达式</h3>
+<p>因为生成器表达式也是表达式，所以可以与其他语句一起内联使用。例如，可以定义一个迭代器并立即在for循环中使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;Test&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>)):<br>	<span class="hljs-built_in">print</span>(x)<br></code></pre></td></tr></table></figure>
+<p>另外还有一个语法技巧可以美化生成器表达式。如果生成器表达式是作为函数中的单个参数使用，那么可以删除生成器表达式外层的括号：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">sum</span>((x * <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>)))<br><span class="hljs-number">90</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">sum</span>(x * <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>))<br><span class="hljs-number">90</span><br></code></pre></td></tr></table></figure>
+<h2 id="迭代器链"><a class="markdownIt-Anchor" href="#迭代器链"></a> 迭代器链</h2>
+<p>Python中的迭代器还有另一个重要特性：可以链接多个迭代器，从而编写高效的数据处理“管道”。<br />
+普通函数只会产生一次返回值，而生成器会多次产生结果。可以认为生成器在整个生命周期中能<strong>产生值的“流”</strong>。下面用例子来说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">integers</span>():<br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">9</span>):<br>		<span class="hljs-keyword">yield</span> i<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">squared</span>(<span class="hljs-params">seq</span>):<br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> seq:<br>		<span class="hljs-keyword">yield</span> i * i<br>		<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">negated</span>(<span class="hljs-params">seq</span>):<br>	<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> seq:<br>		<span class="hljs-keyword">yield</span> -i<br>		<br><span class="hljs-meta">&gt;&gt;&gt; </span>chain = negated(squared(integers()))<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">list</span>(chain)<br>[-<span class="hljs-number">1</span>, -<span class="hljs-number">4</span>, -<span class="hljs-number">9</span>, -<span class="hljs-number">16</span>, -<span class="hljs-number">25</span>, -<span class="hljs-number">36</span>, -<span class="hljs-number">49</span>, -<span class="hljs-number">64</span>]<br></code></pre></td></tr></table></figure>
+<p>在这里，先是由integers()生成器产生值的“流”，然后送入squared()生成器，squared()生成器根据值再生成值，再送入negated()生成器中生成最后的值。</p>
+<blockquote>
+<p>在生成器链中，每次只处理一个元素，这说明链中的处理步骤之间没有缓冲区。下面是详细步骤：</p>
+<ol>
+<li>integers生成器产生一个值，如3.</li>
+<li>这个值“激活”squared生成器来处理，得到3 * 3 = 9，并将其传递到下一阶段。</li>
+<li>由squared生成器产生的平方数立即送入negated生成器，将其修改为-9并再次yield。</li>
+</ol>
+</blockquote>
+<h1 id="一些无关的话"><a class="markdownIt-Anchor" href="#一些无关的话"></a> 一些无关的话</h1>
+<p>放假后真的是太懒啦，也是各种作息混乱加上在外游玩又或者干脆睡觉摆烂以至于根本没怎么学（土下座.jpg）。下次更新也是这本好书的最后一章啦，一定会在开学前学完的（确信），就这样啦~</p>
 <hr />
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
