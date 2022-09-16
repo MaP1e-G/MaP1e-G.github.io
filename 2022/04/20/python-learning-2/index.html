@@ -43,6 +43,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -279,82 +281,82 @@
             
             <div class="markdown-body">
               
-              <h1 id="列表中的方法"><a class="markdownIt-Anchor" href="#列表中的方法"></a> 列表中的方法</h1>
+              <h1>列表中的方法</h1>
 <p>我们先定义(约定好)一个用于示例的列表，以方便后续调用它。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>,]<br></code></pre></td></tr></table></figure>
-<h2 id="appende方法"><a class="markdownIt-Anchor" href="#appende方法"></a> <code>append(e)</code>方法</h2>
+<h2 id="append-e-方法"><code>append(e)</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />在尾部添加一个元素 e</p>
+            <p><strong>描述：</strong><br>在尾部添加一个元素 e</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.append(<span class="hljs-number">6</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]<br></code></pre></td></tr></table></figure>
-<h2 id="clear方法"><a class="markdownIt-Anchor" href="#clear方法"></a> <code>clear()</code>方法</h2>
+<h2 id="clear-方法"><code>clear()</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />删除所有元素</p>
+            <p><strong>描述：</strong><br>删除所有元素</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.clear()<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[]<br></code></pre></td></tr></table></figure>
-<h2 id="copy方法"><a class="markdownIt-Anchor" href="#copy方法"></a> <code>copy()</code>方法</h2>
+<h2 id="copy-方法"><code>copy()</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />对列表进行<strong>浅复制</strong></p>
+            <p><strong>描述：</strong><br>对列表进行<strong>浅复制</strong></p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">class</span> <span class="hljs-title class_">stock</span>:<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, num</span>):<br><span class="hljs-meta">... </span>        self.num = num<br>        <br><span class="hljs-meta">&gt;&gt;&gt; </span>A = stock(<span class="hljs-number">5</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list = [A]<br><span class="hljs-meta">&gt;&gt;&gt; </span>b_list = a_list.copy()<br><span class="hljs-meta">&gt;&gt;&gt; </span>A.num = <span class="hljs-number">4</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>b_list[<span class="hljs-number">0</span>].num<br><span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
 <p>说明：这里涉及到一个概念：<strong>浅复制（浅拷贝）<strong>和</strong>深复制（深拷贝）</strong>。</p>
-<p>“<strong>浅复制</strong>是指构建一个新的容器对象，然后填充原对象中子对象的引用。本质上浅复制只执行一层，复制过程不会递归，因此不会创建子对象的副本。<br />
+<p>“<strong>浅复制</strong>是指构建一个新的容器对象，然后填充原对象中子对象的引用。本质上浅复制只执行一层，复制过程不会递归，因此不会创建子对象的副本。<br>
 <strong>深复制</strong>是递归复制，首先构造一个新的容器对象，然后递归地填充原始对象中子对象的副本。”<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
 ">[1]</span></a></sup></p>
-<h2 id="counte方法"><a class="markdownIt-Anchor" href="#counte方法"></a> <code>count(e)</code>方法</h2>
+<h2 id="count-e-方法"><code>count(e)</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />列表中 e 元素出现的次数</p>
+            <p><strong>描述：</strong><br>列表中 e 元素出现的次数</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.count(<span class="hljs-number">1</span>)<br><span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
-<h2 id="extendit方法"><a class="markdownIt-Anchor" href="#extendit方法"></a> <code>extend(it)</code>方法</h2>
+<h2 id="extend-it-方法"><code>extend(it)</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />将可迭代对象 it 里的元素添加到尾部</p>
+            <p><strong>描述：</strong><br>将可迭代对象 it 里的元素添加到尾部</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>b_list = [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">0</span>]<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.extend(b_list)<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
-<h2 id="indexe方法"><a class="markdownIt-Anchor" href="#indexe方法"></a> <code>index(e)</code>方法</h2>
+<h2 id="index-e-方法"><code>index(e)</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />找到 e 在序列中第一次出现的位置</p>
+            <p><strong>描述：</strong><br>找到 e 在序列中第一次出现的位置</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.index(<span class="hljs-number">4</span>)<br><span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-<h2 id="inserti-e方法"><a class="markdownIt-Anchor" href="#inserti-e方法"></a> <code>insert(i, e)</code>方法</h2>
+<h2 id="insert-i-e-方法"><code>insert(i, e)</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />在索引 i 处添加空间，并将 e 元素插入到这个地方</p>
+            <p><strong>描述：</strong><br>在索引 i 处添加空间，并将 e 元素插入到这个地方</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.insert(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
-<h2 id="popi方法"><a class="markdownIt-Anchor" href="#popi方法"></a> <code>pop([i])</code>方法</h2>
+<h2 id="pop-i-方法"><code>pop([i])</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />删除索引 i 位置的值并<strong>返回</strong>这个值，i 的默认值为最后一个元素的位置</p>
+            <p><strong>描述：</strong><br>删除索引 i 位置的值并<strong>返回</strong>这个值，i 的默认值为最后一个元素的位置</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.pop(<span class="hljs-number">0</span>)<br><span class="hljs-number">1</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.pop()<br><span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
-<h2 id="removee方法"><a class="markdownIt-Anchor" href="#removee方法"></a> <code>remove(e)</code>方法</h2>
+<h2 id="remove-e-方法"><code>remove(e)</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />删除列表里第一次出现的 e 元素</p>
+            <p><strong>描述：</strong><br>删除列表里第一次出现的 e 元素</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.remove(<span class="hljs-number">3</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]<br></code></pre></td></tr></table></figure>
-<h2 id="reverse方法"><a class="markdownIt-Anchor" href="#reverse方法"></a> <code>reverse()</code>方法</h2>
+<h2 id="reverse-方法"><code>reverse()</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />反转列表元素的排列顺序</p>
+            <p><strong>描述：</strong><br>反转列表元素的排列顺序</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.reverse()<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[<span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
-<h2 id="sortkey-reverse方法"><a class="markdownIt-Anchor" href="#sortkey-reverse方法"></a> <code>sort([key], [reverse])</code>方法</h2>
+<h2 id="sort-key-reverse-方法"><code>sort([key], [reverse])</code>方法</h2>
 <div class="note note-info">
-            <p><strong>描述：</strong><br />就地对列表进行排序，reverse默认值为False</p>
+            <p><strong>描述：</strong><br>就地对列表进行排序，reverse默认值为False</p>
           </div>  
 <p>示例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a_list.sort(reverse = <span class="hljs-literal">True</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>a_list<br>[<span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
-<p>说明：<br />
+<p>说明：<br>
 建议配合<a href="https://map1e-g.github.io/2022/04/17/python-essay-1/">这篇随笔</a>食用</p>
-<hr />
+<hr>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>《Python Tricks 深入理解python特性》 [德]达恩·巴德尔 人民邮电出版社
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -515,6 +517,11 @@
 
 
   
+
+
+  
+  
+
 
 
 

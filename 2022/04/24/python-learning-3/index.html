@@ -43,6 +43,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -282,25 +284,25 @@
               <div class="note note-warning">
             <p>本文章尚未更新完毕</p>
           </div>
-<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p>要验证我们所编写的代码是否能像我们所想的那样工作，我们就需要对我们的代码进行测试。<br />
-但是一般情况下，验证都涉及到数据的输入，这可就麻烦了，为了测试我们的代码，每运行一次都得输入一次数据，这样做即低效又烦琐。<br />
-而且以后每修改一次函数/类，我们也要做一次这样的工作，想想就头晕，不是吗？<br />
+<h1>前言</h1>
+<p>要验证我们所编写的代码是否能像我们所想的那样工作，我们就需要对我们的代码进行测试。<br>
+但是一般情况下，验证都涉及到数据的输入，这可就麻烦了，为了测试我们的代码，每运行一次都得输入一次数据，这样做即低效又烦琐。<br>
+而且以后每修改一次函数/类，我们也要做一次这样的工作，想想就头晕，不是吗？<br>
 好在Python提供了一种自动测试函数输出的高效方式：通过unittest模板来测试代码。</p>
-<h1 id="什么事unittest"><a class="markdownIt-Anchor" href="#什么事unittest"></a> 什么事Unittest？</h1>
+<h1>什么事Unittest？</h1>
 <p>简单地说，其实就是一个提供一系列代码测试工具的一个模块。在<a target="_blank" rel="noopener" href="https://docs.python.org/3.9/library/unittest.html?highlight=unittest#module-unittest">官方文档</a>中描述如下：</p>
 <blockquote>
-<p>The unittest unit testing framework was originally inspired by JUnit and has a similar flavor as major unit testing frameworks in other languages.<br />
+<p>The unittest unit testing framework was originally inspired by JUnit and has a similar flavor as major unit testing frameworks in other languages.<br>
 It supports test automation, sharing of setup and shutdown code for tests, aggregation of tests into collections, and independence of the tests from the reporting framework.</p>
 <p>To achieve this, unittest supports some important concepts in an object-oriented way:</p>
 <p>test fixture</p>
 <blockquote>
-<p>A test fixture represents the preparation needed to perform one or more tests, and any associated cleanup actions.<br />
+<p>A test fixture represents the preparation needed to perform one or more tests, and any associated cleanup actions.<br>
 This may involve, for example, creating temporary or proxy databases, directories, or starting a server process.</p>
 </blockquote>
 <p>test case</p>
 <blockquote>
-<p>A test case is the individual unit of testing. It checks for a specific response to a particular set of inputs.<br />
+<p>A test case is the individual unit of testing. It checks for a specific response to a particular set of inputs.<br>
 unittest provides a base class, TestCase, which may be used to create new test cases.</p>
 </blockquote>
 <p>test suite</p>
@@ -309,40 +311,40 @@ unittest provides a base class, TestCase, which may be used to create new test c
 </blockquote>
 <p>test runner</p>
 <blockquote>
-<p>A test runner is a component which orchestrates the execution of tests and provides the outcome to the user.<br />
+<p>A test runner is a component which orchestrates the execution of tests and provides the outcome to the user.<br>
 The runner may use a graphical interface, a textual interface, or return a special value to indicate the results of executing the tests.</p>
 </blockquote>
 </blockquote>
-<p>官方文档讲了四种概念，但在这边目前仅涉及test case，即测试用例，这一概念的使用。<br />
+<p>官方文档讲了四种概念，但在这边目前仅涉及test case，即测试用例，这一概念的使用。<br>
 正如官方文档所说，test case检查输入特定的数据时的响应。正因如此我们可以用它来简化我们的需要输入数据的测试。</p>
-<h1 id="unittest中的断言方法"><a class="markdownIt-Anchor" href="#unittest中的断言方法"></a> Unittest中的断言方法</h1>
+<h1>Unittest中的断言方法</h1>
 <p>因为我们需要检查输出的结果，所以就要用到<code>unittest</code>中的断言方法，在这里我列举了一些方法。</p>
-<h1 id="对函数进行测试"><a class="markdownIt-Anchor" href="#对函数进行测试"></a> 对函数进行测试</h1>
+<h1>对函数进行测试</h1>
 <p>要对函数进行测试，首先我们得有用于测试的函数，我们既可以自行定义要测试的函数，也可以利用Python自带的函数，这里我先自行定义一个函数，它用于将两数相加并返回该值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b</span>):<br>	<span class="hljs-keyword">return</span> a + b<br></code></pre></td></tr></table></figure>
-<h2 id="通过的测试"><a class="markdownIt-Anchor" href="#通过的测试"></a> 通过的测试</h2>
+<h2 id="通过的测试">通过的测试</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> unittest<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AddTestCase</span>(unittest.TestCase):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_two_num_add</span>(<span class="hljs-params">self</span>):<br>        result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>        self.assertEqual(result, <span class="hljs-number">3</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    unittest.main()<br></code></pre></td></tr></table></figure>
-<p>首先导入<code>unittest</code>模块。<br />
-然后创建了一个名为 <code>AddTestCase</code> 的类，名字是可以随便取的，但是最好简单易懂（其实写注释就好啦）。要进行测试，这个类必须继承 <code>unittest.TsetCase</code> 类。<br />
-类里面目前只写了一个方法，用于测试两个数相加的情况。在运行时，所有以test_打头的方法都将自动运行。<br />
+<p>首先导入<code>unittest</code>模块。<br>
+然后创建了一个名为 <code>AddTestCase</code> 的类，名字是可以随便取的，但是最好简单易懂（其实写注释就好啦）。要进行测试，这个类必须继承 <code>unittest.TsetCase</code> 类。<br>
+类里面目前只写了一个方法，用于测试两个数相加的情况。在运行时，所有以test_打头的方法都将自动运行。<br>
 在这个方法中，调用了之前编写的<code>add</code>函数并将值返回到<code>result</code>变量中，然后用<code>unittest</code>中的断言方法来判断得到的结果是否与我们预期结果一致。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">.<br>----------------------------------------------------------------------<br>Ran <span class="hljs-number">1</span> test <span class="hljs-keyword">in</span> <span class="hljs-number">0.000</span>s<br><br>OK<br></code></pre></td></tr></table></figure>
 <p>直接运行这个文件，我们会得到如上输出。句点的数量代表了通过的测试数，在上面我们有一个句点，说明通过了一个测试。接下来的一行指出“在xxx秒内运行了xxx个测试”。最后的OK表示该测试用例中的所有单元测试都通过了。</p>
-<h2 id="未通过的测试"><a class="markdownIt-Anchor" href="#未通过的测试"></a> 未通过的测试</h2>
+<h2 id="未通过的测试">未通过的测试</h2>
 <p>如果测试未通过，控制台/终端会输出什么信息呢？试一下就知道了。这里我故意编写了一个无法通过的测试，将<strong>3</strong>改为了<strong>4</strong>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AddTestCase</span>(unittest.TestCase):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_two_num_add</span>(<span class="hljs-params">self</span>):<br>        result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>        self.assertEqual(result, <span class="hljs-number">4</span>)<br></code></pre></td></tr></table></figure>
 <p>报错信息如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">F<br>======================================================================<br>FAIL: test_two_num_add (__main__.AddTestCase)<br>----------------------------------------------------------------------<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;G:\example1.py&quot;</span>, line <span class="hljs-number">11</span>, <span class="hljs-keyword">in</span> test_two_num_add<br>    self.assertEqual(result, <span class="hljs-number">4</span>)<br>AssertionError: <span class="hljs-number">3</span> != <span class="hljs-number">4</span><br><br>----------------------------------------------------------------------<br>Ran <span class="hljs-number">1</span> test <span class="hljs-keyword">in</span> <span class="hljs-number">0.001</span>s<br><br>FAILED (failures=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<p>这里第一行显示测试用例中有一个单元测试失败，接下来告诉你具体是哪个单元测试，紧接着就是Traceback——详细的报错信息了。在最后，我们还能看到运行该测试用例时失败了多少个单元测试。<br />
+<p>这里第一行显示测试用例中有一个单元测试失败，接下来告诉你具体是哪个单元测试，紧接着就是Traceback——详细的报错信息了。在最后，我们还能看到运行该测试用例时失败了多少个单元测试。<br>
 在这里报的错是<strong>F</strong>，还有一种报错是<strong>E</strong>，这里一并演示一下：首先改下我们的函数<code>add</code>的代码，让它从现在开始接受三个参数</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b, c</span>):<br>    <span class="hljs-keyword">return</span> a + b + c<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AddTestCase</span>(unittest.TestCase):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_two_num_add</span>(<span class="hljs-params">self</span>):<br>        result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>        self.assertEqual(result, <span class="hljs-number">3</span>)<br></code></pre></td></tr></table></figure>
 <p>然后运行，得到如下信息：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">E<br>======================================================================<br>ERROR: test_two_num_add (__main__.AddTestCase)<br>----------------------------------------------------------------------<br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;G:\example1.py&quot;</span>, line <span class="hljs-number">10</span>, <span class="hljs-keyword">in</span> test_two_num_add<br>    result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>TypeError: add() missing <span class="hljs-number">1</span> required positional argument: <span class="hljs-string">&#x27;c&#x27;</span><br><br>----------------------------------------------------------------------<br>Ran <span class="hljs-number">1</span> test <span class="hljs-keyword">in</span> <span class="hljs-number">0.001</span>s<br><br>FAILED (errors=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<p>可以看到，在这里出的错就是E，即error了。<br />
+<p>可以看到，在这里出的错就是E，即error了。<br>
 通过对比我们就能知道，E代表程序代码引发的测试错误，F代表程序输出的结果没有得到“预期的结果”（毕竟所谓预期的结果也是我们自己所定义的）。</p>
-<h1 id="对类进行测试"><a class="markdownIt-Anchor" href="#对类进行测试"></a> 对类进行测试</h1>
+<h1>对类进行测试</h1>
 <p><em><strong>to do…</strong></em></p>
-<hr />
+<hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -502,6 +504,11 @@ The runner may use a graphical interface, a textual interface, or return a speci
 
 
   
+
+
+  
+  
+
 
 
 
