@@ -4,60 +4,6 @@
   
   
   <entry>
-    <title>力扣-2.两数相加</title>
-    <link href="/2022/10/04/leetcode-2/"/>
-    <url>/2022/10/04/leetcode-2/</url>
-    
-    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_2_1.png" alt="第一张图"></p><h1>实现</h1><p>什么额外要求都没有，也没让你把数字正序输出拼起来，那就直接简单遍历喽</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">addTwoNumbers</span>(<span class="hljs-params">self, l1: <span class="hljs-type">Optional</span>[ListNode], l2: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        head: ListNode = ListNode()<br>        scout: ListNode = head<br>        c_flag: <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 遍历l1和l2</span><br>            tmp: ListNode = ListNode()<br>            num1 = l1.val <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>            num2 = l2.val <span class="hljs-keyword">if</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>            <span class="hljs-keyword">if</span> num1 + num2 + c_flag &gt;= <span class="hljs-number">10</span>:  <span class="hljs-comment"># 产生进位，要把进位标志设置成1</span><br>                tmp.val = num1 + num2 + c_flag - <span class="hljs-number">10</span><br>                c_flag = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 没有进位，把进位标志设置成0</span><br>                tmp.val = num1 + num2 + c_flag<br>                c_flag = <span class="hljs-number">0</span><br>            scout.<span class="hljs-built_in">next</span> = tmp<br>            scout = tmp<br>            l1 = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> l1.<span class="hljs-built_in">next</span>  <span class="hljs-comment"># l1和l2若是还有后续，那就取后续，如果没有就要设置成None</span><br>            l2 = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> l2.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">if</span> c_flag == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 不要忘了遍历结束后，进位标志如果是1的话，还要加个最高位</span><br>            scout.<span class="hljs-built_in">next</span> = ListNode(<span class="hljs-number">1</span>, <span class="hljs-literal">None</span>)<br><br>        <span class="hljs-keyword">return</span> head.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure><p>千万别忘记遍历结束还要检查进位标志啊家人们，第一次交我直接漏了一个1没输出，执行示例那里看错了把预期结果看成我的输出我还以为没错TvT</p><blockquote><p>执行用时：56 ms, 在所有 Python3 提交中击败了87.89%的用户<br>内存消耗：15.1 MB, 在所有 Python3 提交中击败了26.41%的用户<br><s>打不过，告辞.jpg</s></p></blockquote><hr>]]></content>
-    
-    
-    <categories>
-      
-      <category>Solution</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Python</tag>
-      
-      <tag>Leetcode</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>力扣-921.使括号有效的最少添加</title>
-    <link href="/2022/10/04/leetcode-921/"/>
-    <url>/2022/10/04/leetcode-921/</url>
-    
-    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_921_1.png" alt="第一张图"><br>这个题目描述我只能说呃呃，其实就是括号匹配成立问题。再丢个实例就很明白了：</p><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Input:</span> s = <span class="hljs-string">&quot;()))((&quot;</span><br><span class="hljs-symbol">Output:</span> <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure><h1>实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minAddToMakeValid</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        flag = <span class="hljs-number">0</span><br>        result = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> bracket <span class="hljs-keyword">in</span> s[::-<span class="hljs-number">1</span>]:<br>            <span class="hljs-keyword">if</span> bracket == <span class="hljs-string">&#x27;(&#x27;</span> <span class="hljs-keyword">and</span> flag &gt; <span class="hljs-number">0</span>:<br>                flag -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> bracket == <span class="hljs-string">&#x27;(&#x27;</span>:<br>                result += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                flag += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> result + flag<br></code></pre></td></tr></table></figure><blockquote><p>执行用时：44 ms, 在所有 Python3 提交中击败了17.39%的用户<br>内存消耗：14.9 MB, 在所有 Python3 提交中击败了78.09%的用户<br>只能说不是很理想捏~<br>典型的<s>(简单)</s>贪心，上面代码我还把字符串反过来了，其实并不需要，但是<s>我比较笨</s>。</p></blockquote><h1>小声嘀咕</h1><p>我趣家人们，少一个切片操作直接：</p><blockquote><p>执行用时：36 ms, 在所有 Python3 提交中击败了74.09%的用户<br>内存消耗：14.8 MB, 在所有 Python3 提交中击败了的用户<br>我是珍珠啊<br><s>可恶我甚至看见了一个利用<code>replace</code>逃课的方法，这么做真的是太可恶了！</s></p></blockquote><hr>]]></content>
-    
-    
-    <categories>
-      
-      <category>Solution</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Python</tag>
-      
-      <tag>Leetcode</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>Linux学习笔记1</title>
     <link href="/2022/10/04/linux-learning-1/"/>
     <url>/2022/10/04/linux-learning-1/</url>
