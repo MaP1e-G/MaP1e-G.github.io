@@ -24,7 +24,7 @@
 <meta property="og:description" content="Linux程序设计第一章《入门》以及第二章《Shell程序设计》的笔记。第一章的内容包括一些终端的指令（如gcc、grep、man等），第二章则是介绍了使用Shell进行编程（程序设计）的一些基础知识。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-04T03:33:52.000Z">
-<meta property="article:modified_time" content="2022-10-04T06:51:41.097Z">
+<meta property="article:modified_time" content="2022-10-04T07:00:52.500Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Shell">
@@ -398,11 +398,14 @@ l == lib, m == 函数库名,即：<code>-l + 函数库名</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if condition<br>then<br>    statements<br>elif condition<br>then<br>    statements<br>else<br>    statements<br>fi<br></code></pre></td></tr></table></figure>
 <h4 id="for语句">for语句</h4>
 <p>我们可以用for结构来循环处理一组值，这组值可以是任意字符串的集合。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Shell">for variable in values<br>do<br>    statements<br>done<br>例子：<br>for foo in bar fud 43<br>do<br>    echo $foo<br>done<br>exit 0<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">for variable in values<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Shell">for foo in bar fud 43<br>do<br>    echo $foo<br>done<br>exit 0<br></code></pre></td></tr></table></figure>
 <h4 id="while语句">while语句</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">while condition<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>
 <h4 id="until语句">until语句</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">until condition<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>
+<hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
