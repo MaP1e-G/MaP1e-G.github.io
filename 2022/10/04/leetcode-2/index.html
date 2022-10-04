@@ -16,25 +16,23 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="力扣题库第一题。">
+    <meta name="description" content="题目描述  实现 什么额外要求都没有，也没让你把数字正序输出拼起来，那就直接简单遍历喽 1234567891011121314151617181920212223class Solution:    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -&gt; Optional[ListNode]:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-13.两数之和">
-<meta property="og:url" content="https://map1e-g.github.io/2022/10/01/leetcode-1/index.html">
+<meta property="og:title" content="力扣-2.两数相加">
+<meta property="og:url" content="https://map1e-g.github.io/2022/10/04/leetcode-2/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="力扣题库第一题。">
+<meta property="og:description" content="题目描述  实现 什么额外要求都没有，也没让你把数字正序输出拼起来，那就直接简单遍历喽 1234567891011121314151617181920212223class Solution:    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -&gt; Optional[ListNode]:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2022/10/01/xK6wo6.png">
-<meta property="article:published_time" content="2022-10-01T13:54:15.000Z">
-<meta property="article:modified_time" content="2022-10-01T15:35:10.138Z">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_2_1.png">
+<meta property="article:published_time" content="2022-10-04T05:55:00.000Z">
+<meta property="article:modified_time" content="2022-10-04T06:04:10.195Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="Leetcode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s1.ax1x.com/2022/10/01/xK6wo6.png">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_2_1.png">
   
   
   
-  <title>力扣-13.两数之和 - MaP1e-G&#39;s Blog</title>
+  <title>力扣-2.两数相加 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="力扣-13.两数之和"></span>
+            <span id="subtitle" data-typed-text="力扣-2.两数相加"></span>
           
         </div>
 
@@ -210,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-01 21:54" pubdate>
-          2022年10月1日 晚上
+        <time datetime="2022-10-04 13:55" pubdate>
+          2022年10月4日 下午
         </time>
       </span>
     
@@ -222,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          425 字
+          827 字
         
       </span>
     
@@ -233,7 +231,7 @@
         
         
         
-          4 分钟
+          7 分钟
         
       </span>
     
@@ -271,13 +269,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">力扣-13.两数之和</h1>
+            <h1 style="display: none">力扣-2.两数相加</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年10月1日 晚上
+                    本文最后更新于：2022年10月4日 下午
                   
                 
               </p>
@@ -285,16 +283,16 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<p>（如果看不到的话就去力扣吧）<br>
-<img src="https://s1.ax1x.com/2022/10/01/xK6wo6.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_2_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
 <h1>实现</h1>
-<h2 id="暴力枚举">暴力枚举</h2>
-<p>不用动脑子，直接遍历！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">twoSum</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], target: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(nums), <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i, <span class="hljs-built_in">len</span>(nums), <span class="hljs-number">1</span>):<br>                <span class="hljs-keyword">if</span> nums[i] + nums[j] == target:<br>                    <span class="hljs-keyword">return</span> [i, j]<br></code></pre></td></tr></table></figure>
-<h2 id="字典查找">字典查找</h2>
-<p>在字典里边查找值，这样可以防止重复遍历。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">twoSum</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], target: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        a_dict = <span class="hljs-built_in">dict</span>()<br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums):<br>            <span class="hljs-keyword">if</span> target - num <span class="hljs-keyword">in</span> a_dict:  <span class="hljs-comment"># in是在字典中存不存在对应key</span><br>                <span class="hljs-keyword">return</span> [a_dict[target - num], i]<br>            a_dict[nums[i]] = i<br></code></pre></td></tr></table></figure>
-<hr>
+<p>什么额外要求都没有，也没让你把数字正序输出拼起来，那就直接简单遍历喽</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">addTwoNumbers</span>(<span class="hljs-params">self, l1: <span class="hljs-type">Optional</span>[ListNode], l2: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        head: ListNode = ListNode()<br>        scout: ListNode = head<br>        c_flag: <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 遍历l1和l2</span><br>            tmp: ListNode = ListNode()<br>            num1 = l1.val <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>            num2 = l2.val <span class="hljs-keyword">if</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>            <span class="hljs-keyword">if</span> num1 + num2 + c_flag &gt;= <span class="hljs-number">10</span>:  <span class="hljs-comment"># 产生进位，要把进位标志设置成1</span><br>                tmp.val = num1 + num2 + c_flag - <span class="hljs-number">10</span><br>                c_flag = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 没有进位，把进位标志设置成0</span><br>                tmp.val = num1 + num2 + c_flag<br>                c_flag = <span class="hljs-number">0</span><br>            scout.<span class="hljs-built_in">next</span> = tmp<br>            scout = tmp<br>            l1 = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> l1.<span class="hljs-built_in">next</span>  <span class="hljs-comment"># l1和l2若是还有后续，那就取后续，如果没有就要设置成None</span><br>            l2 = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> l2.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">if</span> c_flag == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 不要忘了遍历结束后，进位标志如果是1的话，还要加个最高位</span><br>            scout.<span class="hljs-built_in">next</span> = ListNode(<span class="hljs-number">1</span>, <span class="hljs-literal">None</span>)<br><br>        <span class="hljs-keyword">return</span> head.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure>
+<p>千万别忘记遍历结束还要检查进位标志啊家人们，第一次交我直接漏了一个1没输出，执行示例那里看错了把预期结果看成我的输出我还以为没错TvT</p>
+<blockquote>
+<p>执行用时：56 ms, 在所有 Python3 提交中击败了87.89%的用户<br>
+内存消耗：15.1 MB, 在所有 Python3 提交中击败了26.41%的用户<br>
+<s>打不过，告辞.jpg</s></p>
+</blockquote>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -302,36 +300,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Solution/" class="category-chain-item">Solution</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Python/">#Python</a>
-      
-        <a href="/tags/Leetcode/">#Leetcode</a>
-      
-    </div>
   
 </div>
 
@@ -341,8 +309,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>力扣-13.两数之和</div>
-      <div>https://map1e-g.github.io/2022/10/01/leetcode-1/</div>
+      <div>力扣-2.两数相加</div>
+      <div>https://map1e-g.github.io/2022/10/04/leetcode-2/</div>
     </div>
     <div class="license-meta">
       
@@ -354,7 +322,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月1日</div>
+          <div>2022年10月4日</div>
         </div>
       
       
@@ -384,18 +352,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/04/linux-learning-1/" title="Linux学习笔记1">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux学习笔记1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/30/leetcode-13/" title="力扣-13.罗马数字转整数">
-                        <span class="hidden-mobile">力扣-13.罗马数字转整数</span>
+                      <a href="/2022/10/04/leetcode-921/" title="力扣-921.使括号有效的最少添加">
+                        <span class="hidden-mobile">力扣-921.使括号有效的最少添加</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

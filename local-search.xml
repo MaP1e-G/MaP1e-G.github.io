@@ -4,6 +4,75 @@
   
   
   <entry>
+    <title>力扣-2.两数相加</title>
+    <link href="/2022/10/04/leetcode-2/"/>
+    <url>/2022/10/04/leetcode-2/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_2_1.png" alt="第一张图"></p><h1>实现</h1><p>什么额外要求都没有，也没让你把数字正序输出拼起来，那就直接简单遍历喽</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">addTwoNumbers</span>(<span class="hljs-params">self, l1: <span class="hljs-type">Optional</span>[ListNode], l2: <span class="hljs-type">Optional</span>[ListNode]</span>) -&gt; <span class="hljs-type">Optional</span>[ListNode]:<br>        head: ListNode = ListNode()<br>        scout: ListNode = head<br>        c_flag: <span class="hljs-built_in">int</span> = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 遍历l1和l2</span><br>            tmp: ListNode = ListNode()<br>            num1 = l1.val <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>            num2 = l2.val <span class="hljs-keyword">if</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br>            <span class="hljs-keyword">if</span> num1 + num2 + c_flag &gt;= <span class="hljs-number">10</span>:  <span class="hljs-comment"># 产生进位，要把进位标志设置成1</span><br>                tmp.val = num1 + num2 + c_flag - <span class="hljs-number">10</span><br>                c_flag = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 没有进位，把进位标志设置成0</span><br>                tmp.val = num1 + num2 + c_flag<br>                c_flag = <span class="hljs-number">0</span><br>            scout.<span class="hljs-built_in">next</span> = tmp<br>            scout = tmp<br>            l1 = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> l1 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> l1.<span class="hljs-built_in">next</span>  <span class="hljs-comment"># l1和l2若是还有后续，那就取后续，如果没有就要设置成None</span><br>            l2 = <span class="hljs-literal">None</span> <span class="hljs-keyword">if</span> l2 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">else</span> l2.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">if</span> c_flag == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 不要忘了遍历结束后，进位标志如果是1的话，还要加个最高位</span><br>            scout.<span class="hljs-built_in">next</span> = ListNode(<span class="hljs-number">1</span>, <span class="hljs-literal">None</span>)<br><br>        <span class="hljs-keyword">return</span> head.<span class="hljs-built_in">next</span><br></code></pre></td></tr></table></figure><p>千万别忘记遍历结束还要检查进位标志啊家人们，第一次交我直接漏了一个1没输出，执行示例那里看错了把预期结果看成我的输出我还以为没错TvT</p><blockquote><p>执行用时：56 ms, 在所有 Python3 提交中击败了87.89%的用户<br>内存消耗：15.1 MB, 在所有 Python3 提交中击败了26.41%的用户<br><s>打不过，告辞.jpg</s></p></blockquote>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>力扣-921.使括号有效的最少添加</title>
+    <link href="/2022/10/04/leetcode-921/"/>
+    <url>/2022/10/04/leetcode-921/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_921_1.png" alt="第一张图"><br>这个题目描述我只能说呃呃，其实就是括号匹配成立问题。再丢个实例就很明白了：</p><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Input:</span> s = <span class="hljs-string">&quot;()))((&quot;</span><br><span class="hljs-symbol">Output:</span> <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure><h1>实现</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minAddToMakeValid</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        flag = <span class="hljs-number">0</span><br>        result = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> bracket <span class="hljs-keyword">in</span> s[::-<span class="hljs-number">1</span>]:<br>            <span class="hljs-keyword">if</span> bracket == <span class="hljs-string">&#x27;(&#x27;</span> <span class="hljs-keyword">and</span> flag &gt; <span class="hljs-number">0</span>:<br>                flag -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> bracket == <span class="hljs-string">&#x27;(&#x27;</span>:<br>                result += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                flag += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> result + flag<br></code></pre></td></tr></table></figure><blockquote><p>执行用时：44 ms, 在所有 Python3 提交中击败了17.39%的用户<br>内存消耗：14.9 MB, 在所有 Python3 提交中击败了78.09%的用户<br>只能说不是很理想捏~<br>典型的<s>(简单)</s>贪心，上面代码我还把字符串反过来了，其实并不需要，但是<s>我比较笨</s>。</p></blockquote><h1>小声嘀咕</h1><p>我趣家人们，少一个切片操作直接：</p><blockquote><p>执行用时：36 ms, 在所有 Python3 提交中击败了74.09%的用户<br>内存消耗：14.8 MB, 在所有 Python3 提交中击败了的用户<br>我是珍珠啊<br><s>可恶我甚至看见了一个利用<code>replace</code>逃课的方法，这么做真的是太可恶了！</s></p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux学习笔记1</title>
+    <link href="/2022/10/04/linux-learning-1/"/>
+    <url>/2022/10/04/linux-learning-1/</url>
+    
+    <content type="html"><![CDATA[<h1>想说的话</h1><p>本系列文章可能不会是你所期待的文章，在阅读的时候你可能会觉得该文章的问题包括但不限于：抽象、错误、跳跃，是因为我在写该系列文章的时候并没有像之前其他系列文章那样做。<br>该系列文章更多的是我对书中知识的大概概括。<br>阅读该系列文章可能会需要一定编程基础。<br>敬请谅解。</p><h1>第一章 入门</h1><h2 id="命令"><code>./</code>命令</h2><p>例子：<code>./hello</code><br>特别指示shell去执行当前目录下给定的名称的程序</p><h2 id="gcc命令"><code>gcc</code>命令</h2><p><code>-I + 位置</code><br>例子：<code>gcc -I/usr/openwin/include fred.c</code><br>查找包含保存在子目录或非标准位置中的头文件</p><h2 id="命令的简写">命令的简写</h2><p><code>gcc -o fred fred.c /usr/lib/libm.a</code>可以写成<code>gcc -o fred fred.c -lm</code><br>l == lib, m == 函数库名,即：<code>-l + 函数库名</code></p><h2 id="L-位置"><code>-L + 位置</code></h2><p>例子：<code>gcc -o x11fred -L/usr/openwin/lib x11fred.c -lX11</code><br>为编译器增加库的搜索路径</p><h2 id="c"><code>-c</code></h2><p>作用是阻止编译器创建一个完整的程序(一般情况下输出一个<code>.o</code>文件</p><h2 id="ar程序"><code>ar</code>程序</h2><p>例子：<code>ar crv libfoo.a bill.o fred.o</code><br>将若干单独的文件归并到一个大的文件中以创建归档文件或集合</p><h2 id="grep命令"><code>grep</code>命令</h2><p>搜索包含某些特定定义和函数原型的头文件<br>例子：<code>grep EXIT_ *.h</code><br>在当前目录下的所有以<code>.h</code>结尾的文件中搜索字符串<code>EXIT_</code>。</p><h2 id="nm命令"><code>nm</code>命令</h2><p>查看哪些函数被包含在目标文件、函数库或可执行文件里。</p><h2 id="Linux和Windows环境下的文件格式区分">Linux和Windows环境下的文件格式区分</h2><p>第一行为在Linux环境下对应的文件格式，第二行则是在Windows环境下产生的文件格式。</p><table><thead><tr><th style="text-align:center">目标模块</th><th style="text-align:center">静态函数库</th><th style="text-align:center">程序</th></tr></thead><tbody><tr><td style="text-align:center">func.o</td><td style="text-align:center">lib.a</td><td style="text-align:center">program</td></tr><tr><td style="text-align:center">FUNC.OBJ</td><td style="text-align:center">LIB.LIB</td><td style="text-align:center">PROGRAM.EXE</td></tr></tbody></table><h2 id="man命令"><code>man</code>命令</h2><p>例子：<code>man gcc</code><br>访问在线手册页，按空格键读下一页，按<code>Enter/Return</code>键读下一行，按<code>q</code>退出。</p><h2 id="info命令"><code>info</code>命令</h2><p>GNU软件使用的在线文档系统，按下<code>Ctrl+H</code>以获得帮助信息。</p><h1>第二章 Shell程序设计</h1><h2 id="2-1-重定向输出">2.1 重定向输出</h2><p>文件描述符0代表一个程序的标准输入，文件描述符1代表标准输出，2代表标准错误输出。</p><h3 id="操作符"><code>&gt;</code>操作符</h3><p>例子：<code>ls -l &gt; lsoutput.txt</code><br>把命令的输出保存到文件中。如果文件已存在则覆盖，可使用命令<code>set -o noclobber</code>或<code>set -C</code>设置<code>noclobber</code>选项，从而阻止重定向操作对一个已有文件的覆盖。可以使用<code>set +o noclobber</code>命令取消该选项。</p><h3 id="操作符-2"><code>&gt;&gt;</code>操作符</h3><p>例子：<code>ps &gt;&gt; lsoutput.txt</code><br>把命令的输出附加到指定文件的尾部。</p><h3 id="2"><code>2&gt;</code></h3><p>例子：<code>kill -HUP 1234 &gt;killout.txt 2&gt;killerr.txt</code><br>对标准错误输出进行重定向。当需要丢弃错误信息并阻止它显示在屏幕上时，这个方法很有用(比如一些错误无伤大雅，不需要弹框提示，但是应该把它写进去log)。<br>在上面的例子中，标准输出和标准错误输出分别被重定向到不同的文件中了。<br><code>kill -1 1234 &gt;killouterr.txt 2&gt;&amp;1</code><br>两组输出都被重定向到一个文件中了。 <code>&gt;&amp;</code>操作符可以结合两个输出。</p><h3 id="dev-null"><code>&gt;/dev/null</code></h3><p>例子：<code>kill -l 1234 &gt;/dev/null 2&gt;&amp;1</code><br>丢弃输出。</p><h3 id="操作符-3"><code>|</code>操作符</h3><p>例子：<code>ps &gt; psout.txt</code><br>你可以用管道操作符<code>|</code>来连接进程。<br>比如<code>sort psout.txt &gt; pssort.out</code>可以写成：<code>ps | sort &gt; pssort.out</code></p><h2 id="2-2-编写第一个脚本">2.2 编写第一个脚本</h2><p>假设现在我们已经编写好了一个脚本文件<code>first</code>，我们可以这样使用：<code>/bin/sh first</code><br>看上去很麻烦，可以用<code>chmod</code>命令来改变这个文件的模式：<code>chmod +x first</code><br>然后就可以使用<code>first</code>(配置过环境变量PATH)或者<code>./first</code>(推荐)执行了。</p><h2 id="2-3-shell的语法">2.3 shell的语法</h2><h3 id="2-3-1-变量">2.3.1 变量</h3><p>创建变量：<code>x=1</code>(在默认情况下，所有变量都被看作字符串并以字符串来存储。shell和一些工具程序会在需要时把数值型字符串转换为对应的数值以对它们进行操作。)<br>访问变量：通过在变量名前加一个<code>$</code>符号来访问它的内容。<br>例子：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">salutation=Hello</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$salutation</span></span><br>Hello<br></code></pre></td></tr></table></figure><p>注意，如果字符串里包含空格，就必须用引号把它们括起来。此外，等号两边不能有空格。</p><h4 id="read命令">read命令</h4><p>例子：<code>read salutation</code><br>将用户的输入赋值给一个变量。</p><h4 id="引号的使用">引号的使用</h4><p>变量在引号中的行为取决于你所使用的引号类型。如果把<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>变量表达式放在双引号中，程序执行到这一行时就会把变量替换为它的值；如果放在单引号中，就不会替换。在</mtext><mi mathvariant="normal">‘</mi></mrow><annotation encoding="application/x-tex">变量表达式放在双引号中，程序执行到这一行时就会把变量替换为它的值；如果放在单引号中，就不会替换。在`</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord cjk_fallback">变量表达式放在双引号中，程序执行到这一行时就会把变量替换为它的值；如果放在单引号中，就不会替换。在</span><span class="mord">‘</span></span></span></span><code>前面加上一个</code>`字符会取消<code>$</code>的特殊含义。</p><h4 id="环境变量">环境变量</h4><p>当一个shell脚本程序开始执行时，一些变量会根据环境设置中的值进行初始化。</p><h4 id="参数变量">参数变量</h4><p>如果脚本程序在调用时带有参数，一些额外的变量就会被创建。<br>例子：<code>$ ./try_var foo bar baz</code></p><h3 id="2-3-2-条件">2.3.2 条件</h3><h4 id="test或-命令"><code>test</code>或<code>[</code>命令</h4><p>例子：检查一个文件是否存在</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if test -f fred.c<br>then<br>...<br>else<br>...<br>fi<br></code></pre></td></tr></table></figure><p>或者写成：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if [ -f fred.c ]<br>then<br>...<br>else<br>...<br>fi<br></code></pre></td></tr></table></figure><p>注意要在[符号和被检查的条件之间留出空格。<br>可以把<code>if</code>和<code>then</code>放在同一行：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if [ -f fred.c ]; then  <br>...<br>fi<br></code></pre></td></tr></table></figure><p><code>test</code>命令可以使用的条件类型可以归为三类：字符串比较、算数比较和与文件有关的条件测试。</p><h3 id="2-3-3控制结构">2.3.3控制结构</h3><h4 id="if…elif…else语句">if…elif…else语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if condition<br>then<br>    statements<br>elif condition<br>then<br>    statements<br>else<br>    statements<br>fi<br></code></pre></td></tr></table></figure><h4 id="for语句">for语句</h4><p>我们可以用for结构来循环处理一组值，这组值可以是任意字符串的集合。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Shell">for variable in values<br>do<br>    statements<br>done<br>例子：<br>for foo in bar fud 43<br>do<br>    echo $foo<br>done<br>exit 0<br></code></pre></td></tr></table></figure><h4 id="while语句">while语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">while condition<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure><h4 id="until语句">until语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">until condition<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Learning Log</category>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+      <tag>Shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>力扣-13.两数之和</title>
     <link href="/2022/10/01/leetcode-1/"/>
     <url>/2022/10/01/leetcode-1/</url>
@@ -49,9 +118,9 @@
       
       <tag>Python</tag>
       
-      <tag>Java</tag>
-      
       <tag>Leetcode</tag>
+      
+      <tag>Java</tag>
       
     </tags>
     
