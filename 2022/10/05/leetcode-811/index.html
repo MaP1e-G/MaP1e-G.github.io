@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_811_1.png">
 <meta property="article:published_time" content="2022-10-05T12:53:02.000Z">
-<meta property="article:modified_time" content="2022-10-05T14:02:38.681Z">
+<meta property="article:modified_time" content="2022-10-05T14:03:58.615Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
@@ -285,7 +285,7 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<h1><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_811_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_811_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
 <h1>实现</h1>
 <p>我是这么想的，每个字符串都使用两次<code>spilt()</code>方法进行字符串的提取，第一次分隔符为<code>&quot; &quot;</code>，第二次则为<code>&quot;.&quot;</code>，这样，我们第一次提取出来的就是访问次数和访问域名，第二次则是提取子域名和父域名。<br>
 然后把所有东西都塞进哈希表（字典）里，<code>Key</code>为域名，<code>Value</code>为访问次数。如果哈希表存在该域名就直接加访问次数，否则就创建一个新键值对并加上访问次数。<br>
