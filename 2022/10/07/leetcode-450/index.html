@@ -16,25 +16,26 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="力扣题库第811题。">
+    <meta name="description" content="力扣题库第450题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-811.子域名访问计数">
-<meta property="og:url" content="https://map1e-g.github.io/2022/10/05/leetcode-811/index.html">
+<meta property="og:title" content="力扣-450.删除二叉搜索树中的节点">
+<meta property="og:url" content="https://map1e-g.github.io/2022/10/07/leetcode-450/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="力扣题库第811题。">
+<meta property="og:description" content="力扣题库第450题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_811_1.png">
-<meta property="article:published_time" content="2022-10-05T12:53:02.000Z">
-<meta property="article:modified_time" content="2022-10-05T14:03:58.615Z">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_1.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_2.png">
+<meta property="article:published_time" content="2022-10-07T12:21:22.000Z">
+<meta property="article:modified_time" content="2022-10-07T15:23:20.368Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_811_1.png">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_1.png">
   
   
   
-  <title>力扣-811.子域名访问计数 - MaP1e-G&#39;s Blog</title>
+  <title>力扣-450.删除二叉搜索树中的节点 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="力扣-811.子域名访问计数"></span>
+            <span id="subtitle" data-typed-text="力扣-450.删除二叉搜索树中的节点"></span>
           
         </div>
 
@@ -210,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-05 20:53" pubdate>
-          2022年10月5日 晚上
+        <time datetime="2022-10-07 20:21" pubdate>
+          2022年10月7日 晚上
         </time>
       </span>
     
@@ -222,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          2.7k 字
         
       </span>
     
@@ -233,7 +234,7 @@
         
         
         
-          11 分钟
+          23 分钟
         
       </span>
     
@@ -271,13 +272,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">力扣-811.子域名访问计数</h1>
+            <h1 style="display: none">力扣-450.删除二叉搜索树中的节点</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年10月5日 晚上
+                    本文最后更新于：2022年10月7日 晚上
                   
                 
               </p>
@@ -285,18 +286,29 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_811_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
-<h1>实现</h1>
-<p>我是这么想的，每个字符串都使用两次<code>spilt()</code>方法进行字符串的提取，第一次分隔符为<code>&quot; &quot;</code>，第二次则为<code>&quot;.&quot;</code>，这样，我们第一次提取出来的就是访问次数和访问域名，第二次则是提取子域名和父域名。<br>
-然后把所有东西都塞进哈希表（字典）里，<code>Key</code>为域名，<code>Value</code>为访问次数。如果哈希表存在该域名就直接加访问次数，否则就创建一个新键值对并加上访问次数。<br>
-程序应该是二重循环，要遍历一次传入的字符串数组，还要遍历第二次使用<code>spilt()</code>得到的域名。<br>
-关于输出格式，同样的用一个字符串数组保存结果，遍历字典，字符串格式为：<code>Value + &quot; &quot; + Key</code>。<br>
-然后我的第一遍实现（代码未优化）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">subdomainVisits</span>(<span class="hljs-params">self, cpdomains: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]:<br>        result: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-built_in">list</span>()<br>        a_dict = <span class="hljs-built_in">dict</span>()<br>        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> cpdomains:  <span class="hljs-comment"># 遍历给定数组</span><br>            tmp = s.split(<span class="hljs-string">&quot; &quot;</span>)<br>            count = <span class="hljs-built_in">int</span>(tmp[<span class="hljs-number">0</span>])<br>            domains = tmp[<span class="hljs-number">1</span>].split(<span class="hljs-string">&quot;.&quot;</span>)<br>            <span class="hljs-keyword">for</span> i, domain <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(domains):  <span class="hljs-comment"># 遍历域名</span><br>                <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(i + <span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(domains)):  <span class="hljs-comment"># 拼接域名</span><br>                    domain = domain + <span class="hljs-string">&quot;.&quot;</span> + domains[j]<br>                <span class="hljs-keyword">if</span> domain <span class="hljs-keyword">in</span> a_dict:<br>                    a_dict[domain] += count<br>                <span class="hljs-keyword">else</span>:<br>                    a_dict[domain] = count<br>        <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> a_dict.items():<br>            result.append(<span class="hljs-built_in">str</span>(v) + <span class="hljs-string">&quot; &quot;</span> + k)<br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
-<p>好，写完发现我怎么用了三重循环，哦，原来是自己光记着把域名拆开没记着把域名拼起来才行了。<br>
-然后是官方题解：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">subdomainVisits</span>(<span class="hljs-params">self, cpdomains: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]:<br>        cnt = Counter()<br>        <span class="hljs-keyword">for</span> domain <span class="hljs-keyword">in</span> cpdomains:<br>            c, s = domain.split()<br>            c = <span class="hljs-built_in">int</span>(c)<br>            cnt[s] += c<br>            <span class="hljs-keyword">while</span> <span class="hljs-string">&#x27;.&#x27;</span> <span class="hljs-keyword">in</span> s:<br>                s = s[s.index(<span class="hljs-string">&#x27;.&#x27;</span>) + <span class="hljs-number">1</span>:]<br>                cnt[s] += c<br>        <span class="hljs-keyword">return</span> [<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;c&#125;</span> <span class="hljs-subst">&#123;s&#125;</span>&quot;</span> <span class="hljs-keyword">for</span> s, c <span class="hljs-keyword">in</span> cnt.items()]<br></code></pre></td></tr></table></figure>
-<p>我草，好嗯必，他用的是<code>Counter</code>，直接在知道格式的情况下利用<code>spilt</code>返回两个值就完事了，他用<code>while</code>循环检查<code>'.'</code>在不在域名字符串里，返回语句更是上列表解析式，我草，太嗯必了，薄纱我这种垃圾代码好吧。。。</p>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"><br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_2.png" srcset="/img/loading.gif" lazyload alt="第二张图"></p>
+<h1>思路和实现</h1>
+<p>二叉搜索树，即二叉查找树，Binary Search Tree，简称BST。在BST中，给定节点左子树里的节点会小于给定节点，而右子树里的节点会大于给定节点。<br>
+那么我们需要在满足约束的情况下进行删除，就需要特别的策略，以下给出我的策略的描述：（P.S：看题目的示例有两种答案，那么你也应该知道策略不止一种）</p>
+<blockquote>
+<p>迭代找到要删除的节点，以及它的父节点<br>
+如果被删除的节点有左右子树，那么应该用被删除节点的左子树的最大元素节点来替代这个被删除节点</p>
+<blockquote>
+<p>根据BST的约束，我们可以知道被删除节点的左子树中的最大元素节点应该是该子树最右边的节点，迭代找出这个节点和它的父节点<br>
+如果这个最大元素节点就是被删除节点的左子节点，那么需要把该左子节点的左子节点挂在它的父节点的左子节点上<br>
+如果这个最大元素节点不是被删除节点的左子节点，那么要把这个最大元素节点的父节点的右子节点指向该最大元素节点的左子节点<br>
+上述操作完成后，将该最大元素节点左右子树的引用改为删除节点左右子树的引用<br>
+如果被删除的节点只有左子树或者右子树，那么只需要把被删除节点的父节点指向被删除节点的引用指向这个被删除节点的左子树或右子树即可<br>
+如果被删除的节点没有左右子树，把它的父节点指向它的引用改为None即可<br>
+最开始的实现：</p>
+</blockquote>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, val=0, left=None, right=None):</span><br><span class="hljs-comment">#         self.val = val</span><br><span class="hljs-comment">#         self.left = left</span><br><span class="hljs-comment">#         self.right = right</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">deleteNode</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], key: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[TreeNode]:<br>        current, parent = root, <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">while</span> current <span class="hljs-keyword">and</span> current.val != key:  <span class="hljs-comment"># 找到要删除的节点，以及它的父节点</span><br>            parent = current<br>            current = current.left <span class="hljs-keyword">if</span> current.val &gt; key <span class="hljs-keyword">else</span> current.right<br>        <span class="hljs-keyword">if</span> current <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 不存在该节点</span><br>            <span class="hljs-keyword">return</span> root<br>        <span class="hljs-keyword">elif</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 如果被删除节点拥有左右子节点，找到左子树中的最大节点current</span><br>            successor, successor_parent = current.left, current<br>            <span class="hljs-keyword">while</span> successor.right:  <span class="hljs-comment"># 遍历到最右后，就找到了最大节点</span><br>                successor_parent = successor<br>                successor = successor.right<br>            <span class="hljs-keyword">if</span> successor_parent.val == current.val:  <span class="hljs-comment"># 如果这个最大元素节点就是被删除节点的左子节点，那么需要把该左子节点的左子节点挂在它父节点的左子节点上</span><br>                successor_parent.left = successor.left<br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 如果这个最大元素节点不是被删除节点的左子节点，那么要把这个最大元素节点的父节点的右子节点指向该最大元素节点的左子节点</span><br>                successor_parent.right = successor.left<br>            successor.left = current.left<br>            successor.right = current.right<br>            current = successor<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">if</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                current = current.right<br>            <span class="hljs-keyword">elif</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                current = current.left<br>            <span class="hljs-keyword">else</span>:<br>                current = <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> current<br>        <span class="hljs-keyword">elif</span> parent.left <span class="hljs-keyword">and</span> parent.left.val == key:<br>            parent.left = current<br>        <span class="hljs-keyword">else</span>:<br>            parent.right = current<br>        <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure>
+<p>优化后：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">deleteNode</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], key: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[TreeNode]:<br>        current, parent = root, <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">while</span> current <span class="hljs-keyword">and</span> current.val != key:<br>            parent = current<br>            current = current.left <span class="hljs-keyword">if</span> current.val &gt; key <span class="hljs-keyword">else</span> current.right<br>        <span class="hljs-keyword">if</span> current <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> root<br>        <span class="hljs-keyword">if</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            current = <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">elif</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            current = current.right<br>        <span class="hljs-keyword">elif</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            current = current.left<br>        <span class="hljs-keyword">else</span>:<br>            successor, successor_parent = current.left, current<br>            <span class="hljs-keyword">while</span> successor.right:<br>                successor_parent = successor<br>                successor = successor.right<br>            <span class="hljs-keyword">if</span> successor_parent.val == current.val:<br>                successor_parent.left = successor.left<br>            <span class="hljs-keyword">else</span>:<br>                successor_parent.right = successor.left<br>            successor.left = current.left<br>            successor.right = current.right<br>            current = successor<br>        <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> current<br>        <span class="hljs-keyword">elif</span> parent.left <span class="hljs-keyword">and</span> parent.left.val == key:<br>            parent.left = current<br>        <span class="hljs-keyword">else</span>:<br>            parent.right = current<br>        <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure>
+<h1>题外话</h1>
+<p>基础不牢地动山摇。属实是把我干碎了，树和图掌握得依然不行，还得找时间补习。</p>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -344,8 +356,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>力扣-811.子域名访问计数</div>
-      <div>https://map1e-g.github.io/2022/10/05/leetcode-811/</div>
+      <div>力扣-450.删除二叉搜索树中的节点</div>
+      <div>https://map1e-g.github.io/2022/10/07/leetcode-450/</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +369,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月5日</div>
+          <div>2022年10月7日</div>
         </div>
       
       
@@ -387,18 +399,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/06/leetcode-927/" title="力扣-927.三等分">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">力扣-927.三等分</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/04/leetcode-2/" title="力扣-2.两数相加">
-                        <span class="hidden-mobile">力扣-2.两数相加</span>
+                      <a href="/2022/10/07/leetcode-1800/" title="力扣-1800.最大升序子数组和">
+                        <span class="hidden-mobile">力扣-1800.最大升序子数组和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
