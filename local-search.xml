@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>力扣-856.括号的分数</title>
+    <link href="/2022/10/09/leetcode-856/"/>
+    <url>/2022/10/09/leetcode-856/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_856_1.png" alt="第一张图"></p><h1>实现</h1><p>哈哈家人们！今天的题目又是找规律（<br>来看题目告诉我们的，再多看看几个例子，我们可以总结出下面的规律：</p><blockquote><p>'()'字符串，就是一个1<br>')('字符串，就是一个+<br>'(('字符串，就是<em>2<br>'))'字符串则是告诉我们，需要从栈中取数出来进行运算，直到进行过</em>运算为止<br>所以我们还需要两个栈，一个用来保存数字，一个用来保存数组。然后遍历题目给我们的字符串即可。当然最后不能忘记把运算符栈清空。</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">scoreOfParentheses</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        nums = deque()<br>        ops = deque()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(s)):  <span class="hljs-comment"># 因为每次要读取两个字符，所以从第二个字符开始读</span><br>            <span class="hljs-keyword">if</span> s[i - <span class="hljs-number">1</span>: i + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;()&#x27;</span>:<br>                nums.append(<span class="hljs-built_in">int</span>(<span class="hljs-number">1</span>))<br>            <span class="hljs-keyword">elif</span> s[i - <span class="hljs-number">1</span>: i + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;)(&#x27;</span>:<br>                ops.append(<span class="hljs-string">&#x27;+&#x27;</span>)<br>            <span class="hljs-keyword">elif</span> s[i - <span class="hljs-number">1</span>: i + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;((&#x27;</span>:<br>                nums.append(<span class="hljs-built_in">int</span>(<span class="hljs-number">2</span>))<br>                ops.append(<span class="hljs-string">&#x27;*&#x27;</span>)<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">while</span> ops.pop() != <span class="hljs-string">&#x27;*&#x27;</span>:<br>                    nums.append(nums.pop() + nums.pop())<br>                nums.append(nums.pop() * nums.pop())<br>        <span class="hljs-keyword">while</span> ops:<br>            ops.pop()<br>            nums.append(nums.pop() + nums.pop())<br>        <span class="hljs-keyword">return</span> nums.pop()<br></code></pre></td></tr></table></figure><h2 id="（一看题解又是被薄纱，无论是编程思维还是数学思维这块还是不如人家，把这个想成树也是厉害，用dfs出答案。）">（一看题解又是被薄纱，无论是编程思维还是数学思维这块还是不如人家，把这个想成树也是厉害，用dfs出答案。）</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>力扣-870.优势洗牌</title>
+    <link href="/2022/10/08/leetcode-870/"/>
+    <url>/2022/10/08/leetcode-870/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_870_1.png" alt="第一张图"></p><h1>思路及实现</h1><p>根据题目我们很容易想到用贪心解决问题。即每次取<code>nums1</code>中最小的数字跟<code>nums2</code>中的比较。可以将<code>nums1</code>按升序排序，用另一个数组<code>reslut</code>保存结果。<br>最开始无脑写的：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">advantageCount</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        nums1.sort()<br>        result: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>] = []<br>        <span class="hljs-keyword">for</span> num2 <span class="hljs-keyword">in</span> nums2:<br>            <span class="hljs-keyword">for</span> i, num1 <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums1):<br>                <span class="hljs-keyword">if</span> num1 &gt; num2:<br>                    nums1.remove(num1)<br>                    result.append(num1)<br>                    <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">elif</span> i == <span class="hljs-built_in">len</span>(nums1) - <span class="hljs-number">1</span>:  <span class="hljs-comment"># 没有大于数组2当前数字的数字了</span><br>                    result.append(nums1.pop(<span class="hljs-number">0</span>))<br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure><p>超时，好的，我就知道（怕不怕我10^5长度的数组）。重新想过后，确实有更好的方法，原理不变，也是贪心，但是对两个数组都进行排序，并“浪费”点空间，创建一些辅助数组。<br>我们对数组1进行遍历，对<code>nums2</code>则是利用一下双指针。当<code>nums1</code>的数大于<code>nums2</code>的数时，由于我们已经排过序，那么此时肯定满足优势最大化，因为<code>nums1</code>之后的数都会比当前数大了，所以直接进行配对就行。<br>如果小于的话，那这个数也小于<code>nums2</code>之后的数，所以就把这个数丢给<code>nums2</code>中最大的数，也就是尾指针指向的数。<br>其实难点在于怎么保持原来的顺序输出，也就是下标问题。由于<code>sort()</code>函数接受一个<code>key</code>参数，而这个参数会将接收到的数据用于排序的关键，所以可以利用这点来排序下标数组，以保证最后的输出。<br>由于我们的数是一一对应的，所以不必担心重复访问，也就是说，我们可以直接对<code>nums2</code>数组进行修改，并返回它。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">advantageCount</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        len2 = <span class="hljs-built_in">len</span>(nums2)<br>        index2 = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(len2))<br>        index2.sort(key=<span class="hljs-keyword">lambda</span> x: nums2[x])<br>        nums1.sort()<br>        head = <span class="hljs-number">0</span><br>        tail = len2 - <span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums1:  <span class="hljs-comment"># 遍历数组1</span><br>            <span class="hljs-keyword">if</span> num &gt; nums2[index2[head]]:<br>                nums2[index2[head]] = num<br>                head += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                nums2[index2[tail]] = num<br>                tail -= <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> nums2<br></code></pre></td></tr></table></figure><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>力扣-450.删除二叉搜索树中的节点</title>
     <link href="/2022/10/07/leetcode-450/"/>
     <url>/2022/10/07/leetcode-450/</url>

@@ -16,26 +16,25 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="力扣题库第450题。">
+    <meta name="description" content="力扣题库第870题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-450.删除二叉搜索树中的节点">
-<meta property="og:url" content="https://map1e-g.github.io/2022/10/07/leetcode-450/index.html">
+<meta property="og:title" content="力扣-870.优势洗牌">
+<meta property="og:url" content="https://map1e-g.github.io/2022/10/08/leetcode-870/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="力扣题库第450题。">
+<meta property="og:description" content="力扣题库第870题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_1.png">
-<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_2.png">
-<meta property="article:published_time" content="2022-10-07T12:21:22.000Z">
-<meta property="article:modified_time" content="2022-10-07T15:23:20.368Z">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_870_1.png">
+<meta property="article:published_time" content="2022-10-08T02:06:15.000Z">
+<meta property="article:modified_time" content="2022-10-09T07:57:12.313Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_1.png">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_870_1.png">
   
   
   
-  <title>力扣-450.删除二叉搜索树中的节点 - MaP1e-G&#39;s Blog</title>
+  <title>力扣-870.优势洗牌 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="力扣-450.删除二叉搜索树中的节点"></span>
+            <span id="subtitle" data-typed-text="力扣-870.优势洗牌"></span>
           
         </div>
 
@@ -211,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-07 20:21" pubdate>
-          2022年10月7日 晚上
+        <time datetime="2022-10-08 10:06" pubdate>
+          2022年10月8日 上午
         </time>
       </span>
     
@@ -223,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          1.1k 字
         
       </span>
     
@@ -234,7 +233,7 @@
         
         
         
-          23 分钟
+          10 分钟
         
       </span>
     
@@ -272,13 +271,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">力扣-450.删除二叉搜索树中的节点</h1>
+            <h1 style="display: none">力扣-870.优势洗牌</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年10月7日 晚上
+                    本文最后更新于：2022年10月9日 下午
                   
                 
               </p>
@@ -286,29 +285,17 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"><br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_450_2.png" srcset="/img/loading.gif" lazyload alt="第二张图"></p>
-<h1>思路和实现</h1>
-<p>二叉搜索树，即二叉查找树，Binary Search Tree，简称BST。在BST中，给定节点左子树里的节点会小于给定节点，而右子树里的节点会大于给定节点。<br>
-那么我们需要在满足约束的情况下进行删除，就需要特别的策略，以下给出我的策略的描述：（P.S：看题目的示例有两种答案，那么你也应该知道策略不止一种）</p>
-<blockquote>
-<p>迭代找到要删除的节点，以及它的父节点<br>
-如果被删除的节点有左右子树，那么应该用被删除节点的左子树的最大元素节点来替代这个被删除节点</p>
-<blockquote>
-<p>根据BST的约束，我们可以知道被删除节点的左子树中的最大元素节点应该是该子树最右边的节点，迭代找出这个节点和它的父节点<br>
-如果这个最大元素节点就是被删除节点的左子节点，那么需要把该左子节点的左子节点挂在它的父节点的左子节点上<br>
-如果这个最大元素节点不是被删除节点的左子节点，那么要把这个最大元素节点的父节点的右子节点指向该最大元素节点的左子节点<br>
-上述操作完成后，将该最大元素节点左右子树的引用改为删除节点左右子树的引用<br>
-如果被删除的节点只有左子树或者右子树，那么只需要把被删除节点的父节点指向被删除节点的引用指向这个被删除节点的左子树或右子树即可<br>
-如果被删除的节点没有左右子树，把它的父节点指向它的引用改为None即可<br>
-最开始的实现：</p>
-</blockquote>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># Definition for a binary tree node.</span><br><span class="hljs-comment"># class TreeNode:</span><br><span class="hljs-comment">#     def __init__(self, val=0, left=None, right=None):</span><br><span class="hljs-comment">#         self.val = val</span><br><span class="hljs-comment">#         self.left = left</span><br><span class="hljs-comment">#         self.right = right</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">deleteNode</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], key: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[TreeNode]:<br>        current, parent = root, <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">while</span> current <span class="hljs-keyword">and</span> current.val != key:  <span class="hljs-comment"># 找到要删除的节点，以及它的父节点</span><br>            parent = current<br>            current = current.left <span class="hljs-keyword">if</span> current.val &gt; key <span class="hljs-keyword">else</span> current.right<br>        <span class="hljs-keyword">if</span> current <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 不存在该节点</span><br>            <span class="hljs-keyword">return</span> root<br>        <span class="hljs-keyword">elif</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:  <span class="hljs-comment"># 如果被删除节点拥有左右子节点，找到左子树中的最大节点current</span><br>            successor, successor_parent = current.left, current<br>            <span class="hljs-keyword">while</span> successor.right:  <span class="hljs-comment"># 遍历到最右后，就找到了最大节点</span><br>                successor_parent = successor<br>                successor = successor.right<br>            <span class="hljs-keyword">if</span> successor_parent.val == current.val:  <span class="hljs-comment"># 如果这个最大元素节点就是被删除节点的左子节点，那么需要把该左子节点的左子节点挂在它父节点的左子节点上</span><br>                successor_parent.left = successor.left<br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 如果这个最大元素节点不是被删除节点的左子节点，那么要把这个最大元素节点的父节点的右子节点指向该最大元素节点的左子节点</span><br>                successor_parent.right = successor.left<br>            successor.left = current.left<br>            successor.right = current.right<br>            current = successor<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">if</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                current = current.right<br>            <span class="hljs-keyword">elif</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>                current = current.left<br>            <span class="hljs-keyword">else</span>:<br>                current = <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> current<br>        <span class="hljs-keyword">elif</span> parent.left <span class="hljs-keyword">and</span> parent.left.val == key:<br>            parent.left = current<br>        <span class="hljs-keyword">else</span>:<br>            parent.right = current<br>        <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure>
-<p>优化后：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">deleteNode</span>(<span class="hljs-params">self, root: <span class="hljs-type">Optional</span>[TreeNode], key: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">Optional</span>[TreeNode]:<br>        current, parent = root, <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">while</span> current <span class="hljs-keyword">and</span> current.val != key:<br>            parent = current<br>            current = current.left <span class="hljs-keyword">if</span> current.val &gt; key <span class="hljs-keyword">else</span> current.right<br>        <span class="hljs-keyword">if</span> current <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> root<br>        <span class="hljs-keyword">if</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            current = <span class="hljs-literal">None</span><br>        <span class="hljs-keyword">elif</span> current.left <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            current = current.right<br>        <span class="hljs-keyword">elif</span> current.right <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            current = current.left<br>        <span class="hljs-keyword">else</span>:<br>            successor, successor_parent = current.left, current<br>            <span class="hljs-keyword">while</span> successor.right:<br>                successor_parent = successor<br>                successor = successor.right<br>            <span class="hljs-keyword">if</span> successor_parent.val == current.val:<br>                successor_parent.left = successor.left<br>            <span class="hljs-keyword">else</span>:<br>                successor_parent.right = successor.left<br>            successor.left = current.left<br>            successor.right = current.right<br>            current = successor<br>        <span class="hljs-keyword">if</span> parent <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> current<br>        <span class="hljs-keyword">elif</span> parent.left <span class="hljs-keyword">and</span> parent.left.val == key:<br>            parent.left = current<br>        <span class="hljs-keyword">else</span>:<br>            parent.right = current<br>        <span class="hljs-keyword">return</span> root<br></code></pre></td></tr></table></figure>
-<h1>题外话</h1>
-<p>基础不牢地动山摇。属实是把我干碎了，树和图掌握得依然不行，还得找时间补习。</p>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_870_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
+<h1>思路及实现</h1>
+<p>根据题目我们很容易想到用贪心解决问题。即每次取<code>nums1</code>中最小的数字跟<code>nums2</code>中的比较。可以将<code>nums1</code>按升序排序，用另一个数组<code>reslut</code>保存结果。<br>
+最开始无脑写的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">advantageCount</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        nums1.sort()<br>        result: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>] = []<br>        <span class="hljs-keyword">for</span> num2 <span class="hljs-keyword">in</span> nums2:<br>            <span class="hljs-keyword">for</span> i, num1 <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums1):<br>                <span class="hljs-keyword">if</span> num1 &gt; num2:<br>                    nums1.remove(num1)<br>                    result.append(num1)<br>                    <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">elif</span> i == <span class="hljs-built_in">len</span>(nums1) - <span class="hljs-number">1</span>:  <span class="hljs-comment"># 没有大于数组2当前数字的数字了</span><br>                    result.append(nums1.pop(<span class="hljs-number">0</span>))<br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
+<p>超时，好的，我就知道（怕不怕我10^5长度的数组）。重新想过后，确实有更好的方法，原理不变，也是贪心，但是对两个数组都进行排序，并“浪费”点空间，创建一些辅助数组。<br>
+我们对数组1进行遍历，对<code>nums2</code>则是利用一下双指针。当<code>nums1</code>的数大于<code>nums2</code>的数时，由于我们已经排过序，那么此时肯定满足优势最大化，因为<code>nums1</code>之后的数都会比当前数大了，所以直接进行配对就行。<br>
+如果小于的话，那这个数也小于<code>nums2</code>之后的数，所以就把这个数丢给<code>nums2</code>中最大的数，也就是尾指针指向的数。<br>
+其实难点在于怎么保持原来的顺序输出，也就是下标问题。由于<code>sort()</code>函数接受一个<code>key</code>参数，而这个参数会将接收到的数据用于排序的关键，所以可以利用这点来排序下标数组，以保证最后的输出。<br>
+由于我们的数是一一对应的，所以不必担心重复访问，也就是说，我们可以直接对<code>nums2</code>数组进行修改，并返回它。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">advantageCount</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        len2 = <span class="hljs-built_in">len</span>(nums2)<br>        index2 = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(len2))<br>        index2.sort(key=<span class="hljs-keyword">lambda</span> x: nums2[x])<br>        nums1.sort()<br>        head = <span class="hljs-number">0</span><br>        tail = len2 - <span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums1:  <span class="hljs-comment"># 遍历数组1</span><br>            <span class="hljs-keyword">if</span> num &gt; nums2[index2[head]]:<br>                nums2[index2[head]] = num<br>                head += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                nums2[index2[tail]] = num<br>                tail -= <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> nums2<br></code></pre></td></tr></table></figure>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -356,8 +343,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>力扣-450.删除二叉搜索树中的节点</div>
-      <div>https://map1e-g.github.io/2022/10/07/leetcode-450/</div>
+      <div>力扣-870.优势洗牌</div>
+      <div>https://map1e-g.github.io/2022/10/08/leetcode-870/</div>
     </div>
     <div class="license-meta">
       
@@ -369,7 +356,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月7日</div>
+          <div>2022年10月8日</div>
         </div>
       
       
@@ -399,9 +386,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/08/leetcode-870/" title="力扣-870.优势洗牌">
+                      <a href="/2022/10/09/leetcode-856/" title="力扣-856.括号的分数">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">力扣-870.优势洗牌</span>
+                        <span class="hidden-mobile">力扣-856.括号的分数</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -409,8 +396,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/07/leetcode-1800/" title="力扣-1800.最大升序子数组和">
-                        <span class="hidden-mobile">力扣-1800.最大升序子数组和</span>
+                      <a href="/2022/10/07/leetcode-450/" title="力扣-450.删除二叉搜索树中的节点">
+                        <span class="hidden-mobile">力扣-450.删除二叉搜索树中的节点</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
