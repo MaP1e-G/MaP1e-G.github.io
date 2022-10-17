@@ -16,25 +16,25 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="力扣题库第856题。">
+    <meta name="description" content="力扣题库第1441题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-856.括号的分数">
-<meta property="og:url" content="https://map1e-g.github.io/2022/10/09/leetcode-856/index.html">
+<meta property="og:title" content="力扣-1441.用栈操作构建数组">
+<meta property="og:url" content="https://map1e-g.github.io/2022/10/15/leetcode-1441/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="力扣题库第856题。">
+<meta property="og:description" content="力扣题库第1441题。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_856_1.png">
-<meta property="article:published_time" content="2022-10-09T06:53:47.000Z">
-<meta property="article:modified_time" content="2022-10-09T07:47:52.605Z">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_1441_1.png">
+<meta property="article:published_time" content="2022-10-15T10:35:51.000Z">
+<meta property="article:modified_time" content="2022-10-15T10:45:31.910Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_856_1.png">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_1441_1.png">
   
   
   
-  <title>力扣-856.括号的分数 - MaP1e-G&#39;s Blog</title>
+  <title>力扣-1441.用栈操作构建数组 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="力扣-856.括号的分数"></span>
+            <span id="subtitle" data-typed-text="力扣-1441.用栈操作构建数组"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-09 14:53" pubdate>
-          2022年10月9日 下午
+        <time datetime="2022-10-15 18:35" pubdate>
+          2022年10月15日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          749 字
+          549 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          7 分钟
+          5 分钟
         
       </span>
     
@@ -271,13 +271,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">力扣-856.括号的分数</h1>
+            <h1 style="display: none">力扣-1441.用栈操作构建数组</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年10月9日 下午
+                    本文最后更新于：2022年10月15日 晚上
                   
                 
               </p>
@@ -285,19 +285,14 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_856_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
-<h1>实现</h1>
-<p>哈哈家人们！今天的题目又是找规律（<br>
-来看题目告诉我们的，再多看看几个例子，我们可以总结出下面的规律：</p>
-<blockquote>
-<p>'()'字符串，就是一个1<br>
-')('字符串，就是一个+<br>
-'(('字符串，就是<em>2<br>
-'))'字符串则是告诉我们，需要从栈中取数出来进行运算，直到进行过</em>运算为止<br>
-所以我们还需要两个栈，一个用来保存数字，一个用来保存数组。然后遍历题目给我们的字符串即可。当然最后不能忘记把运算符栈清空。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">scoreOfParentheses</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        nums = deque()<br>        ops = deque()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(s)):  <span class="hljs-comment"># 因为每次要读取两个字符，所以从第二个字符开始读</span><br>            <span class="hljs-keyword">if</span> s[i - <span class="hljs-number">1</span>: i + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;()&#x27;</span>:<br>                nums.append(<span class="hljs-built_in">int</span>(<span class="hljs-number">1</span>))<br>            <span class="hljs-keyword">elif</span> s[i - <span class="hljs-number">1</span>: i + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;)(&#x27;</span>:<br>                ops.append(<span class="hljs-string">&#x27;+&#x27;</span>)<br>            <span class="hljs-keyword">elif</span> s[i - <span class="hljs-number">1</span>: i + <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;((&#x27;</span>:<br>                nums.append(<span class="hljs-built_in">int</span>(<span class="hljs-number">2</span>))<br>                ops.append(<span class="hljs-string">&#x27;*&#x27;</span>)<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">while</span> ops.pop() != <span class="hljs-string">&#x27;*&#x27;</span>:<br>                    nums.append(nums.pop() + nums.pop())<br>                nums.append(nums.pop() * nums.pop())<br>        <span class="hljs-keyword">while</span> ops:<br>            ops.pop()<br>            nums.append(nums.pop() + nums.pop())<br>        <span class="hljs-keyword">return</span> nums.pop()<br></code></pre></td></tr></table></figure>
-<h2 id="（一看题解又是被薄纱，无论是编程思维还是数学思维这块还是不如人家，把这个想成树也是厉害，用dfs出答案。）">（一看题解又是被薄纱，无论是编程思维还是数学思维这块还是不如人家，把这个想成树也是厉害，用dfs出答案。）</h2>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1441_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
+<h1>思路及实现</h1>
+<p>我们可以知道，<code>list</code>和<code>target</code>都是严格递增的，而我们取数也是按顺序：1、2、3…取下去，<br>
+所以用<code>for</code>循环遍历一遍<code>target</code>数组，并计算当前数字和前一数字的差，如果当前数字和前一个数字之差大于1，说明前一数字和当前数字之间还隔了几个数，那么我们需要进行数个<code>push</code>和<code>pop</code>操作，来达到<code>list</code>中当前数字的位置，并把它<code>push</code>进去；<br>
+如果差刚好为1，说明当前数字就是前一数字的下一位，直接<code>push</code>即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">buildArray</span>(<span class="hljs-params">self, target: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]:<br>        push = <span class="hljs-string">&quot;Push&quot;</span><br>        pop = <span class="hljs-string">&quot;Pop&quot;</span><br>        result = []<br>        pre_num = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(target):<br>            cnt = num - pre_num<br>            <span class="hljs-keyword">if</span> cnt &gt; <span class="hljs-number">1</span>:<br>                <span class="hljs-keyword">while</span> cnt != <span class="hljs-number">1</span>:<br>                    result.append(push)<br>                    result.append(pop)<br>                    cnt -= <span class="hljs-number">1</span><br>            result.append(push)<br>            pre_num = num<br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
+<p>额，这题难度中等不知道是怎么来的，十分朴素的栈模拟，一分钟就能出答案。</p>
+<hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -344,8 +339,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>力扣-856.括号的分数</div>
-      <div>https://map1e-g.github.io/2022/10/09/leetcode-856/</div>
+      <div>力扣-1441.用栈操作构建数组</div>
+      <div>https://map1e-g.github.io/2022/10/15/leetcode-1441/</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +352,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月9日</div>
+          <div>2022年10月15日</div>
         </div>
       
       
@@ -387,18 +382,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/11/leetcode-801/" title="力扣-801.使序列递增的最小交换次数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">力扣-801.使序列递增的最小交换次数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/08/leetcode-870/" title="力扣-870.优势洗牌">
-                        <span class="hidden-mobile">力扣-870.优势洗牌</span>
+                      <a href="/2022/10/13/leetcode-769/" title="力扣-769.最多能完成排序的块">
+                        <span class="hidden-mobile">力扣-769.最多能完成排序的块</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

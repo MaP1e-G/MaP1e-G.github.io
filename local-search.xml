@@ -4,6 +4,141 @@
   
   
   <entry>
+    <title>力扣-1441.用栈操作构建数组</title>
+    <link href="/2022/10/15/leetcode-1441/"/>
+    <url>/2022/10/15/leetcode-1441/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1441_1.png" alt="第一张图"></p><h1>思路及实现</h1><p>我们可以知道，<code>list</code>和<code>target</code>都是严格递增的，而我们取数也是按顺序：1、2、3…取下去，<br>所以用<code>for</code>循环遍历一遍<code>target</code>数组，并计算当前数字和前一数字的差，如果当前数字和前一个数字之差大于1，说明前一数字和当前数字之间还隔了几个数，那么我们需要进行数个<code>push</code>和<code>pop</code>操作，来达到<code>list</code>中当前数字的位置，并把它<code>push</code>进去；<br>如果差刚好为1，说明当前数字就是前一数字的下一位，直接<code>push</code>即可。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">buildArray</span>(<span class="hljs-params">self, target: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]:<br>        push = <span class="hljs-string">&quot;Push&quot;</span><br>        pop = <span class="hljs-string">&quot;Pop&quot;</span><br>        result = []<br>        pre_num = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(target):<br>            cnt = num - pre_num<br>            <span class="hljs-keyword">if</span> cnt &gt; <span class="hljs-number">1</span>:<br>                <span class="hljs-keyword">while</span> cnt != <span class="hljs-number">1</span>:<br>                    result.append(push)<br>                    result.append(pop)<br>                    cnt -= <span class="hljs-number">1</span><br>            result.append(push)<br>            pre_num = num<br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure><p>额，这题难度中等不知道是怎么来的，十分朴素的栈模拟，一分钟就能出答案。</p><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>力扣-769.最多能完成排序的块</title>
+    <link href="/2022/10/13/leetcode-769/"/>
+    <url>/2022/10/13/leetcode-769/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><h2 id="769">769</h2><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_769_1.png" alt="第一张图"></p><h2 id="768">768</h2><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_768_1.png" alt="第一张图"></p><h1>思路及实现</h1><h2 id="769-2">769</h2><p>说实话，这题我的路子挺野的，感觉思路不太对，有点歪，但是由于这题数据的特殊性，我的做法还刚好挺吃香的（但是别学.jpg）。<br>我们能够知道的是，数组里的每个元素都不同而且数组长度还 &lt;= 10，再观察题目要求和示例，分块需要在单独排序后连接起来还是有序的，说明在当前分块中，最大的元素如果小于剩下数组中的最小元素，就可以进行分块；反之不行。<br>那么我们设置一个最大值来保存当前分块的最大值的同时，也利用一个<code>cnt</code>保存分块数量。由于最小分块是1，我们的<code>cnt</code>也应该初始化为<code>1</code>。<br>然后对数组进行遍历，并给剩下的数组临时排序，以便找出最小元素，进行判断即可。每次循环后记得更新当前分块最大值。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maxChunksToSorted</span>(<span class="hljs-params">self, arr: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-built_in">max</span> = arr[<span class="hljs-number">0</span>]<br>        cnt = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(arr) - <span class="hljs-number">1</span>):<br>            tmp = <span class="hljs-built_in">sorted</span>(arr[i + <span class="hljs-number">1</span>:])<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">max</span> &lt; tmp[<span class="hljs-number">0</span>]:<br>                <span class="hljs-built_in">max</span> = arr[i + <span class="hljs-number">1</span>]<br>                cnt += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> <span class="hljs-built_in">max</span> &lt; arr[i + <span class="hljs-number">1</span>]:<br>                <span class="hljs-built_in">max</span> = arr[i + <span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">return</span> cnt<br></code></pre></td></tr></table></figure><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>力扣-817</title>
+    <link href="/2022/10/12/leetcode-817/"/>
+    <url>/2022/10/12/leetcode-817/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_817_1.png" alt="第一张图"></p><h1>思路及实现</h1><p>看到题目给的组件定义，链表中最长连续节点，该节点的值在所给数组中。那么我们可以利用一个<code>flag</code>来判断这个值是否在数组中，在的话就把<code>flag</code>设置成<code>1</code>，不在的话，再判断此时<code>flag</code>的值是否为<code>1</code>，如果为<code>1</code>说明此处是一个组件的结束处，让组件数量加一即可。<br>当然如果这么写，还需要在循环结束后再检查一次<code>flag</code>的值，确保没有落下最后一个组件。如果不想最后再检查值，可以把判断条件改为值不在数组中。<br>由于在数组中找某个值是否存在的时间复杂度是<code>O(n)</code>，所以我们可以使用<code>set</code>来替代数组，这样可以使搜索值的时间复杂度降到<code>O(1)</code>。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">numComponents</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        count = <span class="hljs-number">0</span><br>        flag = <span class="hljs-number">0</span><br>        a_set = <span class="hljs-built_in">set</span>(nums)<br>        <span class="hljs-keyword">while</span> head <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">if</span> head.val <span class="hljs-keyword">in</span> a_set:  <span class="hljs-comment"># or: if head.val not in a_set:</span><br>                flag = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> flag == <span class="hljs-number">1</span>:<br>                flag = <span class="hljs-number">0</span><br>                count += <span class="hljs-number">1</span><br>            head = head.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> count <span class="hljs-keyword">if</span> flag == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> count + <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>力扣-1790.仅执行一次字符串交换能否使两个字符串相等</title>
+    <link href="/2022/10/11/leetcode-1790/"/>
+    <url>/2022/10/11/leetcode-1790/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1790_1.png" alt="第一张图"></p><h1>思路及实现</h1><p>首先考虑到特殊情况，如果两个字符串相等，那么直接返回True即可。<br>如果不相等，题目所给条件是仅交换一次，顺着这一点我们可以想到，找到需要进行交换的两个位置，如果交换后不相等，返回True即可。<br>在我的代码中使用了变量<code>cnt</code>来寻找字符串中出现不匹配字符的次数，并且用了一个<code>scout</code>来保存第一次找到的不匹配的位置。如果<code>cnt &gt; 1</code>说明有两个地方不匹配了，此时将当前位置与<code>scout</code>位置的元素进行交换，再比较字符串即可知道一次交换是否相等。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">areAlmostEqual</span>(<span class="hljs-params">self, s1: <span class="hljs-built_in">str</span>, s2: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">if</span> s1 == s2:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            cnt = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s1)):<br>                <span class="hljs-keyword">if</span> s1[i] != s2[i]:<br>                    cnt += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">if</span> cnt &gt; <span class="hljs-number">1</span>:<br>                        s: <span class="hljs-built_in">str</span> = s2[<span class="hljs-number">0</span>: scout] + s2[i] + s2[scout + <span class="hljs-number">1</span>: i] + s2[scout] + s2[i + <span class="hljs-number">1</span>:]<br>                        <span class="hljs-keyword">if</span> s1 == s:<br>                            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>                        <span class="hljs-keyword">else</span>:<br>                            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>                    scout = i<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure><p>其实可以使用两个变量和一组<code>if...elif</code>保存两个位置，<code>else</code>情况则是多于两个位置的字符不同，这种情况一次交换肯定无法导致两个字符串相同，返回<code>False</code>即可。<br>而且这样最后也不需要拼接字符串，只需要判断两个字符串两个位置（<code>s1[i]</code>对<code>s2[j]</code>，<code>s1[j]</code>对<code>s2[i]</code>）的字符是否相同。</p><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>力扣-801.使序列递增的最小交换次数</title>
+    <link href="/2022/10/11/leetcode-801/"/>
+    <url>/2022/10/11/leetcode-801/</url>
+    
+    <content type="html"><![CDATA[<h1>题目描述</h1><p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_801_1.png" alt="第一张图"></p><h1>实现</h1><p>今天这个动态规划，不会，摆了.jpg<br>之后看了下官方题解的思路，然后照着思路写了一下代码，下面贴大体思路和代码：<br><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_801_2.png" alt="思路"></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minSwap</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        n = <span class="hljs-built_in">len</span>(nums1)<br>        dp0 = [<span class="hljs-number">0</span>] * n<br>        dp1 = [<span class="hljs-number">1</span>] * n<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, n):<br>            <span class="hljs-keyword">if</span> nums1[i] &gt; nums1[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums2[i] &gt; nums2[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums1[i] &gt; nums2[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums2[i] &gt; nums1[i - <span class="hljs-number">1</span>]:<br>                dp0[i] = <span class="hljs-built_in">min</span>(dp0[i - <span class="hljs-number">1</span>], dp1[i - <span class="hljs-number">1</span>])<br>                dp1[i] = <span class="hljs-built_in">min</span>(dp0[i - <span class="hljs-number">1</span>], dp1[i - <span class="hljs-number">1</span>]) + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> nums1[i] &gt; nums2[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums2[i] &gt; nums1[i - <span class="hljs-number">1</span>]:<br>                dp0[i] = dp1[i - <span class="hljs-number">1</span>]<br>                dp1[i] = dp0[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                dp0[i] = dp0[i - <span class="hljs-number">1</span>]<br>                dp1[i] = dp1[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(dp0[-<span class="hljs-number">1</span>], dp1[-<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure><p>还是得多多练习动态规划呜呜</p><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Solution</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>Leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>力扣-856.括号的分数</title>
     <link href="/2022/10/09/leetcode-856/"/>
     <url>/2022/10/09/leetcode-856/</url>
