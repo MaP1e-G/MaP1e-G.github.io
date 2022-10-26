@@ -16,26 +16,28 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="力扣题库第十三题。">
+    <meta name="description" content="力扣题库第901题和496题、503题，介绍单调栈以及单调栈的运用。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-13.罗马数字转整数">
-<meta property="og:url" content="https://map1e-g.github.io/2022/09/30/leetcode-13/index.html">
+<meta property="og:title" content="力扣-901.股票价格跨度 &amp;&amp; 单调栈">
+<meta property="og:url" content="https://map1e-g.github.io/2022/10/21/leetcode-901/index.html">
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
-<meta property="og:description" content="力扣题库第十三题。">
+<meta property="og:description" content="力扣题库第901题和496题、503题，介绍单调栈以及单调栈的运用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s1.ax1x.com/2022/10/01/xK6BFK.png">
-<meta property="og:image" content="https://s1.ax1x.com/2022/10/01/xK6ddx.png">
-<meta property="article:published_time" content="2022-09-30T13:28:58.000Z">
-<meta property="article:modified_time" content="2022-10-04T06:57:22.040Z">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_901_1.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_496_1.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_503_1.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_496_2.png">
+<meta property="article:published_time" content="2022-10-20T19:33:05.000Z">
+<meta property="article:modified_time" content="2022-10-25T13:52:25.418Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s1.ax1x.com/2022/10/01/xK6BFK.png">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_901_1.png">
   
   
   
-  <title>力扣-13.罗马数字转整数 - MaP1e-G&#39;s Blog</title>
+  <title>力扣-901.股票价格跨度 &amp;&amp; 单调栈 - MaP1e-G&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="力扣-13.罗马数字转整数"></span>
+            <span id="subtitle" data-typed-text="力扣-901.股票价格跨度 &amp;&amp; 单调栈"></span>
           
         </div>
 
@@ -211,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-30 21:28" pubdate>
-          2022年9月30日 晚上
+        <time datetime="2022-10-21 03:33" pubdate>
+          2022年10月21日 凌晨
         </time>
       </span>
     
@@ -223,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.9k 字
         
       </span>
     
@@ -234,7 +236,7 @@
         
         
         
-          13 分钟
+          24 分钟
         
       </span>
     
@@ -272,13 +274,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">力扣-13.罗马数字转整数</h1>
+            <h1 style="display: none">力扣-901.股票价格跨度 &amp;&amp; 单调栈</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年10月4日 下午
+                    本文最后更新于：2022年10月25日 晚上
                   
                 
               </p>
@@ -286,15 +288,40 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<p>（如果看不到的话就去力扣吧）<br>
-<img src="https://s1.ax1x.com/2022/10/01/xK6BFK.png" srcset="/img/loading.gif" lazyload alt="第一张图"><br>
-<img src="https://s1.ax1x.com/2022/10/01/xK6ddx.png" srcset="/img/loading.gif" lazyload alt="第二张图"></p>
-<h1>实现</h1>
-<p>其实自己并没有想到好的实现，索性就直接暴力遍历然后分情况讨论了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">romanToInt</span><span class="hljs-params">(String s)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">char</span> tmp;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">cursor</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; cursor &lt; s.length(); cursor++)&#123;<br>            tmp = s.charAt(cursor);<br>            <span class="hljs-keyword">if</span> (tmp == <span class="hljs-string">&#x27;M&#x27;</span>)&#123;<br>                result += <span class="hljs-number">1000</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tmp == <span class="hljs-string">&#x27;D&#x27;</span>)&#123;<br>                result += <span class="hljs-number">500</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tmp == <span class="hljs-string">&#x27;C&#x27;</span>)&#123;<br>                <span class="hljs-keyword">if</span> (cursor &lt; s.length() - <span class="hljs-number">1</span>)&#123;<br>                    <span class="hljs-keyword">if</span>(s.charAt(cursor + <span class="hljs-number">1</span>) == <span class="hljs-string">&#x27;M&#x27;</span>)&#123;<br>                        result += <span class="hljs-number">900</span>;<br>                        cursor++;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(s.charAt(cursor + <span class="hljs-number">1</span>) == <span class="hljs-string">&#x27;D&#x27;</span>)&#123;<br>                        result += <span class="hljs-number">400</span>;<br>                        cursor++;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span>&#123;<br>                        result += <span class="hljs-number">100</span>;<br>                    &#125;<br>                &#125;<br>                <span class="hljs-keyword">else</span>&#123;<br>                    result += <span class="hljs-number">100</span>;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tmp == <span class="hljs-string">&#x27;L&#x27;</span>)&#123;<br>                result += <span class="hljs-number">50</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tmp == <span class="hljs-string">&#x27;X&#x27;</span>)&#123;<br>                <span class="hljs-keyword">if</span> (cursor &lt; s.length() - <span class="hljs-number">1</span>)&#123;<br>                    <span class="hljs-keyword">if</span>(s.charAt(cursor + <span class="hljs-number">1</span>) == <span class="hljs-string">&#x27;C&#x27;</span>)&#123;<br>                        result += <span class="hljs-number">90</span>;<br>                        cursor++;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(s.charAt(cursor + <span class="hljs-number">1</span>) == <span class="hljs-string">&#x27;L&#x27;</span>)&#123;<br>                        result += <span class="hljs-number">40</span>;<br>                        cursor++;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span>&#123;<br>                        result += <span class="hljs-number">10</span>;<br>                    &#125;<br>                &#125;<br>                <span class="hljs-keyword">else</span>&#123;<br>                    result += <span class="hljs-number">10</span>;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(tmp == <span class="hljs-string">&#x27;V&#x27;</span>)&#123;<br>                result += <span class="hljs-number">5</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">if</span> (cursor &lt; s.length() - <span class="hljs-number">1</span>)&#123;<br>                    <span class="hljs-keyword">if</span>(s.charAt(cursor + <span class="hljs-number">1</span>) == <span class="hljs-string">&#x27;X&#x27;</span>)&#123;<br>                        result += <span class="hljs-number">9</span>;<br>                        cursor++;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(s.charAt(cursor + <span class="hljs-number">1</span>) == <span class="hljs-string">&#x27;V&#x27;</span>)&#123;<br>                        result += <span class="hljs-number">4</span>;<br>                        cursor++;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span>&#123;<br>                        result += <span class="hljs-number">1</span>;<br>                    &#125;<br>                &#125;<br>                <span class="hljs-keyword">else</span>&#123;<br>                    result += <span class="hljs-number">1</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>太久没写了，写得太久了，写的挺急的，就想着怎么写出来其他都没管了，看上去挺笨重的（<br>
-我就没多想，转就转呗，那我就嗯遍历一遍字符串，特殊情况拿出来特殊讨论就好了。一开始是往前看的，发现不对劲，往前看结果不对，只好往后看顺便多加一条条件防止索引出界（好笨啊好笨啊好笨啊）<br>
-行吧，毕竟我现在水平感觉跟刚学编程的没什么差别，只能说慢慢来了（倒</p>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_901_1.png" srcset="/img/loading.gif" lazyload alt="901.股票价格跨度"><br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_496_1.png" srcset="/img/loading.gif" lazyload alt="496.下一个更大元素 I"><br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_503_1.png" srcset="/img/loading.gif" lazyload alt="503.下一个更大元素 II"></p>
+<h1>思路及实现</h1>
+<h2 id="901-股票价格跨度">901.股票价格跨度</h2>
+<p>你别说，这题求的是当天的股票价格趋势，然后是要用之前的状态求解当前状态的，这何尝不是DP（逃</p>
+<h3 id="向前遍历">向前遍历</h3>
+<p>最容易想到的一种实现就是每天都往前遍历之前的股票价格，如果满足就加上，同时因为我们使用了数组<code>days</code>保存每天的股票价格的跨度，所以可以避免一定的重复遍历。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StockSpanner</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.prices = []  <span class="hljs-comment"># 保存每天的股票价格</span><br>        self.days = []  <span class="hljs-comment"># 保存今天股票价格的跨度</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">next</span>(<span class="hljs-params">self, price: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        self.prices.append(price)<br>        p = <span class="hljs-built_in">len</span>(self.days) - <span class="hljs-number">1</span><br>        day = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> p &gt;= <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">if</span> self.prices[p] &lt;= price:<br>                day += self.days[p]  <span class="hljs-comment"># 如果今天价格大于之前某一天，那么他也大于那一天股票价格大于的其他天的价格（if a &gt; b and b &gt; c then a &gt; c），直接加上那一天的股票价格的跨度</span><br>                p -= self.days[p]  <span class="hljs-comment"># 一定程度上避免重复遍历</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">break</span><br>        self.days.append(day)<br>        <span class="hljs-keyword">return</span> day<br></code></pre></td></tr></table></figure>
+<h3 id="单调栈">单调栈</h3>
+<p>（P.S. 可以先去看看下面496）<br>
+既然是要求下一个更大的元素，很容易就能想到用单调栈求解，为了省去不必要的麻烦，我们可以使用二元组来保存每一个数据（当天是从第一天起计的第几天和当天股票的价格）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StockSpanner</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.a_stack = [(-<span class="hljs-number">1</span>, math.inf)]<br>        self.i = -<span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">next</span>(<span class="hljs-params">self, price: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        self.i += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">while</span> price &gt;= self.a_stack[-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]:  <span class="hljs-comment"># 遇到栈中有比自己小的股票价格就将其出栈（保持栈单调）</span><br>            self.a_stack.pop()<br>        self.a_stack.append((self.i, price))  <span class="hljs-comment"># 把当前的股票的情况入栈</span><br>        <span class="hljs-keyword">return</span> self.i - self.a_stack[-<span class="hljs-number">2</span>][<span class="hljs-number">0</span>]  <span class="hljs-comment"># 计算股票价格的跨度</span><br></code></pre></td></tr></table></figure>
+<p>如果不是很理解为什么把小于当前价格的元素出栈之后减去下一个天数返回的就是当天股票价格的跨度的话，那可以不保存第几天，而是保存股票价格趋势，这样的话也是可以的，而且好理解。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StockSpanner</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.a_stack = [(-<span class="hljs-number">1</span>, math.inf)]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">next</span>(<span class="hljs-params">self, price: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        i = <span class="hljs-number">1</span>  <span class="hljs-comment"># 股票价格趋势最少为一天</span><br>        <span class="hljs-keyword">while</span> price &gt;= self.a_stack[-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]:  <span class="hljs-comment"># 遇到栈中有比自己小的股票价格就将其出栈（保持栈单调）</span><br>            i += self.a_stack.pop()[<span class="hljs-number">0</span>]  <span class="hljs-comment"># 加上出栈的股票价格天数</span><br>        self.a_stack.append((i, price))  <span class="hljs-comment"># 把当前的股票的情况入栈</span><br>        <span class="hljs-keyword">return</span> i<br></code></pre></td></tr></table></figure>
+<h2 id="496-下一个更大元素-I">496.下一个更大元素 I</h2>
+<h3 id="暴力遍历">暴力遍历</h3>
+<p>看一眼题目就知道可以暴力遍历的啦，正向也行反向也行，下面的代码把<code>nums2</code>反转了，然后遍历<code>rvs_nums2</code>，再对其中每个数往前遍历，找第一个大于当前数的数（也就是题目所说的下一个更大元素），并记录到一个字典中，<br>
+因为我们最后是需要返回一个对应<code>nums1</code>中的数的顺序的数组的，且没有相同的数字，所以利用字典可以很方便地存储每个数的状态。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">nextGreaterElement</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        a_dict = &#123;&#125;<br>        rvs_nums2 = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">reversed</span>(nums2))<br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(rvs_nums2):<br>            <span class="hljs-keyword">while</span> i &gt; <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">if</span> rvs_nums2[i - <span class="hljs-number">1</span>] &gt; num:  <span class="hljs-comment"># 如果前边有更大的数</span><br>                    a_dict[num] = rvs_nums2[i - <span class="hljs-number">1</span>]  <span class="hljs-comment"># 保存更大的数字为值到当前数字为键的字典的键值对中</span><br>                    <span class="hljs-keyword">break</span><br>                i -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> num <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> a_dict:  <span class="hljs-comment"># 找不到更大的数</span><br>                a_dict[num] = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> [a_dict[num] <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums1]<br></code></pre></td></tr></table></figure>
+<h3 id="单调栈-2">单调栈</h3>
+<p>很喜欢力扣这题的官方题解评论区一位老哥说的话：<br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_496_2.png" srcset="/img/loading.gif" lazyload alt="神评"><br>
+单调栈，用于解决NGE（Next Greater Element）问题，因所维护的栈中元素呈单调递增/递减，所以叫单调栈。<br>
+下面是解决这类题目的模板代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">nextGreaterElement</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        a_dict=&#123;&#125;<br>        a_stack=[]<br>        <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> <span class="hljs-built_in">reversed</span>(nums2):<br>            <span class="hljs-keyword">while</span> a_stack <span class="hljs-keyword">and</span> a_stack[-<span class="hljs-number">1</span>] &lt;= num:<br>                a_stack.pop()<br>            a_dict[num] = a_stack[-<span class="hljs-number">1</span>] <span class="hljs-keyword">if</span> a_stack <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span><br>            a_stack.append(num)<br>        <span class="hljs-keyword">return</span> [a_dict[num] <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> nums1]<br></code></pre></td></tr></table></figure>
+<p>可以看到我们会把题目给的数组先反转一次再进行遍历，然后直到当前数不大于栈顶数或空栈为止，执行弹出（pop）操作。<br>
+这是因为如果当前数比栈顶数大的话，那么在这之后的数如果能以栈顶数作为下一个更大元素，那肯定也能以当前数作为下一个更大元素，且我们的数组是反转过的，也就是后来数的下标才离得更近。<br>
+找到结果之后，把当前数入栈。</p>
+<h2 id="503-下一个更大元素-II">503.下一个更大元素 II</h2>
+<p>既然已经解决了最基本的单调栈，现在让我们来看看变形：现在不止要看右边了，因为是循环数组，所以也要看左边了。<br>
+看到题目给的循环，大家是不是马上就想到：<code>%</code>运算符！确实，数据结构不也这么学了吗，超过数组下标的话对数组长度取余就回去了，没错，这里也是一个道理。<br>
+仔细想想，我们可以知道无论怎么循环，这题本质上就是两个给定的数组拼在一起的NGE问题罢了，然后可以得出以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">nextGreaterElements</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]:<br>        n = <span class="hljs-built_in">len</span>(nums)<br>        a_list = [-<span class="hljs-number">1</span>] * n<br>        a_stack = []<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">while</span> a_stack <span class="hljs-keyword">and</span> a_stack[-<span class="hljs-number">1</span>] &lt;= nums[i % n]:<br>                a_stack.pop()<br>            <span class="hljs-keyword">if</span> a_stack:<br>                a_list[i % n] = a_stack[-<span class="hljs-number">1</span>]<br>            a_stack.append(nums[i % n])<br>        <span class="hljs-keyword">return</span> a_list<br></code></pre></td></tr></table></figure>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -328,7 +355,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Java/">#Java</a>
+        <a href="/tags/Python/">#Python</a>
       
         <a href="/tags/Leetcode/">#Leetcode</a>
       
@@ -342,8 +369,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>力扣-13.罗马数字转整数</div>
-      <div>https://map1e-g.github.io/2022/09/30/leetcode-13/</div>
+      <div>力扣-901.股票价格跨度 &amp;&amp; 单调栈</div>
+      <div>https://map1e-g.github.io/2022/10/21/leetcode-901/</div>
     </div>
     <div class="license-meta">
       
@@ -355,7 +382,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月30日</div>
+          <div>2022年10月21日</div>
         </div>
       
       
@@ -385,9 +412,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/01/leetcode-1/" title="力扣-13.两数之和">
+                      <a href="/2022/10/25/leetcode-934/" title="力扣-934. 最短的桥">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">力扣-13.两数之和</span>
+                        <span class="hidden-mobile">力扣-934. 最短的桥</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -395,8 +422,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/22/python-essay-5/" title="Python随笔-5">
-                        <span class="hidden-mobile">Python随笔-5</span>
+                      <a href="/2022/10/21/leetcode-779/" title="力扣-779. 第K个语法符号 &amp;&amp; 位运算">
+                        <span class="hidden-mobile">力扣-779. 第K个语法符号 &amp;&amp; 位运算</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

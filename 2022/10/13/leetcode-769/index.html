@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_769_1.png">
 <meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_768_1.png">
 <meta property="article:published_time" content="2022-10-13T02:33:49.000Z">
-<meta property="article:modified_time" content="2022-10-13T14:35:17.248Z">
+<meta property="article:modified_time" content="2022-10-21T20:01:10.438Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          522 字
+          1.4k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          5 分钟
+          12 分钟
         
       </span>
     
@@ -278,7 +278,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年10月13日 晚上
+                    本文最后更新于：2022年10月22日 凌晨
                   
                 
               </p>
@@ -292,11 +292,24 @@
 <p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_768_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
 <h1>思路及实现</h1>
 <h2 id="769-2">769</h2>
-<p>说实话，这题我的路子挺野的，感觉思路不太对，有点歪，但是由于这题数据的特殊性，我的做法还刚好挺吃香的（但是别学.jpg）。<br>
+<p>说实话，这题我的路子挺野的，感觉做法不太对，有点歪，但是由于这题数据的特殊性，我的做法还刚好挺吃香的（但是别学.jpg）。<br>
 我们能够知道的是，数组里的每个元素都不同而且数组长度还 &lt;= 10，再观察题目要求和示例，分块需要在单独排序后连接起来还是有序的，说明在当前分块中，最大的元素如果小于剩下数组中的最小元素，就可以进行分块；反之不行。<br>
 那么我们设置一个最大值来保存当前分块的最大值的同时，也利用一个<code>cnt</code>保存分块数量。由于最小分块是1，我们的<code>cnt</code>也应该初始化为<code>1</code>。<br>
 然后对数组进行遍历，并给剩下的数组临时排序，以便找出最小元素，进行判断即可。每次循环后记得更新当前分块最大值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maxChunksToSorted</span>(<span class="hljs-params">self, arr: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-built_in">max</span> = arr[<span class="hljs-number">0</span>]<br>        cnt = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(arr) - <span class="hljs-number">1</span>):<br>            tmp = <span class="hljs-built_in">sorted</span>(arr[i + <span class="hljs-number">1</span>:])<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">max</span> &lt; tmp[<span class="hljs-number">0</span>]:<br>                <span class="hljs-built_in">max</span> = arr[i + <span class="hljs-number">1</span>]<br>                cnt += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> <span class="hljs-built_in">max</span> &lt; arr[i + <span class="hljs-number">1</span>]:<br>                <span class="hljs-built_in">max</span> = arr[i + <span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">return</span> cnt<br></code></pre></td></tr></table></figure>
+<h2 id="768-2">768</h2>
+<p>好的我们来看到下一道题，这题是上一题的困难版本，除了元素会重复出现以外，数据还非常大，不过我仍然尝试使用769的做法来解了一下题目，结果是通过了，但是花了1400ms左右，可见十分不理想。<br>
+所以我们需要换一种方法，来降低如此庞大的时间代价。（官方题解时间到）</p>
+<h3 id="单调栈">单调栈</h3>
+<p>由上一题的思路，我们知道如果不能分块，那就是因为右边存在更小的数字，导致现在无法进行分块。<br>
+那我们思考一个问题，当一个新的数字加入进来后，怎么找出数组变化后的分块方式呢？<br>
+我们可以使用单调栈来解决这个问题。设置一个栈（单调递增），如果新的数字大于或等于栈顶的数字，说明这个数字可以分成一个独立的块，直接入栈；<br>
+如果新的数字小于栈顶的数字，那就需要重新分块，直到找到栈中小于等于它的数（另一个块的最大值），此过程保存栈顶的值（倒数第一个块的最大值），然后栈顶数字出栈（块融合）直到满足条件（大于等于栈顶数字）。<br>
+在此过程中，我们每次留下的都是块中的最大值（栈中的每个数都是它所在分块的最大值），所以最后的块数也就等于栈的长度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maxChunksToSorted</span>(<span class="hljs-params">self, arr: [<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        stack = []<br>        <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> arr:<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(stack) == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> a &gt;= stack[-<span class="hljs-number">1</span>]:<br>                stack.append(a)<br>            <span class="hljs-keyword">else</span>:<br>                mx = stack.pop()<br>                <span class="hljs-keyword">while</span> stack <span class="hljs-keyword">and</span> stack[-<span class="hljs-number">1</span>] &gt; a:<br>                    stack.pop()<br>                stack.append(mx)<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(stack)<br></code></pre></td></tr></table></figure>
+<h3 id="排序-哈希表">排序+哈希表</h3>
+<p>看了下官方题解发现原来规律总结地不够好。仔细观察就会发现，当前分块的数组中的每个数的出现频率，一定和排好序后的数组中的这部分分块中那些数的出现频率相同。<br>
+所以我们遍历给定数组，再使用另一个排序后的数组，一个表示元素数量加，另一个表示元素数量减，最后比较元素频率是否相同即可（这里用的字典来比较频率，如果字典里没东西了说明元素频率一致，结果加一即可）。</p>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -397,8 +410,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/12/leetcode-817/" title="力扣-817">
-                        <span class="hidden-mobile">力扣-817</span>
+                      <a href="/2022/10/12/leetcode-817/" title="力扣-817.链表组件">
+                        <span class="hidden-mobile">力扣-817.链表组件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
