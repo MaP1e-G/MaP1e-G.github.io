@@ -24,14 +24,17 @@
 <meta property="og:description" content="力扣题库第764题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_1.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_1_2.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_2.png">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_3.png">
 <meta property="article:published_time" content="2022-11-09T14:29:21.000Z">
-<meta property="article:modified_time" content="2022-11-09T14:47:29.067Z">
+<meta property="article:modified_time" content="2022-11-11T05:27:26.672Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="[object Object]">
 <meta property="article:tag" content="Solution">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_1.png">
   
@@ -225,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          3.4k 字
         
       </span>
     
@@ -236,7 +239,7 @@
         
         
         
-          13 分钟
+          29 分钟
         
       </span>
     
@@ -280,7 +283,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年11月9日 晚上
+                    本文最后更新于：2022年11月11日 下午
                   
                 
               </p>
@@ -288,7 +291,8 @@
             <div class="markdown-body">
               
               <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_1.png" srcset="/img/loading.gif" lazyload alt="764"></p>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_1.png" srcset="/img/loading.gif" lazyload alt="764_1"><br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_1_2.png" srcset="/img/loading.gif" lazyload alt="764_2"></p>
 <h1>思路及实现</h1>
 <p>好的我们来写今天的每日一题，这什么啊？哦，找上下左右是不是<code>1</code>啊，简单，暴力遍历，其他我也不会（开摆！）</p>
 <h2 id="暴力遍历！">暴力遍历！</h2>
@@ -308,7 +312,16 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">orderOfLargestPlusSign</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span>[][] mines)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span>[][] matrix = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n][n];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span>[] mine : mines) &#123;<br>            matrix[mine[<span class="hljs-number">0</span>]][mine[<span class="hljs-number">1</span>]] = <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">cnt</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>                    <span class="hljs-keyword">if</span> (i - cnt &lt; <span class="hljs-number">0</span> || j - cnt &lt; <span class="hljs-number">0</span> || i + cnt &gt; n - <span class="hljs-number">1</span> || j + cnt &gt; n - <span class="hljs-number">1</span>) &#123;<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (matrix[i - cnt][j] == <span class="hljs-number">1</span> || matrix[i][j + cnt] == <span class="hljs-number">1</span> || matrix[i + cnt][j] == <span class="hljs-number">1</span> || matrix[i][j - cnt] == <span class="hljs-number">1</span>) &#123;<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                    <span class="hljs-keyword">else</span> &#123;<br>                        cnt += <span class="hljs-number">1</span>;<br>                    &#125;<br>                &#125;<br>                ans = Math.max(cnt, ans);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>java就不超时，什么力扣亲儿子，这就转型！</p>
 <h2 id="动态规划">动态规划</h2>
-<p>预计明天写www</p>
+<p>对一个坐标<code>(i, j)</code>，如何去找它的最大“轴对称”加号标志呢？<br>
+通过题目可以知道，找出<code>(i, j)</code>沿上下左右方向能走的距离，然后取它们当中的最小值，就是<code>(i ,j)</code>所拥有的<code>k</code>阶“轴对称”加号标志。<br>
+根据这个规则，构造出动态规划数组，即：<br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_2.png" srcset="/img/loading.gif" lazyload alt="764_dp_1"><br>
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_764_3.png" srcset="/img/loading.gif" lazyload alt="764_dp_2"><br>
+因为有四个方向，所以需要四个数组，分别代表对应坐标上下左右能到达的最大距离。<br>
+然后根据所写式子编写程序即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">orderOfLargestPlusSign</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span>, mines: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        matrix = [[<span class="hljs-number">1</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]  <span class="hljs-comment"># 构造矩阵</span><br>        <span class="hljs-keyword">for</span> mine <span class="hljs-keyword">in</span> mines:<br>            matrix[mine[<span class="hljs-number">0</span>]][mine[<span class="hljs-number">1</span>]] = <span class="hljs-number">0</span><br>        left = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>        right = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>        up = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>        down = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n)]<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>            <span class="hljs-comment"># 先把最外边一圈都初始化为1</span><br>            <span class="hljs-keyword">if</span> matrix[i][<span class="hljs-number">0</span>] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第一列</span><br>                left[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> matrix[i][n - <span class="hljs-number">1</span>] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 最后一列</span><br>                right[i][n - <span class="hljs-number">1</span>] = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> matrix[<span class="hljs-number">0</span>][i] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第一行</span><br>                up[<span class="hljs-number">0</span>][i] = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> matrix[n - <span class="hljs-number">1</span>][i] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 最后一行</span><br>                down[n - <span class="hljs-number">1</span>][i] = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, n):  <span class="hljs-comment"># 开始计算每个坐标的“轴对称”加号标志，顺序为左右上下</span><br>                <span class="hljs-keyword">if</span> matrix[i][j] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第i行从左往右计算每个坐标的left中的值</span><br>                    left[i][j] = left[i][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> matrix[i][n - <span class="hljs-number">1</span> - j] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第i行从右往左计算每个坐标的right中的值</span><br>                    right[i][n - <span class="hljs-number">1</span> - j] = right[i][n - j] + <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> matrix[j][i] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第i行从上往下计算每个坐标的up中的值</span><br>                    up[j][i] = up[j - <span class="hljs-number">1</span>][i] + <span class="hljs-number">1</span><br>                <span class="hljs-keyword">if</span> matrix[n - <span class="hljs-number">1</span> - j][i] == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第i行从下往上计算每个坐标的down中的值</span><br>                    down[n - <span class="hljs-number">1</span> - j][i] = down[n - j][i] + <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-built_in">min</span>(left[i][j], right[i][j], up[i][j], down[i][j])<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n) <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n))<br></code></pre></td></tr></table></figure>
+<p>再多写个Java熟悉熟悉（对了，java初始化数组中的int的数值默认就是0，所以索性直接把1和0反过来判断，省得麻烦）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><span class="hljs-type">int</span>[][] matrix = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n][n];<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span>[] mine : mines) &#123;<br>    matrix[mine[<span class="hljs-number">0</span>]][mine[<span class="hljs-number">1</span>]] = <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-type">int</span>[][] left = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n][n];<br><span class="hljs-type">int</span>[][] right = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n][n];<br><span class="hljs-type">int</span>[][] up = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n][n];<br><span class="hljs-type">int</span>[][] down = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n][n];<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>    <span class="hljs-keyword">if</span>(matrix[i][<span class="hljs-number">0</span>] == <span class="hljs-number">0</span>)<br>        left[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span>(matrix[i][n - <span class="hljs-number">1</span>] == <span class="hljs-number">0</span>)<br>        right[i][n - <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span>(matrix[<span class="hljs-number">0</span>][i] == <span class="hljs-number">0</span>)<br>        up[<span class="hljs-number">0</span>][i] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span>(matrix[n - <span class="hljs-number">1</span>][i] == <span class="hljs-number">0</span>)<br>        down[n - <span class="hljs-number">1</span>][i] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt; n; j++) &#123;<br>        <span class="hljs-keyword">if</span>(matrix[i][j] == <span class="hljs-number">0</span>)<br>            left[i][j] = left[i][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span>(matrix[i][n - <span class="hljs-number">1</span> - j] == <span class="hljs-number">0</span>)<br>            right[i][n - <span class="hljs-number">1</span> - j] = right[i][n - j] + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span>(matrix[j][i] == <span class="hljs-number">0</span>)<br>            up[j][i] = up[j - <span class="hljs-number">1</span>][i] + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span>(matrix[n - <span class="hljs-number">1</span> - j][i] == <span class="hljs-number">0</span>)<br>            down[n - <span class="hljs-number">1</span> - j][i] = down[n - j][i] + <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n; j++)&#123;<br>        ans = Math.max(ans,Math.min(left[i][j], Math.min(right[i][j], Math.min(up[i][j], down[i][j]))));<br>    &#125;<br>&#125;<br><span class="hljs-keyword">return</span> ans;<br></code></pre></td></tr></table></figure>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -325,11 +338,11 @@
       
         <a href="/tags/Leetcode/">#Leetcode</a>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
-      
         <a href="/tags/object-Object/">#[object Object]</a>
       
         <a href="/tags/Solution/">#Solution</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
     </div>
   
@@ -383,6 +396,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/11/11/leetcode-1704/" title="力扣-1704. 判断字符串的两半是否相似">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">力扣-1704. 判断字符串的两半是否相似</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
