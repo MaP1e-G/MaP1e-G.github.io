@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="MaP1e-G&#39;s Blog">
 <meta property="og:description" content="自用。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://imagehost.map1e-g.cn/android-work/Bottom_Nav_Result">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/android-homework/Bottom_Nav_Result">
 <meta property="article:published_time" content="2022-11-16T09:01:46.000Z">
-<meta property="article:modified_time" content="2022-11-20T09:09:09.200Z">
+<meta property="article:modified_time" content="2022-11-20T15:44:16.943Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Java">
 <meta property="article:tag" content="Android">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://imagehost.map1e-g.cn/android-work/Bottom_Nav_Result">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/android-homework/Bottom_Nav_Result">
   
   
   
@@ -277,7 +277,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年11月20日 下午
+                    本文最后更新于：2022年11月20日 晚上
                   
                 
               </p>
@@ -291,7 +291,7 @@
 <p>先来看看界面设计。<br>
 首先是实现底部导航栏，非常简单，左上角<code>File -&gt; New -&gt; New Project -&gt; Bottom Navigation Activity</code>，然后就自动为你创建好了一个现成的底部导航栏，在上面稍微做点改动即可拿来吧你！<br>
 效果图：<br>
-<img src="http://imagehost.map1e-g.cn/android-work/Bottom_Nav_Result" srcset="/img/loading.gif" lazyload alt="底部导航栏实现"><br>
+<img src="http://imagehost.map1e-g.cn/android-homework/Bottom_Nav_Result" srcset="/img/loading.gif" lazyload alt="底部导航栏实现"><br>
 那具体怎么改动？先看到<code>res</code>里边的<code>layout</code>，<code>Fragment</code>布局文件全部右键<code>Refactor -&gt; Rename</code>，就是改名，以我的导航栏为例：<code>fragment_home -&gt; fragment_memo</code>。<br>
 然后看到工程文件里边的<code>ui</code>文件夹，里边分别存了三个界面的<code>Fragment</code>，只留下三个<code>Fragment</code>，<code>ViewModel</code>全删了，然后再把<code>Fragment</code>里边改成下边这样子。（图方便）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MemoFragment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Fragment</span> &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Bundle savedInstanceState)</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate(savedInstanceState);<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> View <span class="hljs-title function_">onCreateView</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> LayoutInflater inflater,</span><br><span class="hljs-params">                             ViewGroup container, Bundle savedInstanceState)</span> &#123;<br>        <span class="hljs-keyword">return</span> inflater.inflate(R.layout.fragment_memo, container, <span class="hljs-literal">false</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -352,9 +352,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Java/">#Java</a>
-      
         <a href="/tags/Android/">#Android</a>
+      
+        <a href="/tags/Java/">#Java</a>
       
     </div>
   
