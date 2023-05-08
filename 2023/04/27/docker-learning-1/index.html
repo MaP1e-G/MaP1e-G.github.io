@@ -16,28 +16,26 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="力扣题库第1752题。">
+    <meta name="description" content="有人跟我说Docker怎么怎么好用怎么怎么方便啊，很快啊我就来看看怎么入门了！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="力扣-1752. 检查数组是否经排序和轮转得到">
-<meta property="og:url" content="https://map1e-g.github.io/2022/11/27/leetcode-1752/index.html">
+<meta property="og:title" content="Docker(🐋)学习笔记-1">
+<meta property="og:url" content="https://map1e-g.github.io/2023/04/27/docker-learning-1/index.html">
 <meta property="og:site_name" content="个人学习分享">
-<meta property="og:description" content="力扣题库第1752题。">
+<meta property="og:description" content="有人跟我说Docker怎么怎么好用怎么怎么方便啊，很快啊我就来看看怎么入门了！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_1752_1.png">
-<meta property="article:published_time" content="2022-11-27T04:32:59.000Z">
-<meta property="article:modified_time" content="2022-11-27T04:43:24.156Z">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Docker/docker_interface_1.jpg">
+<meta property="og:image" content="http://imagehost.map1e-g.cn/Docker/docker_cli_1.jpg">
+<meta property="article:published_time" content="2023-04-27T04:30:26.000Z">
+<meta property="article:modified_time" content="2023-05-01T17:06:08.027Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="[object Object]">
-<meta property="article:tag" content="Solution">
-<meta property="article:tag" content="数组">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="VSCode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_1752_1.png">
+<meta name="twitter:image" content="http://imagehost.map1e-g.cn/Docker/docker_interface_1.jpg">
   
   
   
-  <title>力扣-1752. 检查数组是否经排序和轮转得到 - 个人学习分享</title>
+  <title>Docker(🐋)学习笔记-1 - 个人学习分享</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="力扣-1752. 检查数组是否经排序和轮转得到"></span>
+            <span id="subtitle" data-typed-text="Docker(🐋)学习笔记-1"></span>
           
         </div>
 
@@ -213,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-27 12:32" pubdate>
-          2022年11月27日 下午
+        <time datetime="2023-04-27 12:30" pubdate>
+          2023年4月27日 下午
         </time>
       </span>
     
@@ -225,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          712 字
+          1.7k 字
         
       </span>
     
@@ -236,7 +234,7 @@
         
         
         
-          6 分钟
+          14 分钟
         
       </span>
     
@@ -274,38 +272,59 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">力扣-1752. 检查数组是否经排序和轮转得到</h1>
+            <h1 style="display: none">Docker(🐋)学习笔记-1</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年11月27日 下午
+                    本文最后更新于：2023年5月2日 凌晨
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1752_1.png" srcset="/img/loading.gif" lazyload alt="1752"></p>
-<h1>思路及实现</h1>
-<p>题目的意思其实就是给你一个数组，然后如果这个数组不是完全单调递增的话，找到不能够单调递增的地方，然后从这个地方开始一直到最后的部分搬到最前边去，判断这样新产生的数组是否是单调递增的。<br>
-所以思路也十分简单：</p>
-<ol>
-<li>找到需要进行分割的位置</li>
-<li>对数组进行重组</li>
-<li>将重组数组与排序后的数组进行比较<br>
-根据这个思路可以写出如下代码：</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        pre_num = <span class="hljs-number">0</span><br>        div_pos = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums):<br>            <span class="hljs-keyword">if</span> num &lt; pre_num:<br>                div_pos = i<br>                <span class="hljs-keyword">break</span><br>            pre_num = num<br>        <span class="hljs-keyword">if</span> div_pos == -<span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> nums[div_pos:] + nums[:div_pos] == <span class="hljs-built_in">sorted</span>(nums)<br></code></pre></td></tr></table></figure>
-<p>我们还可以利用<code>flag</code>判断产生多少次递减来做：</p>
-<ol>
-<li>如果产生两次递减，返回False</li>
-<li>如果没有产生递减，返回True</li>
-<li>如果产生一次递减，若数组最后一位数大于数组第一位数则返回False，否则True</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        pre_num = <span class="hljs-number">0</span><br>        flag = <span class="hljs-literal">False</span>  <span class="hljs-comment"># 检查是否出现递减</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums):<br>            <span class="hljs-keyword">if</span> num &lt; pre_num:<br>                <span class="hljs-keyword">if</span> flag:<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>                <span class="hljs-keyword">else</span>:<br>                    flag = <span class="hljs-literal">True</span><br>            pre_num = num<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">not</span> flag <span class="hljs-keyword">or</span> flag <span class="hljs-keyword">and</span> nums[<span class="hljs-number">0</span>] &gt;= nums[-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
+              <h1>Docker是什么？</h1>
+<p><s>是一条🐋</s>是一个应用容器引擎。反正就是你可以用它来打包、传输和新机器上快速部署应用。（为应用提供一个独立的、隔离的沙盒环境）</p>
+<h2 id="什么是容器？">什么是容器？</h2>
+<p>这里引用官方文档的原文，一个容器可以总结以下几点：</p>
+<ul>
+<li>是一个镜像的可运行实例。你能够通过使用DockerAPI和CLI来创建、启动、停止、移动或是删除一个容器。</li>
+<li>可以运行在本地或虚拟机上，又或是部署在云上。</li>
+<li>是便携的（可运行在任何操作系统上）</li>
+<li>和其他的容器是隔离的，并且运行它自己拥有的软件、二进制文件和配置。</li>
+</ul>
+<h1>在自己的机器上安装Docker</h1>
+<p>官方提供了三种平台（Mac、Windows、Linux）的安装文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">Get Docker</a>。我自己是Windows平台。</p>
+<div class="note note-warning">
+            <p>Docker的安装可能比较复杂（因为还需要Windows安装Linux子系统和虚拟机平台支持什么的）！请耐心一步一步来并解决各种问题！</p>
+          </div>
+<p>安装成功后的<code>Docker Desktop</code>界面：<img src="http://imagehost.map1e-g.cn/Docker/docker_interface_1.jpg" srcset="/img/loading.gif" lazyload alt="Docker Desktop"><br>
+同样的，你也可以在命令行中使用<code>docker run hello-world</code>命令进行验证，安装好后应该如图所示：<img src="http://imagehost.map1e-g.cn/Docker/docker_cli_1.jpg" srcset="/img/loading.gif" lazyload alt="Docker Cli"></p>
+<h1>跟着官方创建一个容器并在其上面启动app</h1>
+<p>首先，我们把项目克隆到本地：<code>git clone https://github.com/docker/getting-started.git</code>。<br>
+然后在<code>vscode</code>中打开项目文件夹（当然了，<code>vscode</code>需要<strong>安装Docker</strong>扩展）。<br>
+注意到目录中的<code>Dockerfile</code>了吗？它是个简单的指令脚本，而且没有文件扩展，<code>Docker</code>就是用这个脚本来构建容器镜像的。<br>
+现在，让我们在当前文件夹的子文件夹<code>app</code>中创建一个<code>Dockerfile</code>脚本。</p>
+<ul>
+<li>第一步，打开<code>vscode</code>的悬浮命令行面板（快捷键为<code>Ctrl+Shift+P</code>），输入<code>Terminal</code>，找到<code>Terminal:Create New Terminal</code>并单击。</li>
+<li>哦，当然，记得使用<code>Command Prompt</code>而不是使用<code>Powershell</code>，下面的命令在<code>Powershell</code>中并不适用。要使用<code>Command Prompt</code>，在刚刚弹出的终端窗口的右上角，点击<code>+</code>和<code>...</code>之间的按钮，在弹出的列表中选择即可。</li>
+<li>第二步，执行以下命令：<code>cd app</code>，进入<code>app</code>文件夹；<code>type nul &gt; Dockerfile</code>，创建<code>Dockerfile</code>脚本文件。<br>
+然后将以下内容复制到<code>Dockerfile</code>中：</li>
+</ul>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Docker"><span class="hljs-comment"># syntax=docker/dockerfile:1</span><br>   <br><span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> yarn install --production</span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;node&quot;</span>, <span class="hljs-string">&quot;src/index.js&quot;</span>]</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+<p>第一行的<code>FROM</code>指令初始化了一个新的构建阶段并为后续指令设置基本镜像，一个合法的<code>Dockerfile</code>必须以该指令开头。<br>
+第二行的<code>WORKDIR</code>就是为后续的<code>RUN</code>、<code>CMD</code>、<code>ENTRYPOINT</code>、<code>COPY</code>和<code>ADD</code>设置工作路径。<br>
+第三行的<code>COPY</code>指令从<code>&lt;src&gt;</code>复制新文件或目录，并将它们添加到容器的文件系统路径<code>&lt;dest&gt;</code> <code>中。   第四行的</code>RUN<code>就是执行跟在其后面的指令。   第五行的</code>CMD<code>指令的主要目的是为正在执行的容器提供默认值，这些默认值可以包含可执行文件，也可以在你指定</code>ENTRYPOINT<code>的情况下省略可执行文件。   第六行的</code>EXPOSE<code>指令告知</code>Docker<code>容器在运行的时候监听指定的网络端口，你可以指定端口是监听UDP还是TCP（</code>EXPOSE 3000/udp<code>），默认为TCP。   那么接下来就能够构建一个容器镜像了。在</code>app<code>目录下使用如下命令：</code>docker build -t getting-started .`（了解更多有关该指令的信息，可以参考<a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/02_our_app/">官方文档</a>）</p>
+<div class="note note-warning">
+            <p>如果本地没有所需要的镜像（<code>FROM</code>指定的），那么<code>Docker</code>就需要从网上拉取。</p>
+          </div>
+<p>最后一步，在我们的容器里启动app！输入指令：<code>docker run -dp 3000:3000 getting-started</code>来启动。</p>
+<h1>更新应用</h1>
+<p>TO DO…</p>
+<h1>参考文档</h1>
+<p>Docker官方文档。</p>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -314,19 +333,41 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/Docker/" class="category-chain-item">Docker</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Python/">#Python</a>
+        <a href="/tags/Docker/">#Docker</a>
       
-        <a href="/tags/Leetcode/">#Leetcode</a>
-      
-        <a href="/tags/object-Object/">#[object Object]</a>
-      
-        <a href="/tags/Solution/">#Solution</a>
-      
-        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
+        <a href="/tags/VSCode/">#VSCode</a>
       
     </div>
   
@@ -338,8 +379,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>力扣-1752. 检查数组是否经排序和轮转得到</div>
-      <div>https://map1e-g.github.io/2022/11/27/leetcode-1752/</div>
+      <div>Docker(🐋)学习笔记-1</div>
+      <div>https://map1e-g.github.io/2023/04/27/docker-learning-1/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +392,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月27日</div>
+          <div>2023年4月27日</div>
         </div>
       
       
@@ -381,18 +422,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/27/leetcode-878/" title="力扣-878. 第 N 个神奇数字">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">力扣-878. 第 N 个神奇数字</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/27/leetcode-1742/" title="力扣-1742. 盒子中小球的最大数量">
-                        <span class="hidden-mobile">力扣-1742. 盒子中小球的最大数量</span>
+                      <a href="/2023/04/26/spring-learning-1/" title="Spring学习笔记-1">
+                        <span class="hidden-mobile">Spring学习笔记-1</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
