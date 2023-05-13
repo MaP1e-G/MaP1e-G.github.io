@@ -4,6 +4,52 @@
   
   
   <entry>
+    <title>mybatis-plus-1</title>
+    <link href="/2023/05/09/mybatis-plus-1/"/>
+    <url>/2023/05/09/mybatis-plus-1/</url>
+    
+    <content type="html"><![CDATA[<h1>快速入门</h1><p>假设我们现在有一个映射数据库中<code>user</code>表的实体类<code>User</code>：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br><span class="hljs-keyword">private</span> Long id;<br><span class="hljs-keyword">private</span> String name;<br><span class="hljs-keyword">private</span> Integer age;<br><span class="hljs-keyword">private</span> String email;<br>&#125;<br></code></pre></td></tr></table></figure><p>要使用<code>MyBatis-Plus</code>进行<code>CRUD</code>操作，就在<code>Mapper</code>文件夹下编写对应的<code>Mapper</code>类：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseMapper</span>&lt;User&gt; &#123;<br><br>&#125;<br></code></pre></td></tr></table></figure><p>然后在启动类中添加<code>@MapperScan</code>注解，扫描<code>Mapper</code>文件夹即可。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@MapperScan(&quot;com.me.quickstart.mapper&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Application</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(Application.class, args);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure><h1>注解</h1><h2 id="TableName">@TableName</h2><ul><li>描述：表名注解，标识实体类对应的表</li><li>使用位置：实体类<br>一般来说只需要知道<code>value</code>属性（即表名）就行了。用法：<code>@TableName(value=&quot;sys_user&quot;)</code>，<code>@TableName(&quot;sys_user&quot;)</code></li></ul><h2 id="TableId">@TableId</h2><ul><li>描述：主键注解</li><li>使用位置：实体类主键字段<br>用法：</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@TableId</span><br><span class="hljs-keyword">private</span> Long id;<br></code></pre></td></tr></table></figure><h2 id="TableField">TableField</h2><ul><li>描述：字段注解（非主键）<br>用法：</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@TableField(&quot;nickname&quot;)</span><br><span class="hljs-keyword">private</span> String name;<br></code></pre></td></tr></table></figure><h1>CRUD接口</h1><p>建议转到文档看：<a href="https://www.baomidou.com/pages/49cc81/#service-crud-%E6%8E%A5%E5%8F%A3">CRUD接口</a></p><h2 id="Chain">Chain</h2><h3 id="query">query</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 链式查询 普通</span><br>QueryChainWrapper&lt;T&gt; <span class="hljs-title function_">query</span><span class="hljs-params">()</span>;<br><span class="hljs-comment">// 链式查询 lambda 式。注意：不支持 Kotlin</span><br>LambdaQueryChainWrapper&lt;T&gt; <span class="hljs-title function_">lambdaQuery</span><span class="hljs-params">()</span>;<br><br><span class="hljs-comment">// 示例：</span><br>query().eq(<span class="hljs-string">&quot;column&quot;</span>, value).one();<br>lambdaQuery().eq(Entity::getId, value).list();<br></code></pre></td></tr></table></figure><h3 id="update">update</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 链式更改 普通</span><br>UpdateChainWrapper&lt;T&gt; <span class="hljs-title function_">update</span><span class="hljs-params">()</span>;<br><span class="hljs-comment">// 链式更改 lambda 式。注意：不支持 Kotlin</span><br>LambdaUpdateChainWrapper&lt;T&gt; <span class="hljs-title function_">lambdaUpdate</span><span class="hljs-params">()</span>;<br><br><span class="hljs-comment">// 示例：</span><br>update().eq(<span class="hljs-string">&quot;column&quot;</span>, value).remove();<br>lambdaUpdate().eq(Entity::getId, value).update(entity);<br></code></pre></td></tr></table></figure><h2 id="ActiveRecord模式">ActiveRecord模式</h2><div class="note note-success">            <p><strong>说明</strong>：</p><ul><li>实体类只需继承Model类即可进行强大的CRUD操作</li><li>需要项目中已注入对应实体的BaseMapper</li></ul>          </div><p>用法：</p><ul><li>继承Model</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Model</span>&lt;User&gt;&#123;<br><span class="hljs-comment">// fields...</span><br>&#125;<br></code></pre></td></tr></table></figure><ul><li>调用CRUD方法</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>user.insert();<br></code></pre></td></tr></table></figure><h2 id="Db类">Db类</h2><div class="note note-success">            <p><strong>说明</strong>：</p><ul><li>使用静态调用的方式，执行CRUD方法，避免<code>Service</code>循环注入。</li><li>需要项目中已注入对应实体的BaseMapper</li><li>对于参数为Wrapper的，需要在Wrapper中传入Entity或者EntityClass供寻找对应的Mapper</li><li>不建议在循环中调用，如果是批量保存，建议将数据构造好后使用 Db.saveBatch(数据) 保存</li></ul>          </div><p>用法参见：<a href="https://gitee.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus/src/test/java/com/baomidou/mybatisplus/test/toolkit/DbTest.java">测试用例</a></p><h1>条件构造器</h1><h2 id="AbstractWrapper">AbstractWrapper</h2><p>用于生成<code>sql</code>的<code>where</code>条件，<code>entity</code>属性也用于生成<code>sql</code>的<code>where</code>条件。同时也是<code>QueryWrapper(LambdaQueryWrapper)</code>和<code>UpdateWrapper(LambdaUpdateWrapper)</code>的父类。<br>方法参照：<a href="https://www.baomidou.com/pages/10c804/#abstractwrapper">条件构造器</a></p><h2 id="使用方法">使用方法</h2><p>继续使用最开始提到的<code>User</code>实体类，假设<code>id</code>对应数据库中的<code>uid</code>字段。</p><h3 id="QueryWrapper">QueryWrapper</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 查询条件构造器</span><br>QueryWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryWrapper</span>&lt;&gt;();<br>wrapper.eq(<span class="hljs-string">&quot;uid&quot;</span>, id);<br><span class="hljs-comment">// 查询操作</span><br>List&lt;User&gt; users = userMapper.selectList(wrapper);<br></code></pre></td></tr></table></figure><p>引入<code>lambda</code>来避免硬编码</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">QueryWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryWrapper</span>&lt;&gt;();<br>wrapper.lambda().eq(User::getId, id);<br><span class="hljs-comment">// 查询操作</span><br>List&lt;User&gt; users = userMapper.selectList(wrapper);<br></code></pre></td></tr></table></figure><h3 id="LambdaQueryWrapper">LambdaQueryWrapper</h3><p>上面的简化版本，使用方法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">LambdaQueryWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryWrapper</span>&lt;User&gt;().lambda();<br>wrapper.eq(User::getId, id);<br>List&lt;User&gt; user = userMapper.selectList(wrapper);<br></code></pre></td></tr></table></figure><p>简化再简化：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">LambdaQueryWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaQueryWrapper</span>&lt;&gt;();<br>wrapper.eq(User::getId, id);<br>List&lt;User&gt; user = userMapper.selectList(wrapper);<br></code></pre></td></tr></table></figure><h3 id="UpdateWrapper">UpdateWrapper</h3><p>既然都有查询用的<code>wrapper</code>那肯定也有更新用的<code>wrapper</code>啦，使用方法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">UpdateWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UpdateWrapper</span>&lt;&gt;();<br>wrapper.set(<span class="hljs-string">&quot;user_name&quot;</span>, name);<br>wrapper.eq(<span class="hljs-string">&quot;uid&quot;</span>, id);<br>userMapper.update(<span class="hljs-literal">null</span>, wrapper);<br></code></pre></td></tr></table></figure><h3 id="LambdaUpdateWrapper">LambdaUpdateWrapper</h3><p>那其实用法和上面的<code>lambda</code>查询差不多</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">LambdaUpdateWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LambdaUpdateWrapper</span>&lt;User&gt;()<br>.eq(User::getId, id)<br>.set(User::getName, name);<br>userMapper.udpate(<span class="hljs-literal">null</span>, wrapper);<br></code></pre></td></tr></table></figure><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>Learning Log</category>
+      
+      <category>MyBatis</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Java</tag>
+      
+      <tag>Spring</tag>
+      
+      <tag>MyBatis</tag>
+      
+      <tag>SQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>mybatis-plus-1.md</title>
+    <link href="/2023/05/09/mybatis-plus-1-md/"/>
+    <url>/2023/05/09/mybatis-plus-1-md/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Docker(🐋)学习笔记-1</title>
     <link href="/2023/04/27/docker-learning-1/"/>
     <url>/2023/04/27/docker-learning-1/</url>
@@ -599,11 +645,11 @@
       
       <tag>Leetcode</tag>
       
+      <tag>数组</tag>
+      
       <tag>[object Object]</tag>
       
       <tag>Solution</tag>
-      
-      <tag>数组</tag>
       
     </tags>
     
@@ -1755,9 +1801,9 @@
     
     <tags>
       
-      <tag>Java</tag>
-      
       <tag>Leetcode</tag>
+      
+      <tag>Java</tag>
       
     </tags>
     
@@ -1811,9 +1857,9 @@
     
     <tags>
       
-      <tag>Java</tag>
-      
       <tag>Python</tag>
+      
+      <tag>Java</tag>
       
       <tag>Algorithm</tag>
       
