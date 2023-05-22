@@ -16,23 +16,23 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta name="description" content="学习WPF的第一天。">
+    <meta name="description" content="偶然间看到的，就记录下来了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WPF学习笔记-1">
-<meta property="og:url" content="https://map1e-g.github.io/2022/12/09/wpf-learning-1/index.html">
+<meta property="og:title" content="IP和字符串的相互转换">
+<meta property="og:url" content="https://map1e-g.github.io/2023/05/15/ip2str/index.html">
 <meta property="og:site_name" content="楓葉的小窩">
-<meta property="og:description" content="学习WPF的第一天。">
+<meta property="og:description" content="偶然间看到的，就记录下来了。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-09T12:50:42.000Z">
-<meta property="article:modified_time" content="2022-12-09T12:55:11.437Z">
+<meta property="article:published_time" content="2023-05-15T08:15:21.000Z">
+<meta property="article:modified_time" content="2023-05-15T08:33:26.381Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="C#">
-<meta property="article:tag" content="WPF">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="SQL">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>WPF学习笔记-1 - 楓葉的小窩</title>
+  <title>IP和字符串的相互转换 - 楓葉的小窩</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="WPF学习笔记-1"></span>
+            <span id="subtitle" data-typed-text="IP和字符串的相互转换"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-09 20:50" pubdate>
-          2022年12月9日 晚上
+        <time datetime="2023-05-15 16:15" pubdate>
+          2023年5月15日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          104 字
+          1.1k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          1 分钟
+          9 分钟
         
       </span>
     
@@ -269,24 +269,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">WPF学习笔记-1</h1>
+            <h1 style="display: none">IP和字符串的相互转换</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年12月9日 晚上
+                    本文最后更新于：2023年5月15日 下午
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h1>前言</h1>
-<p>嗨嗨，又开新坑了！其实主要是想看看能不能用<code>wpf</code>做点自己想要的桌面应用程序，所以就来学了。顺便还能学习<code>C#</code>不是吗？<br>
-当然我也不能保证会学完什么的，毕竟要真学完还是十分困难的（呃啊），想说的就说这么多啦。</p>
-<h1>正文</h1>
-<hr>
+              <h1>来源</h1>
+<p>本文出自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mhmyqn/article/details/48653157">MySQL如何有效的存储IP地址及字符串IP和数值之间如何转换</a></p>
+<h1>写法</h1>
+<p>仔细想想，<code>IPv4</code>的每一部分其实都是<code>0~255</code>的取值，也就是<code>8 bit</code>的大小，如果转换成整型那么就只需要<code>32 bit</code>即<code>4</code>个字节的大小。<br>
+而转换的方法也是顺着这个思路，先把字符串以<code>.</code>为分隔符分成四部分，再把这四部分进行位操作后加起来，就能得到整型的<code>IPv4</code>地址了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> Mikan</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 把字符串IP转换成long</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> ipStr 字符串IP</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> IP对应的long值</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> <span class="hljs-title function_">ip2Long</span><span class="hljs-params">(String ipStr)</span> &#123;<br>	String[] ip = ipStr.split(<span class="hljs-string">&quot;\\.&quot;</span>);<br>	<span class="hljs-keyword">return</span> (Long.valueOf(ip[<span class="hljs-number">0</span>]) &lt;&lt; <span class="hljs-number">24</span>) + (Long.valueOf(ip[<span class="hljs-number">1</span>]) &lt;&lt; <span class="hljs-number">16</span>)<br>			+ (Long.valueOf(ip[<span class="hljs-number">2</span>]) &lt;&lt; <span class="hljs-number">8</span>) + Long.valueOf(ip[<span class="hljs-number">3</span>]);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>那么转换回去的思路也大差不差，先用位操作得到四个部分，再进行转型和字符串合并。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 把IP的long值转换成字符串</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> ipLong IP的long值</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> long值对应的字符串</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">long2Ip</span><span class="hljs-params">(<span class="hljs-type">long</span> ipLong)</span> &#123;<br>	<span class="hljs-type">StringBuilder</span> <span class="hljs-variable">ip</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>	ip.append(ipLong &gt;&gt;&gt; <span class="hljs-number">24</span>).append(<span class="hljs-string">&quot;.&quot;</span>);<br>	ip.append((ipLong &gt;&gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFF</span>).append(<span class="hljs-string">&quot;.&quot;</span>);<br>	ip.append((ipLong &gt;&gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>).append(<span class="hljs-string">&quot;.&quot;</span>);<br>	ip.append(ipLong &amp; <span class="hljs-number">0xFF</span>);<br>	<span class="hljs-keyword">return</span> ip.toString();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>比较尴尬的是<code>java</code>没有无符号整型，只好直接使用长整型来存储了（不觉得另一种意义上的十分浪费吗.jpg）。</p>
+<h1>写在最后</h1>
+<p>原文中提到<code>MySQL</code>中是自带相应函数来把字符串格式的IP转换成整数的<code>INET_ATON</code>和IP转换成字符串的<code>INET_NTOA</code>的，还有适应<code>IPv6</code>的<code>INET6_ATON</code>和<code>INET6_NTOA</code>，之后可以学习一下。</p>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -304,15 +310,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  <a href="/categories/Essay/" class="category-chain-item">Essay</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Learning-Log/WPF/" class="category-chain-item">WPF</a>
-  
-  
-
   
 
       </span>
@@ -326,9 +325,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/C/">#C#</a>
+        <a href="/tags/Java/">#Java</a>
       
-        <a href="/tags/WPF/">#WPF</a>
+        <a href="/tags/SQL/">#SQL</a>
       
     </div>
   
@@ -340,8 +339,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>WPF学习笔记-1</div>
-      <div>https://map1e-g.github.io/2022/12/09/wpf-learning-1/</div>
+      <div>IP和字符串的相互转换</div>
+      <div>https://map1e-g.github.io/2023/05/15/ip2str/</div>
     </div>
     <div class="license-meta">
       
@@ -353,7 +352,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月9日</div>
+          <div>2023年5月15日</div>
         </div>
       
       
@@ -383,9 +382,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/27/leetcode-1739-1764-1785-1945-2027/" title="力扣每日一题五天大礼包之：1739、1764、1785、1945和2027">
+                      <a href="/2023/05/20/unity-learning-1/" title="Unity学习笔记-1">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">力扣每日一题五天大礼包之：1739、1764、1785、1945和2027</span>
+                        <span class="hidden-mobile">Unity学习笔记-1</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -393,8 +392,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/04/leetcode-1774/" title="力扣-1774. 最接近目标价格的甜点成本">
-                        <span class="hidden-mobile">力扣-1774. 最接近目标价格的甜点成本</span>
+                      <a href="/2023/05/09/mybatis-plus-1/" title="MyBatis-Plus学习笔记-1">
+                        <span class="hidden-mobile">MyBatis-Plus学习笔记-1</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
