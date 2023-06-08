@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://imagehost.map1e-g.cn/SpringBootLearning/1/dashboard.jpg">
 <meta property="og:image" content="http://imagehost.map1e-g.cn/SpringBootLearning/1/greet_from_vscode.jpg">
 <meta property="article:published_time" content="2023-04-26T00:21:25.000Z">
-<meta property="article:modified_time" content="2023-05-06T01:27:10.517Z">
+<meta property="article:modified_time" content="2023-06-07T15:32:31.116Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="VSCode">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.9k 字
+          8.5k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          58 分钟
+          71 分钟
         
       </span>
     
@@ -279,7 +279,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年5月6日 上午
+                    本文最后更新于：2023年6月7日 晚上
                   
                 
               </p>
@@ -379,6 +379,24 @@ ok，不整这些看了有的没的东西，对我来说，它十分像<code>C#<
 综上所述，<code>vo</code> 文件夹下的 <code>Do</code>、<code>ExcelVo</code>、<code>Param</code> 和 <code>QuesVo</code> 分别表示数据库实体类、Excel 数据、方法参数和问卷调查相关数据的 VO 类，它们用于传递和操作相应的数据。</li>
 </ol>
 </blockquote>
+<h2 id="可能有用的写法">可能有用的写法</h2>
+<h3 id="List转换成流获取指定属性">List转换成流获取指定属性</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;User&gt; users = userMapper.selectList();<br>List&lt;String&gt; ids = users.stream().map(User::getId).collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
+<h3 id="List转换成流再用过滤器过滤获取指定数据">List转换成流再用过滤器过滤获取指定数据</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 假设用户类型type = 0为管理员，type = 1为普通用户</span><br>List&lt;User&gt; users = userMapper.selectList();<br>List&lt;User&gt; admin = users.stream().filter(e -&gt; Objects.equals(e.getType(), <span class="hljs-number">0</span>).collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
+<h3 id="使用stream进行数据分组">使用stream进行数据分组</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 根据用户的年龄进行分组</span><br>List&lt;User&gt; users = userMapper.selectList();<br>Map&lt;String, List&lt;User&gt;&gt; collect = users.stream().collect(Collectors.groupingBy(User::getAge));<br><span class="hljs-comment">// 再将其中所有值提取出来，重新组成一个List</span><br>List&lt;List&lt;User&gt;&gt; collectList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(collect.values());<br></code></pre></td></tr></table></figure>
+<h3 id="使用stream的groupBy统计数据">使用stream的groupBy统计数据</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 根据用户的性别进行分组，并统计个分组的数据总数</span><br>List&lt;User&gt; users = userMapper.selectList();<br>Map&lt;String, Long&gt; aLong = users.stream().collect(Collectors.groupingBy(User::getSex,Collectors.counting()));<br><span class="hljs-comment">// 要访问其中的数据，使用foreach</span><br><span class="hljs-keyword">for</span> (String key: aLong.keySet())&#123;<br>	System.out.println(key + <span class="hljs-string">&quot;: &quot;</span> + aLong.getKey(key));<br>&#125;<br>aLong.forEach((k, v) -&gt; &#123;<br>	System.out.println(k + <span class="hljs-string">&quot;: &quot;</span> + v);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<h3 id="js计算百分比">js计算百分比</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 计算百分比</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span>   &#123;<span class="hljs-type">number</span>&#125; num   分子</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span>   &#123;<span class="hljs-type">number</span>&#125; total 分母</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">number</span>&#125; 返回数百分比</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Percentage</span>(<span class="hljs-params">num, total</span>) &#123; <br>    <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span> || total == <span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(num / total * <span class="hljs-number">10000</span>) / <span class="hljs-number">100.00</span>);<span class="hljs-comment">// 小数点后两位百分比</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="Excel表相关">Excel表相关</h3>
+<p>合并相同垂直列写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Excel(name=&#x27;xxx&#x27;, mergeVertical=true)</span><br></code></pre></td></tr></table></figure>
+<p>依赖某一列来合并写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Excel(name = &quot;报表类型&quot;, mergeRely = &#123;0&#125;, mergeVertical = true)</span><br></code></pre></td></tr></table></figure>
+<h3 id="el-date-picker相关">el-date-picker相关</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html">以下两句不加的话，发送的载荷里面显示的日期会往前一天，但是到后端其实又没问题，不是很懂<br><span class="hljs-tag">&lt;<span class="hljs-name">el-date-picker</span></span><br><span class="hljs-tag">  <span class="hljs-attr">...</span></span><br><span class="hljs-tag">  <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span></span><br><span class="hljs-tag">  <span class="hljs-attr">value-format</span>=<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span></span><br><span class="hljs-tag">&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">el-date-picker</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
