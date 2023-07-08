@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue2.x的基础知识，来源官方文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2.x 文档笔记-1">
+<meta property="og:url" content="https://map1e-g.github.io/2023/06/22/vue-learning-3/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="Vue2.x的基础知识，来源官方文档。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-22T14:45:46.000Z">
+<meta property="article:modified_time" content="2023-06-25T14:49:30.922Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Html">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Vue2.x 文档笔记-1 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue2.x 文档笔记-1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-06-22 22:45" pubdate>
+          2023年6月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          56 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue2.x 文档笔记-1</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年6月25日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>Vue2.x 文档笔记-1</h1>
+<h2 id="数据与方法">数据与方法</h2>
+<h3 id="让对象不再响应">让对象不再响应</h3>
+<p>如果想让某一个对象不再进行响应式，可以用<code>Object.freeze()</code>方法。</p>
+<h3 id="有用的-watch方法">有用的<code>$watch</code>方法</h3>
+<p>Vue实例暴露了一些有用的实例属性与方法，就是带有前缀<code>$</code>的那些（这样以便与用户定义的属性区分开来）。</p>
+<p>这其中有一个很有用的：<code>$watch</code>方法，它可以观察一个变量的变化，然后执行一个回调函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">vm.$watch(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">newVal, oldVal</span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newVal, oldVal);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<h2 id="条件渲染">条件渲染</h2>
+<h3 id="v-if">v-if</h3>
+<p><code>v-if</code>指令用于条件性地渲染一块内容，这块内容只会在指令地表达式返回<code>truthy</code>值得时候被渲染（比如内容是一条文本，表达式返回<code>true</code>时就“看得见”这条文本，返回<code>false</code>时就“看不见”）</p>
+<div class="note note-warning">
+            <p>注意<code>v-if</code>是决定是否渲染这一块内容，而不是是否显示这一块内容，更多相关信息请看下面的<code>v-show</code>小节。</p>
+          </div>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;type === &#x27;A&#x27;&quot;</span>&gt;</span>This is a text.<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>此外，<code>vue</code>还提供了<code>v-else</code>和<code>v-else=if</code>指令。</p>
+<p>如果我们需要切换多个元素，可以在那些能包裹多个元素的元素上使用<code>v-if</code>指令，比如：<code>&lt;div&gt;</code>和<code>&lt;template&gt;</code>元素。</p>
+<p><code>vue</code>会复用已有的元素而不是从头开始渲染，如果要告诉<code>vue</code>这两个元素是完全独立的，请不要复用它们，那么可以给这个元素添加一个具有唯一值的<code>key</code> attribute：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;loginType === &#x27;username&#x27;&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Username<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Enter your username&quot;</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;username-input&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-else</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;Enter your email address&quot;</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;email-input&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>在上面的代码中，只有<code>label</code>元素被复用，而<code>input</code>元素则在每次切换时被重新渲染。</p>
+<div class="note note-warning">
+            <p><strong>不推荐</strong>同时使用<code>v-if</code>和<code>v-for</code>。请查阅<a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/style-guide/#%E9%81%BF%E5%85%8D-v-if-%E5%92%8C-v-for-%E7%94%A8%E5%9C%A8%E4%B8%80%E8%B5%B7-%E5%BF%85%E8%A6%81">风格指南</a>以获取更多信息。——官方文档</p>
+          </div>
+<h3 id="v-show">v-show</h3>
+<p>这个指令也是根据条件来展示元素，不过和<code>v-if</code>不同的是，带有<code>v-show</code>指令的元素<strong>始终会被渲染并保留在DOM中</strong>，<code>v-show</code> 只是简单地切换元素的 CSS property <code>display</code>。（也就是说页面上是已经加载出来这个元素了，只不过看不见）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">&quot;ok&quot;</span>&gt;</span><br>    Hello!<br><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<div class="note note-warning">
+            <p>注意，<code>v-show</code>不支持<code>&lt;template&gt;</code>元素。</p>
+          </div>
+<h3 id="小结">小结</h3>
+<p>如果需要非常频繁地切换，则使用 <code>v-show</code> 较好；如果在运行时条件很少改变，则使用 <code>v-if</code> 较好。</p>
+<h2 id="表单输入绑定">表单输入绑定</h2>
+<h3 id="v-model">v-model</h3>
+<p>使用<code>v-model</code>指令来在表单的<code>&lt;input&gt;</code>、<code>&lt;select&gt;</code>等元素上创建双向数据绑定。它负责监听用户的输入事件以更新数据，而且会根据控件类型自动选取正确的方法来更新元素。只要知道表单元素应该是都能用这个进行数据绑定就对了。</p>
+<p>下面的代码是一份大杂烩代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;!<span class="hljs-variable constant_">DOCTYPE</span> html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;meta charset=&quot;utf-8&quot;&gt;<br>&lt;title&gt;&lt;/title&gt;<br>&lt;script src=&quot;vue.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;div id=&quot;app&quot;&gt;<br>	&lt;div id=&quot;example-1&quot;&gt;<br>		&lt;input v-model=&quot;message&quot; placeholder=&quot;edit me&quot;&gt;<br>		&lt;p&gt;Message is: &#123;&#123; message &#125;&#125;&lt;/p&gt;<br>		&lt;textarea v-model=&quot;message2&quot; placeholder=&quot;add multiple lines&quot;&gt;&lt;/textarea&gt;<br>		&lt;p style=&quot;white-space: pre-line;&quot;&gt;&#123;&#123; message2 &#125;&#125;&lt;/p&gt;<br>		&lt;br /&gt;<br>		<br>		&lt;div style=&quot;margin-top:30px;&quot;&gt;<br>			&lt;input type=&quot;checkbox&quot; id=&quot;jack&quot; value=&quot;Jack&quot; v-model=&quot;checkedNames&quot;&gt;<br>			&lt;label for=&quot;jack&quot;&gt;Jack&lt;/label&gt;<br>			&lt;input type=&quot;checkbox&quot; id=&quot;john&quot; value=&quot;John&quot; v-model=&quot;checkedNames&quot;&gt;<br>			&lt;label for=&quot;john&quot;&gt;John&lt;/label&gt;<br>			&lt;input type=&quot;checkbox&quot; id=&quot;mike&quot; value=&quot;Mike&quot; v-model=&quot;checkedNames&quot;&gt;<br>			&lt;label for=&quot;mike&quot;&gt;Mike&lt;/label&gt;<br>			&lt;br&gt;<br>			&lt;span&gt;Checked names: &#123;&#123; checkedNames &#125;&#125;&lt;/span&gt;<br>		&lt;/div&gt;<br>		<br>		&lt;div style=&quot;margin-top:30px;&quot;&gt;<br>			&lt;input type=&quot;radio&quot; id=&quot;one&quot; value=&quot;One&quot; v-model=&quot;picked&quot;&gt;<br>			&lt;label for=&quot;one&quot;&gt;One&lt;/label&gt;<br>			&lt;br&gt;<br>			&lt;input type=&quot;radio&quot; id=&quot;two&quot; value=&quot;Two&quot; v-model=&quot;picked&quot;&gt;<br>			&lt;label for=&quot;two&quot;&gt;Two&lt;/label&gt;<br>			&lt;br&gt;<br>			&lt;span&gt;Picked: &#123;&#123; picked &#125;&#125;&lt;/span&gt;<br>		&lt;/div&gt;<br>		<br>		&lt;div style=&quot;margin-top: 20px; margin-bottom: 20px;&quot;&gt;<br>			&lt;select v-model=&quot;selected&quot;&gt;<br>				&lt;option v-for=&quot;option in options&quot; v-bind:value=&quot;option.value&quot;&gt;<br>					&#123;&#123; option.text &#125;&#125;<br>				&lt;/option&gt;<br>			&lt;/select&gt;<br>			&lt;br&gt;<br>			&lt;span&gt;Selected: &#123;&#123; selected &#125;&#125;&lt;/span&gt;<br>		&lt;/div&gt;<br>		&lt;div style=&quot;margin-top: 20px; margin-bottom: 20px;&quot;&gt;<br>			&lt;input v-model.number=&quot;age&quot; type=&quot;number&quot;/&gt;<br>		&lt;/div&gt;<br>		&lt;button type=&quot;button&quot; @click=&quot;submit&quot;&gt;提交&lt;/button&gt;<br>	&lt;/div&gt;<br>	<br>&lt;/div&gt;<br>&lt;script type=&quot;text/javascript&quot;&gt;<br>var vm = new Vue(&#123;<br>	el : &quot;#app&quot;,<br>	data : &#123;<br>		message : &quot;test&quot;,<br>		message2 :&quot;hi&quot;,<br>		checkedNames : [&#x27;Jack&#x27;, &#x27;John&#x27;],<br>		picked : &quot;Two&quot;,<br>		selected: &quot;A&quot;,<br>		options: [<br>			&#123; text: &#x27;One&#x27;, value: &#x27;A&#x27;&#125;,<br>			&#123; text: &#x27;Two&#x27;, value: &#x27;B&#x27;&#125;,<br>			&#123; text: &#x27;Three&#x27;, value: &#x27;C&#x27;&#125;,<br>		],<br>		age: 0,<br>	&#125;,<br>	methods: &#123;<br>		submit : function () &#123;<br>			console.log(this.message);<br>			var postObj = &#123;<br>				msg2 : this.message2,<br>				names : this.checkedNames,<br>				picked : this.picked<br>			&#125;;<br>			console.log(postObj);<br>		&#125;<br>	&#125;<br>&#125;);<br>&lt;/script&gt;<br>&lt;style type=&quot;text/css&quot;&gt;<br><br>&lt;/style&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+<h3 id="修饰符">修饰符</h3>
+<h4 id="lazy">.lazy</h4>
+<p>如果想让<code>v-model</code>在<code>change</code>事件而不是<code>input</code>事件触发后进行数据同步，那就添加<code>lazy</code>修饰符。</p>
+<h4 id="number">.number</h4>
+<p>如果想自动将用户的输入值转为数值类型，就添加<code>.number</code>修饰符</p>
+<h4 id="trim">.trim</h4>
+<p>如果要自动过滤用户输入的首尾空白字符，就添加<code>.trim</code>修饰符</p>
+<h2 id="生命周期">生命周期</h2>
+<p>有了生命周期钩子，就使得在Vue运行的每个阶段，我们都能够来添加并执行一些代码。</p>
+<p>比如<code>created</code>钩子，会在实例创建完成后被立即同步调用，在这一步中，实例已完成对选项的处理，数据帧听、计算属性、方法、事件/侦听器的回调函数都被配置完毕。示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  <span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">message</span>: <span class="hljs-string">&quot;Created!&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">created</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// `this` 指向 vm 实例</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">message</span>)<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+<div class="note note-warning">
+            <p>不要在选项 property 或回调上使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions">箭头函数</a>，比如 <code>created: () =&gt; console.log(this.a)</code> 或 <code>vm.$watch('a', newValue =&gt; this.myMethod())</code>。因为箭头函数并没有 <code>this</code>，<code>this</code> 会作为变量一直向上级词法作用域查找，直至找到为止，经常导致 <code>Uncaught TypeError: Cannot read property of undefined</code> 或 <code>Uncaught TypeError: this.myMethod is not a function</code> 之类的错误。——官方文档</p>
+          </div>
+<h2 id="模板语法">模板语法</h2>
+<h3 id="插值">插值</h3>
+<h4 id="文本">文本</h4>
+<p>数据绑定最常见的形式就是使用“Mustache”语法 (双大括号) 的文本插值：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Message: &#123;&#123; msg &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>还可以使用<code>v-once</code>指令让其变为一次性插值，即使数据改变，插值也不会更新：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-once</span>&gt;</span>Message: &#123;&#123; msg &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="原始HTML">原始HTML</h4>
+<p>我们可以使用<code>v-html</code>指令来输出原始HTML：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Using v-html directive: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">&quot;rawHtml&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="v-bind动态绑定attribute">v-bind动态绑定attribute</h4>
+<p><code>v-bind</code>指令允许我们动态地绑定某个html标签所具有的属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-bind:disabled</span>=<span class="hljs-string">&quot;isButtonDisabled&quot;</span>&gt;</span>Button<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="使用JavaScript表达式">使用JavaScript表达式</h4>
+<p>对于所有的数据绑定，Vue.js都提供了完全的JavaScript表达式支持：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html">&#123;&#123; number + 1 &#125;&#125;<br><br>&#123;&#123; ok ? &#x27;YES&#x27; : &#x27;NO&#x27; &#125;&#125;<br><br>&#123;&#123; message.split(&#x27;&#x27;).reverse().join(&#x27;&#x27;) &#125;&#125;<br><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-bind:id</span>=<span class="hljs-string">&quot;&#x27;list-&#x27; + id&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>但是要注意，<strong>每个绑定都只能包含单个表达式</strong>。</p>
+<h3 id="指令">指令</h3>
+<p>指令就是带有<code>v-</code>前缀的attribute，而指令attribute的值预期是单个JavaScript表达式（<code>v-for</code>例外）。当表达式的值改变时，指令会将其产生的连带影响，<strong>响应式</strong>地作用于DOM。</p>
+<h4 id="参数">参数</h4>
+<p>一些指令能够接受一个“参数”，在命令之后以冒号表示，比如：<code>v-bind</code>、<code>v-on</code>指令。</p>
+<h4 id="动态参数">动态参数</h4>
+<p>直接看例子：<code>&lt;a v-bind:[attributeName]=&quot;url&quot;&gt;...&lt;/a&gt;</code>，如果<code>attributeName=&quot;href&quot;</code>，那么这里前面的标签就等价于：<code>&lt;a v-bind:href=&quot;url&quot;&gt;...&lt;/a&gt;</code>，这就是动态参数。</p>
+<h4 id="修饰符-2">修饰符</h4>
+<p>修饰符是以半角句号<code>.</code>指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。我们在前面的表单输入绑定的修饰符小节已经见过了适用于<code>v-model</code>的修饰符。</p>
+<h3 id="缩写">缩写</h3>
+<p>Vue为<code>v-bind</code>和<code>v-on</code>这两个最常用的指令，提供了特定简写：</p>
+<h4 id="v-bind缩写">v-bind缩写</h4>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">&quot;url&quot;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="v-on缩写">v-on缩写</h4>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;doSomething&quot;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+        <a href="/tags/Html/">#Html</a>
+      
+        <a href="/tags/Vue/">#Vue</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue2.x 文档笔记-1</div>
+      <div>https://map1e-g.github.io/2023/06/22/vue-learning-3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年6月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/06/23/vue-learning-4/" title="Vue2.x 文档笔记-2">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue2.x 文档笔记-2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/06/11/electron-learning-1/" title="electron-learning-1">
+                        <span class="hidden-mobile">electron-learning-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
