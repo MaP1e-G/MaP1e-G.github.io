@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="时隔两个月后又写了一点C#中的一些的东西。参考书籍：《Visual C#从入门到精通 第八版》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#笔记——垃圾回收与资源管理">
+<meta property="og:url" content="https://map1e-g.github.io/2023/08/14/CSharp-learning-2/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="时隔两个月后又写了一点C#中的一些的东西。参考书籍：《Visual C#从入门到精通 第八版》">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-14T14:35:51.000Z">
+<meta property="article:modified_time" content="2023-08-15T09:53:17.414Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="垃圾回收">
+<meta property="article:tag" content="资源管理">
+<meta property="article:tag" content="GC（Garbage Collection）">
+<meta property="article:tag" content="属性">
+<meta property="article:tag" content="索引器">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>C#笔记——垃圾回收与资源管理 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C#笔记——垃圾回收与资源管理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-14 22:35" pubdate>
+          2023年8月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C#笔记——垃圾回收与资源管理</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年8月15日 下午
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>垃圾回收与资源管理</h1>
+<h2 id="析构器">析构器</h2>
+<p>其实就是析构方法。语法就是类名前加一个<code>~</code>，比如<code>~ClassName()&#123; ... &#125;</code><br>
+<strong>最重要的一点，析构器只有在对象被垃圾回收时才运行</strong><br>
+编译器内部自动将析构器转换成对<code>Object.Finalize</code>方法的一个重写版本的调用，比如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassName</span><br>&#123;<br>	~ClassName() &#123; ... &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>就等价于：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">ClassName</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Finalize</span>()</span> <br>	&#123;<br>		<span class="hljs-keyword">try</span> &#123; ... &#125;<br>		<span class="hljs-keyword">finally</span> &#123; <span class="hljs-keyword">base</span>.Finalize(); &#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="垃圾回收">垃圾回收</h2>
+<h3 id="垃圾回收什么时候进行？">垃圾回收什么时候进行？</h3>
+<p>可以确定的是，在对象不再需要的时候进行。<strong>但是垃圾回收不一定在对象不再需要之后立刻进行</strong>。<code>CLR</code>会自行判断执行垃圾回收的时机。<br>
+例如，在它认为可用内存不够的时候，或者堆的大小超过系统定义的阈值的时候。</p>
+<h3 id="垃圾回收器的工作原理">垃圾回收器的工作原理</h3>
+<p>大体步骤如下：</p>
+<ol>
+<li>构造所有可达对象的一个映射（map）。为此，它会反复跟随对象中的引用字段。垃圾回收器会非常小心地构造映射，确保循环引用不会造成无限递归。任何不在映射中的对象肯定不可达。</li>
+<li>检查是否有任何不可达对象包含一个需要运行的析构器（运行析构器的过程称为“终结”）。需终结的任何不可达对象都放到一个称为freachable（F-reachable）的特殊队列中。</li>
+<li>回收剩下的不可达对象（即不需要终结的对象）。为此，它会在堆中向下面移动可达的对象，对堆进行“碎片整理”，释放位于堆顶部的内存。一个可达对象被移动之后，会更新对该对象的所有引用。</li>
+<li>然后，允许其他线程恢复执行。</li>
+<li>在一个独立的线程中，对需要终结的不可达对象执行终结操作。</li>
+</ol>
+<h2 id="资源管理">资源管理</h2>
+<p>当我们使用某些资源时，比如内存、数据库、文件句柄等这种稀缺资源，应该尽快释放，所以这个时候就需要我们手动释放资源。<br>
+即通过自己写的资源清理（disposal）方法来实现资源释放。可显式调用类的资源清理方法，从而控制释放资源的时机。<br>
+简单举个例子，比如我们使用<code>TextReader</code>类来从顺序输入流读取字符时，读取完毕后应该及时调用<code>Close()</code>方法释放资源：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#">TextReader reader = <span class="hljs-keyword">new</span> StreamReader(filename);<br><span class="hljs-built_in">string</span> line;<br><span class="hljs-keyword">while</span> ((line = reader.ReadLine()) != <span class="hljs-literal">null</span>)<br>&#123;<br>	Console.WriteLine(line);<br>&#125;<br>reader.Close();<br></code></pre></td></tr></table></figure>
+<p>但是它其实不是异常安全的，因为如果在<code>reader.ReadLine()</code>或其他地方出现异常的话，就不会执行<code>reader.Close()</code>释放文件句柄了。<br>
+或许我们会想到<code>try...catch...finally...</code>语句，这确实是一种解决方法，然而也存在更好的方案。</p>
+<h3 id="using语句">using语句</h3>
+<p><code>using</code>语句提供了一个脉络清晰的机制来控制资源的生存期。可以创建一个对象，这个对象会在<code>using</code>语句块结束时销毁。<br>
+<code>using</code>语句的用法如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> (type variable = initialization)<br>&#123;<br>	statementBlock<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>它等价于下面的代码块：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c#">&#123;<br>	type variable = initialization;<br>	<span class="hljs-keyword">try</span><br>	&#123;<br>		statementBlock<br>	&#125;<br>	<span class="hljs-keyword">finally</span><br>	&#123;<br>		<span class="hljs-keyword">if</span> (variable != <span class="hljs-literal">null</span>)<br>		&#123;<br>			((IDisposable)variable).Dispose();<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这也说明<code>using</code>语句声明的变量必须实现<code>IDisposable</code>接口。<code>IDisposable</code>接口在<code>System</code>命名空间中，只包含一个名为<code>Dispose</code>的方法。<code>Dispose</code>方法的作用是清理对象使用的任何资源。</p>
+<h3 id="IDisposable接口的实现">IDisposable接口的实现</h3>
+<p>下面是实现<code>IDisposable</code>接口的类的推荐写法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> : <span class="hljs-title">IDisposable</span><br>&#123;<br>	<span class="hljs-keyword">private</span> Resource scarce;  <span class="hljs-comment">// 要管理和清理的稀缺资源</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> disposed = <span class="hljs-literal">false</span>;  <span class="hljs-comment">// 指示资源是否已被清理的标志</span><br>	...<br>	~Example()<br>	&#123;<br>		<span class="hljs-keyword">this</span>.Dispose(<span class="hljs-literal">false</span>);<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Dispose</span>()</span><br>	&#123;<br>		<span class="hljs-keyword">this</span>.Dispose(<span class="hljs-literal">true</span>);<br>		GC.SuppressFinalize(<span class="hljs-keyword">this</span>);<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Dispose</span>(<span class="hljs-params"><span class="hljs-built_in">bool</span> disposing</span>)</span><br>	&#123;<br>		<span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.disposed)<br>		&#123;<br>			<span class="hljs-comment">// 在此释放大型托管资源</span><br>			...<br>		&#125;<br>		<span class="hljs-comment">// 在此释放非托管资源</span><br>		...<br>		<span class="hljs-keyword">this</span>.disposed = <span class="hljs-literal">true</span>;<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SomeBehavior</span>()  <span class="hljs-comment">// 示例方法</span></span><br>	&#123;<br>		checkIfDisposed();  <span class="hljs-comment">// 每个常规方法都要调用这个方法来检查对象是否已经清理</span><br>		...<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkIfDisposed</span>()</span><br>	&#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.disposed)<br>		&#123;<br>			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ObjectDisposedException(<span class="hljs-string">&quot;对象已经清理！&quot;</span>);<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面解释一下这么写的好处：</p>
+<ul>
+<li>受保护的<code>Dispose</code>方法可以安全地多次调用，因为变量<code>disposed</code>指出方法以前是否运行过，这样可以防止在并发调用方法时资源被多次清理。</li>
+<li>受保护的<code>Dispose</code>方法支持托管资源（比如大的数组）和非托管资源（比如文件句柄）的清理。如果<code>disposing</code>参数为<code>true</code>，该方法肯定是从公共<code>Dispose()</code>方法中调用的，所以托管和非托管资源都会被释放。如果<code>disposing</code>参数为<code>false</code>，该方法肯定是从析构器中调用的，而且垃圾回收器正在终结对象，所以不需要释放托管资源，因为它们将由（或者已经由）垃圾回收器处理：在这种情况下只需要释放非托管资源。</li>
+<li>静态<code>GC.SuppressFinalize</code>方法可以阻止垃圾回收器为这个对象调用析构器，因为对象已经终结。<br>
+这里还有另外一种线程安全的方式写代码：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Dispose</span>()</span><br>&#123;<br>	<span class="hljs-keyword">lock</span>(<span class="hljs-keyword">this</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (!disposed)<br>		&#123;<br>			...<br>		&#125;<br>		<span class="hljs-keyword">this</span>.disposed = <span class="hljs-literal">true</span>;<br>		GC.SuppressFinalize(<span class="hljs-keyword">this</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>lock</code>语句旨在阻止一个代码块同时在不同线程上运行。像这样使用锁能确保线程安全，但对性能有一些影响。</p>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/CSharp/" class="category-chain-item">CSharp</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">#垃圾回收</a>
+      
+        <a href="/tags/%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/">#资源管理</a>
+      
+        <a href="/tags/GC%EF%BC%88Garbage-Collection%EF%BC%89/">#GC（Garbage Collection）</a>
+      
+        <a href="/tags/%E5%B1%9E%E6%80%A7/">#属性</a>
+      
+        <a href="/tags/%E7%B4%A2%E5%BC%95%E5%99%A8/">#索引器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C#笔记——垃圾回收与资源管理</div>
+      <div>https://map1e-g.github.io/2023/08/14/CSharp-learning-2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/15/CSharp-learning-3/" title="C#笔记——属性与索引器">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C#笔记——属性与索引器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/06/25/vue-learning-5/" title="Vue2.x 文档笔记-3">
+                        <span class="hidden-mobile">Vue2.x 文档笔记-3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
