@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="看文档的一天.jpg 参考：[官方C#文档](https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;dotnet&#x2F;csharp&#x2F;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#笔记——模式匹配与运算符">
+<meta property="og:url" content="https://map1e-g.github.io/2023/09/07/CSharp-learning-5/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="看文档的一天.jpg 参考：[官方C#文档](https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;dotnet&#x2F;csharp&#x2F;)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-07T09:38:57.000Z">
+<meta property="article:modified_time" content="2023-09-07T16:20:47.332Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="模式匹配">
+<meta property="article:tag" content="运算符">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>C#笔记——模式匹配与运算符 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C#笔记——模式匹配与运算符"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-07 17:38" pubdate>
+          2023年9月7日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C#笔记——模式匹配与运算符</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年9月8日 凌晨
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>模式匹配</h1>
+<blockquote>
+<p>看到模式匹配就想起被正则表达式<code>regex</code>折磨（悲<br>
+在<code>C#</code>中，我们可以使用<code>is</code>表达式、<code>switch</code>语句、<code>switch</code>表达式来将输入表达式与任意数量的特征匹配，最简单的例如：<code>if (sth is TargetClass)</code>。<br>
+就我个人而言，结合在一起的话感觉有点像是switch语法糖。<br>
+<code>C#</code>提供了许多模式匹配，有：声明、类型、常量、关系、逻辑、属性、位置、var、弃元和列表模式等，这里仅对部分模式做出说明。</p>
+</blockquote>
+<h2 id="声明和类型模式">声明和类型模式</h2>
+<p>使用声明和类型模式检查表达式的运行时类型是否与给定类型兼容。借助声明模式，还可以声明新的局部变量。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span> a = <span class="hljs-number">20</span>;<br><span class="hljs-keyword">if</span> (a <span class="hljs-keyword">is</span> <span class="hljs-built_in">int</span> b)<br>&#123;<br>	Console.WriteLine(<span class="hljs-string">$&quot;a is <span class="hljs-subst">&#123;b&#125;</span>.&quot;</span>);  <span class="hljs-comment">// output: a is 20.</span><br>&#125;<br><span class="hljs-keyword">if</span> (a <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>)<br>&#123;<br>	Console.WriteLine(<span class="hljs-string">$&quot;a is not null.&quot;</span>);  <span class="hljs-comment">// output: a is not null.</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从<code>C#</code>9.0开始，可对此使用类型模式，如以下示例所示：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Vehicle</span> &#123;&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> : <span class="hljs-title">Vehicle</span> &#123;&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Truck</span> : <span class="hljs-title">Vehicle</span> &#123;&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TollCalculator</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">CalculateToll</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> Vehicle vehicle</span>)</span> =&gt; vehicle <span class="hljs-keyword">switch</span><br>    &#123;<br>        Car =&gt; <span class="hljs-number">2.00</span>m,  <span class="hljs-comment">// or Car _ =&gt; 2.00m,</span><br>        Truck =&gt; <span class="hljs-number">7.50</span>m, <span class="hljs-comment">// or Truck _ =&gt; 7.50m,</span><br>        <span class="hljs-literal">null</span> =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentNullException(<span class="hljs-keyword">nameof</span>(vehicle)),<br>        _ =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">&quot;Unknown type of a vehicle&quot;</span>, <span class="hljs-keyword">nameof</span>(vehicle)),<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="常量模式">常量模式</h2>
+<p>可使用常量模式来测试表达式结果是否等于指定的常量，根据匹配的值返回对应的值：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">GetGroupTicketPrice</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> visitorCount</span>)</span> =&gt; visitorCount <span class="hljs-keyword">switch</span><br>&#123;<br>    <span class="hljs-number">1</span> =&gt; <span class="hljs-number">12.0</span>m,<br>    <span class="hljs-number">2</span> =&gt; <span class="hljs-number">20.0</span>m,<br>    <span class="hljs-number">3</span> =&gt; <span class="hljs-number">27.0</span>m,<br>    <span class="hljs-number">4</span> =&gt; <span class="hljs-number">32.0</span>m,<br>    <span class="hljs-number">0</span> =&gt; <span class="hljs-number">0.0</span>m,<br>    _ =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">$&quot;Not supported number of visitors: <span class="hljs-subst">&#123;visitorCount&#125;</span>&quot;</span>, <span class="hljs-keyword">nameof</span>(visitorCount)),<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="逻辑和关系模式">逻辑和关系模式</h2>
+<p>从<code>C#</code>9.0开始，可使用关系模式将表达式结果与常量进行比较，当然，你也可以往其中加入逻辑运算符<code>and</code>、<code>or</code>、<code>not</code>来组成更为复杂的模式匹配：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c#">Console.WriteLine(GetCalendarSeason(<span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2021</span>, <span class="hljs-number">3</span>, <span class="hljs-number">14</span>)));  <span class="hljs-comment">// output: spring</span><br>Console.WriteLine(GetCalendarSeason(<span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2021</span>, <span class="hljs-number">7</span>, <span class="hljs-number">19</span>)));  <span class="hljs-comment">// output: summer</span><br>Console.WriteLine(GetCalendarSeason(<span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2021</span>, <span class="hljs-number">2</span>, <span class="hljs-number">17</span>)));  <span class="hljs-comment">// output: winter</span><br><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetCalendarSeason</span>(<span class="hljs-params">DateTime date</span>)</span> =&gt; date.Month <span class="hljs-keyword">switch</span><br>&#123;<br>    &gt;= <span class="hljs-number">3</span> <span class="hljs-keyword">and</span> &lt; <span class="hljs-number">6</span> =&gt; <span class="hljs-string">&quot;spring&quot;</span>,<br>    &gt;= <span class="hljs-number">6</span> <span class="hljs-keyword">and</span> &lt; <span class="hljs-number">9</span> =&gt; <span class="hljs-string">&quot;summer&quot;</span>,<br>    &gt;= <span class="hljs-number">9</span> <span class="hljs-keyword">and</span> &lt; <span class="hljs-number">12</span> =&gt; <span class="hljs-string">&quot;autumn&quot;</span>,<br>    <span class="hljs-number">12</span> <span class="hljs-keyword">or</span> (&gt;= <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> &lt; <span class="hljs-number">3</span>) =&gt; <span class="hljs-string">&quot;winter&quot;</span>,<br>    _ =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(date), <span class="hljs-string">$&quot;Date with unexpected month: <span class="hljs-subst">&#123;date.Month&#125;</span>.&quot;</span>),<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="属性模式">属性模式</h2>
+<p>可以使用属性模式将表达式的属性或字段与嵌套模式进行匹配：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsConferenceDay</span>(<span class="hljs-params">DateTime date</span>)</span> =&gt; date <span class="hljs-keyword">is</span> &#123; Year: <span class="hljs-number">2020</span>, Month: <span class="hljs-number">5</span>, Day: <span class="hljs-number">19</span> <span class="hljs-keyword">or</span> <span class="hljs-number">20</span> <span class="hljs-keyword">or</span> <span class="hljs-number">21</span> &#125;;<br></code></pre></td></tr></table></figure>
+<p>还可以将运行时类型检查和变量声明添加到属性模式：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#">Console.WriteLine(TakeFive(<span class="hljs-string">&quot;Hello, world!&quot;</span>));  <span class="hljs-comment">// output: Hello</span><br>Console.WriteLine(TakeFive(<span class="hljs-string">&quot;Hi!&quot;</span>));  <span class="hljs-comment">// output: Hi!</span><br>Console.WriteLine(TakeFive(<span class="hljs-keyword">new</span>[] &#123; <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span> &#125;));  <span class="hljs-comment">// output: 12345</span><br>Console.WriteLine(TakeFive(<span class="hljs-keyword">new</span>[] &#123; <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span> &#125;));  <span class="hljs-comment">// output: abc</span><br><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-built_in">string</span> <span class="hljs-title">TakeFive</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> input</span>)</span> =&gt; input <span class="hljs-keyword">switch</span><br>&#123;<br>    <span class="hljs-built_in">string</span> &#123; Length: &gt;= <span class="hljs-number">5</span> &#125; s =&gt; s.Substring(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>),<br>    <span class="hljs-built_in">string</span> s =&gt; s,<br><br>    ICollection&lt;<span class="hljs-built_in">char</span>&gt; &#123; Count: &gt;= <span class="hljs-number">5</span> &#125; symbols =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>(symbols.Take(<span class="hljs-number">5</span>).ToArray()),<br>    ICollection&lt;<span class="hljs-built_in">char</span>&gt; symbols =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>(symbols.ToArray()),<br><br>    <span class="hljs-literal">null</span> =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentNullException(<span class="hljs-keyword">nameof</span>(input)),<br>    _ =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">&quot;Not supported input type.&quot;</span>),<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="位置模式">位置模式</h2>
+<p>我将其称之为元组模式匹配，因为它确实跟元组有关，使用元组表达式来将多个输入与各种模式进行匹配：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-built_in">decimal</span> <span class="hljs-title">GetGroupTicketPriceDiscount</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> groupSize, DateTime visitDate</span>)</span><br>    =&gt; (groupSize, visitDate.DayOfWeek) <span class="hljs-keyword">switch</span><br>    &#123;<br>        (&lt;= <span class="hljs-number">0</span>, _) =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">&quot;Group size must be positive.&quot;</span>),<br>        (_, DayOfWeek.Saturday <span class="hljs-keyword">or</span> DayOfWeek.Sunday) =&gt; <span class="hljs-number">0.0</span>m,<br>        (&gt;= <span class="hljs-number">5</span> <span class="hljs-keyword">and</span> &lt; <span class="hljs-number">10</span>, DayOfWeek.Monday) =&gt; <span class="hljs-number">20.0</span>m,<br>        (&gt;= <span class="hljs-number">10</span>, DayOfWeek.Monday) =&gt; <span class="hljs-number">30.0</span>m,<br>        (&gt;= <span class="hljs-number">5</span> <span class="hljs-keyword">and</span> &lt; <span class="hljs-number">10</span>, _) =&gt; <span class="hljs-number">12.0</span>m,<br>        (&gt;= <span class="hljs-number">10</span>, _) =&gt; <span class="hljs-number">15.0</span>m,<br>        _ =&gt; <span class="hljs-number">0.0</span>m,<br>    &#125;;<br></code></pre></td></tr></table></figure>
+<h2 id="列表模式">列表模式</h2>
+<p>从<code>C#11</code>开始，可以将数组或列表与模式的序列进行匹配：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span>[] numbers = &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> &#125;;<br><br>Console.WriteLine(numbers <span class="hljs-keyword">is</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);  <span class="hljs-comment">// True</span><br>Console.WriteLine(numbers <span class="hljs-keyword">is</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>]);  <span class="hljs-comment">// False</span><br>Console.WriteLine(numbers <span class="hljs-keyword">is</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);  <span class="hljs-comment">// False</span><br>Console.WriteLine(numbers <span class="hljs-keyword">is</span> [<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> <span class="hljs-number">1</span>, &lt;= <span class="hljs-number">2</span>, &gt;= <span class="hljs-number">3</span>]);  <span class="hljs-comment">// True</span><br></code></pre></td></tr></table></figure>
+<p>如果需要仅匹配开头或结尾的几个元素，可以使用切片模式<code>..</code>：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">Console.WriteLine(<span class="hljs-keyword">new</span>[] &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> &#125; <span class="hljs-keyword">is</span> [&gt; <span class="hljs-number">0</span>, &gt; <span class="hljs-number">0</span>, ..]);  <span class="hljs-comment">// True</span><br><br>Console.WriteLine(<span class="hljs-keyword">new</span>[] &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> &#125; <span class="hljs-keyword">is</span> [.., &gt; <span class="hljs-number">0</span>, &gt; <span class="hljs-number">0</span>]);  <span class="hljs-comment">// True</span><br><br>Console.WriteLine(<span class="hljs-keyword">new</span>[] &#123; <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> &#125; <span class="hljs-keyword">is</span> [&gt;= <span class="hljs-number">0</span>, .., <span class="hljs-number">2</span> <span class="hljs-keyword">or</span> <span class="hljs-number">4</span>]);  <span class="hljs-comment">// True</span><br></code></pre></td></tr></table></figure>
+<p>还可以在切片模式中嵌套子模式（比如嵌套逻辑模式什么的）。</p>
+<h1>运算符</h1>
+<p>其实这里主要记录一下对我来说比较陌生的运算符（或者说之前没学过的），所以会不全，要全请前往官方文档捏~</p>
+<h2 id="（null包容）运算符"><code>!</code>（<code>null</code>包容）运算符</h2>
+<p>一元后缀<code>!</code>运算符是<code>null</code>包容运算符或<code>null</code>抑制运算符。在已启用的可为空的注释上下文中，使用<code>null</code>包容运算符来取消上述表达式的所有可为<code>null</code>警告。</p>
+<h2 id="和-运算符——Null合并操作符"><code>??</code>和<code>??=</code>运算符——Null合并操作符</h2>
+<p>先从<code>??</code>运算符（<code>null</code>合并运算符）说起。如果左操作数的值不为<code>null</code>，则返回该值；否则，它会计算右操作数并返回其结果。如果左操作数的计算结果为非<code>null</code>，则<code>??</code>运算符不会计算其右操作数。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span>? a = <span class="hljs-literal">null</span>;<br>Console.WriteLine((a ?? <span class="hljs-number">3</span>));  <span class="hljs-comment">// output: 3</span><br></code></pre></td></tr></table></figure>
+<p>然后是<code>??=</code>运算符（<code>null</code>合并赋值运算符）。仅当左操作数的计算结果为<code>null</code>时，<code>??=</code>才会将其右操作数的值赋值给其左操作数。如果左操作数的计算结果为非<code>null</code>，则<code>??=</code>不会计算其右操作数。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span>? a = <span class="hljs-literal">null</span>;<br>Console.WriteLine((a <span class="hljs-keyword">is</span> <span class="hljs-literal">null</span>));  <span class="hljs-comment">// output: True</span><br>a ??= <span class="hljs-number">3</span>;<br>Console.WriteLine(a);  <span class="hljs-comment">// output: 3</span><br></code></pre></td></tr></table></figure>
+<h2 id="Null条件运算符-和">Null条件运算符<code>?.</code>和<code>?[]</code></h2>
+<p>仅当操作数的计算结果为非<code>null</code>时，<code>null</code>条件运算符才对其操作数应用成员访问(<code>?.</code>)或元素访问(<code>?[]</code>)操作；否则，它会返回<code>null</code>。即：</p>
+<ul>
+<li>如果<code>a</code>的计算结果为<code>null</code>，则<code>a?.x</code>或<code>a?[x]</code>的结果为<code>null</code>。</li>
+<li>如果<code>a</code>的计算结果为非<code>null</code>，则<code>a?.x</code>或<code>a?[x]</code>的结果将分别与<code>a.x</code>或<code>a[x]</code>的结果相同。</li>
+</ul>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/CSharp/" class="category-chain-item">CSharp</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/">#模式匹配</a>
+      
+        <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6/">#运算符</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C#笔记——模式匹配与运算符</div>
+      <div>https://map1e-g.github.io/2023/09/07/CSharp-learning-5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月7日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/01/CSharp-learning-4/" title="C#笔记——可为空值/引用类型">
+                        <span class="hidden-mobile">C#笔记——可为空值/引用类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
