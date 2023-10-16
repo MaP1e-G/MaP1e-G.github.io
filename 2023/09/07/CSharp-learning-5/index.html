@@ -24,7 +24,7 @@
 <meta property="og:description" content="看文档的一天.jpg 参考：[官方C#文档](https:&#x2F;&#x2F;learn.microsoft.com&#x2F;zh-cn&#x2F;dotnet&#x2F;csharp&#x2F;)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-07T09:38:57.000Z">
-<meta property="article:modified_time" content="2023-09-07T16:20:47.332Z">
+<meta property="article:modified_time" content="2023-09-21T07:53:31.965Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="模式匹配">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          4.8k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          38 分钟
+          40 分钟
         
       </span>
     
@@ -276,7 +276,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年9月8日 凌晨
+                    本文最后更新于：2023年9月21日 下午
                   
                 
               </p>
@@ -330,6 +330,9 @@
 <li>如果<code>a</code>的计算结果为<code>null</code>，则<code>a?.x</code>或<code>a?[x]</code>的结果为<code>null</code>。</li>
 <li>如果<code>a</code>的计算结果为非<code>null</code>，则<code>a?.x</code>或<code>a?[x]</code>的结果将分别与<code>a.x</code>或<code>a[x]</code>的结果相同。</li>
 </ul>
+<h2 id="运算符-命名空间别名运算符"><code>::</code>运算符 - 命名空间别名运算符</h2>
+<p>使用命名空间别名限定符<code>::</code>访问已设置别名的命名空间的的成员，比如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> forwinforms = System.Drawing;<br><span class="hljs-keyword">using</span> forwpf = System.Windows;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Converters</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> forwpf::<span class="hljs-function">Point <span class="hljs-title">Convert</span>(<span class="hljs-params">forwinforms::Point point</span>)</span> =&gt; <span class="hljs-keyword">new</span> forwpf::Point(point.X, point.Y);<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -428,6 +431,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/09/21/CSharp-learning-6/" title="C#笔记——命名空间和程序集、反射和特性">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C#笔记——命名空间和程序集、反射和特性</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

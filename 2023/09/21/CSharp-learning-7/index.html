@@ -1,0 +1,920 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="好高级的东西！参考书籍：《C#图解教程》（如果你觉得内容看上去为什么很熟悉不妨先看看参考书籍）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#笔记——异步编程">
+<meta property="og:url" content="https://map1e-g.github.io/2023/09/21/CSharp-learning-7/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="好高级的东西！参考书籍：《C#图解教程》（如果你觉得内容看上去为什么很熟悉不妨先看看参考书籍）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-21T08:44:55.000Z">
+<meta property="article:modified_time" content="2023-10-16T03:09:24.798Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="异步">
+<meta property="article:tag" content="async">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>C#笔记——异步编程 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C#笔记——异步编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-21 16:44" pubdate>
+          2023年9月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          134 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C#笔记——异步编程</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年10月16日 上午
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>异步编程</h1>
+<h2 id="什么事异步">什么事异步</h2>
+<p>启动程序时，系统会在内存中创建一个新的<strong>进程</strong>。进程是构成运行程序的资源的集合。这些资源包括虚地址空间、文件句柄和程序运行所需的其他许多东西。<br>
+在进程内部，系统创建了一个称为<strong>线程</strong>的内核（kernel）对象，它代表了真正执行的程序。一旦进程建立，系统会在<code>Main</code>方法的第一行语句处开始线程的执行。<br>
+以下是关于线程的一些知识点：</p>
+<ul>
+<li>默认情况下，一个进程只包含一个线程，从程序的开始一直执行到结束。</li>
+<li>线程可以派生其他线程，因此在任意时刻，一个进程都可能包含不同状态的多个进程，它们执行程序的不同部分。</li>
+<li>如果一个进程拥有多个线程，它们将共享进程的资源。</li>
+<li>系统为处理器执行所调度的单元是线程，不是进程。</li>
+</ul>
+<h2 id="应用场景">应用场景</h2>
+<p>一个例子是，有时候我们的程序会向其他服务器发起请求获取数据，或是从数据库获取数据。但是一般情况下这里都会耗费大量的时间来等待其他服务器的响应，而我们不希望这种情况发生，我们更希望在等待的同时可以继续执行后面的代码，并在其他服务器回复后再返回。<br>
+另一个例子是，我们在设计交互式GUI程序时，有一些操作可能需要耗费大量时间，比如按下一个按钮后计算机执行大量计算，此时如果不使用异步操作的话，将冻结我们的GUI界面，使得用户在计算机执行完这个任务前无法继续与GUI界面进行交互。<br>
+这里也正好涉及到两个概念：I/O 绑定和 CPU 绑定。在这里，前者是 I/O 绑定，后者是 CPU 绑定。</p>
+<h2 id="如何区别-CPU-绑定与-I-O绑定？">如何区别 CPU 绑定与 I/O绑定？</h2>
+<p>以下是编写代码前应考虑的两个问题：</p>
+<ol>
+<li>你的代码是否会“等待”某些内容，例如数据库中的数据？  如果答案为“是”，则你的工作是 I/O 绑定。</li>
+<li>你的代码是否要执行开销巨大的计算？  如果答案为“是”，则你的工作是 CPU 绑定。<br>
+如果你的工作为 I/O 绑定，请使用<code>async</code>和<code>await</code>（而不使用<code>Task.Run</code>）。不应使用任务并行库。<br>
+如果你的工作属于 CPU 绑定，并且你重视响应能力，请使用<code>async</code>和<code>await</code>，但在另一个线程上使用<code>Task.Run</code>生成工作。如果该工作同时适用于并发和并行，还应考虑使用任务并行库。</li>
+</ol>
+<h2 id="async-await-特性的结构">async/await 特性的结构</h2>
+<p>该特性由三个部分组成：</p>
+<ol>
+<li>调用方法（calling method）：该方法调用异步方法，然后在异步方法执行其任务的时候继续执行（可能在相同的线程上，也可能在不同的线程上）。</li>
+<li>异步方法（async method）：该方法异步执行其工作，然后立即返回到调用方法。</li>
+<li>await 表达式：用于异步方法内部，指明需要异步执行的任务。一个异步方法可以包含任意多个<code>await</code>表达式，不过如果一个都不包含的话编译器会发出警告。</li>
+</ol>
+<h2 id="什么事异步方法">什么事异步方法</h2>
+<p>异步方法就是：在完成其工作之前即返回到调用方法，然后在调用方法继续执行的时候完成其工作。<br>
+在语法上，异步方法具有如下特点：</p>
+<ul>
+<li>方法头中包含<code>async</code>方法修饰符。</li>
+<li>包含一个或多个<code>await</code>表达式，表示可以异步完成的任务。</li>
+<li>必须具备以下几种返回类型之一：
+<ol>
+<li>void</li>
+<li>Task</li>
+<li>Task<T></li>
+<li>ValueTask<T></li>
+<li>任何具有公开可访问的<code>GetAwaiter</code>方法的类型。</li>
+</ol>
+</li>
+<li>异步方法的形参可以为任意类型、任意数量，但不能为<code>out</code>或<code>ref</code>参数。</li>
+<li>按照约定，异步方法的名称应该以<code>Async</code>为后缀</li>
+<li>除了方法以外，<code>lambda</code>表达式和匿名方法也可以作为异步对象。<br>
+以下是一个异步方法的例子：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">async</span> Task&lt;<span class="hljs-built_in">int</span>&gt; <span class="hljs-title">CountCharactersAsync</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> id, <span class="hljs-built_in">string</span> site</span>)</span><br>&#123;<br>	Console.WriteLine(<span class="hljs-string">&quot;Starting CountCharacters&quot;</span>);<br>	WebClient wc = <span class="hljs-keyword">new</span> WebClient(); <br><br>	<span class="hljs-built_in">string</span> result = <span class="hljs-keyword">await</span> wc.DownloadStringTaskAsync(<span class="hljs-keyword">new</span> Uri(site));<br><br>	Console.WriteLine(<span class="hljs-string">&quot;CountCharacters Completed&quot;</span>);<br>	<span class="hljs-keyword">return</span> result.Length;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="异步方法的返回类型">异步方法的返回类型</h2>
+<p>上面提到异步方法的返回类型必须是：<code>void</code>、<code>Task</code>、<code>Task&lt;T&gt;</code>、<code>ValueTask&lt;T&gt;</code>其中之一，下面介绍一下这几种返回类型。</p>
+<h3 id="Task">Task</h3>
+<p>如果调用方法不需要从异步方法中返回某个值，但需要检查异步方法的状态，那么异步方法可以返回一个<code>Task</code>类型的对象。<br>
+在这种情况下，如果异步方法中包含任何<code>return</code>语句，则它们不能返回任何东西。</p>
+<h3 id="Task-T">Task<T></h3>
+<p>如果调用方法要从调用中获取一个<code>T</code>类型的值，异步方法的返回类型就必须是<code>Task&lt;T&gt;</code>。<br>
+调用方法将通过读取<code>Task</code>的<code>Result</code>属性来获取这个<code>T</code>类型的值。</p>
+<h3 id="ValueTask-T">ValueTask<T></h3>
+<p>这是一个值类型对象，它与<code>Task&lt;T&gt;</code>类似，但用于任务结果可能已经可用的情况。<br>
+因为它是一个值对象，所以它可以放在栈上，而无须像<code>Task&lt;T&gt;</code>对象那样在堆上分配空间。</p>
+<h3 id="void">void</h3>
+<p>如果调用方法仅仅想执行异步方法，而不需要与它做任何进一步的交互时，异步方法可以返回<code>void</code>类型。</p>
+<div class="note note-warning">
+            <p>任何返回<code>Task&lt;T&gt;</code>类型的异步方法，其返回值必须为<code>T</code>类型或可以隐式转换为<code>T</code>的类型。</p>
+          </div>
+<h2 id="await表达式"><code>await</code>表达式</h2>
+<p><code>await</code>表达式制定了一个异步执行的任务。其语法为：<code>await task</code>，由<code>await</code>关键字和一个空闲对象（称为任务）组成。默认情况下，这个任务在当前线程上异步运行。<br>
+一个空闲对象即是一个<code>awaitable</code>类型的实例。<code>awaitable</code>类型是指包含<code>GetAwaiter</code>方法的类型，该方法没有参数，返回一个<code>awaitable</code>类型的对象。这也是为什么上文提到的异步方法返回的类型需要是那几种之一。</p>
+<h3 id="创建自己的Task">创建自己的<code>Task</code></h3>
+<p>当然我们也可以自行编写方法，作为<code>await</code>表达式的任务。最简单的方式是在你的方法中使用<code>Task.Run</code>方法来创建一个<code>Task</code>。</p>
+<div class="note note-warning">
+            <p>关于<code>Task.Run</code>，有一点很重要，即它在不同的线程上运行你的方法。</p>
+          </div>
+<p>下面以<code>Task.Run</code>的其中一种签名<code>Task Run(Func&lt;TReturn&gt; func)</code>作为例子，以三种不同的方式来编写任务：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> <span class="hljs-title">GetNum</span>()</span><br>	&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Random().Next(<span class="hljs-number">10</span>);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">DoWorkAsync</span>()</span><br>	&#123;<br>		Func&lt;<span class="hljs-built_in">int</span>&gt; getNum = <span class="hljs-keyword">new</span> Func&lt;<span class="hljs-built_in">int</span>&gt;(GetNum);<br>		<span class="hljs-built_in">int</span> a = <span class="hljs-keyword">await</span> Task.Run(getNum);<br>		<span class="hljs-built_in">int</span> b = <span class="hljs-keyword">await</span> Task.Run(<span class="hljs-keyword">new</span> Func&lt;<span class="hljs-built_in">int</span>&gt;(GetNum));<br>		<span class="hljs-built_in">int</span> c = <span class="hljs-keyword">await</span> Task.Run(() =&gt; &#123; <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Random().Next(<span class="hljs-number">10</span>); &#125;);<br><br>		Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;a&#125;</span> <span class="hljs-subst">&#123;b&#125;</span> <span class="hljs-subst">&#123;c&#125;</span>&quot;</span>);<br>	&#125;<br>&#125;<br><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AsyncLearning</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>	&#123;<br>		Task t = (<span class="hljs-keyword">new</span> MyClass()).DoWorkAsync();<br>		t.Wait();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面代码的运行结果为随机输出三个不大于10的非负整型数，例如：<code>1 4 2</code>。<br>
+下面来解释一下上面的三种<code>Task.Run</code>写法：</p>
+<ul>
+<li>第一个实例（变量<code>a</code>）使用<code>GetNum</code>创建名为<code>getNum</code>的<code>Func&lt;int&gt;</code>委托。然后在下一行将该委托用于<code>Task.Run</code>方法。</li>
+<li>第二个实例（变量<code>b</code>）在<code>Task.Run</code>方法的参数列表中创建<code>Func&lt;int&gt;</code>委托。</li>
+<li>第三个实例（变量<code>c</code>）直接使用与<code>Func&lt;int&gt;</code>委托兼容的<code>lambda</code>表达式，该<code>lambda</code>表达式将隐式转换为该委托。<br>
+其实<code>Task.Run</code>有八种重载，下表列出了这八种重载：<br>
+| 返回类型 | 签名 |<br>
+| :—: | :—: |<br>
+| <code>Task</code> | <code>Run(Action action)</code> |<br>
+| <code>Task</code> | <code>Run(Action action, CancellationToken token)</code> |<br>
+| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;TResult&gt; function)</code> |<br>
+| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;TResult&gt; function, CancellationToken token)</code> |<br>
+| <code>Task</code> | <code>Run(Func&lt;Task&gt; function)</code> |<br>
+| <code>Task</code> | <code>Run(Func&lt;Task&gt; function, CancellationToken token)</code> |<br>
+| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;Task&lt;TResult&gt;&gt; function)</code> |<br>
+| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;Task&lt;TResult&gt;&gt; function, CancellationToken token)</code> |</li>
+</ul>
+<p>下表是可作为<code>Task.Run</code>方法第一个参数的委托类型：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">委托类型</th>
+<th style="text-align:center">签名</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Action</code></td>
+<td style="text-align:center"><code>void Action()</code></td>
+<td style="text-align:center">不需要参数且无返回值的方法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Func&lt;TResult&gt;</code></td>
+<td style="text-align:center"><code>TResult Func()</code></td>
+<td style="text-align:center">不需要参数，但返回<code>TResult</code>类型对象的方法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Func&lt;Task&gt;</code></td>
+<td style="text-align:center"><code>Task Func()</code></td>
+<td style="text-align:center">不需要参数，但返回简单<code>Task</code>对象的方法</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Func&lt;Task&lt;TResult&gt;&gt;</code></td>
+<td style="text-align:center"><code>Task&lt;TResult&gt; Func()</code></td>
+<td style="text-align:center">不需要参数，但返回<code>Task&lt;T&gt;</code>类型对象的方法</td>
+</tr>
+</tbody>
+</table>
+<h3 id="取消一个异步操作">取消一个异步操作</h3>
+<p>一些 .NET 异步方法允许我们请求终止执行。这里涉及到两个不同的类：<code>CancellationToken</code>和<code>CancellationTokenSource</code>。<br>
+下面是一些需要注意的点：</p>
+<ul>
+<li><code>CancellationToken</code>对象包含一个任务是否应被取消的信息</li>
+<li>拥有<code>CancellationToken</code>对象的任务需要定期检查其令牌（<code>token</code>）状态。如果<code>CancellationToken</code>对象的<code>IsCancellationRequested</code>属性为<code>true</code>，任务需停止其操作并返回。</li>
+<li><strong><code>CancellationToken</code>是不可逆的，并且只能使用一次</strong>。一旦<code>IsCancellationRequested</code>属性被设置为<code>true</code>，就不能再更改了。</li>
+<li><code>CancellationTokenSource</code>对象创建可分配给不同任务的<code>CancellationToken</code>对象。任何持有<code>CancellationTokenSource</code>的对象都可以调用其<code>Cancel</code>方法，这会将<code>CancellationToken</code>的<code>IsCancellationRequested</code>属性设置为<code>true</code>。<br>
+下面是一个例子：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncCancelClass</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">RunAsync</span>(<span class="hljs-params">CancellationToken ct</span>)</span><br>	&#123;<br>		<span class="hljs-keyword">if</span> (ct.IsCancellationRequested) <span class="hljs-keyword">return</span>;<br>		<span class="hljs-keyword">await</span> Task.Run(() =&gt; CycleMethod(ct), ct);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CycleMethod</span>(<span class="hljs-params">CancellationToken ct</span>)</span><br>	&#123;<br>		Console.WriteLine(<span class="hljs-string">&quot;Starting Method...&quot;</span>);<br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>			<span class="hljs-keyword">if</span> (ct.IsCancellationRequested) <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 监控 CancellationToken</span><br>			Thread.Sleep(<span class="hljs-number">1000</span>);<br>			Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123; i+<span class="hljs-number">1</span> &#125;</span> of 5 iterations completed.&quot;</span>);<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncLearning</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>	&#123;<br>		CancellationTokenSource cts = <span class="hljs-keyword">new</span> CancellationTokenSource();<br>		CancellationToken ct = cts.Token;<br><br>		AsyncCancelClass asyncCancelClass = <span class="hljs-keyword">new</span> AsyncCancelClass();<br>		Task t = asyncCancelClass.RunAsync(ct);<br><br>		Thread.Sleep(<span class="hljs-number">3000</span>);<br>		cts.Cancel();  <span class="hljs-comment">// 执行取消操作</span><br><br>		t.Wait();<br>		Console.WriteLine(<span class="hljs-string">$&quot;Was Cancelled: <span class="hljs-subst">&#123; ct.IsCancellationRequested &#125;</span>&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面代码的输出结果如下：</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs erlang">Starting Method...<br><span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">5</span> iterations completed.<br><span class="hljs-number">2</span> <span class="hljs-keyword">of</span> <span class="hljs-number">5</span> iterations completed.<br><span class="hljs-number">3</span> <span class="hljs-keyword">of</span> <span class="hljs-number">5</span> iterations completed.<br>Was Cancelled: True<br></code></pre></td></tr></table></figure>
+<div class="note note-warning">
+            <p>需要注意的是，该过程是<strong>协同</strong>的，即调用<code>CancellationTokenSource</code>的<code>Cancel</code>时，它本身并不会执行取消操作，而是会将<code>CancellationToken</code>的<code>IsCancellationRequested</code>属性设置为<code>true</code>。<strong>包含<code>CancellationToken</code>的代码负责检查该属性，并判断是否需要停止执行并返回。</strong></p>
+          </div>
+<h3 id="异常处理和await表达式">异常处理和<code>await</code>表达式</h3>
+<p><strong>to do…</strong></p>
+<h3 id="再调用方法中同步地等待任务">再调用方法中同步地等待任务</h3>
+<p>我们在等待单个<code>Task</code>对象完成其任务时，可以使用<code>Wait()</code>方法。但是如果我们需要等待一组<code>Task</code>对象的话呢？<code>Task</code>类提供了两个静态方法：</p>
+<ul>
+<li><code>WaitAll</code>：等待所有任务结束</li>
+<li><code>WaitAny</code>：等待某一个任务结束<br>
+下面是一个例子：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">WaitAsyncClass</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoRun</span>()</span><br>    &#123;<br>        Task t1 = Task.Run(() =&gt; &#123; Thread.Sleep(<span class="hljs-number">5000</span>); &#125;);<br>        Task t2 = Task.Run(() =&gt; &#123; Thread.Sleep(<span class="hljs-number">3000</span>); &#125;);<br><br>        <span class="hljs-comment">// Task.WaitAll(t1, t2);</span><br>        <span class="hljs-comment">// Task.WaitAny(t1, t2);</span><br><br>        Console.WriteLine(<span class="hljs-string">&quot;Task 1: &#123;0&#125;Finishied&quot;</span>, t1.IsCompleted ? <span class="hljs-string">&quot; &quot;</span> : <span class="hljs-string">&quot;Not &quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">&quot;Task 2: &#123;0&#125;Finishied&quot;</span>, t2.IsCompleted ? <span class="hljs-string">&quot; &quot;</span> : <span class="hljs-string">&quot;Not &quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncLearning</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">new</span> WaitAsyncClass().DoRun();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果既不调用<code>WaitAll()</code>也不调用<code>WaitAny()</code>的话，输出如下：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">Task</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">Not</span> Finishied<br><span class="hljs-keyword">Task</span> <span class="hljs-number">2</span>: <span class="hljs-keyword">Not</span> Finishied<br></code></pre></td></tr></table></figure>
+<p>如果调用<code>WaitAll()</code>方法，输出如下：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">Task</span> <span class="hljs-number">1</span>:  Finishied<br><span class="hljs-keyword">Task</span> <span class="hljs-number">2</span>:  Finishied<br></code></pre></td></tr></table></figure>
+<p>如果调用<code>WaitAny()</code>方法，输出如下：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">Task</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">Not</span> Finishied<br><span class="hljs-keyword">Task</span> <span class="hljs-number">2</span>:  Finishied<br></code></pre></td></tr></table></figure>
+<p><code>WaitAll</code>和<code>WaitAny</code>分别还包含4个重载，除了完成任务之外，还允许以不同的方式继续执行，如设置超时时间或使用<code>CancellationToken</code>来强制执行处理的后续部分。</p>
+<h3 id="在异步方法中异步地等待任务">在异步方法中异步地等待任务</h3>
+<p>下面是一个例子：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">DelayAsyncClass</span><br>&#123;<br>	Stopwatch sw = <span class="hljs-keyword">new</span> Stopwatch();<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoRun</span>()</span><br>	&#123;<br>		Console.WriteLine(<span class="hljs-string">&quot;Caller: Before call.&quot;</span>);<br>		DelayAsync();<br>		Console.WriteLine(<span class="hljs-string">&quot;Caller: After call.&quot;</span>);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DelayAsync</span>()</span><br>	&#123;<br>		sw.Start();<br>		Console.WriteLine(<span class="hljs-string">$&quot;Before delay: <span class="hljs-subst">&#123; sw.ElapsedMilliseconds &#125;</span>&quot;</span>);<br>		<span class="hljs-keyword">await</span> Task.Delay(<span class="hljs-number">1000</span>);<br>		<span class="hljs-comment">// Thread.Sleep(1000);</span><br>		Console.WriteLine(<span class="hljs-string">$&quot;After delay: <span class="hljs-subst">&#123; sw.ElapsedMilliseconds &#125;</span>&quot;</span>);<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncLearning</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>	&#123;<br>		<span class="hljs-keyword">new</span> DelayAsyncClass().DoRun();<br>		Console.Read();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>使用<code>Task.Delay</code>方法的输出如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#">Caller: Before call.<br>Before delay: <span class="hljs-number">0</span><br>Caller: After call.<br>After delay: <span class="hljs-number">1006</span><br></code></pre></td></tr></table></figure>
+<p>使用<code>Thread.Sleep</code>方法的输出如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#">Caller: Before call.<br>Before delay: <span class="hljs-number">0</span><br>After delay: <span class="hljs-number">1006</span><br>Caller: After call.<br></code></pre></td></tr></table></figure>
+<p>可以看出，<code>Task.Delay</code>不会阻塞线程，线程可以继续处理其他工作。</p>
+<h2 id="异步方法的应用">异步方法的应用</h2>
+<h3 id="await-async模式"><code>await</code>/<code>async</code>模式</h3>
+<p><code>MainWindow.xaml</code>中的代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Window</span> <span class="hljs-attr">x:Class</span>=<span class="hljs-string">&quot;WpfAwait.MainWindow&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:x</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:d</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:mc</span>=<span class="hljs-string">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:local</span>=<span class="hljs-string">&quot;clr-namespace:WpfAwait&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">mc:Ignorable</span>=<span class="hljs-string">&quot;d&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">Title</span>=<span class="hljs-string">&quot;MainWindow&quot;</span> <span class="hljs-attr">Height</span>=<span class="hljs-string">&quot;150&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;250&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">StackPanel</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;btnProcess&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">Click</span>=<span class="hljs-string">&quot;btnProcess_Click&quot;</span> <span class="hljs-attr">HorizontalAlignment</span>=<span class="hljs-string">&quot;Right&quot;</span> <span class="hljs-attr">Margin</span>=<span class="hljs-string">&quot;10,15,10,10&quot;</span>&gt;</span>Process<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;btnCancel&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">Click</span>=<span class="hljs-string">&quot;btnCancel_Click&quot;</span> <span class="hljs-attr">HorizontalAlignment</span>=<span class="hljs-string">&quot;Right&quot;</span> <span class="hljs-attr">Margin</span>=<span class="hljs-string">&quot;10,0&quot;</span>&gt;</span>Cancel<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">ProgressBar</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;progressBar&quot;</span> <span class="hljs-attr">Height</span>=<span class="hljs-string">&quot;20&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">Margin</span>=<span class="hljs-string">&quot;10&quot;</span> <span class="hljs-attr">HorizontalAlignment</span>=<span class="hljs-string">&quot;Right&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ProgressBar</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">StackPanel</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">Window</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>MainWindow.xaml.cs</code>中的代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> System.Threading;<br><span class="hljs-keyword">using</span> System.Threading.Tasks;<br><span class="hljs-keyword">using</span> System.Windows;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">WpfAwait</span><br>&#123;<br>    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>    <span class="hljs-comment"><span class="hljs-doctag">///</span> MainWindow.xaml 的交互逻辑</span><br>    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MainWindow</span> : <span class="hljs-title">Window</span><br>    &#123;<br>        CancellationTokenSource cancellationTokenSource;<br>        CancellationToken cancellationToken;<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MainWindow</span>()</span><br>        &#123;<br>            InitializeComponent();<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">void</span> <span class="hljs-title">btnProcess_Click</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, RoutedEventArgs e</span>)</span><br>        &#123;<br>            btnProcess.IsEnabled = <span class="hljs-literal">false</span>;  <span class="hljs-comment">// 将Process按钮设为不可用</span><br><br>            cancellationTokenSource = <span class="hljs-keyword">new</span> CancellationTokenSource();  <span class="hljs-comment">// 设置新的取消标志</span><br>            cancellationToken = cancellationTokenSource.Token;<br><br>            <span class="hljs-built_in">int</span> completedPercent = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 百分比</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)  <span class="hljs-comment">// 处理事务（迫真）</span><br>            &#123;<br>                <span class="hljs-keyword">if</span> (cancellationToken.IsCancellationRequested)  <span class="hljs-comment">// 定期检查取消标志的值以及时停止任务</span><br>                &#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br><br>                <span class="hljs-keyword">try</span><br>                &#123;<br>                    <span class="hljs-keyword">await</span> Task.Delay(<span class="hljs-number">500</span>, cancellationToken);  <span class="hljs-comment">// 实际上这里不传 cancellationToken 也能正常工作</span><br>                    completedPercent = (i + <span class="hljs-number">1</span>) * <span class="hljs-number">10</span>;<br>                &#125;<br>                <span class="hljs-keyword">catch</span> (TaskCanceledException ex)<br>                &#123;<br>                    completedPercent = i * <span class="hljs-number">10</span>;<br>                &#125;<br>                progressBar.Value = completedPercent;  <span class="hljs-comment">// 设置进度条的值</span><br>            &#125;<br><br>            <span class="hljs-built_in">string</span> message = cancellationToken.IsCancellationRequested ? <span class="hljs-built_in">string</span>.Format(<span class="hljs-string">$&quot;Process was cancelled at <span class="hljs-subst">&#123;completedPercent&#125;</span>%.&quot;</span>) : <span class="hljs-string">&quot;Process completed normally.&quot;</span>;<br>            MessageBox.Show(message, <span class="hljs-string">&quot;Completion Status&quot;</span>);  <span class="hljs-comment">// 弹窗显示相关信息</span><br><br>            progressBar.Value = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 重置相关控件状态</span><br>            btnProcess.IsEnabled = <span class="hljs-literal">true</span>;<br>            btnCancel.IsEnabled = <span class="hljs-literal">true</span>;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">btnCancel_Click</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, RoutedEventArgs e</span>)</span><br>        &#123;<br>            <span class="hljs-keyword">if</span> (!btnProcess.IsEnabled)  <span class="hljs-comment">// 如果Process按钮不可用，说明正在处理事务，此时取消按钮可正常工作</span><br>            &#123;<br>                btnCancel.IsEnabled = <span class="hljs-literal">false</span>;<br>                cancellationTokenSource.Cancel();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="BackgroundWorker模式"><code>BackgroundWorker</code>模式</h3>
+<p><code>MainWindow.xaml</code>中的代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Window</span> <span class="hljs-attr">x:Class</span>=<span class="hljs-string">&quot;SimpleWorker.MainWindow&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:x</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:d</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:mc</span>=<span class="hljs-string">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">xmlns:local</span>=<span class="hljs-string">&quot;clr-namespace:SimpleWorker&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">mc:Ignorable</span>=<span class="hljs-string">&quot;d&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">Title</span>=<span class="hljs-string">&quot;MainWindow&quot;</span> <span class="hljs-attr">Height</span>=<span class="hljs-string">&quot;150&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;350&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">StackPanel</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">ProgressBar</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;progressBar&quot;</span> <span class="hljs-attr">Height</span>=<span class="hljs-string">&quot;20&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">Margin</span>=<span class="hljs-string">&quot;10&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ProgressBar</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;btnProcess&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">Click</span>=<span class="hljs-string">&quot;btnProcess_Click&quot;</span> <span class="hljs-attr">Margin</span>=<span class="hljs-string">&quot;5&quot;</span>&gt;</span>Process<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">Name</span>=<span class="hljs-string">&quot;btnCancel&quot;</span> <span class="hljs-attr">Width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">Click</span>=<span class="hljs-string">&quot;btnCancel_Click&quot;</span> <span class="hljs-attr">Margin</span>=<span class="hljs-string">&quot;5&quot;</span>&gt;</span>Cancel<span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">StackPanel</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">Window</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>MainWindow.xaml.cs</code>中的代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> System.ComponentModel;<br><span class="hljs-keyword">using</span> System.Threading;<br><span class="hljs-keyword">using</span> System.Windows;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">SimpleWorker</span><br>&#123;<br>    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>    <span class="hljs-comment"><span class="hljs-doctag">///</span> MainWindow.xaml 的交互逻辑</span><br>    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MainWindow</span> : <span class="hljs-title">Window</span><br>    &#123;<br>        BackgroundWorker bgWorker = <span class="hljs-keyword">new</span> BackgroundWorker();<br><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MainWindow</span>()</span><br>        &#123;<br>            InitializeComponent();<br><br>            <span class="hljs-comment">// 设置BackgroundWorker属性</span><br>            bgWorker.WorkerReportsProgress = <span class="hljs-literal">true</span>;  <span class="hljs-comment">// 允许将进度汇报给主线程</span><br>            bgWorker.WorkerSupportsCancellation = <span class="hljs-literal">true</span>;  <span class="hljs-comment">// 允许主线程取消后台任务</span><br><br>            <span class="hljs-comment">// 连接BackgroundWorker对象的处理程序</span><br>            bgWorker.DoWork += DoWork_Handler;<br>            bgWorker.ProgressChanged += ProcessChanged_Handler;<br>            bgWorker.RunWorkerCompleted += RunWorkerCompleted_Handler;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">btnProcess_Click</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, RoutedEventArgs e</span>)</span><br>        &#123;<br>            <span class="hljs-keyword">if</span> (!bgWorker.IsBusy)  <span class="hljs-comment">// 如果后台任务未启动，则启动后台任务</span><br>            &#123;<br>                bgWorker.RunWorkerAsync();<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">btnCancel_Click</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, RoutedEventArgs e</span>)</span><br>        &#123;<br>            bgWorker.CancelAsync();  <span class="hljs-comment">// 把CancellationPending属性设置为True</span><br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ProcessChanged_Handler</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, ProgressChangedEventArgs args</span>)</span><br>        &#123;<br>            progressBar.Value = args.ProgressPercentage;  <span class="hljs-comment">// 通过触发ProgressChanged事件，事件调用ProcessChanged_Handler方法，从而更新进度条</span><br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoWork_Handler</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, DoWorkEventArgs args</span>)</span><br>        &#123;<br>            BackgroundWorker worker  = sender <span class="hljs-keyword">as</span> BackgroundWorker;<br><br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>;  i++)<br>            &#123;<br>                <span class="hljs-keyword">if</span> (worker.CancellationPending)  <span class="hljs-comment">// 定期检查CancellationPending属性，以及时取消后台任务</span><br>                &#123;<br>                    args.Cancel = <span class="hljs-literal">true</span>;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                <span class="hljs-keyword">else</span><br>                &#123;<br>                    worker.ReportProgress(i * <span class="hljs-number">10</span>);  <span class="hljs-comment">// 调用ReportProgress方法来触发ProgressChanged事件</span><br>                    Thread.Sleep(<span class="hljs-number">500</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunWorkerCompleted_Handler</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, RunWorkerCompletedEventArgs args</span>)</span><br>        &#123;<br>            progressBar.Value = <span class="hljs-number">0</span>;<br><br>            <span class="hljs-keyword">if</span> (args.Cancelled)<br>            &#123;<br>                MessageBox.Show(<span class="hljs-string">&quot;Process was cancelled.&quot;</span>, <span class="hljs-string">&quot;Process Cancelled.&quot;</span>);<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                MessageBox.Show(<span class="hljs-string">&quot;Process completed normally.&quot;</span>, <span class="hljs-string">&quot;Process Completed.&quot;</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="并行循环">并行循环</h2>
+<p>.NET 还提供了一个任务并行库<code>Task Parallel Library</code>，用于并行编程，这里只简单介绍下其中的并行循环，两者都位于<code>System.Threading.Tasks</code>命名空间中。</p>
+<h3 id="Parallel-For"><code>Parallel.For</code></h3>
+<p><code>Parallel.For</code>方法有 12 个重载，其中一个是：<code>public static ParallelLoopResult.For(int fromInclusive, int toExclusive, Action body)</code>。</p>
+<ul>
+<li><code>fromInclusive</code>参数是迭代系列的第一个整数。</li>
+<li><code>toExclusive</code>参数是比迭代系列的最后一个索引号大 1 的整数。</li>
+<li><code>body</code>是接受单个输入参数的委托。<br>
+下面是一个例子：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">Parallel.For(<span class="hljs-number">0</span>, <span class="hljs-number">15</span>, i =&gt; &#123; Console.WriteLine(<span class="hljs-string">$&quot;The square of <span class="hljs-subst">&#123;i&#125;</span> is <span class="hljs-subst">&#123;i * i&#125;</span>&quot;</span>); &#125;);<br></code></pre></td></tr></table></figure>
+<p>它的一个输出如下（因为是并行处理所以每次输出都可能不一样）：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">The</span> square of <span class="hljs-number">0</span> is <span class="hljs-number">0</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">10</span> is <span class="hljs-number">100</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">1</span> is <span class="hljs-number">1</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">2</span> is <span class="hljs-number">4</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">3</span> is <span class="hljs-number">9</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">4</span> is <span class="hljs-number">16</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">5</span> is <span class="hljs-number">25</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">6</span> is <span class="hljs-number">36</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">8</span> is <span class="hljs-number">64</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">9</span> is <span class="hljs-number">81</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">7</span> is <span class="hljs-number">49</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">13</span> is <span class="hljs-number">169</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">12</span> is <span class="hljs-number">144</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">11</span> is <span class="hljs-number">121</span><br><span class="hljs-attribute">The</span> square of <span class="hljs-number">14</span> is <span class="hljs-number">196</span><br></code></pre></td></tr></table></figure>
+<h3 id="Parallel-ForEach"><code>Parallel.ForEach</code></h3>
+<p>该方法也有很多重载，这里简单地以：<code>static ParallelLoopResult ForEach&lt;TSource&gt;( IEnumerable&lt;TSource&gt; source, Action&lt;TSource&gt; body)</code>举例说明：</p>
+<ul>
+<li><code>TSource</code>是集合中对象的类型。</li>
+<li><code>source</code>是<code>TSource</code>对象的集合。</li>
+<li><code>body</code>是要应用到集合中每一个元素上的<code>Lambda</code>表达式。<br>
+下面是一个例子：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span>[] squares = <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>[] &#123; <span class="hljs-string">&quot;We&quot;</span>, <span class="hljs-string">&quot;hold&quot;</span>, <span class="hljs-string">&quot;these&quot;</span>, <span class="hljs-string">&quot;truths&quot;</span>, <span class="hljs-string">&quot;to&quot;</span>, <span class="hljs-string">&quot;be&quot;</span>, <span class="hljs-string">&quot;self-evident&quot;</span>, <span class="hljs-string">&quot;that&quot;</span>, <span class="hljs-string">&quot;all&quot;</span>, <span class="hljs-string">&quot;men&quot;</span>, <span class="hljs-string">&quot;are&quot;</span>, <span class="hljs-string">&quot;created&quot;</span>, <span class="hljs-string">&quot;equal&quot;</span> &#125;;<br>Parallel.ForEach(squares, i =&gt; Console.WriteLine(<span class="hljs-string">$&quot;\&quot;<span class="hljs-subst">&#123;i&#125;</span>\&quot; has <span class="hljs-subst">&#123;i.Length&#125;</span> letters&quot;</span>));```<br></code></pre></td></tr></table></figure>
+<p>它的一个输出如下（因为是并行处理所以每次输出都可能不一样）：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-string">&quot;created&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">7</span> letters<br><span class="hljs-string">&quot;be&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">2</span> letters<br><span class="hljs-string">&quot;these&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">5</span> letters<br><span class="hljs-string">&quot;hold&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">4</span> letters<br><span class="hljs-string">&quot;We&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">2</span> letters<br><span class="hljs-string">&quot;truths&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">6</span> letters<br><span class="hljs-string">&quot;men&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">3</span> letters<br><span class="hljs-string">&quot;equal&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">5</span> letters<br><span class="hljs-string">&quot;are&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">3</span> letters<br><span class="hljs-string">&quot;all&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">3</span> letters<br><span class="hljs-string">&quot;that&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">4</span> letters<br><span class="hljs-string">&quot;to&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">2</span> letters<br><span class="hljs-string">&quot;self-evident&quot;</span> <span class="hljs-built_in">has</span> <span class="hljs-number">12</span> letters<br></code></pre></td></tr></table></figure>
+<h2 id="定时器">定时器</h2>
+<p>简单介绍一下<code>System.Threading</code>命名空间中的<code>Timer</code>类，也就是定时器类，它提供了一种定期重复运行异步方法的方式。</p>
+<div class="note note-info">
+            <p>在 .NET BCL 中还存在着好几个<code>Timer</code>类，比如<code>System.Windows.Forms.Timer</code>和<code>System.Timers.Timer</code>，可以了解下。</p>
+          </div>
+<p><code>Timer</code>类的其中一个常用构造函数是：<code>Timer(TimerCallback callback, object state, uint dueTime, uint period)</code>。<br>
+其中第一个参数是回调的名字，第二个参数是传给回调的对象（可以通过这个对象来传递信息），第三个参数是等待多少毫秒后第一次调用，最后一个参数是每隔多少毫秒进行一次调用。<br>
+如果想要改变已创建的<code>Timer</code>类对象的<code>dueTime</code>和<code>period</code>，可以使用<code>Change</code>方法。<br>
+下面是一个演示：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">TimerLearning</span><br>&#123;<br>	Stopwatch sw = <span class="hljs-keyword">new</span> Stopwatch();<br>	<span class="hljs-built_in">int</span> TimesCalled = <span class="hljs-number">0</span>;<br><br>	TimerLearning() &#123; sw.Start(); &#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">MyCallbackMethod</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> state</span>)</span><br>	&#123;<br>		Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;(<span class="hljs-built_in">string</span>)state&#125;</span> <span class="hljs-subst">&#123;++TimesCalled&#125;</span> <span class="hljs-subst">&#123;sw.ElapsedMilliseconds&#125;</span>&quot;</span>);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>	&#123;<br>		TimerLearning timerLearning = <span class="hljs-keyword">new</span> TimerLearning();<br>		Timer timer = <span class="hljs-keyword">new</span> Timer(timerLearning.MyCallbackMethod, <span class="hljs-string">&quot;Processing timer event&quot;</span>, <span class="hljs-number">2000</span>, <span class="hljs-number">1000</span>);<br>		Console.WriteLine(<span class="hljs-string">&quot;Timer started.&quot;</span>);<br><br>		Thread.Sleep(<span class="hljs-number">5000</span>);  <span class="hljs-comment">// 延时 5s 后改变 timer 的 dueTime 和 period</span><br>		timer.Change(<span class="hljs-number">1000</span>, <span class="hljs-number">2000</span>);<br><br>		Console.ReadLine();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>下面是输出结果</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Timer</span> started.<br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">1</span> <span class="hljs-number">2024</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">2</span> <span class="hljs-number">3000</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">3</span> <span class="hljs-number">4001</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">4</span> <span class="hljs-number">5001</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">5</span> <span class="hljs-number">6015</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">6</span> <span class="hljs-number">8014</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">7</span> <span class="hljs-number">10014</span><br><span class="hljs-attribute">Processing</span> timer event <span class="hljs-number">8</span> <span class="hljs-number">12014</span><br></code></pre></td></tr></table></figure>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/CSharp/" class="category-chain-item">CSharp</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/%E5%BC%82%E6%AD%A5/">#异步</a>
+      
+        <a href="/tags/async/">#async</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C#笔记——异步编程</div>
+      <div>https://map1e-g.github.io/2023/09/21/CSharp-learning-7/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月21日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/23/CSharp-learning-8/" title="C#笔记——序列化">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C#笔记——序列化</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/21/CSharp-learning-6/" title="C#笔记——命名空间和程序集、反射和特性">
+                        <span class="hidden-mobile">C#笔记——命名空间和程序集、反射和特性</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
