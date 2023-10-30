@@ -1,0 +1,881 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="闲着也是闲着那就随便看看口巴！主要是看文档的时候记一下的笔记。参考ASP.NET官方文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#笔记——使用ASP.NET和Entity Framework Core">
+<meta property="og:url" content="https://map1e-g.github.io/2023/10/19/CSharp-learning-9/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="闲着也是闲着那就随便看看口巴！主要是看文档的时候记一下的笔记。参考ASP.NET官方文档。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z1.ax1x.com/2023/10/26/piZPH6P.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/10/26/piZFHZ8.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/10/26/piZEPC4.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/10/27/piZbJdx.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/10/27/piZbYo6.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/10/27/piZqV6H.jpg">
+<meta property="article:published_time" content="2023-10-19T06:15:31.000Z">
+<meta property="article:modified_time" content="2023-10-29T14:25:12.549Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="ASP.NET">
+<meta property="article:tag" content="EF CORE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://z1.ax1x.com/2023/10/26/piZPH6P.jpg">
+  
+  
+  
+  <title>C#笔记——使用ASP.NET和Entity Framework Core - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C#笔记——使用ASP.NET和Entity Framework Core"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-19 14:15" pubdate>
+          2023年10月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          89 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C#笔记——使用ASP.NET和Entity Framework Core</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年10月29日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>环境配置</h1>
+<p>首先检查下自己电脑装没装 .NET，建议用 vs 当懒狗，直接全装了。在终端中输入命令：<code>dotnet --list-sdks</code>，如果没列出任何版本或者未找到命令就是没装，赶紧给我装啊！.jpg<br>
+至于项目文件，全都是文档中有提到的，看看文档就找到了！</p>
+<h1>项目基本结构</h1>
+<p>属于十分经典的 API 项目结构啊：</p>
+<ul>
+<li>Models: 保存实体模型，如 POCO 或者说 DTO。</li>
+<li>Services: 业务逻辑层。</li>
+<li>Controllers: 控制器层，负责搜集参数、参数校验、调用 Service（服务）等。</li>
+<li>Data: 保存数据库相关，如<code>DbContext</code>。</li>
+</ul>
+<h1>使用 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 控制器创建 Web API</h1>
+<h2 id="创建-Web-API-项目">创建 Web API 项目</h2>
+<h3 id="Visual-Studio">Visual Studio</h3>
+<p>新建项目中搜索： <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core Web API ，然后创建即可。</p>
+<h3 id="Visual-Studio-Code">Visual Studio Code</h3>
+<p>在终端窗口中进入对应文件夹，运行命令：<code>dotnet new webapi -f net7.0</code>。该命令根据当前文件夹名称命名 C# 项目文件。</p>
+<h2 id="接口测试工具">接口测试工具</h2>
+<p>我们可以用 Postman 来测试接口，也可以用 .NET HTTP REPL 工具来测试接口。前者直接官网下载即可，后者则在终端运行该命令：<code>dotnet tool install -g Microsoft.dotnet-httprepl</code>。</p>
+<h3 id="NET-HTTP-REPL-食用方法">.NET HTTP REPL 食用方法</h3>
+<p>通过以下命令连接：<code>httprepl https://localhost:&#123;port&#125;</code>；或者，在<code>Httprepl</code>运行时随时运行以下命令：<code>connect https://localhost:&#123;port&#125;</code>。</p>
+<div class="note note-success">
+            <p>如果<code>Httprepl</code>工具发出“找不到 OpenAPI 说明”的警告，最有可能的原因是开发证书不受信任。执行命令：<code>dotnet dev-certs https --trust</code>配置系统以信任开发证书。</p>
+          </div>
+<p>浏览可用的 endpoint：<code>ls</code><br>
+进入某一个 endpoint：<code>cd endpointName</code><br>
+发出请求：<code>get</code>、<code>post</code>、<code>put</code>、<code>patch</code>、<code>delete</code>，若带参数，加在后面即可，如：<code>get 5</code>。需要 body，那就用<code>-c</code>然后加在后边，如：<code>post -c &quot;&#123;&quot;id&quot;: 3, &quot;name&quot;: &quot;MyTest&quot;, &quot;isFree&quot;: false&#125;&quot;</code>和<code>put 3 -c &quot;&#123;&quot;id&quot;: 3, &quot;name&quot;: &quot;MyTest&quot;, &quot;isFree&quot;: false&#125;&quot;</code><br>
+结束当前<code>Httprepl</code>会话：<code>exit</code></p>
+<h2 id="创建-ASP-NET-Core-Web-API-控制器">创建 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core Web API 控制器</h2>
+<p>控制器应该放在 Controllers 文件夹下，操作通过路由被公开为 HTTP endpoint。命名格式为：<code>XxxController</code>，其实就是加一个<code>Controller</code>后缀。我们的<code>https://localhost:&#123;port&#125;/xxx</code>的各种 HTTP 请求将执行<code>XxxController</code>类下的对应方法。</p>
+<div class="note note-info">
+            <p>注意<code>Web API</code>的控制器的基类应该是<code>ControllerBase</code>而不是<code>Controller</code>，后者派生自前者并且添加了对视图的支持，用来处理网页而不是<code>Web API</code>请求。</p>
+          </div>
+<p>我们还需要将两个重要属性应用到我们创建的控制器上，这两个属性分别是：<code>[ApiController]</code>和<code>[Route(&quot;[controller]&quot;)]</code>。<br>
+<code>[ApiController]</code>启用固定行为，使生成 Web API 更加容易。如果要在多个控制器上应用该属性，一种方法是创建通过<code>[ApiController]</code>属性批注的自定义基控制器类，比如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">ApiController</span>]<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyControllerBase</span> : <span class="hljs-title">ControllerBase</span> &#123;&#125;<br><br>[<span class="hljs-meta">Route(<span class="hljs-string">&quot;[controller]&quot;</span>)</span><br><span class="hljs-meta">public class MyController : MyControllerBase</span><br><span class="hljs-meta">&#123;</span><br><span class="hljs-meta">	...</span><br><span class="hljs-meta">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>又或者是将该属性应用到程序集，如修改<code>Program.cs</code>：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;<br>[<span class="hljs-meta">assembly: ApiController</span>]<br><span class="hljs-keyword">var</span> builder = WebApplication.CreateBuilder(args);<br>...<br></code></pre></td></tr></table></figure>
+<p>不过需要的是，如果某个控制器应用了<code>[ApiController]</code>属性，那么同时也要对该控制器应用<code>[Route]</code>属性，该属性说明见下面。<br>
+<code>[Route(&quot;[controller]&quot;)]</code>属性定义路由模式。<code>[controller]</code>令牌（参数）替换为控制器的名称（不区分大小写，无 Controller 后缀）。举两个例子：</p>
+<ol>
+<li><code>[Route(&quot;[controller]&quot;)]</code>应用到<code>AnimalController</code>类上，则该控制器处理对<code>https://localhost:&#123;port&#125;/animal</code>的请求。</li>
+<li><code>[Route(&quot;api/[controller]&quot;)]</code>应用到<code>AnimalController</code>类上，则该控制器处理对<code>https://localhost:&#123;port&#125;/api/animal</code>的请求。</li>
+</ol>
+<h2 id="在控制器中实现-REST-谓词">在控制器中实现 REST 谓词</h2>
+<h3 id="Get">Get</h3>
+<p>不带参数的实现：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpGet</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> ActionResult&lt;TEntity&gt; <span class="hljs-title">GetMethodName</span>()</span><br>&#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>带参数的实现（注意<code>int</code>只是举个例子，实际是什么类型就填什么）：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpGet(<span class="hljs-string">&quot;&#123;id&#125;&quot;</span>)</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> ActionResult&lt;TEntity&gt; <span class="hljs-title">GetMethodName</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> id</span>)</span><br>&#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="POST">POST</h3>
+<p>将项作为参数传递入方法时，<a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 会自动发送到 endpoint 的任何应用程序/JSON 转换为填充的 .NET TEntity 对象。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpPost</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> IActionResult <span class="hljs-title">CreateMethodName</span>(<span class="hljs-params">TEntity entity</span>)</span><br>&#123;<br>	<span class="hljs-comment">// This code will save the entity and return a result</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="PUT">PUT</h3>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpPut(<span class="hljs-string">&quot;&#123;id&#125;&quot;</span>)</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> IActionResult <span class="hljs-title">Update</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> id, TEntity entity</span>)</span><br>&#123;<br>	<span class="hljs-comment">// This code will update the entity and return a result</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="PATCH">PATCH</h3>
+<p>基本包貌似不提供这个词操作，详情见：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/jsonpatch?view=aspnetcore-7.0">ASP.NET Core Web API 中的 JSON 修补程序</a></p>
+<h3 id="DELETE">DELETE</h3>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpDelete(<span class="hljs-string">&quot;&#123;id&#125;&quot;</span>)</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> IActionResult <span class="hljs-title">DeleteMethodName</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> id</span>)</span><br>&#123;<br>	<span class="hljs-comment">// This code will delete the entity and return a result</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>Swashbuckle 和 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 入门</h1>
+<h2 id="如何为我的-Web-API-应用添加-Swashbuckle">如何为我的 Web API 应用添加 Swashbuckle</h2>
+<h3 id="包安装">包安装</h3>
+<h4 id="Visual-Studio-2">Visual Studio</h4>
+<p>用 NuGet 可以快速管理当前项目的各个包，将“包源”设置为“<a target="_blank" rel="noopener" href="http://nuget.org">nuget.org</a>”，然后直接在搜索框中搜索“Swashbuckle.AspNetCore”，安装最新的“Swashbuckle.AspNetCore”包即可。下面的步骤根据 Visual Studio 2022 编写：</p>
+<ol>
+<li>“工具” -&gt; “NuGet 包管理器” -&gt; “管理解决方案的 NuGet 包”，然后会打开一个窗口。</li>
+<li>选择浏览，然后直接在搜索框中搜索“Swashbuckle.AspNetCore”，安装最新的“Swashbuckle.AspNetCore”包即可。</li>
+</ol>
+<h4 id="Visual-Studio-Code-2">Visual Studio Code</h4>
+<p>从“终端”窗口中运行命令（注意在项目文件夹下）：<code>dotnet add Xxx.csproj package Swashbuckle.AspNetCore -v 6.5.0</code>。命令中的<code>Xxx</code>换成自己的项目文件名。根据自己的需要选择版本号，编写该文章时候的最新稳定版为<code>6.5.0</code>。</p>
+<h3 id="添加并配置-Swagger-中间件">添加并配置 Swagger 中间件</h3>
+<p>添加以下代码到<code>Program.cs</code>中：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#">builder.Services.AddSwaggerGen();<br><br><span class="hljs-keyword">if</span> (app.Environment.IsDevelopment())<br>&#123;<br>    app.UseSwagger();<br>    app.UseSwaggerUI();<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-info">
+            <p>注意到<code>app.Environment.IsDevelopment()</code>，这句代码表明：仅当将当前环境设置为“开发”时，才会添加 Swagger 中间件。</p>
+          </div>
+<div class="note note-warning">
+            <p>如果使用目录及 IIS 或反向代理，请使用<code>./</code>前缀将 Swagger 终结点设置为相对路径。例如<code>./swagger/v1/swagger.json</code>。</p>
+          </div>
+<h2 id="自定义和扩展">自定义和扩展</h2>
+<h3 id="API-信息和说明">API 信息和说明</h3>
+<p>传递给<code>AddSwaggerGen</code>方法的配置操作会添加诸如作者、许可证和说明的信息。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c#">builder.Services.AddSwaggerGen(options =&gt;<br>&#123;<br>    options.SwaggerDoc(<span class="hljs-string">&quot;v1&quot;</span>, <span class="hljs-keyword">new</span> OpenApiInfo<br>    &#123;<br>        Version = <span class="hljs-string">&quot;v1&quot;</span>,<br>        Description = <span class="hljs-string">&quot;Pizza API&quot;</span>,<br>        TermsOfService = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">&quot;https://example.com/terms&quot;</span>),<br>        Contact = <span class="hljs-keyword">new</span> OpenApiContact<br>        &#123;<br>            Name = <span class="hljs-string">&quot;MaP1e-G&#x27;s Blog&quot;</span>,<br>            Url = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">&quot;https://map1e-g.github.io/about&quot;</span>)<br>        &#125;,<br>        License = <span class="hljs-keyword">new</span> OpenApiLicense<br>        &#123;<br>            Name = <span class="hljs-string">&quot;Example License&quot;</span>,<br>            Url = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">&quot;https://example.com/license&quot;</span>)<br>        &#125;<br>    &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>启动来看看效果：<img src="https://z1.ax1x.com/2023/10/26/piZPH6P.jpg" srcset="/img/loading.gif" lazyload alt="Swagger Information"></p>
+<h3 id="XML-注释">XML 注释</h3>
+<p>要启用 XML 注释功能，就将<code>GenerateDocumentationFile</code>添加到<code>.csproj</code>（C#项目）文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">PropertyGroup</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">GenerateDocumentationFile</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">GenerateDocumentationFile</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">PropertyGroup</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>一些 Swagger 功能无需使用 XML文档文件即可起作用，但是对于大多数功能（即方法摘要以及参数说明和响应代码说明），必须使用 XML 文件。所以可以添加以下代码，通过反射生成与 Web API 项目相匹配的 XML 文件名：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#">builder.Services.AddSwaggerGen(options =&gt;<br>&#123;<br>	<span class="hljs-comment">// other options</span><br>	...<br>	<span class="hljs-comment">// using System.Reflection</span><br>	<span class="hljs-keyword">var</span> xmlFilename = <span class="hljs-string">$&quot;<span class="hljs-subst">&#123;Assembly.GetExecutingAssembly().GetName().Name&#125;</span>.xml&quot;</span>;<br>	options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));<br>&#125;<br>);<br></code></pre></td></tr></table></figure>
+<p><code>AppContext.BaseDirectory</code>属性用于构造 XML 文件的路径。</p>
+<h4 id="summary-元素"><summary>元素</h4>
+<p>启用 XML 注释后，三斜杠注释将被添加到 Swagger UI 中，比如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 查找所有Pizza</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span><span class="hljs-doctag">&lt;/returns&gt;</span></span><br>[<span class="hljs-meta">HttpGet</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> IEnumerable&lt;Pizza&gt; <span class="hljs-title">GetAll</span>()</span><br>&#123;<br>	<span class="hljs-keyword">return</span> _service.GetAll();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>看看效果：<img src="https://z1.ax1x.com/2023/10/26/piZFHZ8.jpg" srcset="/img/loading.gif" lazyload alt="Swagger XML "></p>
+<h4 id="remarks-元素"><remarks>元素</h4>
+<p>还可以添加<code>&lt;remarks&gt;</code>元素来提供额外说明，例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 创建一个新Pizza</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;newPizza&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span><span class="hljs-doctag">&lt;/returns&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;remarks&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 示例：</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> </span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>     POST /Pizza</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>     &#123;</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>       &quot;id&quot;: 1,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>       &quot;name&quot;: &quot;XxxPizza&quot;,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>       &quot;sauce&quot;: &#123; </span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>           &quot;id&quot;: 1,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>           &quot;name&quot;: &quot;XxxSauce&quot;,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>           &quot;isVegan&quot;: false</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>       &#125;,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>       &quot;topping&quot;: [</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>         &#123;</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>           &quot;id&quot;:1,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>           &quot;name&quot;: &quot;XxxTopping&quot;,</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>           &quot;calories&quot;: 100</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>         &#125;</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>       ]</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>     &#125;</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span>     </span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/remarks&gt;</span></span><br>[<span class="hljs-meta">HttpPost</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> IActionResult <span class="hljs-title">Create</span>(<span class="hljs-params">Pizza newPizza</span>)</span><br>&#123;<br>    <span class="hljs-keyword">var</span> pizza = _service.Create(newPizza);<br>    <span class="hljs-keyword">return</span> CreatedAtAction(<span class="hljs-keyword">nameof</span>(GetById), <span class="hljs-keyword">new</span> &#123; id = pizza!.Id &#125;, pizza);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>看看效果：<img src="https://z1.ax1x.com/2023/10/26/piZEPC4.jpg" srcset="/img/loading.gif" lazyload alt="Swagger XML "></p>
+<h4 id="response-元素"><response>元素</h4>
+<p>我们还可以在 XML 注释中表示错误代码和响应类型，比如在<code>Create</code>方法的 XML 注释中，加入如下注释：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;response code=&quot;201&quot;&gt;</span>Returns the newly created item<span class="hljs-doctag">&lt;/response&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;response code=&quot;400&quot;&gt;</span>If the item is null<span class="hljs-doctag">&lt;/response&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p>我们还需要为<code>Craete</code>方法添加如下的额外的属性：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">ProducesResponseType(StatusCodes.Status201Created)</span>]<br>[<span class="hljs-meta">ProducesResponseType(StatusCodes.Status400BadRequest)</span>]<br></code></pre></td></tr></table></figure>
+<p>来看看效果：<img src="https://z1.ax1x.com/2023/10/27/piZbJdx.jpg" srcset="/img/loading.gif" lazyload alt="Post"><br>
+同样的，我们为<code>Get</code>方法也添加下 XML 注释：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 根据输入的id来查找对应的Pizza</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;id&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span><span class="hljs-doctag">&lt;/returns&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;response code=&quot;200&quot;&gt;</span>返回一个美味的 Pizza<span class="hljs-doctag">&lt;/response&gt;</span></span><br>[<span class="hljs-meta">HttpGet(<span class="hljs-string">&quot;&#123;id&#125;&quot;</span>)</span>]<br>[<span class="hljs-meta">ProducesResponseType(typeof(Pizza), StatusCodes.Status200OK)</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> ActionResult&lt;Pizza&gt; <span class="hljs-title">GetById</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> id</span>)</span><br>&#123;<br>	<span class="hljs-keyword">var</span> pizza = _service.GetById(id);<br><br>	<span class="hljs-keyword">if</span> (pizza <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>)<br>	&#123;<br>		<span class="hljs-keyword">return</span> pizza;<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		<span class="hljs-keyword">return</span> NotFound();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后看看效果:<img src="https://z1.ax1x.com/2023/10/27/piZbYo6.jpg" srcset="/img/loading.gif" lazyload alt="GetById"></p>
+<h4 id="param-元素和-returns-元素"><param>元素和<returns>元素</h4>
+<p>就如同他们的中文意思一般，为这两个元素写 XML 注释，其实就是给对应参数和返回类型写注释。下面为<code>Get</code>方法额外添加一点注释：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;id&quot;&gt;</span>Pizza的唯一指定ID<span class="hljs-doctag">&lt;/param&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span>返回一个美味的 Pizza<span class="hljs-doctag">&lt;/returns&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p>看看效果：<img src="https://z1.ax1x.com/2023/10/27/piZqV6H.jpg" srcset="/img/loading.gif" lazyload alt="Swagger XML "></p>
+<h1>使用 Entity Framework Core 持久保存和检索关系数据</h1>
+<h2 id="什么是-EF-Core？">什么是 EF Core？</h2>
+<p>“Entity Framework Core (EF Core) 是对象-关系映射程序 (ORM)。 ORM 在代码和数据库中实现的域模型之间提供一个层。 EF Core 是一种数据访问 API，允许使用 .NET 普通旧公共运行时语言 (CLR) 对象 (POCO) 和强类型语言集成查询 (LINQ) 语法与数据库进行交互。<br>
+在 EF Core 中，数据库可在 .NET POCO 后面抽象化。 EF Core 处理与基础数据库的直接交互。 使用此 API 时，可以花更少的时间来与数据库之间转换请求以及编写 SQL，从而让你有更多时间专注于重要的业务逻辑。”<br>
+在 EF Core 中，有一个很重要的类，必须了解和掌握，那就是：<code>DbContext</code>（数据库上下文）类。<br>
+<code>DbContext</code>是表示工作单元的特殊类。<code>DbContext</code>提供的方法可用于配置选项、连接字符串、日志记录以及用于将域映射到数据库的模型。<br>
+派生自<code>DbContext</code>的类：</p>
+<ul>
+<li>表示与数据库之间的<strong>活动会话</strong></li>
+<li>保存和查询实体的实例</li>
+<li>包括<code>DbSet&lt;T&gt;</code>类型的属性，其表示数据库中的表。</li>
+</ul>
+<h2 id="包安装-2">包安装</h2>
+<p>要使用 EF Core 进行开发，我们依然要安装对应包。前面已经提到过 VS 可以轻松通过 Nuget 包管理器 来进行安装所以这里不提了。主要是通过命令行的安装：</p>
+<ol>
+<li>首先运行：<code>dotnet add package Microsoft.EntityFrameworkCore.Sqlite</code>，因为项目用的是<code>sqlite</code>所以这里最后面是<code>Sqlite</code>，你也可以相应地换成<code>MySQL</code>或是其他数据库。</li>
+<li>然后运行：<code>dotnet add package Microsoft.EntityFrameworkCore.Design</code>，该命令添加 EF Core 工具所需的包。</li>
+<li>最后运行：<code>dotnet tool install --global dotnet-ef</code>，该命令将安装<code>dotnet ef</code>，用于创建迁移和基架的工具。如需更新，则运行<code>dotnet tool update --global dotnet-ef</code>。</li>
+</ol>
+<h2 id="现有模型迁移至数据库">现有模型迁移至数据库</h2>
+<h3 id="搭建模型和-DbContext-的基架">搭建模型和 DbContext 的基架</h3>
+<p>在<code>Models</code>文件夹下搭建我们需要的模型，这些模型在迁移之后就会成为数据库中的各个表，比如例子中的<code>Pizza</code>、<code>Topping</code>、<code>Sauce</code>模型，迁移后就是<code>Pizza</code>、<code>Topping</code>、<code>Sauce</code>三张表。<br>
+模型搭建完毕后，我们还需要在<code>Data</code>文件夹下添加并配置<code>DbContext</code>实现。<code>DbContext</code>是一个网关，可以通过该网关与数据库进行交互。<br>
+在本例中，我们添加了一个继承自<code>DbContext</code>类的<code>PizzaContext</code>类，用于跟数据库进行交互。代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> Microsoft.EntityFrameworkCore;<br><span class="hljs-keyword">using</span> ContosoPizza.Models;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">ContosoPizza.Data</span>;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PizzaContext</span> : <span class="hljs-title">DbContext</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PizzaContext</span> (<span class="hljs-params">DbContextOptions&lt;PizzaContext&gt; options</span>)</span><br><span class="hljs-function">        : <span class="hljs-title">base</span>(<span class="hljs-params">options</span>)</span><br>    &#123;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> DbSet&lt;Pizza&gt; Pizzas =&gt; Set&lt;Pizza&gt;();<br>    <span class="hljs-keyword">public</span> DbSet&lt;Topping&gt; Toppings =&gt; Set&lt;Topping&gt;();<br>    <span class="hljs-keyword">public</span> DbSet&lt;Sauce&gt; Sauces =&gt; Set&lt;Sauce&gt;();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以发现，如果没其他要求的话，我们只需要将模型的<code>DbSet</code>集合添加至类中即可，<code>DbSet&lt;T&gt;</code>属性也对应于要在数据库中创建的表。<br>
+然后，设置数据源，在<code>Program.cs</code>中，添加该代码：<code>builder.Services.AddSqlite&lt;XxxContext&gt;(&quot;Data Source=Xxx.db&quot;)</code>。自己在自己的应用中实现时，将<code>XxxContext</code>和<code>Xxx.db</code>替换掉就好了，例子中这两处地方分别为<code>PizzaContext</code>和<code>ContosoPizza.db</code>。</p>
+<h3 id="创建并运行迁移">创建并运行迁移</h3>
+<p>运行该命令来创建迁移：<code>dotnet ef migrations add MigrationName --context XxxContext</code>。<br>
+在实际使用中，将命令中的<code>MigrationName</code>替换为自己想要创建的迁移的名字，迁移将被命名为该名字；<code>XxxContext</code>则替换为对应的类的名字，如<code>PizzaContext</code>。<br>
+运行完该命令后，项目中将会生成<code>Migrations</code>文件夹，在该文件夹下包含<code>&lt;timestamp&gt;_MigrationName.cs</code>文件。<br>
+创建完迁移后，还需要运行该命令：<code>dotnet ef database update --context XxxContext</code>，该命令将会应用迁移。</p>
+<div class="note note-info">
+            <p>EF Core 约定通过推断开发者的意图来缩短开发时间。 例如，名为<code>Id</code>或<code>&lt;entity name&gt;Id</code>的属性被推断为生成的表的主键。如果选择不采用命名约定，则该属性必须使用<code>[Key]</code>特性进行批注或配置为<code>DbContext</code>的<code>OnModelCreating</code>方法中的键。</p>
+          </div>
+<h3 id="更改模型和更新数据库架构">更改模型和更新数据库架构</h3>
+<p>某些时候我们可能需要对之前的模型进行修改，然后再把修改同步至数据库。要执行这样的操作，和上一节“创建并运行迁移”的操作是一样的，即先创建迁移，再应用迁移。不过请注意进行版本控制和备份以防数据丢失。</p>
+<h2 id="与数据交互">与数据交互</h2>
+<p>编写业务代码逻辑一般都是在 Service 层上，所以这里默认是编写在对应的<code>Service</code>类上的。<br>
+要与对应的数据库进行交互，我们就需要有对应的<code>Context</code>类的字段，如：<code>private readonly PizzaContext _context</code>，并在构造函数中将参数分配给该字段。<br>
+要访问数据库中的某张表，获取对应的<code>DbSet</code>属性即可，如：<code>_context.Pizzas</code>。这里再放几个链式调用中常见的方法：</p>
+<ul>
+<li><code>AsNoTracking</code>扩展方法指示 EF Core 禁用更改跟踪。如果某个操作是只读的，该方法可以优化性能。</li>
+<li><code>ToList</code>，转换成列表，懂得都懂。</li>
+<li><code>Include</code>扩展方法采用 lambda 表达式来指定将某些导航属性（在例子中是<code>Topping</code>和<code>Sauce</code>，这两个都是 模型/数据库中的表，而且包含在<code>Pizza</code>模型中）通过使用预先加载来包含在结果中，如果不使用此表达式， EF Core 会为这些属性返回<code>null</code>。（我觉得可以理解为如果是引用属性那就需要用这个表达式来将其包含在结果集中）</li>
+<li><code>SingleOrDefault</code>方法返回与 lambda 表达式匹配的结果。如果没有匹配的结果，则返回<code>null</code>；如果有多个匹配的结果，将会引发异常。</li>
+<li><code>Find</code>是按主键查询记录的优化方法。</li>
+<li><code>Remove</code>方法根据传入的对象来移除 EF Core 对象图中的对应实体。<br>
+在执行修改操作后，我们还需要执行<code>_context.SaveChanges()</code>来将操作结果应用到数据库。</li>
+</ul>
+<h2 id="现有数据库逆向工程至模型">现有数据库逆向工程至模型</h2>
+<p>如果我们已经有了数据库，想要根据现有数据库来生成基架代码，有没有什么方便又减少工作量的办法呢？<br>
+答案是有的。运行命令：<code>dotnet ef dbcontext scaffold &quot;Data Source=Xxx/Xxx.db&quot; Microsoft.EntityFrameworkCore.Sqlite --context-dir Data --output-dir Models</code>。该命令将使用提供的连接字符串（<code>&quot;Data Source=Xxx.db&quot;</code>）搭建<code>DbContext</code>类和模型类基架；指定使用<code>Microsoft.EntityFrameworkCore.Sqlite</code>数据库提供程序；<code>--context-dir</code>指定<code>DbContext</code>类的目录，<code>--output-dir</code>指定模型（<code>Model</code>）类的目录。<br>
+创建完后别忘了检查一遍，如果有需要也可以对<code>DbContext</code>和模型类进行修改。</p>
+<div class="note note-success">
+            <p>如果数据库发生更改，可以生成新的基架文件。生成的文件每次都会被覆盖，<strong>但会创建为<code>partial</code>类</strong>，因此你可以在自己的单独文件中使用自定义属性和行为来扩展它们。</p>
+          </div>
+<p>最后，别忘了在<code>Program.cs</code>中将新生成的<code>DbContext</code>类注册到依赖项注入系统：<code>builder.Services.AddSqlite&lt;XxxContext&gt;(&quot;Data Source=Xxx.db&quot;);</code></p>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/CSharp/" class="category-chain-item">CSharp</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/ASP-NET/">#ASP.NET</a>
+      
+        <a href="/tags/EF-CORE/">#EF CORE</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C#笔记——使用ASP.NET和Entity Framework Core</div>
+      <div>https://map1e-g.github.io/2023/10/19/CSharp-learning-9/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月19日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/29/algorithm-union-find/" title="Union-Find 算法（并查集）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Union-Find 算法（并查集）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/23/unity-learning-2/" title="Unity学习笔记-2">
+                        <span class="hidden-mobile">Unity学习笔记-2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
