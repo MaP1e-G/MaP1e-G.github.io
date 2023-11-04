@@ -16,19 +16,30 @@
   <meta name="author" content="MaP1e-G">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="algorithm-elementary-sorts">
+    <meta name="description" content="那就简单介绍一下基本的排序算法吧！参考书籍：《算法 第四版》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初级排序介绍">
 <meta property="og:url" content="https://map1e-g.github.io/2023/10/29/algorithm-elementary-sorts/index.html">
 <meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="那就简单介绍一下基本的排序算法吧！参考书籍：《算法 第四版》">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z1.ax1x.com/2023/11/04/piQSw0x.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/11/04/piQS076.jpg">
+<meta property="og:image" content="https://z1.ax1x.com/2023/11/04/piQSDAK.jpg">
 <meta property="article:published_time" content="2023-10-29T14:31:15.000Z">
-<meta property="article:modified_time" content="2023-10-29T14:31:15.580Z">
+<meta property="article:modified_time" content="2023-11-04T08:15:33.792Z">
 <meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="选择排序">
+<meta property="article:tag" content="插入排序">
+<meta property="article:tag" content="希尔排序">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://z1.ax1x.com/2023/11/04/piQSw0x.jpg">
   
   
   
-  <title>algorithm-elementary-sorts - 楓葉的小窩</title>
+  <title>初级排序介绍 - 楓葉的小窩</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="algorithm-elementary-sorts"></span>
+            <span id="subtitle" data-typed-text="初级排序介绍"></span>
           
         </div>
 
@@ -216,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          3.9k 字
         
       </span>
     
@@ -227,7 +238,7 @@
         
         
         
-          1 分钟
+          33 分钟
         
       </span>
     
@@ -265,26 +276,88 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">algorithm-elementary-sorts</h1>
+            <h1 style="display: none">初级排序介绍</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年10月29日 晚上
+                    本文最后更新于：2023年11月4日 下午
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              
+              <h1>排序算法类模板</h1>
+<p>该类定义一些排序算法会用到的辅助方法，例如：<code>less</code>和<code>exch</code>方法。前者对元素进行比较，后者交换元素位置。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Sorts</span><br>&#123;<br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> 待实现的排序方法</span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a</span>) <span class="hljs-keyword">where</span> T : IComparable&lt;T&gt;</span> &#123; &#125;<br><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> 对元素进行比较，若 a1 小于 a2 则返回 true</span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a1&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a2&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span><span class="hljs-doctag">&lt;/returns&gt;</span></span><br>	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">Less</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T a1, T a2</span>) <span class="hljs-keyword">where</span> T : IComparable&lt;T&gt;</span><br>	&#123;<br>		<span class="hljs-keyword">return</span> a1.CompareTo(a2) &lt; <span class="hljs-number">0</span>;<br>	&#125;<br><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> 交换两个元素的位置</span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;index1&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;index2&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Exch</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> index1, <span class="hljs-built_in">int</span> index2</span>)</span><br>	&#123;<br>		<span class="hljs-keyword">var</span> temp = a[index1];<br>		a[index1] = a[index2];<br>		a[index2] = temp;<br>	&#125;<br><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> 打印数据</span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Show</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a</span>)</span><br>	&#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; a.Length; i++)<br>		&#123;<br>			Console.Write(a[i] + <span class="hljs-string">&quot; &quot;</span>);<br>		&#125;<br>		Console.WriteLine();<br>	&#125;<br><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> 检查数组是否有序</span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;returns&gt;</span><span class="hljs-doctag">&lt;/returns&gt;</span></span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsSoreted</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a</span>) <span class="hljs-keyword">where</span> T : IComparable&lt;T&gt;</span><br>	&#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt;= a.Length; i++)<br>		&#123;<br>			<span class="hljs-keyword">if</span> (Less(a[i], a[i - <span class="hljs-number">1</span>]))<br>			&#123;<br>				<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>选择排序</h1>
+<p>选择排序的基本思想：首先，找到数组中最小的那个元素，其次，将它和数组的第一个元素交换位置。再次，在剩下的元素中找到最小的元素，将它与数组的第二个元素进行交换。如此反复，直到将整个数组排序。<br>
+选择排序是<strong>稳定</strong>的。<br>
+<img src="https://z1.ax1x.com/2023/11/04/piQSw0x.jpg" srcset="/img/loading.gif" lazyload alt="选择排序"></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Selection</span> : <span class="hljs-title">Sorts</span><br>&#123;<br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> 重写方法，实现选择排序</span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br>	<span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name=&quot;a&quot;&gt;</span><span class="hljs-doctag">&lt;/param&gt;</span></span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">IComparable[] a</span>)</span><br>	&#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>;i &lt; a.Length;i++)<br>		&#123;   <span class="hljs-comment">// 将 a[i] 和 a[i + 1]...a[a.Length]中的最小元素进行交换</span><br>			<span class="hljs-built_in">int</span> min = i;  <span class="hljs-comment">// 最小元素的索引</span><br>			<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = i; j &lt; a.Length - <span class="hljs-number">1</span>;j++)<br>			&#123;<br>				<span class="hljs-keyword">if</span> (Less(a[j], a[min]))<br>				&#123;<br>					min = j;<br>				&#125;<br>			&#125;<br>			Exch(a, i, min);<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>插入排序</h1>
+<p>插入排序的基本思想：从数组的第二个数开始，将它插入到其左边数组中的合适位置，保持左边的数组一直是有序状态，直至数组遍历完成，整个数组都为有序状态。<br>
+插入排序是稳定的。<br>
+<img src="https://z1.ax1x.com/2023/11/04/piQS076.jpg" srcset="/img/loading.gif" lazyload alt="插入排序"></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Insertion</span> : <span class="hljs-title">Sorts</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a</span>)</span><br>	&#123;   <span class="hljs-comment">// 将 a[i] 插入到 a[i - 1]，a[i - 2]，a[i - 3]...中</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; a.Length; i++)<br>		&#123;<br>			<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = i; j &gt; <span class="hljs-number">0</span> &amp;&amp; Less(a[j], a[j - <span class="hljs-number">1</span>]); j--)<br>			&#123;<br>				Exch(a, j, j - <span class="hljs-number">1</span>);<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>要对插入排序进行改进，只需要在内循环中将较大的元素向右移动，而不是每次都进行交换，就能减少一半的数组访问次数，改进后的代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">InsertionImproved</span> : <span class="hljs-title">Sorts</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a</span>)</span><br>	&#123;<br>		<span class="hljs-built_in">int</span> n = a.Length;<br><br>		<span class="hljs-comment">// 找哨兵</span><br>		<span class="hljs-built_in">int</span> min = <span class="hljs-number">0</span>;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)<br>		&#123;<br>			<span class="hljs-keyword">if</span> (Less(a[i], a[min]))<br>			&#123;<br>				min = i;<br>			&#125;<br>		&#125;<br>		Exch(a, min, <span class="hljs-number">0</span>);<br><br>		<span class="hljs-comment">// 减少了一半交换</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">2</span>; i &lt; n; i++)<br>		&#123;<br>			T temp = a[i];<br>			<span class="hljs-built_in">int</span> j = i;<br>			<span class="hljs-keyword">while</span> (Less(temp, a[j - <span class="hljs-number">1</span>]))<br>			&#123;<br>				a[j] = a[j - <span class="hljs-number">1</span>];<br>				j--;<br>			&#125;<br>			a[j] = temp;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>希尔排序</h1>
+<p>希尔排序其实就是改进过的插入排序，因为插入排序只交换相邻的元素，如果一个很小的元素排在很后面，就需要进行很多次移动，所以希尔排序的思想就是先对数组进行局部排序，交换不相邻的元素，保持数组局部有序，最后再进行一次插入排序来完成排序。</p>
+<blockquote>
+<p>希尔排序的思想是使数组中任意间隔为 h 的元素都是有序的。这样的数组被称为 h 有序数组。换句话说，一个 h 有序数组就是 h 个互相独立的有序子数组编织在一起组成的一个数组。在进行排序时，如果 h 很大，我们就能将元素移动到很远的地方，为实现更小的 h 有序创造方便。<br>
+<img src="https://z1.ax1x.com/2023/11/04/piQSDAK.jpg" srcset="/img/loading.gif" lazyload alt="希尔排序"></p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Shell</span> : <span class="hljs-title">Sorts</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T[] a</span>)</span><br>	&#123;<br>		<span class="hljs-built_in">int</span> n = a.Length;<br>		<span class="hljs-built_in">int</span> h = <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">while</span> (h &lt; n / <span class="hljs-number">3</span>) &#123; h = h * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>; &#125;  <span class="hljs-comment">// 1, 4, 13, 40, 121, 364, 1093, ...</span><br>		<span class="hljs-keyword">while</span> (h &gt;= <span class="hljs-number">1</span>)<br>		&#123;   <span class="hljs-comment">// 将数组变为 h 有序</span><br>			<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = h; i &lt; n; i++)<br>			&#123;   <span class="hljs-comment">// 将 a[i] 插入到 a[i - h]，a[i - 2*h]，a[i - 3*h]...中</span><br>				<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = i; j &gt;= h &amp;&amp; Less(a[j], a[j - h]); j -= h)<br>				&#123;<br>					Exch(a, j, j - h);<br>				&#125;<br>			&#125;<br>			h /= <span class="hljs-number">3</span>;<br>		&#125;<br><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>编写的测试方法</h1>
+<p>算法模板类提供了一个<code>IsSorted</code>方法来判断数组是否有序，可以用<code>Debug.Assert</code>来进行测试，不过我这里没用。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ElementarySortsTest</span>()</span><br>&#123;<br>	Selection selection = <span class="hljs-keyword">new</span> Selection();<br>	Insertion insertion = <span class="hljs-keyword">new</span> Insertion();<br>	InsertionImproved insertionImproved = <span class="hljs-keyword">new</span> InsertionImproved();<br>	Shell shell = <span class="hljs-keyword">new</span> Shell();<br><br>	<span class="hljs-built_in">int</span>[] intList = &#123; <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span> &#125;;<br>	<span class="hljs-built_in">char</span>[] charList = <span class="hljs-string">&quot;SHELLSORTEXAMPLE&quot;</span>.ToCharArray();<br><br>	Sorts s = shell;  <span class="hljs-comment">// 想要测试某一个排序算法，直接更改此处即可。</span><br><br>	<span class="hljs-keyword">var</span> a = charList;<br>	s.Show(a);<br>	s.Sort(a);<br>	s.Show(a);<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
             <hr/>
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Solution/" class="category-chain-item">Solution</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+        <a href="/tags/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/">#选择排序</a>
+      
+        <a href="/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">#插入排序</a>
+      
+        <a href="/tags/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">#希尔排序</a>
+      
+    </div>
   
 </div>
 
@@ -294,7 +367,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>algorithm-elementary-sorts</div>
+      <div>初级排序介绍</div>
       <div>https://map1e-g.github.io/2023/10/29/algorithm-elementary-sorts/</div>
     </div>
     <div class="license-meta">
@@ -336,6 +409,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/11/04/CSharp-learning-10/" title="C#笔记——继承和类">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C#笔记——继承和类</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
