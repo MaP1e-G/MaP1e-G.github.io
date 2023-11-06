@@ -24,7 +24,7 @@
 <meta property="og:description" content="C#中一些很新（迫真）的东西。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-01T01:23:09.000Z">
-<meta property="article:modified_time" content="2023-08-15T09:49:26.762Z">
+<meta property="article:modified_time" content="2023-11-05T11:16:05.604Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="泛型">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          13k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          89 分钟
+          109 分钟
         
       </span>
     
@@ -279,7 +279,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年8月15日 下午
+                    本文最后更新于：2023年11月5日 晚上
                   
                 
               </p>
@@ -439,7 +439,73 @@
 <p>而第二种模式则是在类里用<code>IEnumerable</code>来实现返回可枚举类型的迭代器，这样做的话，我们可以不需要实现<code>GetEnumerator</code>，因为能够直接调用迭代器方法来获取可枚举类型。代码如下：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IEnumerator <span class="hljs-title">GetEnumerator</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> IteratorMethod().GetEnumerator();<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IEnumerable <span class="hljs-title">IteratorMethod</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">yield</span> <span class="hljs-keyword">return</span> ...;<br>    &#125;<br>&#125;<br><br>Main<br>&#123;<br>    MyClass mc = <span class="hljs-keyword">new</span> MyClass();<br>    <span class="hljs-keyword">foreach</span>( <span class="hljs-built_in">string</span> x <span class="hljs-keyword">in</span> mc )<br>        ...<br>    <span class="hljs-keyword">foreach</span>( <span class="hljs-built_in">string</span> x <span class="hljs-keyword">in</span> mc.IteratorMethod() )<br>        ...   <br>&#125;<br></code></pre></td></tr></table></figure>
 <h1>语言集成查询（LINQ）</h1>
-<p>To do…</p>
+<h2 id="什么事LINQ">什么事LINQ</h2>
+<p>LINQ，即语言集成查询（Language Integrated Query），是 .NET 框架的扩展，它允许我们以使用 SQL 查询数据库的类似方式来查询数据集合。使用 LINQ，我们可以从数据库、对象集合以及 XML 文档等中查询数据。</p>
+<h2 id="查询操作的三个部分">查询操作的三个部分</h2>
+<p>所有 LINQ 查询操作都由以下三个不同的操作组成：</p>
+<ol>
+<li>获取数据源，如：<code>int[] nums = &#123; 0, 1, 2, 3, 4 &#125;;</code></li>
+<li>创建查询，如：<code>IEnumerable&lt;int&gt; numQuery = from num in nums where (num % 2) == 0 select num;</code></li>
+<li>执行查询，如：<code>foreach (int num in num Query)	Console.WriteLine(num);</code></li>
+</ol>
+<h2 id="数据源">数据源</h2>
+<p>LINQ 数据源是支持泛型<code>IEnumerable&lt;T&gt;</code>接口或从中继承的接口的任意对象。</p>
+<h2 id="查询">查询</h2>
+<p>查询是一组指令。查询指定要从数据源中检索的信息。查询还可以指定在返回这些信息之前如何对其进行排序、分组和结构化。<br>
+目前需要注意的是，在 LINQ 中，查询变量本身不执行任何操作并且不返回任何数据，它只是存储在以后某个时刻执行查询时为生成结果而必需的信息。</p>
+<h2 id="执行查询">执行查询</h2>
+<p>查询变量本身只存储查询命令，以前面的代码为例，<code>numQuery</code>就是查询变量，但是它不包含查询的结果，而是包含能够执行这个查询的代码。但是如果查询返回的是标量（即单个值，如：<code>numQuery.Count()</code>），则查询会立即执行，并且把结果保存在查询变量中。</p>
+<ul>
+<li>如果查询表达式返回枚举，则查询一直到处理枚举时才会执行。</li>
+<li>如果枚举被处理多次，查询就会执行多次。</li>
+<li>如果在进行遍历之后、查询执行之前数据有改动，则查询会使用新的数据。</li>
+<li>如果查询表达式返回标量，查询立即执行，并且把结果保存在查询变量中。</li>
+</ul>
+<h2 id="方法语法和查询语法">方法语法和查询语法</h2>
+<p>我们在写 LINQ 查询时可以使用两种形式的语法：查询语法和方法语法。</p>
+<ul>
+<li>方法语法（method syntax）：使用标准的方法调用。方法语法时**命令式（imperative）**的，它指明了查询方法调用的顺序。</li>
+<li>查询语法（query syntax）：和 SQL 语句很相似，使用查询表达式形式书写。查询语法是**声明式（declarative）**的，也就是说，查询描述的是你想返回的东西，但并没有指明如何执行这个查询。</li>
+<li>方法语法 + 查询语法混用</li>
+</ul>
+<div class="note note-info">
+            <p>微软推荐使用查询语法。不过有一些运算符必须使用方法语法来书写。</p>
+          </div>
+<h2 id="查询表达式">查询表达式</h2>
+<p>查询表达式是以查询语法表示的查询。查询表达式必须以<code>from</code>子句开头，且必须以<code>select</code>或<code>group</code>子句结尾。</p>
+<h3 id="from-子句">from 子句</h3>
+<p><code>from</code>子句指定了要作为数据源使用的数据集合。<code>from</code>子句的用法如下：<code>from Type Item in Items</code></p>
+<ul>
+<li><code>Type</code>是集合中元素的类型。这是可选的，因为编译器可以从集合中推断类型。</li>
+<li><code>Item</code>是迭代变量的名字。</li>
+<li><code>Items</code>是要查询的集合的名字。集合必须是可枚举的（IEnumerable）。</li>
+</ul>
+<h3 id="join-子句">join 子句</h3>
+<p><code>join</code>子句可基于每个元素中指定的键之间的相等比较，将一个数据源中的元素与另一个数据源中的元素进行关联和/或合并。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">var</span> query = <span class="hljs-keyword">from</span> s <span class="hljs-keyword">in</span> students <br>			<span class="hljs-keyword">join</span> c <span class="hljs-keyword">in</span> stuInCourses <span class="hljs-keyword">on</span> s.StId <span class="hljs-keyword">equals</span> c.StId <br>			<span class="hljs-keyword">select</span> s.Name;<br></code></pre></td></tr></table></figure>
+<p>注意必须使用上下文关键字<code>equals</code>来比较字段，而不能使用<code>==</code>运算符。</p>
+<h3 id="where-子句">where 子句</h3>
+<p><code>where</code>子句可基于一个或多个谓词表达式，从数据源中筛选出元素。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;Student&gt; query = <span class="hljs-keyword">from</span> s <span class="hljs-keyword">in</span> students <br>							 <span class="hljs-keyword">where</span> s.Age = <span class="hljs-number">18</span> <br>							 <span class="hljs-keyword">select</span> s;<br></code></pre></td></tr></table></figure>
+<h3 id="let-子句">let 子句</h3>
+<p><code>let</code>子句可将表达式（如方法调用）的结果存储在新范围变量中。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;<span class="hljs-built_in">string</span>&gt; query = <span class="hljs-keyword">from</span> name <span class="hljs-keyword">in</span> names <br>							<span class="hljs-keyword">let</span> firstName = name.Split(<span class="hljs-string">&#x27; &#x27;</span>)[<span class="hljs-number">0</span>] <br>							<span class="hljs-keyword">select</span> firstName;<br></code></pre></td></tr></table></figure>
+<h3 id="orderby-子句">orderby 子句</h3>
+<p><code>orderby</code>子句可按升序或降序对结果进行排序，还可以指定次要排序顺序。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;Student&gt; query = <span class="hljs-keyword">from</span> s <span class="hljs-keyword">in</span> students <br>							 <span class="hljs-keyword">orderby</span> s.StId, s.Age <span class="hljs-keyword">descending</span> <br>							 <span class="hljs-keyword">select</span> s;<br></code></pre></td></tr></table></figure>
+<h3 id="select-子句">select 子句</h3>
+<p><code>select</code>子句可生成所有其他类型的序列。比如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;Country&gt; sortedQuery = <span class="hljs-keyword">from</span> country <span class="hljs-keyword">in</span> countries <br>								   <span class="hljs-keyword">orderby</span> country.Area <br>								   <span class="hljs-keyword">select</span> country;<br></code></pre></td></tr></table></figure>
+<p>在这里<code>select</code>子句生成重新排序的<code>Country</code>对象的序列。</p>
+<h3 id="group-子句">group 子句</h3>
+<p><code>group</code>子句可生成按指定键组织的组的序列。不过要注意的是<code>group</code>子句<strong>返回对象集合的集合</strong>（<code>IEnumerable&lt;IGrouping&lt;TKey, TElement&gt;&gt;</code>），而不是对象的集合。</p>
+<h3 id="into-子句">into 子句</h3>
+<p><code>into</code>子句可以接受查询的一部分的结果并赋予一个名字，从而可以在查询的另一个部分中使用。例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">var</span> query = <span class="hljs-keyword">from</span> a <span class="hljs-keyword">in</span> groupA<br>			<span class="hljs-keyword">join</span> b <span class="hljs-keyword">in</span> groupB <span class="hljs-keyword">on</span> a <span class="hljs-keyword">equals</span> b<br>			<span class="hljs-keyword">into</span> groupAandB<br>			<span class="hljs-keyword">from</span> c <span class="hljs-keyword">in</span> groupAandB<br>			<span class="hljs-keyword">select</span> c<br></code></pre></td></tr></table></figure>
+<h2 id="标准查询运算符">标准查询运算符</h2>
+<p>标准查询运算符由一系列 API 方法组成，能让我们查询任何 .NET 数组和集合。例如以下两个查询是等效的：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;<span class="hljs-built_in">int</span>&gt; qurey1 = <span class="hljs-keyword">from</span> num <span class="hljs-keyword">in</span> numbers<br>						  <span class="hljs-keyword">where</span> num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span><br>						  <span class="hljs-keyword">orderby</span> num<br>						  <span class="hljs-keyword">select</span> num;<br><br>IEnumerable&lt;<span class="hljs-built_in">int</span>&gt; query2 = numbers.Where(num =&gt; num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>).OrderBy(n =&gt; n);<br></code></pre></td></tr></table></figure>
+<p>如果想要了解更多 API 请参考官方文档：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/linq/standard-query-operators-overview">标准查询运算符概述 (C#)</a></p>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
