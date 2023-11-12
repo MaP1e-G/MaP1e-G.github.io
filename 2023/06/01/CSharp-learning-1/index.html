@@ -24,7 +24,7 @@
 <meta property="og:description" content="C#中一些很新（迫真）的东西。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-01T01:23:09.000Z">
-<meta property="article:modified_time" content="2023-11-05T11:16:05.604Z">
+<meta property="article:modified_time" content="2023-11-10T01:09:54.317Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="泛型">
@@ -279,7 +279,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月5日 晚上
+                    本文最后更新于：2023年11月10日 上午
                   
                 
               </p>
@@ -289,11 +289,11 @@
               <h1>委托（Delegate）</h1>
 <h2 id="委托是什么？">委托是什么？</h2>
 <blockquote>
-<p>委托是一种引用类型，表示对具有特定参数列表和返回类型的方法的引用。——C#编程指南<br>
-用我的话来说，就是可以按顺序执行一系列方法的对象。<br>
+<p>委托是一种引用类型，表示对具有特定参数列表和返回类型的方法的引用。——C#编程指南</p>
+</blockquote>
+<p>用我的话来说，就是可以按顺序执行一系列方法的对象。<br>
 比如：现在有两个类，一个“肉铺”类，一个“蔬菜店”类，这两个类里边各自拥有名为“取得肉”和“取得蔬菜”的方法。现在你妈让你去“取得肉”和“取得蔬菜”，也就是调用这两个方法，我们可以怎么办呢？<br>
 最直接的办法就是直接调用，那要是你妈天天都有这个需求怎么办呢？我们或许会新创建一个方法，并把这两个方法放入这个方法的方法体中，然后调用这个新方法。当然，我们也能够创建一个委托，并把这两个方法交给委托，然后执行委托。</p>
-</blockquote>
 <h2 id="委托的食用方法">委托的食用方法</h2>
 <h3 id="最基本的食用方法">最基本的食用方法</h3>
 <p>首先我们需要使用<code>delegate</code>关键字来<strong>创建委托类型</strong>，然后<strong>实例化委托</strong>，最后<strong>调用委托</strong>。上面例子的完整代码如下：</p>
@@ -303,9 +303,9 @@
 <h3 id="委托作为实参或分配给一个属性">委托作为实参或分配给一个属性</h3>
 <p>因为实例化的委托也是一个对象，所以可以将其作为实参传入方法中，又或者将其分配给一个属性。</p>
 <blockquote>
-<p>这允许方法接受委托作为参数并在稍后调用委托。 这被称为异步回调，是在长进程完成时通知调用方的常用方法。——C#编程指南<br>
-依旧是上面的例子，不过这次要和朋友去买菜了，所以创建一个新方法<code>BuyWithFriend</code>，该方法接受三个参数，前两个是买菜人的名字，最后一个参数是一个委托。代码如下：</p>
+<p>这允许方法接受委托作为参数并在稍后调用委托。 这被称为异步回调，是在长进程完成时通知调用方的常用方法。——C#编程指南</p>
 </blockquote>
+<p>依旧是上面的例子，不过这次要和朋友去买菜了，所以创建一个新方法<code>BuyWithFriend</code>，该方法接受三个参数，前两个是买菜人的名字，最后一个参数是一个委托。代码如下：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BuyWithFriend</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> name1, <span class="hljs-built_in">string</span> name2, Del del</span>)</span><br>&#123;<br>	del(name1 + <span class="hljs-string">&quot; and &quot;</span> + name2);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>然后在主程序使用<code>BuyWithFriend(myName, &quot;Tom&quot;, myDel)</code>来调用新方法，得到如下输出：</p>
 <figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">Congratulations!Maple and Tom get meet!<br>Congratulations!Maple and Tom get vegetables!<br><br>E:\Project\C#\CSharpLearning\Learning1\Learning1\bin\Debug\net6.<span class="hljs-number">0</span>\Learning1.exe (进程 <span class="hljs-number">21864</span>)已退出，代码为 <span class="hljs-number">0</span>。<br>要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。<br>按任意键关闭此窗口. . .<br></code></pre></td></tr></table></figure>
@@ -316,7 +316,7 @@
 </blockquote>
 <h2 id="协变和逆变">协变和逆变</h2>
 <p><s>其实这一块应该放在泛型里面说的（？）。</s><br>
-所谓协变，就是定义的委托类型的返回类型，接受其派生类。如下代码：</p>
+所谓协变，就是<strong>定义的委托类型的返回类型，接受其派生类</strong>。如下代码：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CovarianceAndContravariance</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-built_in">delegate</span> T <span class="hljs-title">Factory</span>&lt;<span class="hljs-keyword">out</span> <span class="hljs-title">T</span>&gt;()</span>;<br><br>	<span class="hljs-function"><span class="hljs-keyword">static</span> Dog <span class="hljs-title">MakeDog</span>()</span><br>	&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Dog();<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-built_in">string</span>[] args</span>)</span><br>	&#123;<br>		<span class="hljs-comment">// Covariance</span><br>		Factory&lt;Dog&gt; dogMaker = MakeDog;<br>		Factory&lt;Animal&gt; animalMaker = dogMaker;<br><br>		Console.WriteLine(animalMaker().Legs.ToString());<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span><br>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Legs = <span class="hljs-number">4</span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> : <span class="hljs-title">Animal</span><br>&#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>在这里，如果把<code>out</code>关键字去掉的话，编译是不通过的，这是因为<code>Factory&lt;Dog&gt;</code>并不是从<code>Factory&lt;Animal&gt;</code>派生的。<br>
 所以这里的<code>out</code>关键字标记委托声明中的类型参数，可以让编译器知道<strong>在这里类型参数只用作于输出值</strong>。这就是协变。<br>

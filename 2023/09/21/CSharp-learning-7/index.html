@@ -24,7 +24,7 @@
 <meta property="og:description" content="好高级的东西！参考书籍：《C#图解教程》（如果你觉得内容看上去为什么很熟悉不妨先看看参考书籍）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-21T08:44:55.000Z">
-<meta property="article:modified_time" content="2023-10-16T03:09:24.798Z">
+<meta property="article:modified_time" content="2023-11-12T14:26:19.544Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="异步">
@@ -232,7 +232,7 @@
         
         
         
-          134 分钟
+          137 分钟
         
       </span>
     
@@ -276,7 +276,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年10月16日 上午
+                    本文最后更新于：2023年11月12日 晚上
                   
                 
               </p>
@@ -284,28 +284,37 @@
             <div class="markdown-body">
               
               <h1>异步编程</h1>
-<h2 id="什么事异步">什么事异步</h2>
+<h2 id="最重要的话说在前头">最重要的话说在前头</h2>
+<p>你也许会觉得异步等于多线程，毕竟它们表面上看上去都是一样的，那就是<strong>使某些操作不阻塞主线程</strong>。<strong>但是异步不等于多线程，多线程只是异步的一种实现方法！多线程也不等于异步！分清异步和多线程谢谢！</strong></p>
+<h2 id="线程和进程">线程和进程</h2>
 <p>启动程序时，系统会在内存中创建一个新的<strong>进程</strong>。进程是构成运行程序的资源的集合。这些资源包括虚地址空间、文件句柄和程序运行所需的其他许多东西。<br>
 在进程内部，系统创建了一个称为<strong>线程</strong>的内核（kernel）对象，它代表了真正执行的程序。一旦进程建立，系统会在<code>Main</code>方法的第一行语句处开始线程的执行。<br>
 以下是关于线程的一些知识点：</p>
 <ul>
 <li>默认情况下，一个进程只包含一个线程，从程序的开始一直执行到结束。</li>
-<li>线程可以派生其他线程，因此在任意时刻，一个进程都可能包含不同状态的多个进程，它们执行程序的不同部分。</li>
+<li>线程可以派生其他线程，因此在任意时刻，一个进程都可能包含不同状态的多个线程，它们执行程序的不同部分。</li>
 <li>如果一个进程拥有多个线程，它们将共享进程的资源。</li>
 <li>系统为处理器执行所调度的单元是线程，不是进程。</li>
 </ul>
+<h2 id="什么事异步">什么事异步</h2>
+<p>以我的话来说，就是“改变代码执行的顺序”。比如我们现在要煎蛋、煎培根，然后倒一杯果汁，如果是同步执行，那就是“先煎蛋，煎完蛋后，然后才开始煎培根，，煎完培根后，最后才开始倒果汁”；<br>
+如果改为异步执行，那么就会“在煎蛋的时候，我们把锅丢在那不管先，然后跑去拿另外一个锅煎起了培根，但是我们仍然把锅丢在那里先不管，开始直接跑去倒果汁”，这样事情的完成顺序就可能变成“倒果汁、煎蛋/培根、煎培根/蛋”了。<br>
+当然还分为单纯的异步操作和异步多线程操作。后面会提到。</p>
 <h2 id="应用场景">应用场景</h2>
 <p>一个例子是，有时候我们的程序会向其他服务器发起请求获取数据，或是从数据库获取数据。但是一般情况下这里都会耗费大量的时间来等待其他服务器的响应，而我们不希望这种情况发生，我们更希望在等待的同时可以继续执行后面的代码，并在其他服务器回复后再返回。<br>
 另一个例子是，我们在设计交互式GUI程序时，有一些操作可能需要耗费大量时间，比如按下一个按钮后计算机执行大量计算，此时如果不使用异步操作的话，将冻结我们的GUI界面，使得用户在计算机执行完这个任务前无法继续与GUI界面进行交互。<br>
 这里也正好涉及到两个概念：I/O 绑定和 CPU 绑定。在这里，前者是 I/O 绑定，后者是 CPU 绑定。</p>
+<blockquote>
+<p>那么在这里我自己理解一下，I/O绑定不需要开多线程，CPU绑定则需要使用异步多线程</p>
+</blockquote>
 <h2 id="如何区别-CPU-绑定与-I-O绑定？">如何区别 CPU 绑定与 I/O绑定？</h2>
 <p>以下是编写代码前应考虑的两个问题：</p>
 <ol>
 <li>你的代码是否会“等待”某些内容，例如数据库中的数据？  如果答案为“是”，则你的工作是 I/O 绑定。</li>
-<li>你的代码是否要执行开销巨大的计算？  如果答案为“是”，则你的工作是 CPU 绑定。<br>
-如果你的工作为 I/O 绑定，请使用<code>async</code>和<code>await</code>（而不使用<code>Task.Run</code>）。不应使用任务并行库。<br>
-如果你的工作属于 CPU 绑定，并且你重视响应能力，请使用<code>async</code>和<code>await</code>，但在另一个线程上使用<code>Task.Run</code>生成工作。如果该工作同时适用于并发和并行，还应考虑使用任务并行库。</li>
+<li>你的代码是否要执行开销巨大的计算？  如果答案为“是”，则你的工作是 CPU 绑定。</li>
 </ol>
+<p>如果你的工作为 I/O 绑定，请使用<code>async</code>和<code>await</code>（而不使用<code>Task.Run</code>）。不应使用任务并行库。（单纯异步<code>await</code>，即单线程异步）<br>
+如果你的工作属于 CPU 绑定，并且你重视响应能力，请使用<code>async</code>和<code>await</code>，但在另一个线程上使用<code>Task.Run</code>生成工作。如果该工作同时适用于并发和并行，还应考虑使用任务并行库。（异步多线程，用<code>Task.Run</code>就会开启一个<strong>后台线程</strong>）</p>
 <h2 id="async-await-特性的结构">async/await 特性的结构</h2>
 <p>该特性由三个部分组成：</p>
 <ol>
@@ -330,9 +339,9 @@
 </li>
 <li>异步方法的形参可以为任意类型、任意数量，但不能为<code>out</code>或<code>ref</code>参数。</li>
 <li>按照约定，异步方法的名称应该以<code>Async</code>为后缀</li>
-<li>除了方法以外，<code>lambda</code>表达式和匿名方法也可以作为异步对象。<br>
-以下是一个异步方法的例子：</li>
+<li>除了方法以外，<code>lambda</code>表达式和匿名方法也可以作为异步对象。</li>
 </ul>
+<p>以下是一个异步方法的例子：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">async</span> Task&lt;<span class="hljs-built_in">int</span>&gt; <span class="hljs-title">CountCharactersAsync</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> id, <span class="hljs-built_in">string</span> site</span>)</span><br>&#123;<br>	Console.WriteLine(<span class="hljs-string">&quot;Starting CountCharacters&quot;</span>);<br>	WebClient wc = <span class="hljs-keyword">new</span> WebClient(); <br><br>	<span class="hljs-built_in">string</span> result = <span class="hljs-keyword">await</span> wc.DownloadStringTaskAsync(<span class="hljs-keyword">new</span> Uri(site));<br><br>	Console.WriteLine(<span class="hljs-string">&quot;CountCharacters Completed&quot;</span>);<br>	<span class="hljs-keyword">return</span> result.Length;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="异步方法的返回类型">异步方法的返回类型</h2>
 <p>上面提到异步方法的返回类型必须是：<code>void</code>、<code>Task</code>、<code>Task&lt;T&gt;</code>、<code>ValueTask&lt;T&gt;</code>其中之一，下面介绍一下这几种返回类型。</p>
@@ -365,19 +374,51 @@
 <ul>
 <li>第一个实例（变量<code>a</code>）使用<code>GetNum</code>创建名为<code>getNum</code>的<code>Func&lt;int&gt;</code>委托。然后在下一行将该委托用于<code>Task.Run</code>方法。</li>
 <li>第二个实例（变量<code>b</code>）在<code>Task.Run</code>方法的参数列表中创建<code>Func&lt;int&gt;</code>委托。</li>
-<li>第三个实例（变量<code>c</code>）直接使用与<code>Func&lt;int&gt;</code>委托兼容的<code>lambda</code>表达式，该<code>lambda</code>表达式将隐式转换为该委托。<br>
-其实<code>Task.Run</code>有八种重载，下表列出了这八种重载：<br>
-| 返回类型 | 签名 |<br>
-| :—: | :—: |<br>
-| <code>Task</code> | <code>Run(Action action)</code> |<br>
-| <code>Task</code> | <code>Run(Action action, CancellationToken token)</code> |<br>
-| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;TResult&gt; function)</code> |<br>
-| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;TResult&gt; function, CancellationToken token)</code> |<br>
-| <code>Task</code> | <code>Run(Func&lt;Task&gt; function)</code> |<br>
-| <code>Task</code> | <code>Run(Func&lt;Task&gt; function, CancellationToken token)</code> |<br>
-| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;Task&lt;TResult&gt;&gt; function)</code> |<br>
-| <code>Task&lt;TResult&gt;</code> | <code>Run(Func&lt;Task&lt;TResult&gt;&gt; function, CancellationToken token)</code> |</li>
+<li>第三个实例（变量<code>c</code>）直接使用与<code>Func&lt;int&gt;</code>委托兼容的<code>lambda</code>表达式，该<code>lambda</code>表达式将隐式转换为该委托。</li>
 </ul>
+<p>其实<code>Task.Run</code>有八种重载，下表列出了这八种重载：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">返回类型</th>
+<th style="text-align:center">签名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Task</code></td>
+<td style="text-align:center"><code>Run(Action action)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task</code></td>
+<td style="text-align:center"><code>Run(Action action, CancellationToken token)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task&lt;TResult&gt;</code></td>
+<td style="text-align:center"><code>Run(Func&lt;TResult&gt; function)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task&lt;TResult&gt;</code></td>
+<td style="text-align:center"><code>Run(Func&lt;TResult&gt; function, CancellationToken token)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task</code></td>
+<td style="text-align:center"><code>Run(Func&lt;Task&gt; function)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task</code></td>
+<td style="text-align:center"><code>Run(Func&lt;Task&gt; function, CancellationToken token)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task&lt;TResult&gt;</code></td>
+<td style="text-align:center"><code>Run(Func&lt;Task&lt;TResult&gt;&gt; function)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Task&lt;TResult&gt;</code></td>
+<td style="text-align:center"><code>Run(Func&lt;Task&lt;TResult&gt;&gt; function, CancellationToken token)</code></td>
+</tr>
+</tbody>
+</table>
 <p>下表是可作为<code>Task.Run</code>方法第一个参数的委托类型：</p>
 <table>
 <thead>
@@ -417,9 +458,9 @@
 <li><code>CancellationToken</code>对象包含一个任务是否应被取消的信息</li>
 <li>拥有<code>CancellationToken</code>对象的任务需要定期检查其令牌（<code>token</code>）状态。如果<code>CancellationToken</code>对象的<code>IsCancellationRequested</code>属性为<code>true</code>，任务需停止其操作并返回。</li>
 <li><strong><code>CancellationToken</code>是不可逆的，并且只能使用一次</strong>。一旦<code>IsCancellationRequested</code>属性被设置为<code>true</code>，就不能再更改了。</li>
-<li><code>CancellationTokenSource</code>对象创建可分配给不同任务的<code>CancellationToken</code>对象。任何持有<code>CancellationTokenSource</code>的对象都可以调用其<code>Cancel</code>方法，这会将<code>CancellationToken</code>的<code>IsCancellationRequested</code>属性设置为<code>true</code>。<br>
-下面是一个例子：</li>
+<li><code>CancellationTokenSource</code>对象创建可分配给不同任务的<code>CancellationToken</code>对象。任何持有<code>CancellationTokenSource</code>的对象都可以调用其<code>Cancel</code>方法，这会将<code>CancellationToken</code>的<code>IsCancellationRequested</code>属性设置为<code>true</code>。</li>
 </ul>
+<p>下面是一个例子：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncCancelClass</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">RunAsync</span>(<span class="hljs-params">CancellationToken ct</span>)</span><br>	&#123;<br>		<span class="hljs-keyword">if</span> (ct.IsCancellationRequested) <span class="hljs-keyword">return</span>;<br>		<span class="hljs-keyword">await</span> Task.Run(() =&gt; CycleMethod(ct), ct);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CycleMethod</span>(<span class="hljs-params">CancellationToken ct</span>)</span><br>	&#123;<br>		Console.WriteLine(<span class="hljs-string">&quot;Starting Method...&quot;</span>);<br>		<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>			<span class="hljs-keyword">if</span> (ct.IsCancellationRequested) <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 监控 CancellationToken</span><br>			Thread.Sleep(<span class="hljs-number">1000</span>);<br>			Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123; i+<span class="hljs-number">1</span> &#125;</span> of 5 iterations completed.&quot;</span>);<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncLearning</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>	&#123;<br>		CancellationTokenSource cts = <span class="hljs-keyword">new</span> CancellationTokenSource();<br>		CancellationToken ct = cts.Token;<br><br>		AsyncCancelClass asyncCancelClass = <span class="hljs-keyword">new</span> AsyncCancelClass();<br>		Task t = asyncCancelClass.RunAsync(ct);<br><br>		Thread.Sleep(<span class="hljs-number">3000</span>);<br>		cts.Cancel();  <span class="hljs-comment">// 执行取消操作</span><br><br>		t.Wait();<br>		Console.WriteLine(<span class="hljs-string">$&quot;Was Cancelled: <span class="hljs-subst">&#123; ct.IsCancellationRequested &#125;</span>&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>上面代码的输出结果如下：</p>
 <figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs erlang">Starting Method...<br><span class="hljs-number">1</span> <span class="hljs-keyword">of</span> <span class="hljs-number">5</span> iterations completed.<br><span class="hljs-number">2</span> <span class="hljs-keyword">of</span> <span class="hljs-number">5</span> iterations completed.<br><span class="hljs-number">3</span> <span class="hljs-keyword">of</span> <span class="hljs-number">5</span> iterations completed.<br>Was Cancelled: True<br></code></pre></td></tr></table></figure>
@@ -432,9 +473,9 @@
 <p>我们在等待单个<code>Task</code>对象完成其任务时，可以使用<code>Wait()</code>方法。但是如果我们需要等待一组<code>Task</code>对象的话呢？<code>Task</code>类提供了两个静态方法：</p>
 <ul>
 <li><code>WaitAll</code>：等待所有任务结束</li>
-<li><code>WaitAny</code>：等待某一个任务结束<br>
-下面是一个例子：</li>
+<li><code>WaitAny</code>：等待某一个任务结束</li>
 </ul>
+<p>下面是一个例子：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">WaitAsyncClass</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoRun</span>()</span><br>    &#123;<br>        Task t1 = Task.Run(() =&gt; &#123; Thread.Sleep(<span class="hljs-number">5000</span>); &#125;);<br>        Task t2 = Task.Run(() =&gt; &#123; Thread.Sleep(<span class="hljs-number">3000</span>); &#125;);<br><br>        <span class="hljs-comment">// Task.WaitAll(t1, t2);</span><br>        <span class="hljs-comment">// Task.WaitAny(t1, t2);</span><br><br>        Console.WriteLine(<span class="hljs-string">&quot;Task 1: &#123;0&#125;Finishied&quot;</span>, t1.IsCompleted ? <span class="hljs-string">&quot; &quot;</span> : <span class="hljs-string">&quot;Not &quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">&quot;Task 2: &#123;0&#125;Finishied&quot;</span>, t2.IsCompleted ? <span class="hljs-string">&quot; &quot;</span> : <span class="hljs-string">&quot;Not &quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncLearning</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">new</span> WaitAsyncClass().DoRun();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>如果既不调用<code>WaitAll()</code>也不调用<code>WaitAny()</code>的话，输出如下：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">Task</span> <span class="hljs-number">1</span>: <span class="hljs-keyword">Not</span> Finishied<br><span class="hljs-keyword">Task</span> <span class="hljs-number">2</span>: <span class="hljs-keyword">Not</span> Finishied<br></code></pre></td></tr></table></figure>
