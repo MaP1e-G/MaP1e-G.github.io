@@ -24,7 +24,7 @@
 <meta property="og:description" content="你知道怎么读取文件吗？知道怎么写入数据到文件中吗？不知道？没关系，我也不知道！那就一起来读文档吧！">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-07T03:33:13.000Z">
-<meta property="article:modified_time" content="2023-11-09T14:49:11.354Z">
+<meta property="article:modified_time" content="2023-11-23T14:40:31.204Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="文件">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.3k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          39 分钟
+          45 分钟
         
       </span>
     
@@ -276,7 +276,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月9日 晚上
+                    本文最后更新于：2023年11月23日 晚上
                   
                 
               </p>
@@ -375,19 +375,27 @@
 <td style="text-align:center">文件信息（<code>FileInfo</code>）</td>
 <td style="text-align:center"><code>DirectoryInfo.EnumerateFiles</code></td>
 </tr>
-<tr>
-<td style="text-align:center">可以看到方法名简明扼要啊，点个赞先。至于剩下的文件系统条目，不熟，所以没写了。（但其实偷偷看了一眼文档，<code>FileSystemInfo</code>类其实是<code>FileInfo</code>和<code>DirectoryInfo</code>类的基类！）</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">示例代码没有，自行查阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/standard/io/how-to-enumerate-directories-and-files">官方文档</a>。</td>
-<td style="text-align:center"></td>
-</tr>
 </tbody>
 </table>
+<p>可以看到方法名简明扼要啊，点个赞先。至于剩下的文件系统条目，不熟，所以没写了。（但其实偷偷看了一眼文档，<code>FileSystemInfo</code>类其实是<code>FileInfo</code>和<code>DirectoryInfo</code>类的基类！）<br>
+示例代码没有，自行查阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/standard/io/how-to-enumerate-directories-and-files">官方文档</a>。</p>
 <h2 id="如何对新建的数据文件进行读取和写入">如何对新建的数据文件进行读取和写入</h2>
 <p>这一节其实是讲如何使用<code>BinaryReader</code>和<code>BinaryWriter</code>类来写入和读取字符串以外的数据的。这里就稍微根据文档里的示例代码来总结一下。<br>
 如果要写入数据，先打开（创建）一个文件流（<code>FileStream</code>），然后根据这个文件流来创建一个编写器（<code>BinaryWriter</code>），调用这个编写器的<code>Write</code>方法来写入数据，比如可以直接写入一个<code>int</code>值：<code>w.Write(1)</code>。如果要读取数据，同样地先打开一个<code>FileStream</code>流，然后根据这个文件流来创建<code>BinaryReader</code>读取器，用该类的实例方法来读取文件数据，例如：<code>r.ReadInt32()</code>。</p>
+<h2 id="如何打开并追加文本到日志文件">如何打开并追加文本到日志文件</h2>
+<p>注意这里是<strong>追加文本</strong>，也就是不会覆盖或修改文件中原有的文本。通过<code>File.AppendText</code>方法来获得一个<code>StreamWriter</code>对象，然后调用<code>StreamWriter</code>类型的<code>Write</code>或<code>WriteLine</code>方法即可追加文本。</p>
+<div class="note note-info">
+            <p>如果需要换行并将光标置于行首，应该向流写入<code>\r\n</code>。</p>
+          </div>
+<p>我们也可以用另一种方法来追加文本，那就是将信息存储为一个字符串或字符串数组，并使用<code>File.WriteAllText</code>或<code>File.WriteAllLines</code>方法追加文本。</p>
+<h2 id="如何将文本写入文件">如何将文本写入文件</h2>
+<p>这一章节介绍的是<code>StreamWriter</code>的使用方法，包括：同步写入文本、同步追加文本（上一节已经讲过）、异步写入文本。另外也讲到了使用文件类编写和追加文本。</p>
+<ul>
+<li><code>StreamWriter</code>提供：<code>Write</code>/<code>WriteLine</code>/<code>WriteAsync</code>/<code>WriteAsync</code>方法。</li>
+<li><code>File</code>提供：<code>WriteAllLines</code>/<code>WriteAllText</code>/<code>AppendAllLines</code>/<code>AppendAllText</code>/<code>AppendText</code><strong>静态</strong>方法。</li>
+</ul>
+<p>如果是写入文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;)))</code>。<br>
+如果是追加文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;), true))</code>。</p>
 <h1>异步文件访问</h1>
 <p>如果不需要对文件 I/O 进行精细的控制，那么直接参照下面使用<code>File.WriteAllTextAsync</code>和<code>File.ReadAllTextAsync</code>即可。如果需要，请使用<code>FileStream</code>类。</p>
 <h2 id="写入文本">写入文本</h2>

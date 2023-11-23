@@ -24,7 +24,7 @@
 <meta property="og:description" content="跟着M_Studio老师的课程学习时尝试回忆起操作写下来的东西。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-06T13:47:58.000Z">
-<meta property="article:modified_time" content="2023-11-11T13:08:50.314Z">
+<meta property="article:modified_time" content="2023-11-17T08:04:09.437Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="Unity">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          5.4k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          30 分钟
+          45 分钟
         
       </span>
     
@@ -280,7 +280,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月11日 晚上
+                    本文最后更新于：2023年11月17日 下午
                   
                 
               </p>
@@ -344,7 +344,27 @@
 <p>如果想要翻转我们的人物，可以直接改变 Transform 组件的 Scale 的值，也可以修改 Sprite Renderer 组件中的 Flip 来进行翻转（但是用 Flip 的话角色身上的组件并不会随着角色的翻转而翻转）。<br>
 在这里我们使用传统的修改 Transform 组件中 Scale 的值来进行翻转。大致的思路就是：用一个局部变量<code>faceDir</code>保存当前的<code>transform.localScale.x</code>的值，然后根据输入方向<code>inputDirection.x</code>来修改<code>faceDir</code>的值，最后根据这个最新的<code>faceDir</code>的值来修改<code>transform.localScale</code>的值即可。</p>
 <h1>人物跳跃</h1>
-<p>To do…</p>
+<p>首先，为我们的跳跃绑定按键。打开之前创建的 InputController，在 Gameplay 的 Action Map 下创建新的名为 Jump 的 Action，Action Type 为 Button（为该动作绑定按键），为此 Action 添加一个空格键的 Binding。这一步是为了能在我们的代码中获得关于跳跃按键输入的事件，所以下一步就是来到我们的 PlayerController.cs 中编写代码。<br>
+代码逻辑是这样的：创建一个<code>Jump</code>方法，然后添加到按键按下这个事件（其实是<code>Action</code>委托）中去，即：<code>inputControl.Gameplay.Jump.started += Jump;</code>，这样每次检测到我们的跳跃键按下的时候都会执行一次<code>Jump</code>方法。<br>
+最后就是<code>Jump</code>方法的实现了。通过刚体（Rigidbody2D）组件的<code>AddForce</code>方法，我们可以为 GameObject 施加一个力。要进行跳跃，也就是施加一个向上的力，即：<code>rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);</code>。这行代码中，<code>rb</code>是当前 GameObject 的 Rigidbody2D 组件；<code>transform</code>则是当前 GameObject 的 Transform 组件，<code>up</code>是其属性；<code>jumpForce</code>是我们自定义的一个<code>float</code>类型的字段，代表要施加的跳跃力；<code>ForceMode2D.Impulse</code>则是说明施加的是瞬时力，这里还有另外一种<code>ForceMode2D.Force</code>，施加的是持续力。<br>
+至此可以说跳跃部分就完成了，剩下的就是运行游戏，调整<code>jumpForce</code>和<code>Gravity Scale</code>的值了（当然你也可以改<code>Mass</code>的值）。<br>
+但是，这里仍然存在一部分问题：</p>
+<ul>
+<li>如何实现按键时长与跳跃高度绑定？</li>
+<li>如何限制跳跃？例如人物不在地面上时无法进行跳跃。</li>
+<li>在空中碰撞到墙体后如果仍然向墙体方向施加速度（一直按住方向键）的话，人物并不会下落，而是粘在墙体上，无法动弹。</li>
+</ul>
+<p>希望能在之后的学习中解决这些问题。</p>
+<h1>物理环境监测及 Gizmos 绘制</h1>
+<h2 id="物理环境检测">物理环境检测</h2>
+<p>本节课创建了一个名为<code>PhysicsCheck</code>的通用组件，用于检测物理上的碰撞。该组件（类）中实现了一个<code>Check</code>方法，用于检测 GameObject 是否处于地面上，并将结果保存到<code>isGround</code>公共字段中。为了保证运行时的持续检测，应该在<code>Update</code>方法中调用<code>Check</code>方法。<br>
+那么如何进行检测呢？可以使用<code>Physics2D</code>中的一些静态方法，这些静态方法有的是方形检测，有的是胶囊形检测，这里使用的是圆形检测，来看代码：<code>isGroud = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, checkRadius, groundLayer);</code>。<br>
+在这里解释一下各个参数，<code>transform.positon</code>的详细位置，选中一个物体，按下 w 键就可以看到了，但是记得 Toggle Tool Handle Position 是 Pivot 而不是 Center 模式；<code>bottomOffset</code>是一个<code>Vector2D</code>类型的字段，在这里可以理解为用方便我们手动调整圆心位置的一个变量；<code>checkRadius</code>就是要检测的圆形区域的半径；<code>groundLayer</code>则是要检测的层级，这个层级选中 GameObject 后，在 Inspector 窗口中的 Layer，不在这个层级中的物体不会触发检测，所以我们可以为我们的地板自定义一个 Ground 层级。<br>
+检测逻辑完成了，现在我们通过了解<code>isGround</code>的值就可以知道当前的 GameObject 是否处于地面上了。那么回到 PlayerController.cs 中，更改下<code>Jump</code>方法中施加力的逻辑：只有<code>PhysicsCheck</code>组件中的<code>isGround</code>值为<code>true</code>时，即人物站在地板上时，才能施加瞬时力。</p>
+<h2 id="Gizmos-绘制">Gizmos 绘制</h2>
+<p>不过我们要怎么才能知道这个用来检测碰撞的球形的大小呢？回到 PhysicsCheck.cs 中，实现<code>OnDrawGizmosSelected</code>方法即可绘制出这个球形。该方法有固定写法，这里直接贴出来：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnDrawGizmosSelected</span>()</span><br>&#123;<br>    Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, checkRadius);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>创建人物基本动画</h1>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
