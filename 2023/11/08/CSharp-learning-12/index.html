@@ -24,7 +24,7 @@
 <meta property="og:description" content="请你回答一下 C# 中 ArrayList 的底层实现。我：？">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-08T14:42:29.000Z">
-<meta property="article:modified_time" content="2023-11-16T10:22:28.221Z">
+<meta property="article:modified_time" content="2023-12-03T15:01:02.036Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="数据结构">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.7k 字
         
       </span>
     
@@ -276,7 +276,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月16日 晚上
+                    本文最后更新于：2023年12月3日 晚上
                   
                 
               </p>
@@ -353,18 +353,60 @@
 建议总是使用泛型集合，因为使用泛型集合可获得类型安全的自动化优点而无需从基集合类型派生和实现特定类型的成员。而且使用泛型时也不必对元素进行装箱（除非是值类型）。</p>
 <h2 id="Array">Array</h2>
 <p>这个其实是 CLR 中所有数组的基类，比如：<code>int[]</code>等，也是只有系统和编译器才能显式从<code>Array</code>类派生。只要知道不同于<code>ArrayList</code>动态数组，<code>Array</code>具有固定的容量就行了。<br>
-下面是一些常用的属性：<br>
-| :—: | :—: |<br>
-| <code>Length</code> | 获取数组中元素总数 |<br>
-| <code>MaxLength</code> | 获取数组实际长度（即可以有多少个元素） |<br>
-| <code>Rank</code> | 获取数组的秩（维数） |</p>
-<p>下面是一些常用的方法：<br>
-| :—: | :—: |<br>
-| <code>BinarySearch</code> | 用来查找某一个值的，这个方法有很多重载，建议自行查询 |<br>
-| <code>Clear(Array)</code> | 清空指定数组的内容 |<br>
-| <code>Clone()</code> | 浅复制 |<br>
-| <code>Copy(Array, Array, Int32)</code> | 从一个数组复制元素到另一个数组，长度为32位整数 |<br>
-| <code>CopyTo(Array, Int32)</code> | 从指定的索引处开始复制元素到另一个数组中 |</p>
+下面是一些常用的属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性名称</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Length</code></td>
+<td style="text-align:center">获取数组中元素总数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>MaxLength</code></td>
+<td style="text-align:center">获取数组实际长度（即可以有多少个元素）</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Rank</code></td>
+<td style="text-align:center">获取数组的秩（维数）</td>
+</tr>
+</tbody>
+</table>
+<p>下面是一些常用的方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法名称</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>BinarySearch</code></td>
+<td style="text-align:center">用来查找某一个值的，这个方法有很多重载，建议自行查询</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Clear(Array)</code></td>
+<td style="text-align:center">清空指定数组的内容</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Clone()</code></td>
+<td style="text-align:center">浅复制</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Copy(Array, Array, Int32)</code></td>
+<td style="text-align:center">从一个数组复制元素到另一个数组，长度为32位整数</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>CopyTo(Array, Int32)</code></td>
+<td style="text-align:center">从指定的索引处开始复制元素到另一个数组中</td>
+</tr>
+</tbody>
+</table>
 <p>（OK那么到这里其实我发现一个问题，即使我在这里精简文档，它还是有那么多看上去就很有用很方便的方法，所以我觉得还是得平时多写和多看文档，在这里总结不下，所以我决定还是在文章中写一点文档中提到的小知识）</p>
 <h2 id="List-T">List<T></h2>
 <p>是<code>ArrayList</code>的泛型实现，可变数组，该咋用咋用。</p>
@@ -585,17 +627,7 @@
   </main>
 
   <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
-    </div>
-  
-  
-  
-  
-</div>
-
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
   </footer>
 
   <!-- Scripts -->
@@ -792,5 +824,5 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<!-- hexo injector body_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector body_end end --></body>
+</body>
 </html>
