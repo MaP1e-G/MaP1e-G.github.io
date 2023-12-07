@@ -308,7 +308,7 @@ OK，过了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">soupServings</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>        <span class="hljs-keyword">if</span> n &gt; <span class="hljs-number">4450</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span><br><span class="hljs-meta">        @cache</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">recursion</span>(<span class="hljs-params">a_soup: <span class="hljs-built_in">int</span>, b_soup: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>            <span class="hljs-keyword">if</span> a_soup &lt;= <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> b_soup &lt;= <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span><br>            <span class="hljs-keyword">elif</span> a_soup &lt;= <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span><br>            <span class="hljs-keyword">elif</span> b_soup &lt;= <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span><br>            <span class="hljs-keyword">return</span> (recursion(a_soup - <span class="hljs-number">100</span>, b_soup) + recursion(a_soup - <span class="hljs-number">75</span>, b_soup - <span class="hljs-number">25</span>)<br>                    + recursion(a_soup - <span class="hljs-number">50</span>, b_soup - <span class="hljs-number">50</span>) + recursion(a_soup - <span class="hljs-number">25</span>, b_soup - <span class="hljs-number">75</span>)) / <span class="hljs-number">4</span><br>        <span class="hljs-keyword">return</span> recursion(n, n)<br></code></pre></td></tr></table></figure>
 <hr>
 
-              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+              <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
             </div>
             <hr/>
             <div>
@@ -516,7 +516,17 @@ OK，过了。</p>
   </main>
 
   <footer>
-    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
   </footer>
 
   <!-- Scripts -->

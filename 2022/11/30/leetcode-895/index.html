@@ -299,7 +299,7 @@
 <img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_895_2.jpg" srcset="/img/loading.gif" lazyload alt="895"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">FreqStack</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.stacks: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]] = <span class="hljs-built_in">list</span>()  <span class="hljs-comment"># 频率栈的列表</span><br>        self.cnt: Counter = Counter()  <span class="hljs-comment"># 保存出现频率</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">push</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> self.cnt[val] == <span class="hljs-built_in">len</span>(self.stacks):  <span class="hljs-comment"># 出现新的最大频率，新建频率栈</span><br>            self.stacks.append([val])<br>        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 已有这种频率的频率栈，直接加入</span><br>            self.stacks[self.cnt[val]].append(val)<br>        self.cnt[val] += <span class="hljs-number">1</span>  <span class="hljs-comment"># 最后更新频率，就能避免1对上0的情况</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">pop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        val = self.stacks[-<span class="hljs-number">1</span>].pop()  <span class="hljs-comment"># 取最高频率栈栈顶的数</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.stacks[-<span class="hljs-number">1</span>]:  <span class="hljs-comment"># 最高频率栈空了，先删掉，下次有数再创建回来，防止空操作</span><br>            self.stacks.pop()<br>        self.cnt[val] -= <span class="hljs-number">1</span>  <span class="hljs-comment"># 更新频率</span><br>        <span class="hljs-keyword">return</span> val<br></code></pre></td></tr></table></figure>
 
-              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+              <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
             </div>
             <hr/>
             <div>
@@ -503,7 +503,17 @@
   </main>
 
   <footer>
-    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
   </footer>
 
   <!-- Scripts -->
