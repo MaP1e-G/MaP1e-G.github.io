@@ -24,7 +24,7 @@
 <meta property="og:description" content="你说得对，但是我需要学习下在C#中如何序列化对象和将流反序列化为对象。其中包括了json、xml和二进制的序列化。参考官方文档。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-23T02:48:34.000Z">
-<meta property="article:modified_time" content="2023-11-10T13:33:22.021Z">
+<meta property="article:modified_time" content="2023-12-07T11:10:07.863Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="序列化">
@@ -276,7 +276,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月10日 晚上
+                    本文最后更新于：2023年12月7日 晚上
                   
                 
               </p>
@@ -362,7 +362,7 @@
 <li>使用对象的类型构造<code>XmlSerializer</code>。</li>
 <li>调用<code>Serializer</code>方法生成对象的公共属性和字段的<code>XML</code>流或文件表示形式。</li>
 </ol>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c#">MySerializableClass myObject = <span class="hljs-keyword">new</span> MySerializableClass();<br><br><span class="hljs-comment">// Insert code to set properties and fields of the object.</span><br>XmlSerializer mySerializer = <span class="hljs-keyword">new</span><br>XmlSerializer(<span class="hljs-keyword">typeof</span>(MySerializableClass));<br><br><span class="hljs-comment">// To write to a file, create a StreamWriter object.</span><br>StreamWriter myWriter = <span class="hljs-keyword">new</span> StreamWriter(<span class="hljs-string">&quot;myFileName.xml&quot;</span>);<br>mySerializer.Serialize(myWriter, myObject);<br>myWriter.Close();<br></code></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#">MySerializableClass myObject = <span class="hljs-keyword">new</span> MySerializableClass();<br><br><span class="hljs-comment">// Insert code to set properties and fields of the object.</span><br>XmlSerializer mySerializer = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(MySerializableClass));<br><br><span class="hljs-comment">// To write to a file, create a StreamWriter object.</span><br>StreamWriter myWriter = <span class="hljs-keyword">new</span> StreamWriter(<span class="hljs-string">&quot;myFileName.xml&quot;</span>);<br>mySerializer.Serialize(myWriter, myObject);<br>myWriter.Close();<br></code></pre></td></tr></table></figure>
 <h3 id="如何：反序列化对象">如何：反序列化对象</h3>
 <ol>
 <li>使用要反序列化的对象的类型构造<code>XmlSerializer</code>。</li>
