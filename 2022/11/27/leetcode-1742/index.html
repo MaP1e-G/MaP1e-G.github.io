@@ -287,14 +287,14 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1742_1.png" srcset="/img/loading.gif" lazyload alt="1742"></p>
-<h1>思路及实现</h1>
-<p>既然盒子的编号等于小球编号上每位数字的和，而且我们需要记住每个盒子里边的小球数量，那就用<code>dict</code>吧；<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1742_1.png" srcset="/img/loading.gif" lazyload alt="1742" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<p>既然盒子的编号等于小球编号上每位数字的和，而且我们需要记住每个盒子里边的小球数量，那就用<code>dict</code>吧；<br />
 相信求一个数字每位上的和对每位程序员来说是再熟悉不过的了，那这题的代码自然一下就出来了：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">countBalls</span>(<span class="hljs-params">self, lowLimit: <span class="hljs-built_in">int</span>, highLimit: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        ans = <span class="hljs-number">0</span><br>        boxes = <span class="hljs-built_in">dict</span>()<br>        num = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> ball <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(lowLimit, highLimit + <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">while</span> ball != <span class="hljs-number">0</span>:<br>                num += ball % <span class="hljs-number">10</span><br>                ball = ball // <span class="hljs-number">10</span><br>            <span class="hljs-keyword">if</span> num <span class="hljs-keyword">in</span> boxes:<br>                boxes[num] = boxes[num] + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                boxes[num] = <span class="hljs-number">1</span><br>            ans = <span class="hljs-built_in">max</span>(boxes[num], ans)<br>            num = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">return</span> ans<br></code></pre></td></tr></table></figure>
 <p>PS：这题还能找规律，看了下“爪哇缪斯”的题解，牛蛙！<strong>B球所在箱子编号 = A球所在箱子编号 - （9 * [末尾9的个数]）+ 1</strong>，B球就是跟在A球后面的第一个球，比如<code>2</code>是B球那<code>1</code>就是A球。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

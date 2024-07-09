@@ -284,14 +284,14 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_817_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
-<h1>思路及实现</h1>
-<p>看到题目给的组件定义，链表中最长连续节点，该节点的值在所给数组中。那么我们可以利用一个<code>flag</code>来判断这个值是否在数组中，在的话就把<code>flag</code>设置成<code>1</code>，不在的话，再判断此时<code>flag</code>的值是否为<code>1</code>，如果为<code>1</code>说明此处是一个组件的结束处，让组件数量加一即可。<br>
-当然如果这么写，还需要在循环结束后再检查一次<code>flag</code>的值，确保没有落下最后一个组件。如果不想最后再检查值，可以把判断条件改为值不在数组中。<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_817_1.png" srcset="/img/loading.gif" lazyload alt="第一张图" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<p>看到题目给的组件定义，链表中最长连续节点，该节点的值在所给数组中。那么我们可以利用一个<code>flag</code>来判断这个值是否在数组中，在的话就把<code>flag</code>设置成<code>1</code>，不在的话，再判断此时<code>flag</code>的值是否为<code>1</code>，如果为<code>1</code>说明此处是一个组件的结束处，让组件数量加一即可。<br />
+当然如果这么写，还需要在循环结束后再检查一次<code>flag</code>的值，确保没有落下最后一个组件。如果不想最后再检查值，可以把判断条件改为值不在数组中。<br />
 由于在数组中找某个值是否存在的时间复杂度是<code>O(n)</code>，所以我们可以使用<code>set</code>来替代数组，这样可以使搜索值的时间复杂度降到<code>O(1)</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">numComponents</span>(<span class="hljs-params">self, head: <span class="hljs-type">Optional</span>[ListNode], nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        count = <span class="hljs-number">0</span><br>        flag = <span class="hljs-number">0</span><br>        a_set = <span class="hljs-built_in">set</span>(nums)<br>        <span class="hljs-keyword">while</span> head <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">if</span> head.val <span class="hljs-keyword">in</span> a_set:  <span class="hljs-comment"># or: if head.val not in a_set:</span><br>                flag = <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> flag == <span class="hljs-number">1</span>:<br>                flag = <span class="hljs-number">0</span><br>                count += <span class="hljs-number">1</span><br>            head = head.<span class="hljs-built_in">next</span><br>        <span class="hljs-keyword">return</span> count <span class="hljs-keyword">if</span> flag == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> count + <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

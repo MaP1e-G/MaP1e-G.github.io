@@ -30,8 +30,8 @@
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="栈">
 <meta property="article:tag" content="哈希表">
+<meta property="article:tag" content="栈">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_895_1.png">
   
@@ -287,16 +287,16 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_895_1.png" srcset="/img/loading.gif" lazyload alt="895"></p>
-<h1>思路及实现</h1>
-<h2 id="借助Counter类及其方法">借助Counter类及其方法</h2>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_895_1.png" srcset="/img/loading.gif" lazyload alt="895" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<h2 id="借助counter类及其方法"><a class="markdownIt-Anchor" href="#借助counter类及其方法"></a> 借助Counter类及其方法</h2>
 <p>这是我一开始想到的思路，毕竟是python，能借就借嘛。<code>Counter</code>就能够统计每个元素出现的次数，而<code>most_common</code>方法又能够把频率最高的找出来，这不就显而易见出答案了嘛~</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">FreqStack</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.stack = <span class="hljs-built_in">list</span>()  <span class="hljs-comment"># 栈</span><br>        self.cnt = Counter()  <span class="hljs-comment"># 保存出现频率</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">push</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        self.stack.append(val)<br>        self.cnt[val] += <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">pop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        tmp_list = self.cnt.most_common()<br>        num_list = []<br>        frequecy = tmp_list[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> tmp_list:  <span class="hljs-comment"># 找出所有频率相同的数</span><br>            <span class="hljs-keyword">if</span> t[<span class="hljs-number">1</span>] == frequecy:<br>                num_list.append(t[<span class="hljs-number">0</span>])<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(self.stack) - <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> self.stack[i] <span class="hljs-keyword">in</span> num_list:<br>                self.cnt[self.stack[i]] -= <span class="hljs-number">1</span><br>                <span class="hljs-keyword">return</span> self.stack.pop(i)<br></code></pre></td></tr></table></figure>
 <p>OK，超时了，很符合我对偷懒下场的想象。那就只好另起炉灶了。</p>
-<h2 id="依旧借助Counter类，但是利用频率栈">依旧借助Counter类，但是利用频率栈</h2>
-<p>思路来源：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-frequency-stack/solutions/1998430/mei-xiang-ming-bai-yi-ge-dong-hua-miao-d-oich/">灵神</a><br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_895_2.jpg" srcset="/img/loading.gif" lazyload alt="895"></p>
+<h2 id="依旧借助counter类但是利用频率栈"><a class="markdownIt-Anchor" href="#依旧借助counter类但是利用频率栈"></a> 依旧借助Counter类，但是利用频率栈</h2>
+<p>思路来源：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-frequency-stack/solutions/1998430/mei-xiang-ming-bai-yi-ge-dong-hua-miao-d-oich/">灵神</a><br />
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_895_2.jpg" srcset="/img/loading.gif" lazyload alt="895" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">FreqStack</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.stacks: <span class="hljs-type">List</span>[<span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]] = <span class="hljs-built_in">list</span>()  <span class="hljs-comment"># 频率栈的列表</span><br>        self.cnt: Counter = Counter()  <span class="hljs-comment"># 保存出现频率</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">push</span>(<span class="hljs-params">self, val: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">if</span> self.cnt[val] == <span class="hljs-built_in">len</span>(self.stacks):  <span class="hljs-comment"># 出现新的最大频率，新建频率栈</span><br>            self.stacks.append([val])<br>        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 已有这种频率的频率栈，直接加入</span><br>            self.stacks[self.cnt[val]].append(val)<br>        self.cnt[val] += <span class="hljs-number">1</span>  <span class="hljs-comment"># 最后更新频率，就能避免1对上0的情况</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">pop</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        val = self.stacks[-<span class="hljs-number">1</span>].pop()  <span class="hljs-comment"># 取最高频率栈栈顶的数</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.stacks[-<span class="hljs-number">1</span>]:  <span class="hljs-comment"># 最高频率栈空了，先删掉，下次有数再创建回来，防止空操作</span><br>            self.stacks.pop()<br>        self.cnt[val] -= <span class="hljs-number">1</span>  <span class="hljs-comment"># 更新频率</span><br>        <span class="hljs-keyword">return</span> val<br></code></pre></td></tr></table></figure>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -334,9 +334,9 @@
       
         <a href="/tags/Leetcode/">#Leetcode</a>
       
-        <a href="/tags/%E6%A0%88/">#栈</a>
-      
         <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/">#哈希表</a>
+      
+        <a href="/tags/%E6%A0%88/">#栈</a>
       
     </div>
   

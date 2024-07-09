@@ -282,66 +282,66 @@
             
             <div class="markdown-body">
               
-              <h1>叠甲</h1>
+              <h1 id="叠甲"><a class="markdownIt-Anchor" href="#叠甲"></a> 叠甲</h1>
 <p>所有内容均从<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=AY9MnQ4x3zk">The ultimate introduction to Pygame</a>获得</p>
-<h1>Pygame基础</h1>
-<h2 id="如何初始化Pygame？">如何初始化Pygame？</h2>
+<h1 id="pygame基础"><a class="markdownIt-Anchor" href="#pygame基础"></a> Pygame基础</h1>
+<h2 id="如何初始化pygame"><a class="markdownIt-Anchor" href="#如何初始化pygame"></a> 如何初始化Pygame？</h2>
 <p><code>pygame.init()</code>即可</p>
-<h2 id="但是没有弹出窗口">但是没有弹出窗口</h2>
-<p>使用<code>screen = pygame.display.set_mode((x, y))</code>来创建一个大小（解析度）为<code>x * y</code>的窗口，<br>
-使用<code>pygame.display.set_caption(title)</code>来设置窗口标题<br>
-但是现在的窗口并不完善，因为只出现<strong>1s</strong>就消失了。要解决这个问题，只需要加个<code>while True</code>保持程序一直运行就好了。<br>
+<h2 id="但是没有弹出窗口"><a class="markdownIt-Anchor" href="#但是没有弹出窗口"></a> 但是没有弹出窗口</h2>
+<p>使用<code>screen = pygame.display.set_mode((x, y))</code>来创建一个大小（解析度）为<code>x * y</code>的窗口，<br />
+使用<code>pygame.display.set_caption(title)</code>来设置窗口标题<br />
+但是现在的窗口并不完善，因为只出现<strong>1s</strong>就消失了。要解决这个问题，只需要加个<code>while True</code>保持程序一直运行就好了。<br />
 但是还需要在循环里添加一句<code>pygame.display.update()</code>，它能够更新我们的窗口里的画面，而不会让我们的窗口一直保持一个帧（画面）不变。</p>
 <div class="note note-warning">
-            <p>Oops!你可能又发现了一个问题，在点击关闭窗口之后报错了！因为关闭窗口之后程序仍将运行，并且继续执行<code>pygame.display.update()</code>。<br>要解决这个问题，我们会<strong>捕捉关闭窗口事件</strong>，并在捕捉到之后调用Python的<code>exit()</code>方法（此方法在<code>sys</code>库中，需<code>import</code>），退出程序。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> pygame.event.get():<br>	<span class="hljs-keyword">if</span> event.<span class="hljs-built_in">type</span> == pygame.QUIT:<br>		pygame.quit()<br>		exit()<br></code></pre></td></tr></table></figure>
+            <p>Oops!你可能又发现了一个问题，在点击关闭窗口之后报错了！因为关闭窗口之后程序仍将运行，并且继续执行<code>pygame.display.update()</code>。<br />要解决这个问题，我们会<strong>捕捉关闭窗口事件</strong>，并在捕捉到之后调用Python的<code>exit()</code>方法（此方法在<code>sys</code>库中，需<code>import</code>），退出程序。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> pygame.event.get():<br>	<span class="hljs-keyword">if</span> event.<span class="hljs-built_in">type</span> == pygame.QUIT:<br>		pygame.quit()<br>		exit()<br></code></pre></td></tr></table></figure>
           </div>
-<h2 id="十分重要的定时器">十分重要的定时器</h2>
-<p>在不同机器上运行同一个游戏，帧数会根据机器的好坏而变得不一致，如果我们不对<code>1s</code>内更新的帧数进行某些限制，那么帧数低的时候所有的事物将变慢，帧数高的时候所有的事物将变快，这是我们不希望看到的，所以我们需要使用定时器。<br>
+<h2 id="十分重要的定时器"><a class="markdownIt-Anchor" href="#十分重要的定时器"></a> 十分重要的定时器</h2>
+<p>在不同机器上运行同一个游戏，帧数会根据机器的好坏而变得不一致，如果我们不对<code>1s</code>内更新的帧数进行某些限制，那么帧数低的时候所有的事物将变慢，帧数高的时候所有的事物将变快，这是我们不希望看到的，所以我们需要使用定时器。<br />
 在pygame中，我们使用<code>clock = pygame.time.Clock()</code>来初始化一个定时器，随后，在<code>while True</code>里加入一句<code>clock.time(60)</code>设置每秒最大帧速率进行限制。</p>
-<h2 id="绘制我们想要展示在窗口上的-GameObject-！">绘制我们想要展示在窗口上的&quot;GameObject&quot;！</h2>
+<h2 id="绘制我们想要展示在窗口上的gameobject"><a class="markdownIt-Anchor" href="#绘制我们想要展示在窗口上的gameobject"></a> 绘制我们想要展示在窗口上的&quot;GameObject&quot;！</h2>
 <p>在窗口中加载（绘制）一个图像，我们可以使用以下命令：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python">image_01 = pygame.image.load(path).convert()<br>screen.blit(image_01, (x, y))<br></code></pre></td></tr></table></figure>
-<p>当然如果是透明图像或图像不是你想象的那个样子，就请使用<code>image_01 = pygame.image.load(path).convert_aplha()</code>方法试试吧。<br>
+<p>当然如果是透明图像或图像不是你想象的那个样子，就请使用<code>image_01 = pygame.image.load(path).convert_aplha()</code>方法试试吧。<br />
 我们还可以绘制文本，具体方法为：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python">test_font = pygame.font.Font(path, size)<br>text_surf = test_font.render(text, AA, color)  <span class="hljs-comment"># AA is Anti-aliasing.The value is True or False.</span><br>screen.blit(text_surf, (x, y))<br></code></pre></td></tr></table></figure>
-<h2 id="使用碰撞箱！">使用碰撞箱！</h2>
+<h2 id="使用碰撞箱"><a class="markdownIt-Anchor" href="#使用碰撞箱"></a> 使用碰撞箱！</h2>
 <p>游戏（都）需要有碰撞箱并进行碰撞检测，那么在pygame中，得益于pygame，我们很容易就能获取一个物体的碰撞箱，并使用它们进行各种各样方便开发的操作。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Python">object_rect = object_surf.get_rect(midbottom=(x, y))<br>screen.blit(object_surf, object_rect)<br></code></pre></td></tr></table></figure>
-<p>关于<code>get_rect()</code>方法的更多参数请自行查阅说明文档，在此仅作简单说明：以该物体碰撞箱的底部的中点作为基准点，将物体绘制到<code>(x, y)</code>位置上。<br>
+<p>关于<code>get_rect()</code>方法的更多参数请自行查阅说明文档，在此仅作简单说明：以该物体碰撞箱的底部的中点作为基准点，将物体绘制到<code>(x, y)</code>位置上。<br />
 有了这个碰撞箱，我们也能更好地更新物体在画面中的表现了！比如移动一个物体，我们只需要：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python">object_rect.x -= x<br><span class="hljs-keyword">if</span> object_rect.right &lt;= y:<br>	object_rect.left = z<br>screen.blit(object_surf, object_rect)<br></code></pre></td></tr></table></figure>
-<p>上面这段代码写在<code>while True</code>循环中，大致意思为：更新<code>object_rect</code>的在<code>x</code>坐标轴上的位置，如果碰撞箱右边坐标小于某个值，就设置碰撞箱左边的坐标为某个值，然后在画面上绘制出来。<br>
-接下来终于进入碰撞检测环节了！<br>
+<p>上面这段代码写在<code>while True</code>循环中，大致意思为：更新<code>object_rect</code>的在<code>x</code>坐标轴上的位置，如果碰撞箱右边坐标小于某个值，就设置碰撞箱左边的坐标为某个值，然后在画面上绘制出来。<br />
+接下来终于进入碰撞检测环节了！<br />
 在Pygame中，如果我们需要检测两个碰撞箱是否相撞，直接使用<code>rect_01.colliderect(rect_02)</code>即可，该方法返回<code>0</code>或<code>1</code>；也可以检测某个点（位置）是否和该物体相撞，用<code>rect.collidepoint((x, y))</code>方法。</p>
-<h2 id="对鼠标进行检测">对鼠标进行检测</h2>
+<h2 id="对鼠标进行检测"><a class="markdownIt-Anchor" href="#对鼠标进行检测"></a> 对鼠标进行检测</h2>
 <p>有两种方法，一种是利用<code>pygame.mouse</code>，一种是利用<code>pygame.event</code>。下面举例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">for</span> event <span class="hljs-keyword">in</span> pygame.event.get():<br>	<span class="hljs-keyword">if</span> event.<span class="hljs-built_in">type</span> == pygame.MOUSEMOTION:<br>		<span class="hljs-built_in">print</span>(event.pos)<br>mouse_pos = pygame.mouse.get_pos()<br></code></pre></td></tr></table></figure>
-<h2 id="检测键盘输入！">检测键盘输入！</h2>
-<p>跟检测鼠标一样，检测键盘输入也有两种方法，<code>pygame.key</code>和<code>pygame.event</code>。<br>
+<h2 id="检测键盘输入"><a class="markdownIt-Anchor" href="#检测键盘输入"></a> 检测键盘输入！</h2>
+<p>跟检测鼠标一样，检测键盘输入也有两种方法，<code>pygame.key</code>和<code>pygame.event</code>。<br />
 如果我们想要使用<code>pygame.key</code>来检测空格是否被摁下，可以这么写：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python">keys = pygame.key.get_pressed()<br>    <span class="hljs-keyword">if</span> keys[pygame.K_SPACE]:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;jump&#x27;</span>)<br></code></pre></td></tr></table></figure>
 <p>也可以结合<code>pygame.event</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">if</span> event.<span class="hljs-built_in">type</span> == pygame.KEYDOWN:<br>	<span class="hljs-keyword">if</span> event.key == pygame.K_SPACE:<br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;jump&#x27;</span>)<br><span class="hljs-keyword">if</span> event.<span class="hljs-built_in">type</span> == pygame.KEYUP:<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;key up&#x27;</span>)<br></code></pre></td></tr></table></figure>
 <p>当然要记住一点，这些相关操作检测我们应该放在相关的类里面而不是主程序的<code>event loop</code>里，在<code>event loop</code>中我们更注重一些通常操作，比如关闭游戏。</p>
-<h2 id="转换一个GameObject">转换一个GameObject</h2>
-<p><code>pygame</code>的<code>transform</code>提供了许多的转换图像的方法，下面举几个例子：<br>
-<code>object_01 = pygame.transform.scale(object_01, (weight, height))</code>，最基本的方法，按照所传入的长宽比例进行放大，比较难用。<br>
-<code>object_01 = pygame.transform.scale2x(object_01)</code>，十分方便的一个方法，直接将原本的图像放大一倍。<br>
+<h2 id="转换一个gameobject"><a class="markdownIt-Anchor" href="#转换一个gameobject"></a> 转换一个GameObject</h2>
+<p><code>pygame</code>的<code>transform</code>提供了许多的转换图像的方法，下面举几个例子：<br />
+<code>object_01 = pygame.transform.scale(object_01, (weight, height))</code>，最基本的方法，按照所传入的长宽比例进行放大，比较难用。<br />
+<code>object_01 = pygame.transform.scale2x(object_01)</code>，十分方便的一个方法，直接将原本的图像放大一倍。<br />
 <code>object_01 = pygame.transform.rotozoom(object_01, angle, scale)</code>，非常全面的方法，可以将图像进行旋转和按比例缩放。</p>
-<h2 id="使用Sprite-class精灵类吧！">使用<code>Sprite class</code>精灵类吧！</h2>
+<h2 id="使用sprite-class精灵类吧"><a class="markdownIt-Anchor" href="#使用sprite-class精灵类吧"></a> 使用<code>Sprite class</code>精灵类吧！</h2>
 <blockquote>
-<p><code>Sprite class</code>, a class that contains a surface and a rectangle; and it can be drawn and updated very easily.<br>
-我们可以为玩家和怪物创建他们的精灵类，用于存放他们的<code>surface</code>和<code>rectangle</code>，这符合<code>OOP</code>的编程思想，也能够使代码更整洁，更具有可读性。<br>
-有了精灵类后，并不是直接创建他们的实例（对象），而是将他们放进<code>Group</code>中，然后对在<code>Group</code>中对他们进行更新和绘制。在<code>pygame</code>中，有两种<code>Group</code>，一种是通常用的<code>Group</code>，适合存放多个精灵（sprites）实例（对象），一种是<code>GroupSingle</code>，专门为一个<code>sprite</code>服务。<br>
+<p><code>Sprite class</code>, a class that contains a surface and a rectangle; and it can be drawn and updated very easily.<br />
+我们可以为玩家和怪物创建他们的精灵类，用于存放他们的<code>surface</code>和<code>rectangle</code>，这符合<code>OOP</code>的编程思想，也能够使代码更整洁，更具有可读性。<br />
+有了精灵类后，并不是直接创建他们的实例（对象），而是将他们放进<code>Group</code>中，然后对在<code>Group</code>中对他们进行更新和绘制。在<code>pygame</code>中，有两种<code>Group</code>，一种是通常用的<code>Group</code>，适合存放多个精灵（sprites）实例（对象），一种是<code>GroupSingle</code>，专门为一个<code>sprite</code>服务。<br />
 那么很明显我们应该把玩家丢入<code>GroupSingle</code>中，而把怪物等丢入<code>Group</code>中。</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Player</span>(pygame.sprite.Sprite):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self</span>):<br>		...<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Monster</span>(pygame.sprite.Sprite):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">update</span>(<span class="hljs-params">self</span>):<br>		...<br>	<br>player = pygame.sprite.GroupSingle()<br>player.add(Player())<br><br>monster_group = pygame.sprite.Group()<br></code></pre></td></tr></table></figure>
 <p>精灵类和组都创建完成后，就可以在屏幕上绘制出来了，使用<code>draw()</code>和<code>update()</code>方法就能自动完成绘制和更新。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python">player.draw(screen)<br>player.update()<br><br>monster_group.draw(screen)<br>monster_group.update()<br></code></pre></td></tr></table></figure>
-<h2 id="过于单调？那就加点音乐">过于单调？那就加点音乐</h2>
+<h2 id="过于单调那就加点音乐"><a class="markdownIt-Anchor" href="#过于单调那就加点音乐"></a> 过于单调？那就加点音乐</h2>
 <p>想要为我们的游戏添加背景音乐的话也十分简单，使用<code>pygame.mixer.Sound('path')</code>类即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python">background_music = pygame.mixer.Sound(<span class="hljs-string">&#x27;audio/background.mp3&#x27;</span>)<br>background_music.set_volume(<span class="hljs-number">0.5</span>)  <span class="hljs-comment"># set volume</span><br>background_music.play(loops=-<span class="hljs-number">1</span>)  <span class="hljs-comment"># loop forever</span><br>background_music.stop()<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

@@ -284,27 +284,27 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_921_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"><br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_921_1.png" srcset="/img/loading.gif" lazyload alt="第一张图" /><br />
 这个题目描述我只能说呃呃，其实就是括号匹配成立问题。再丢个实例就很明白了：</p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">Input:</span> s = <span class="hljs-string">&quot;()))((&quot;</span><br><span class="hljs-symbol">Output:</span> <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
-<h1>实现</h1>
+<h1 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h1>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minAddToMakeValid</span>(<span class="hljs-params">self, s: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        flag = <span class="hljs-number">0</span><br>        result = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> bracket <span class="hljs-keyword">in</span> s[::-<span class="hljs-number">1</span>]:<br>            <span class="hljs-keyword">if</span> bracket == <span class="hljs-string">&#x27;(&#x27;</span> <span class="hljs-keyword">and</span> flag &gt; <span class="hljs-number">0</span>:<br>                flag -= <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> bracket == <span class="hljs-string">&#x27;(&#x27;</span>:<br>                result += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                flag += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> result + flag<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>执行用时：44 ms, 在所有 Python3 提交中击败了17.39%的用户<br>
-内存消耗：14.9 MB, 在所有 Python3 提交中击败了78.09%的用户<br>
-只能说不是很理想捏~<br>
+<p>执行用时：44 ms, 在所有 Python3 提交中击败了17.39%的用户<br />
+内存消耗：14.9 MB, 在所有 Python3 提交中击败了78.09%的用户<br />
+只能说不是很理想捏~<br />
 典型的<s>(简单)</s>贪心，上面代码我还把字符串反过来了，其实并不需要，但是<s>我比较笨</s>。</p>
 </blockquote>
-<h1>小声嘀咕</h1>
+<h1 id="小声嘀咕"><a class="markdownIt-Anchor" href="#小声嘀咕"></a> 小声嘀咕</h1>
 <p>我趣家人们，少一个切片操作直接：</p>
 <blockquote>
-<p>执行用时：36 ms, 在所有 Python3 提交中击败了74.09%的用户<br>
-内存消耗：14.8 MB, 在所有 Python3 提交中击败了的用户<br>
-我是珍珠啊<br>
+<p>执行用时：36 ms, 在所有 Python3 提交中击败了74.09%的用户<br />
+内存消耗：14.8 MB, 在所有 Python3 提交中击败了的用户<br />
+我是珍珠啊<br />
 <s>可恶我甚至看见了一个利用<code>replace</code>逃课的方法，这么做真的是太可恶了！</s></p>
 </blockquote>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

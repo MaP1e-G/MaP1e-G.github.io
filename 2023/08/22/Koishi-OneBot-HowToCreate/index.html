@@ -284,15 +284,15 @@
             
             <div class="markdown-body">
               
-              <h1>一级标题（没想好）</h1>
-<h2 id="问题">问题</h2>
-<h3 id="获取T544-sign时出现错误-encoding-hex-invalid-byte-U-0069-‘i’">获取T544 sign时出现错误: encoding/hex: invalid byte: U+0069 ‘i’</h3>
-<p>使用<code>1.1.0</code>版本的<code>unidbg-fetch-qsign</code>，或者使用<code>go-cqhttp</code>的<code>dev</code>分支（需要自行编译）。<br>
+              <h1 id="一级标题没想好"><a class="markdownIt-Anchor" href="#一级标题没想好"></a> 一级标题（没想好）</h1>
+<h2 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h2>
+<h3 id="获取t544-sign时出现错误-encodinghex-invalid-byte-u0069-i"><a class="markdownIt-Anchor" href="#获取t544-sign时出现错误-encodinghex-invalid-byte-u0069-i"></a> 获取T544 sign时出现错误: encoding/hex: invalid byte: U+0069 ‘i’</h3>
+<p>使用<code>1.1.0</code>版本的<code>unidbg-fetch-qsign</code>，或者使用<code>go-cqhttp</code>的<code>dev</code>分支（需要自行编译）。<br />
 参考来源：<a target="_blank" rel="noopener" href="https://github.com/Mrs4s/go-cqhttp/issues/2304">[Bug]: 获取T544 sign时出现错误: encoding/hex: invalid byte: U+0069 ‘i’ #2304</a></p>
-<h3 id="参考gocq的issue里边使用docker搭建qsign服务跑不起来">参考gocq的issue里边使用docker搭建qsign服务跑不起来</h3>
-<p>用<code>docker container logs qsign</code>看看是不是没填<code>android_id</code>，是的话加个参数：<code>docker run -d --restart=always --name qsign -p 8080:8080 -e ANDROID_ID=3e9e151c8b55af91 xzhouqd/qsign:8.9.63</code>，记得替换成自己的<code>device.json</code>（这个文件就在<code>go-cqhttp</code>根目录下）里面的<code>android_id</code>。<br>
+<h3 id="参考gocq的issue里边使用docker搭建qsign服务跑不起来"><a class="markdownIt-Anchor" href="#参考gocq的issue里边使用docker搭建qsign服务跑不起来"></a> 参考gocq的issue里边使用docker搭建qsign服务跑不起来</h3>
+<p>用<code>docker container logs qsign</code>看看是不是没填<code>android_id</code>，是的话加个参数：<code>docker run -d --restart=always --name qsign -p 8080:8080 -e ANDROID_ID=3e9e151c8b55af91 xzhouqd/qsign:8.9.63</code>，记得替换成自己的<code>device.json</code>（这个文件就在<code>go-cqhttp</code>根目录下）里面的<code>android_id</code>。<br />
 参考来源：<a target="_blank" rel="noopener" href="https://github.com/Mrs4s/go-cqhttp/issues/2242">签名服务器相关问题 #2242</a></p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

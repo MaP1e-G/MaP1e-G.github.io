@@ -287,41 +287,41 @@
             
             <div class="markdown-body">
               
-              <h1>引用其他程序集</h1>
-<p>在编写自己的程序时，我们有时想要使用别人写好的库里的类和方法，比如<code>python</code>中我们会先用<code>pip</code>命令安装想要的库，再使用<code>import</code>语句引入，那在<code>C#</code>中应该如何引入呢？<br>
-首先要知道引入的是类库，而这些类库的文件名通常以<code>.dll</code>结尾（很熟悉不是吗）。<br>
-其次要使用类库，就需要给编译器一个到该程序集的引用，给出程序集的名称和位置。<br>
-在<code>Visual Studio</code>中，右键<code>Solution Explorer</code>下的对应项目名称下的<code>References</code>，并点击<code>Add Reference</code>就可以为该项目添加类库引用了。<br>
+              <h1 id="引用其他程序集"><a class="markdownIt-Anchor" href="#引用其他程序集"></a> 引用其他程序集</h1>
+<p>在编写自己的程序时，我们有时想要使用别人写好的库里的类和方法，比如<code>python</code>中我们会先用<code>pip</code>命令安装想要的库，再使用<code>import</code>语句引入，那在<code>C#</code>中应该如何引入呢？<br />
+首先要知道引入的是类库，而这些类库的文件名通常以<code>.dll</code>结尾（很熟悉不是吗）。<br />
+其次要使用类库，就需要给编译器一个到该程序集的引用，给出程序集的名称和位置。<br />
+在<code>Visual Studio</code>中，右键<code>Solution Explorer</code>下的对应项目名称下的<code>References</code>，并点击<code>Add Reference</code>就可以为该项目添加类库引用了。<br />
 当然，引用类库难免会出现多个类库中存在相同名称的类的情况，这个时候如果不在程序中指明我们使用的是哪个类库的该类的话，编译器就会报错，这个时候，命名空间就该登场啦。</p>
-<h1>命名空间</h1>
-<h2 id="基本概念">基本概念</h2>
-<p>其实我们每个<code>cs</code>文件中的最外边的<code>namespace</code>语句就是创建命名空间语法：<code>namespace NamespaceName</code>。<br>
-我们可以通过命名空间来区别不同命名空间下拥有相同名字的成员，如：<code>MyNamespace.Point</code>和<code>YourNamespace.Point</code>，从而避免类库冲突等情况。<br>
+<h1 id="命名空间"><a class="markdownIt-Anchor" href="#命名空间"></a> 命名空间</h1>
+<h2 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h2>
+<p>其实我们每个<code>cs</code>文件中的最外边的<code>namespace</code>语句就是创建命名空间语法：<code>namespace NamespaceName</code>。<br />
+我们可以通过命名空间来区别不同命名空间下拥有相同名字的成员，如：<code>MyNamespace.Point</code>和<code>YourNamespace.Point</code>，从而避免类库冲突等情况。<br />
 命名空间拥有一些命名指南，就像编码规范那样，遵循指南可以让代码拥有良好的可读性：</p>
 <ol>
 <li>以公司（或个人）名称开头</li>
 <li>在公司（或个人）之后跟着技术名称</li>
-<li>不要与类或类型名相同<br>
+<li>不要与类或类型名相同<br />
 例如：<code>namespace Maple.Media</code>和<code>namespace Maple.Games</code></li>
 </ol>
-<h2 id="命名空间跨文件伸展">命名空间跨文件伸展</h2>
+<h2 id="命名空间跨文件伸展"><a class="markdownIt-Anchor" href="#命名空间跨文件伸展"></a> 命名空间跨文件伸展</h2>
 <p>命名空间不是封闭的，这意味着可以在该源文件的后面或另一个源文件中再次声明它（像不像<code>partial class</code>），以对它增加更多的类型声明。而我们可以源文件编译成单个程序集，也可以编译成单独的程序集。</p>
-<h1><code>using</code>指令</h1>
-<h2 id="using命名空间指令"><code>using</code>命名空间指令</h2>
+<h1 id="using指令"><a class="markdownIt-Anchor" href="#using指令"></a> <code>using</code>指令</h1>
+<h2 id="using命名空间指令"><a class="markdownIt-Anchor" href="#using命名空间指令"></a> <code>using</code>命名空间指令</h2>
 <p>我们可以通过在源文件的顶端放置<code>using</code>命名空间指令以避免使用长名称，比如常见的：<code>using System</code>，这样在写代码的时候我们就可以直接<code>Console.WriteLine(&quot; &quot;)</code>而不是<code>System.Console.WriteLine(&quot; &quot;)</code>了，因为<code>using</code>命名空间指令会通知编译器你将要使用来自某个指定命名空间的类型。</p>
-<h2 id="using别名指令"><code>using</code>别名指令</h2>
+<h2 id="using别名指令"><a class="markdownIt-Anchor" href="#using别名指令"></a> <code>using</code>别名指令</h2>
 <p>对于<code>using</code>还有另外一个作用就是通过它来为命名空间或类取别名，类似于<code>python</code>的<code>import xxx as alias</code>。例如：<code>using SC = System.Console</code>，然后可以直接<code>SC.WriteLine(&quot; &quot;)</code>。</p>
-<h2 id="using-static指令"><code>using static</code>指令</h2>
+<h2 id="using-static指令"><a class="markdownIt-Anchor" href="#using-static指令"></a> <code>using static</code>指令</h2>
 <p>可以使用<code>using static</code>指令引用给定命名空间中的特定类、结构体或枚举，这样就可以不带任何前缀地访问该类、结构体或枚举的<strong>静态成员</strong>。比如<code>using static System.Math</code>，然后我们就可以直接调用一系列数学方法如<code>var squareRoot = Sqrt(16)</code>了。</p>
 <div class="note note-warning">
             <p>需要注意的是，<code>using static</code>指令指定的类本身可以不是静态的，而它也仅仅引入指定类、结构体或枚举的静态成员</p>
           </div>
-<h1>反射</h1>
-<h2 id="基本概念-2">基本概念</h2>
+<h1 id="反射"><a class="markdownIt-Anchor" href="#反射"></a> 反射</h1>
+<h2 id="基本概念-2"><a class="markdownIt-Anchor" href="#基本概念-2"></a> 基本概念</h2>
 <p><strong>反射</strong>，即：运行中的程序查看本身的<strong>元数据</strong>或其他程序的元数据的行为。而<strong>元数据</strong>，则是有关程序及其类型的数据，它们保存在程序的程序集中。要反射数据，我们可以使用<code>System.Reflection</code>命名空间中的类和<code>System.Type</code>。</p>
-<h2 id="Type类"><code>Type</code>类</h2>
+<h2 id="type类"><a class="markdownIt-Anchor" href="#type类"></a> <code>Type</code>类</h2>
 <p>BCL(Base Class Library) 声明了一个叫作<code>Type</code>的类，它被设计用来包含类型的特征。使用这个类的对象就获取程序使用的类型的信息（通过类中定义的属性和方法）。</p>
-<h3 id="System-Type类的部分成员"><code>System.Type</code>类的部分成员</h3>
+<h3 id="systemtype类的部分成员"><a class="markdownIt-Anchor" href="#systemtype类的部分成员"></a> <code>System.Type</code>类的部分成员</h3>
 <table>
 <thead>
 <tr>
@@ -363,42 +363,42 @@
 </tr>
 </tbody>
 </table>
-<h2 id="获取Type对象">获取<code>Type</code>对象</h2>
+<h2 id="获取type对象"><a class="markdownIt-Anchor" href="#获取type对象"></a> 获取<code>Type</code>对象</h2>
 <p>要获取<code>Type</code>对象，可以使用实例对象的<code>GetType</code>方法和<code>typeof</code>运算符和类名来获取<code>Type</code>对象。</p>
-<h3 id="GetType方法"><code>GetType</code>方法</h3>
+<h3 id="gettype方法"><a class="markdownIt-Anchor" href="#gettype方法"></a> <code>GetType</code>方法</h3>
 <p><code>object</code>类型包含了一个叫做<code>GetType</code>的方法，它返回对实例的<code>Type</code>对象的引用。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">Type t = myClassInstance.GetType();<br></code></pre></td></tr></table></figure>
-<h3 id="typeof运算符"><code>typeof</code>运算符</h3>
+<h3 id="typeof运算符"><a class="markdownIt-Anchor" href="#typeof运算符"></a> <code>typeof</code>运算符</h3>
 <p><code>typeof</code>运算符接受一个操作数，这个操作数应是类型名，返回的结果是<code>Type</code>对象的引用。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">Type t = <span class="hljs-keyword">typeof</span>( ClassName );<br></code></pre></td></tr></table></figure>
-<h1>特性</h1>
-<h2 id="基本概念-3">基本概念</h2>
-<p>特性（attribute）是一种允许我们向程序的程序集添加元数据的语言结构。特性的目的是告诉编译器把程序结构的某组元数据嵌入程序集。<br>
-将应用了特性的程序结构（program construct）叫作目标（target）。<br>
+<h1 id="特性"><a class="markdownIt-Anchor" href="#特性"></a> 特性</h1>
+<h2 id="基本概念-3"><a class="markdownIt-Anchor" href="#基本概念-3"></a> 基本概念</h2>
+<p>特性（attribute）是一种允许我们向程序的程序集添加元数据的语言结构。特性的目的是告诉编译器把程序结构的某组元数据嵌入程序集。<br />
+将应用了特性的程序结构（program construct）叫作目标（target）。<br />
 设计用来获取和使用元数据的程序叫作特性的消费者（consumer）。</p>
-<h2 id="命名规范">命名规范</h2>
+<h2 id="命名规范"><a class="markdownIt-Anchor" href="#命名规范"></a> 命名规范</h2>
 <p>特性名使用 Pascal 命名法并且以 Attribute 为后缀结尾。当为目标应用特性时，可以不使用后缀。比如命名时是：<code>MyAttributeAttribute</code>，使用时是<code>[MyAttribute]</code>。</p>
-<h2 id="应用特性">应用特性</h2>
-<p>通过在结构前放置<strong>特性片段</strong>来应用特性，<strong>特性片段</strong>由方括号包围特性名，有时候也包括参数列表。<br>
+<h2 id="应用特性"><a class="markdownIt-Anchor" href="#应用特性"></a> 应用特性</h2>
+<p>通过在结构前放置<strong>特性片段</strong>来应用特性，<strong>特性片段</strong>由方括号包围特性名，有时候也包括参数列表。<br />
 可以为单个结构应用多个特性，有两种方式：</p>
 <ol>
 <li>独立的特性片段一个接一个。通常，它们彼此叠加，位于不同的行中。</li>
-<li>单个特性片段，特性之间使用逗号分隔。<br>
-可以显式地标注特性，让特性应用到特殊的目标结构，例如：<code>[method: MyAttribute(parameter)]</code>。可用的特性目标有10个，分别是：<code>event</code>、<code>method</code>、<code>property</code>、<code>type</code>、<code>assembly</code>、<code>field</code>、<code>param</code>、<code>return</code>、<code>typevar</code>、<code>module</code>。<br>
+<li>单个特性片段，特性之间使用逗号分隔。<br />
+可以显式地标注特性，让特性应用到特殊的目标结构，例如：<code>[method: MyAttribute(parameter)]</code>。可用的特性目标有10个，分别是：<code>event</code>、<code>method</code>、<code>property</code>、<code>type</code>、<code>assembly</code>、<code>field</code>、<code>param</code>、<code>return</code>、<code>typevar</code>、<code>module</code>。<br />
 应用了特性的结构称为<strong>被特性装饰</strong>（decorated 或 adorned）。</li>
 </ol>
-<h2 id="建议了解的预定义的保留特性">建议了解的预定义的保留特性</h2>
+<h2 id="建议了解的预定义的保留特性"><a class="markdownIt-Anchor" href="#建议了解的预定义的保留特性"></a> 建议了解的预定义的保留特性</h2>
 <p><code>Obsolete</code>特性，<code>Conditional</code>特性，<code>CallerXxx</code>特性（调用者信息特性），<code>DebuggerStepThrough</code>特性（帮助调试），<code>Serializable</code>特性。</p>
-<h2 id="自定义特性">自定义特性</h2>
+<h2 id="自定义特性"><a class="markdownIt-Anchor" href="#自定义特性"></a> 自定义特性</h2>
 <p>特性就是特殊的类。要自定义一个特性，请遵循命名规范，然后再让其派生自<code>System.Attribute</code>类即可。</p>
 <div class="note note-warning">
             <p>为安全起见，通常建议声明一个<code>sealed</code>的特性类。</p>
           </div>
-<p>由于特性持有目标的信息，所有特性类的共有成员只能是：字段、属性和构造函数。之所以应用特性时可以带参也可以不带参，是因为我们其实是在指定应该使用哪个构造函数来创建特性的实例。<br>
-既然我们可以为类应用特性，自然也能够为特性类应用特性。其中有一个很重要的预定义特性<code>AttributeUsage</code>，我们可以用它来限制将某个特性用在某个目标类型上（其实这里像前面提到的“显式地标注特性”），例如：<code>[ AttributeUsage( AttributeTarget.Method ) ] </code>。</p>
-<h2 id="检查某个特性是否应用到了某个类上">检查某个特性是否应用到了某个类上</h2>
+<p>由于特性持有目标的信息，所有特性类的共有成员只能是：字段、属性和构造函数。之所以应用特性时可以带参也可以不带参，是因为我们其实是在指定应该使用哪个构造函数来创建特性的实例。<br />
+既然我们可以为类应用特性，自然也能够为特性类应用特性。其中有一个很重要的预定义特性<code>AttributeUsage</code>，我们可以用它来限制将某个特性用在某个目标类型上（其实这里像前面提到的“显式地标注特性”），例如：<code>[ AttributeUsage( AttributeTarget.Method ) ]</code>。</p>
+<h2 id="检查某个特性是否应用到了某个类上"><a class="markdownIt-Anchor" href="#检查某个特性是否应用到了某个类上"></a> 检查某个特性是否应用到了某个类上</h2>
 <p>我们可以使用<code>Type</code>对象的<code>IsDefined</code>方法来检测某个特性是否应用到了某个类上。此方法接受两个参数，第一个参数接受需要检查的特性的<code>Type</code>对象；第二个参数是<code>bool</code>类型的，它指示是否搜索类的继承树来查找这个特性。例如：<code>bool isDefined = new MyClass().GetType().IsDefined(typeof(MyAttributeAttribute), false);</code>。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

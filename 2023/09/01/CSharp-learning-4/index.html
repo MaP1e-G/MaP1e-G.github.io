@@ -283,38 +283,38 @@
             
             <div class="markdown-body">
               
-              <h1>可为空值类型</h1>
-<h2 id="基本概念">基本概念</h2>
-<p>可为空值类型<code>T?</code>表示其基础值类型<code>T</code>的所有值及额外的<code>null</code>值。比如<code>bool?</code>的值有：<code>true</code>、<code>false</code>和<code>null</code>，而普通的<code>bool</code>的值只有：<code>true</code>和<code>false</code>，因为基础值类型<code>T</code>本身不能是可为空的值类型。<br>
+              <h1 id="可为空值类型"><a class="markdownIt-Anchor" href="#可为空值类型"></a> 可为空值类型</h1>
+<h2 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h2>
+<p>可为空值类型<code>T?</code>表示其基础值类型<code>T</code>的所有值及额外的<code>null</code>值。比如<code>bool?</code>的值有：<code>true</code>、<code>false</code>和<code>null</code>，而普通的<code>bool</code>的值只有：<code>true</code>和<code>false</code>，因为基础值类型<code>T</code>本身不能是可为空的值类型。<br />
 任何可为空的值类型都是泛型<code>System.Nullable&lt;T&gt;</code>结构的实例，比如<code>int?</code>是<code>System.Nullable&lt;int&gt;</code>的实例。</p>
-<h2 id="声明和赋值">声明和赋值</h2>
+<h2 id="声明和赋值"><a class="markdownIt-Anchor" href="#声明和赋值"></a> 声明和赋值</h2>
 <p>声明就是基础值类型后加一个<code>?</code>，赋值则跟基础值类型一样。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">bool</span>? flag = <span class="hljs-literal">null</span>;<br></code></pre></td></tr></table></figure>
-<h2 id="检查可为空值类型的实例">检查可为空值类型的实例</h2>
+<h2 id="检查可为空值类型的实例"><a class="markdownIt-Anchor" href="#检查可为空值类型的实例"></a> 检查可为空值类型的实例</h2>
 <p>使用只读属性<code>Nullable&lt;T&gt;.HasValue</code>来检查和获取可为空值类型变量的值：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">if</span> (flag.HasValue)<br>&#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="从可为空的值类型转换为基础类型">从可为空的值类型转换为基础类型</h2>
+<h2 id="从可为空的值类型转换为基础类型"><a class="markdownIt-Anchor" href="#从可为空的值类型转换为基础类型"></a> 从可为空的值类型转换为基础类型</h2>
 <p>如果要将可为空值类型的值分配给不可以为空的值类型变量，则可以使用Null合并操作符<code>??</code>或者<code>Nullable&lt;T&gt;.GetValueOrDefault(T)</code>方法（此方法若不传递参数则使用基础值类型的默认值来替代<code>null</code>）：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span>? a = <span class="hljs-number">28</span>;<br><span class="hljs-built_in">int</span> b = a ?? <span class="hljs-number">-1</span>;<br>Console.WriteLine(<span class="hljs-string">$&quot;b is <span class="hljs-subst">&#123;b&#125;</span>.&quot;</span>);  <span class="hljs-comment">// output: b is 28</span><br><br><span class="hljs-built_in">int</span>? c = <span class="hljs-literal">null</span>;<br><span class="hljs-built_in">int</span> d = c.GetValueOrDefault(<span class="hljs-number">-1</span>);<br>Console.WriteLine(<span class="hljs-string">$&quot;d is <span class="hljs-subst">&#123;d&#125;</span>&quot;</span>);  <span class="hljs-comment">// output: d is -1</span><br></code></pre></td></tr></table></figure>
 <p>也可以使用显式强制转换为不可为空的类型（注意如果可为空的值类型的值为<code>null</code>的话，显式强制转换将抛出<code>InvaildOperationException</code>异常）：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span>? n = <span class="hljs-literal">null</span>;<br><br><span class="hljs-comment">//int m1 = n;    // Doesn&#x27;t compile</span><br><span class="hljs-built_in">int</span> n2 = (<span class="hljs-built_in">int</span>)n; <span class="hljs-comment">// Compiles, but throws an exception if n is null</span><br></code></pre></td></tr></table></figure>
-<h2 id="提升的运算符">提升的运算符</h2>
+<h2 id="提升的运算符"><a class="markdownIt-Anchor" href="#提升的运算符"></a> 提升的运算符</h2>
 <p>预定义的一元运算符和二元运算符或值类型<code>T</code>支持的任何重载运算符也受相应的可为空值类型<code>T?</code>支持。只要有一个操作数为<code>null</code>，那么运算的结果就是<code>null</code>。这里的特殊例子是<code>bool?</code>类型，详情可以参考官方文档。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">int</span>? a = <span class="hljs-number">10</span>;<br><span class="hljs-built_in">int</span>? b = <span class="hljs-literal">null</span>;<br><br>a = a + b;  <span class="hljs-comment">// a is null</span><br></code></pre></td></tr></table></figure>
-<p>对于比较运算符<code>&gt;</code>、<code>&gt;=</code>、<code>&lt;</code>、<code>&lt;=</code>，只要有一个操作数为<code>null</code>，返回的结果就是<code>false</code>。<br>
-对于相等运算符<code>==</code>，如果两个操作数都为<code>null</code>，则结果为<code>true</code>；如果只有一个操作数为<code>null</code>，则结果为<code>false</code>。<br>
+<p>对于比较运算符<code>&gt;</code>、<code>&gt;=</code>、<code>&lt;</code>、<code>&lt;=</code>，只要有一个操作数为<code>null</code>，返回的结果就是<code>false</code>。<br />
+对于相等运算符<code>==</code>，如果两个操作数都为<code>null</code>，则结果为<code>true</code>；如果只有一个操作数为<code>null</code>，则结果为<code>false</code>。<br />
 对于不等运算符<code>!=</code>，参考相等运算符<code>==</code>。</p>
-<h2 id="装箱和取消装箱">装箱和取消装箱</h2>
+<h2 id="装箱和取消装箱"><a class="markdownIt-Anchor" href="#装箱和取消装箱"></a> 装箱和取消装箱</h2>
 <p>给可为空的值类型的实例进行装箱操作，实质上是对基础值类型<code>T</code>的对应值装箱：</p>
 <ul>
 <li>如果<code>HasValue</code>返回<code>false</code>，则生成空引用。</li>
 <li>如果<code>HasValue</code>返回<code>true</code>，则基础值类型<code>T</code>的对应值将装箱，而不对<code>Nullable&lt;T&gt;</code>的实例进行装箱。</li>
 </ul>
-<h2 id="如何确定可为空的值类型">如何确定可为空的值类型</h2>
+<h2 id="如何确定可为空的值类型"><a class="markdownIt-Anchor" href="#如何确定可为空的值类型"></a> 如何确定可为空的值类型</h2>
 <p>下面的示例演示了如何确定<code>System.Type</code>实例是否表示已构造的可为空值类型：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c#">Console.WriteLine(<span class="hljs-string">$&quot;int? is <span class="hljs-subst">&#123;(IsNullable(<span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">int</span>?)) ? <span class="hljs-string">&quot;nullable&quot;</span> : <span class="hljs-string">&quot;non nullable&quot;</span>)&#125;</span> value type&quot;</span>);<br>Console.WriteLine(<span class="hljs-string">$&quot;int is <span class="hljs-subst">&#123;(IsNullable(<span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">int</span>)) ? <span class="hljs-string">&quot;nullable&quot;</span> : <span class="hljs-string">&quot;non-nullable&quot;</span>)&#125;</span> value type&quot;</span>);<br><br><span class="hljs-function"><span class="hljs-built_in">bool</span> <span class="hljs-title">IsNullable</span>(<span class="hljs-params">Type type</span>)</span> =&gt; Nullable.GetUnderlyingType(type) != <span class="hljs-literal">null</span>;<br><br><span class="hljs-comment">// Output:</span><br><span class="hljs-comment">// int? is nullable value type</span><br><span class="hljs-comment">// int is non-nullable value type</span><br></code></pre></td></tr></table></figure>
 <p>严格按照上面写就好了，先使用<code>typeof</code>运算符获取<code>System.type</code>实例，再使用<code>Nullable.GetUnderlyingType</code>方法来检查。如果想知道为什么，简洁来说就是<code>Object.GetType</code>方法获取到的<code>Type</code>实例无法区分，<code>is</code>运算符无法确定，详细的原因参考官方文档。</p>
-<h1>可为空引用类型</h1>
+<h1 id="可为空引用类型"><a class="markdownIt-Anchor" href="#可为空引用类型"></a> 可为空引用类型</h1>
 <p>用来干什么？——用于降低代码导致运行时引发<code>System.NullReferenceException</code>异常（尝试取消引用空对象引用时引发的异常）的可能性。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment">// System.NullReferenceException</span><br><span class="hljs-keyword">using</span> System;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Example</span><br>&#123;<br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>   &#123;<br>       <span class="hljs-built_in">int</span>[] values = <span class="hljs-literal">null</span>;<br>       <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> ctr = <span class="hljs-number">0</span>; ctr &lt;= <span class="hljs-number">9</span>; ctr++)<br>          values[ctr] = ctr * <span class="hljs-number">2</span>;<br><br>       <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> <span class="hljs-keyword">value</span> <span class="hljs-keyword">in</span> values)<br>          Console.WriteLine(<span class="hljs-keyword">value</span>);<br>   &#125;<br>&#125;<br><span class="hljs-comment">// The example displays the following output:</span><br><span class="hljs-comment">//    Unhandled Exception:</span><br><span class="hljs-comment">//       System.NullReferenceException: Object reference not set to an instance of an object.</span><br><span class="hljs-comment">//       at Example.Main()</span><br></code></pre></td></tr></table></figure>
 <p>在可为<code>null</code>的感知上下文中：</p>
@@ -323,7 +323,7 @@
 <li>引用类型<code>T?</code>的变量可以用<code>null</code>进行初始化，也可以分配<code>null</code>，但在取消引用之前必须对照<code>null</code>进行检查。</li>
 <li>类型为<code>T?</code>的变量<code>m</code>在应用<code>null</code>包容运算符（<code>!</code>）时被认为是非空的，如<code>m!</code>。</li>
 </ul>
-<h2 id="限制">限制</h2>
+<h2 id="限制"><a class="markdownIt-Anchor" href="#限制"></a> 限制</h2>
 <ul>
 <li>可为空的引用类型不能用作基类或实现的接口</li>
 <li>可为空的引用类型不能用于任何对象创建</li>
@@ -331,7 +331,7 @@
 <li>可为空的引用类型不能是成员访问表达式的类型</li>
 </ul>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> MyClass : System.Object? <span class="hljs-comment">// not allowed</span><br>&#123;<br>&#125;<br><br><span class="hljs-keyword">var</span> nullEmpty = System.String?.Empty; <span class="hljs-comment">// Not allowed</span><br><span class="hljs-keyword">var</span> maybeObject = <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>?(); <span class="hljs-comment">// Not allowed</span><br><span class="hljs-keyword">try</span><br>&#123;<br>    <span class="hljs-keyword">if</span> (thing <span class="hljs-keyword">is</span> <span class="hljs-built_in">string</span>? nullableString) <span class="hljs-comment">// not allowed</span><br>        Console.WriteLine(nullableString);<br>&#125; <span class="hljs-keyword">catch</span> (Exception? e) <span class="hljs-comment">// Not Allowed</span><br>&#123;<br>    Console.WriteLine(<span class="hljs-string">&quot;error&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

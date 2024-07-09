@@ -283,20 +283,20 @@
             
             <div class="markdown-body">
               
-              <h1>什么是文件和流 I/O</h1>
-<p>文件是一个由字节组成的有序的命名集合，而流则是一个字节序列。文件和流（的） I/O 是指在存储媒介中传入或传出数据。<br>
+              <h1 id="什么是文件和流-io"><a class="markdownIt-Anchor" href="#什么是文件和流-io"></a> 什么是文件和流 I/O</h1>
+<p>文件是一个由字节组成的有序的命名集合，而流则是一个字节序列。文件和流（的） I/O 是指在存储媒介中传入或传出数据。<br />
 而在 .NET 中，<code>System.IO</code>命名空间包含允许以异步方式和同步方式对数据流和文件进行读取和写入操作的类型。下面就先来介绍一下这个命名空间中的各种东西。</p>
-<h2 id="文件和目录">文件和目录</h2>
+<h2 id="文件和目录"><a class="markdownIt-Anchor" href="#文件和目录"></a> 文件和目录</h2>
 <p>下面是一些常用的文件和目录类：</p>
 <ul>
 <li><code>File</code>：提供用于创建、复制、删除、移动和打开文件的<strong>静态</strong>方法，并可帮助创建<code>FileStream</code>对象。</li>
 <li><code>FileInfo</code>：提供用于创建、复制、删除、移动和打开文件的<strong>实例</strong>方法，并可帮助创建<code>FileStream</code>对象。</li>
 <li><code>Direction</code>：提供用于创建、移动和枚举目录和子目录的<strong>静态</strong>方法。</li>
 <li><code>DirectionInfo</code>：提供用于创建、移动和枚举目录和子目录的<strong>实例</strong>方法。</li>
-<li><code>Path</code>：提供用于以跨平台的方式处理目录字符串的方法和属性。<br>
+<li><code>Path</code>：提供用于以跨平台的方式处理目录字符串的方法和属性。<br />
 很直白啊，带有<code>File</code>的就是处理文件的类，带有<code>Direction</code>的就是处理目录的类，默认都提供的是静态方法，类中带<code>Info</code>的则提供实例方法。</li>
 </ul>
-<h2 id="流">流</h2>
+<h2 id="流"><a class="markdownIt-Anchor" href="#流"></a> 流</h2>
 <p>下面是一些常用的流类：</p>
 <ul>
 <li><code>FileStream</code>：用于对文件进行读取和写入操作。</li>
@@ -305,19 +305,19 @@
 <li><code>BufferedStream</code>：用于改进读取和写入操作的性能。不熟。</li>
 <li><code>NetworkStream</code>：用于通过网络套接字进行读取和写入。不熟。</li>
 <li><code>PipeStream</code>：用于通过匿名和命名管道进行读取和写入。不熟。</li>
-<li><code>CryptoStream</code>：用于将数据流链接到加密转换。不熟。<br>
+<li><code>CryptoStream</code>：用于将数据流链接到加密转换。不熟。<br />
 一圈下来就看懂第一个。</li>
 </ul>
-<h2 id="读取器和编写器">读取器和编写器</h2>
+<h2 id="读取器和编写器"><a class="markdownIt-Anchor" href="#读取器和编写器"></a> 读取器和编写器</h2>
 <p>通常，流用于字节输入和输出。读取器和编写器则是处理编码字符与字节之间的来回转换，以便流可以完成操作。下面是一些常用的读取器和编写器类：</p>
 <ul>
 <li><code>BinaryReader</code>和<code>BinaryWriter</code>：用于将基元数据类型作为二进制值进行读取和写入。</li>
 <li><code>StreamReader</code>和<code>StreamWriter</code>：用于通过使用编码值在字符和字节之间来回转换来读取和写入字符。</li>
 <li><code>StringReader</code>和<code>StringWriter</code>：用于从字符串读取字符以及将字符写入字符串中。</li>
-<li><code>TextReader</code>和<code>TextWriter</code>：用作其他读取器和编写器（读取和写入字符和字符串，而不是二进制数据）的抽象基类。<br>
+<li><code>TextReader</code>和<code>TextWriter</code>：用作其他读取器和编写器（读取和写入字符和字符串，而不是二进制数据）的抽象基类。<br />
 其实也很好懂，啊，就是你要把一个字符串写入文件里边，啊，你还得搞个这个东西帮助你进行编码转换，啊。<s>哪来的狗，guna.jpg</s></li>
 </ul>
-<h2 id="压缩">压缩</h2>
+<h2 id="压缩"><a class="markdownIt-Anchor" href="#压缩"></a> 压缩</h2>
 <p>用来对文件和流进行压缩或解压缩的类（这你都有？）。下面是一些常用类：</p>
 <ul>
 <li><code>ZipArchive</code>：用于在 zip 存档中创建和检索条目。</li>
@@ -327,29 +327,29 @@
 <li><code>DeflateStream</code>： 用于使用 Deflate 算法对流进行压缩和解压缩。</li>
 <li><code>GZipStream</code>：用于采用 gzip 数据格式对流进行压缩和解压缩。</li>
 </ul>
-<h2 id="独立存储">独立存储</h2>
+<h2 id="独立存储"><a class="markdownIt-Anchor" href="#独立存储"></a> 独立存储</h2>
 <p>真不熟家人们，先不管这个东西了。</p>
-<h1>Windows 系统中的文件路径格式</h1>
+<h1 id="windows-系统中的文件路径格式"><a class="markdownIt-Anchor" href="#windows-系统中的文件路径格式"></a> Windows 系统中的文件路径格式</h1>
 <p>想要准确地操作文件，那肯定得先明白对应操作系统中地文件路径格式啦！</p>
-<h2 id="传统-DOS-路径">传统 DOS 路径</h2>
+<h2 id="传统-dos-路径"><a class="markdownIt-Anchor" href="#传统-dos-路径"></a> 传统 DOS 路径</h2>
 <p>标准的 DOS 路径可由以下三部分组成：</p>
 <ul>
 <li>卷号或驱动器号，后跟卷分隔符（:）。例如：<code>C:</code></li>
 <li>目录名称。目录分隔符（\）用来分隔嵌套目录层次结构中的子目录。例如：<code>\Program Files\Tencent</code></li>
-<li>可选的文件名。目录分隔符（\）用来分隔文件路径和文件名。例如：<code>\Tencent\QQ.exe</code><br>
+<li>可选的文件名。目录分隔符（\）用来分隔文件路径和文件名。例如：<code>\Tencent\QQ.exe</code><br />
 路径分为绝对路径和相对路径，前者指定了卷号或驱动器号，后者则没有。而后者的开头若为目录分隔符，则路径相对于当前驱动器根路径（<code>\Program Files\Tencent</code>），否则相对于当前目录（<code>Program Files\Tencent</code>）。</li>
 </ul>
 <div class="note note-warning">
             <p>相对路径在多线程应用程序（也就是大多数应用程序）中很危险，因为当前目录是分进程的设置。</p>
           </div>
 <p>好了，了解传统路径一般情况下够用了，至于其他的 UNC 路径、DOS 设备路径可以自行去文档看看。（什么？你说要给其他环境做适配？不会！.jpg）</p>
-<h1>通用 I/O 任务</h1>
-<h2 id="如何复制目录">如何复制目录</h2>
-<p>只记录一点关键步骤。首先获取源目录的信息，即创建一个源目录的<code>DirectoryInfo</code>对象：<code>var dir = new DirectoryInfo(sourceDir)</code>。得到源目录下的所有文件：<code>dir.GetFiles()</code>，该方法返回<code>FileInfo[]</code>类型。复制文件：<code>file.CopyTo(targetFilePath)</code>，这是<code>FileInfo</code>类的实例方法。如果要合并两个路径的话，可以使用<code>Path.Combine</code>方法，该方法接受两个字符串参数并将它们合并成一个路径（字符串）。<br>
-如果要将该目录及子目录下的所有文件都复制一遍，可以用递归。<br>
+<h1 id="通用-io-任务"><a class="markdownIt-Anchor" href="#通用-io-任务"></a> 通用 I/O 任务</h1>
+<h2 id="如何复制目录"><a class="markdownIt-Anchor" href="#如何复制目录"></a> 如何复制目录</h2>
+<p>只记录一点关键步骤。首先获取源目录的信息，即创建一个源目录的<code>DirectoryInfo</code>对象：<code>var dir = new DirectoryInfo(sourceDir)</code>。得到源目录下的所有文件：<code>dir.GetFiles()</code>，该方法返回<code>FileInfo[]</code>类型。复制文件：<code>file.CopyTo(targetFilePath)</code>，这是<code>FileInfo</code>类的实例方法。如果要合并两个路径的话，可以使用<code>Path.Combine</code>方法，该方法接受两个字符串参数并将它们合并成一个路径（字符串）。<br />
+如果要将该目录及子目录下的所有文件都复制一遍，可以用递归。<br />
 代码如下：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">HowToCopyDir</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CopyDirectory</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> sourceDir, <span class="hljs-built_in">string</span> destinationDir, <span class="hljs-built_in">bool</span> recursive</span>)</span><br>	&#123;<br>		<span class="hljs-comment">// 获得源目录的信息</span><br>		<span class="hljs-keyword">var</span> dir = <span class="hljs-keyword">new</span> DirectoryInfo(sourceDir);<br><br>		<span class="hljs-comment">// 检查源目录是否存在</span><br>		<span class="hljs-keyword">if</span> (!dir.Exists)<br>		&#123;<br>			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> DirectoryNotFoundException(<span class="hljs-string">$&quot;Source directory not found: <span class="hljs-subst">&#123;dir.FullName&#125;</span>&quot;</span>);<br>		&#125;<br>		<span class="hljs-keyword">else</span><br>		&#123;<br>			Console.WriteLine(<span class="hljs-string">$&quot;Start to copy dir: <span class="hljs-subst">&#123;dir.FullName&#125;</span>&quot;</span>);<br>		&#125;<br><br>		<span class="hljs-comment">// 在开始复制之前缓存目录</span><br>		DirectoryInfo[] dirs = dir.GetDirectories();<br><br>		<span class="hljs-comment">// 创建目标目录</span><br>		Directory.CreateDirectory(destinationDir);<br><br>		<span class="hljs-comment">// 获得源目录下的所有文件，并将其复制到目标目录</span><br>		<span class="hljs-keyword">foreach</span> (FileInfo file <span class="hljs-keyword">in</span> dir.GetFiles())<br>		&#123;<br>			<span class="hljs-built_in">string</span> targetFilePath = Path.Combine(destinationDir, file.Name);<br>			file.CopyTo(targetFilePath);<br>			Console.WriteLine(<span class="hljs-string">$&quot;Copy file: <span class="hljs-subst">&#123;file.Name&#125;</span>&quot;</span>);<br>		&#125;<br><br>		<span class="hljs-comment">// 如果允许递归，则进行递归复制，将其子目录的文件也一同复制</span><br>		<span class="hljs-keyword">if</span> (recursive)<br>		&#123;<br>			<span class="hljs-keyword">foreach</span> (DirectoryInfo subDir <span class="hljs-keyword">in</span> dirs)<br>			&#123;<br>				<span class="hljs-built_in">string</span> newDestinationDir = Path.Combine(destinationDir, subDir.Name);<br>				CopyDirectory(subDir.FullName, newDestinationDir, <span class="hljs-literal">true</span>);<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="如何枚举目录和文件">如何枚举目录和文件</h2>
+<h2 id="如何枚举目录和文件"><a class="markdownIt-Anchor" href="#如何枚举目录和文件"></a> 如何枚举目录和文件</h2>
 <p>下面是几个返回可枚举的文件和目录集合的常用方法：</p>
 <table>
 <thead>
@@ -377,34 +377,34 @@
 </tr>
 </tbody>
 </table>
-<p>可以看到方法名简明扼要啊，点个赞先。至于剩下的文件系统条目，不熟，所以没写了。（但其实偷偷看了一眼文档，<code>FileSystemInfo</code>类其实是<code>FileInfo</code>和<code>DirectoryInfo</code>类的基类！）<br>
+<p>可以看到方法名简明扼要啊，点个赞先。至于剩下的文件系统条目，不熟，所以没写了。（但其实偷偷看了一眼文档，<code>FileSystemInfo</code>类其实是<code>FileInfo</code>和<code>DirectoryInfo</code>类的基类！）<br />
 示例代码没有，自行查阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/standard/io/how-to-enumerate-directories-and-files">官方文档</a>。</p>
-<h2 id="如何对新建的数据文件进行读取和写入">如何对新建的数据文件进行读取和写入</h2>
-<p>这一节其实是讲如何使用<code>BinaryReader</code>和<code>BinaryWriter</code>类来写入和读取字符串以外的数据的。这里就稍微根据文档里的示例代码来总结一下。<br>
+<h2 id="如何对新建的数据文件进行读取和写入"><a class="markdownIt-Anchor" href="#如何对新建的数据文件进行读取和写入"></a> 如何对新建的数据文件进行读取和写入</h2>
+<p>这一节其实是讲如何使用<code>BinaryReader</code>和<code>BinaryWriter</code>类来写入和读取字符串以外的数据的。这里就稍微根据文档里的示例代码来总结一下。<br />
 如果要写入数据，先打开（创建）一个文件流（<code>FileStream</code>），然后根据这个文件流来创建一个编写器（<code>BinaryWriter</code>），调用这个编写器的<code>Write</code>方法来写入数据，比如可以直接写入一个<code>int</code>值：<code>w.Write(1)</code>。如果要读取数据，同样地先打开一个<code>FileStream</code>流，然后根据这个文件流来创建<code>BinaryReader</code>读取器，用该类的实例方法来读取文件数据，例如：<code>r.ReadInt32()</code>。</p>
-<h2 id="如何打开并追加文本到日志文件">如何打开并追加文本到日志文件</h2>
+<h2 id="如何打开并追加文本到日志文件"><a class="markdownIt-Anchor" href="#如何打开并追加文本到日志文件"></a> 如何打开并追加文本到日志文件</h2>
 <p>注意这里是<strong>追加文本</strong>，也就是不会覆盖或修改文件中原有的文本。通过<code>File.AppendText</code>方法来获得一个<code>StreamWriter</code>对象，然后调用<code>StreamWriter</code>类型的<code>Write</code>或<code>WriteLine</code>方法即可追加文本。</p>
 <div class="note note-info">
             <p>如果需要换行并将光标置于行首，应该向流写入<code>\r\n</code>。</p>
           </div>
 <p>我们也可以用另一种方法来追加文本，那就是将信息存储为一个字符串或字符串数组，并使用<code>File.WriteAllText</code>或<code>File.WriteAllLines</code>方法追加文本。</p>
-<h2 id="如何将文本写入文件">如何将文本写入文件</h2>
+<h2 id="如何将文本写入文件"><a class="markdownIt-Anchor" href="#如何将文本写入文件"></a> 如何将文本写入文件</h2>
 <p>这一章节介绍的是<code>StreamWriter</code>的使用方法，包括：同步写入文本、同步追加文本（上一节已经讲过）、异步写入文本。另外也讲到了使用文件类编写和追加文本。</p>
 <ul>
 <li><code>StreamWriter</code>提供：<code>Write</code>/<code>WriteLine</code>/<code>WriteAsync</code>/<code>WriteAsync</code>方法。</li>
 <li><code>File</code>提供：<code>WriteAllLines</code>/<code>WriteAllText</code>/<code>AppendAllLines</code>/<code>AppendAllText</code>/<code>AppendText</code><strong>静态</strong>方法。</li>
 </ul>
-<p>如果是写入文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;)))</code>。<br>
+<p>如果是写入文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;)))</code>。<br />
 如果是追加文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;), true))</code>。</p>
-<h1>异步文件访问</h1>
+<h1 id="异步文件访问"><a class="markdownIt-Anchor" href="#异步文件访问"></a> 异步文件访问</h1>
 <p>如果不需要对文件 I/O 进行精细的控制，那么直接参照下面使用<code>File.WriteAllTextAsync</code>和<code>File.ReadAllTextAsync</code>即可。如果需要，请使用<code>FileStream</code>类。</p>
-<h2 id="写入文本">写入文本</h2>
+<h2 id="写入文本"><a class="markdownIt-Anchor" href="#写入文本"></a> 写入文本</h2>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SimpleWriteAsync</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span> filePath = <span class="hljs-string">&quot;simple.txt&quot;</span>;<br>    <span class="hljs-built_in">string</span> text = <span class="hljs-string">$&quot;Hello World&quot;</span>;<br><br>    <span class="hljs-keyword">await</span> File.WriteAllTextAsync(filePath, text2);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="读取文本">读取文本</h2>
+<h2 id="读取文本"><a class="markdownIt-Anchor" href="#读取文本"></a> 读取文本</h2>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SimpleReadAsync</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span> filePath = <span class="hljs-string">&quot;simple.txt&quot;</span>;<br>    <span class="hljs-built_in">string</span> text = <span class="hljs-keyword">await</span> File.ReadAllTextAsync(filePath);<br><br>    Console.WriteLine(text);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="并行异步-I-O">并行异步 I/O</h2>
+<h2 id="并行异步-io"><a class="markdownIt-Anchor" href="#并行异步-io"></a> 并行异步 I/O</h2>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SimpleParallelWriteAsync</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span> folder = Directory.CreateDirectory(<span class="hljs-string">&quot;tempfolder&quot;</span>).Name;<br>    IList&lt;Task&gt; writeTaskList = <span class="hljs-keyword">new</span> List&lt;Task&gt;();<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> index = <span class="hljs-number">11</span>; index &lt;= <span class="hljs-number">20</span>; index++)<br>    &#123;<br>        <span class="hljs-built_in">string</span> fileName = <span class="hljs-string">$&quot;file-<span class="hljs-subst">&#123;index:<span class="hljs-number">00</span>&#125;</span>.txt&quot;</span>;<br>        <span class="hljs-built_in">string</span> filePath = <span class="hljs-string">$&quot;<span class="hljs-subst">&#123;folder&#125;</span>/<span class="hljs-subst">&#123;fileName&#125;</span>&quot;</span>;<br>        <span class="hljs-built_in">string</span> text = <span class="hljs-string">$&quot;In file <span class="hljs-subst">&#123;index&#125;</span><span class="hljs-subst">&#123;Environment.NewLine&#125;</span>&quot;</span>;<br><br>        writeTaskList.Add(File.WriteAllTextAsync(filePath, text));<br>    &#125;<br><br>    <span class="hljs-keyword">await</span> Task.WhenAll(writeTaskList);<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

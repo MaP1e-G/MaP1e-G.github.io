@@ -283,20 +283,20 @@
             
             <div class="markdown-body">
               
-              <h1>Vue2.x 文档笔记-3-深入了解组件部分</h1>
-<h2 id="组件注册">组件注册</h2>
-<h3 id="全局注册">全局注册</h3>
+              <h1 id="vue2x-文档笔记-3-深入了解组件部分"><a class="markdownIt-Anchor" href="#vue2x-文档笔记-3-深入了解组件部分"></a> Vue2.x 文档笔记-3-深入了解组件部分</h1>
+<h2 id="组件注册"><a class="markdownIt-Anchor" href="#组件注册"></a> 组件注册</h2>
+<h3 id="全局注册"><a class="markdownIt-Anchor" href="#全局注册"></a> 全局注册</h3>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">component</span>(<span class="hljs-string">&#x27;component-name&#x27;</span>, &#123; ... &#125;)<br></code></pre></td></tr></table></figure>
-<h3 id="局部注册">局部注册</h3>
+<h3 id="局部注册"><a class="markdownIt-Anchor" href="#局部注册"></a> 局部注册</h3>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  <span class="hljs-attr">components</span>: &#123;<br>    component-<span class="hljs-attr">a</span>: &#123;<br>      <span class="hljs-attr">template</span>:<span class="hljs-string">&quot;&lt;h1&gt;Hello!&lt;/h1&gt;&quot;</span><br>    &#125;<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
-<h2 id="Prop">Prop</h2>
-<h3 id="prop类型">prop类型</h3>
+<h2 id="prop"><a class="markdownIt-Anchor" href="#prop"></a> Prop</h2>
+<h3 id="prop类型"><a class="markdownIt-Anchor" href="#prop类型"></a> prop类型</h3>
 <p>我们可以为每个prop指定值类型，这和python的类型提示十分相似，那就是在属性名后面加冒号，然后再带上期待的值类型：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">props</span>: &#123;<br>  <span class="hljs-attr">title</span>: <span class="hljs-title class_">String</span>,<br>  <span class="hljs-attr">likes</span>: <span class="hljs-title class_">Number</span>,<br>  <span class="hljs-attr">isPublished</span>: boolean<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="传递静态或动态Prop">传递静态或动态Prop</h3>
+<h3 id="传递静态或动态prop"><a class="markdownIt-Anchor" href="#传递静态或动态prop"></a> 传递静态或动态Prop</h3>
 <p>如果我们想告诉prop我们将要传递的值不是字符串，而是一个JavaScript表达式的话，就需要使用<code>v-bind</code>指令：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 即便 `false` 是静态的，我们仍然需要 `v-bind` 来告诉 Vue --&gt;</span><br><span class="hljs-comment">&lt;!-- 这是一个 JavaScript 表达式而不是一个字符串。--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:is-published</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 即便数组是静态的，我们仍然需要 `v-bind` 来告诉 Vue --&gt;</span><br><span class="hljs-comment">&lt;!-- 这是一个 JavaScript 表达式而不是一个字符串。--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:comment-ids</span>=<span class="hljs-string">&quot;[234, 266, 273]&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="单向数据流">单向数据流</h3>
+<h3 id="单向数据流"><a class="markdownIt-Anchor" href="#单向数据流"></a> 单向数据流</h3>
 <p>我们不应该一个子组件内部改变prop。如果子组件中需要用到<code>prop</code>的值，可以定义一个本地的data property或者计算属性：</p>
 <ol>
 <li>
@@ -308,24 +308,24 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">props</span>: [<span class="hljs-string">&#x27;size&#x27;</span>],<br><span class="hljs-attr">computed</span>: &#123;<br>  <span class="hljs-attr">normalizedSize</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">size</span>.<span class="hljs-title function_">trim</span>().<span class="hljs-title function_">toLowerCase</span>()<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="prop验证">prop验证</h3>
+<h3 id="prop验证"><a class="markdownIt-Anchor" href="#prop验证"></a> prop验证</h3>
 <p>在本节开头的prop类型其实就是prop验证。如果传入的值不满足需求，那么Vue会在浏览器控制台<strong>警告</strong>你（注意了，只是警告）。</p>
 <p>当然prop验证还支持很多定制验证，如多个可能的类型、必填、带默认值等等。</p>
-<h3 id="非Prop的Attribute">非Prop的Attribute</h3>
+<h3 id="非prop的attribute"><a class="markdownIt-Anchor" href="#非prop的attribute"></a> 非Prop的Attribute</h3>
 <p>一个非prop的attribute是指传向一个组件，但是该组件并没有相应prop定义的attribute。</p>
 <p><strong>虽然组件中没有相关定义，但是这个attribute仍会自动添加到组件的根元素上。</strong></p>
-<h4 id="替换-合并已有的Attribute">替换/合并已有的Attribute</h4>
+<h4 id="替换合并已有的attribute"><a class="markdownIt-Anchor" href="#替换合并已有的attribute"></a> 替换/合并已有的Attribute</h4>
 <p>对于绝大多数attribute来说，从外部提供给组件的值会替换掉组件内部设置好的值，比如<code>type</code>属性，假设现在有一个组件的根元素上是<code>type=&quot;date&quot;</code>，但如果我们提供了<code>type=&quot;input&quot;</code>的话，那这个组件就会从日期选择器变成输入框，而这不是我们想要的结果。</p>
 <p>但是有两个例外，<code>class</code>和<code>style</code>并不会替换，而是合并。比如组件内部提供了<code>class=&quot;red&quot;</code>，而外部传入了一个<code>class=&quot;big&quot;</code>，那么最终得到的是<code>class=&quot;red big&quot;</code>。</p>
-<h4 id="禁用Attribute继承">禁用Attribute继承</h4>
+<h4 id="禁用attribute继承"><a class="markdownIt-Anchor" href="#禁用attribute继承"></a> 禁用Attribute继承</h4>
 <p>如果不希望组件的根元素继承attribute，可以在组件的选项中设置<code>inheritAttrs: false</code>。</p>
-<h2 id="自定义事件">自定义事件</h2>
-<h3 id="事件名">事件名</h3>
+<h2 id="自定义事件"><a class="markdownIt-Anchor" href="#自定义事件"></a> 自定义事件</h2>
+<h3 id="事件名"><a class="markdownIt-Anchor" href="#事件名"></a> 事件名</h3>
 <p><strong>事件名请使用kebab-case命名规范进行命名</strong></p>
-<h3 id="自定义组件的v-model">自定义组件的v-model</h3>
+<h3 id="自定义组件的v-model"><a class="markdownIt-Anchor" href="#自定义组件的v-model"></a> 自定义组件的v-model</h3>
 <p>一个组件上的<code>v-model</code>默认会利用名为<code>value</code>的prop和名为<code>input</code>的事件，但是我们可以对其进行自定义：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">component</span>(<span class="hljs-string">&#x27;example&#x27;</span>, &#123;<br>  <span class="hljs-attr">model</span>: &#123;<br>    <span class="hljs-attr">prop</span>: <span class="hljs-string">&#x27;prop-name&#x27;</span>,<br>    <span class="hljs-attr">event</span>: <span class="hljs-string">&#x27;event-name&#x27;</span><br>  &#125;,<br>  ...<br>&#125;)<br></code></pre></td></tr></table></figure>
-<h3 id="sync修饰符">.sync修饰符</h3>
+<h3 id="sync修饰符"><a class="markdownIt-Anchor" href="#sync修饰符"></a> .sync修饰符</h3>
 <p>我们可以对一个prop进行“双向绑定”，即子组件的值变更时也能够反馈到父组件上。</p>
 <p>假设现在有一个子组件，内含一个名为<code>title</code>的prop，我们想在这个<code>title</code>的值更新时，让父组件的某个值也进行更新，那就可以用<code>update:myPropName</code>的模式触发事件来实现：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">this</span>.$emit(<span class="hljs-string">&#x27;update:title&#x27;</span>, newTitle)<br></code></pre></td></tr></table></figure>
@@ -336,13 +336,13 @@
 <div class="note note-warning">
             <p>注意带有 <code>.sync</code> 修饰符的 <code>v-bind</code> <strong>不能</strong>和表达式一起使用！</p>
           </div>
-<h2 id="插槽">插槽</h2>
-<h3 id="具名插槽">具名插槽</h3>
+<h2 id="插槽"><a class="markdownIt-Anchor" href="#插槽"></a> 插槽</h2>
+<h3 id="具名插槽"><a class="markdownIt-Anchor" href="#具名插槽"></a> 具名插槽</h3>
 <p>这个功能使得我们能够在组件里面创建很多个插槽而互不干扰、正常渲染。在创建插槽时，使用<code>&lt;slot&gt;</code>元素的 <code>name</code>属性为这个插槽命名：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;first&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;second&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>然后在为这些具名插槽提供内容时，就在<code>&lt;template&gt;</code>元素中使用<code>v-slot</code>指令来指定我们需要传入的插槽：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">component-name</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:first</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:scecond</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">component-name</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="作用域插槽">作用域插槽</h3>
+<h3 id="作用域插槽"><a class="markdownIt-Anchor" href="#作用域插槽"></a> 作用域插槽</h3>
 <p>其实就是让父组件能访问到子组件中的某些data的功能。比如子组件中有一个<code>user</code>data，要让这个data在父级的插槽内容可用，可以将<code>user</code>作为<code>&lt;slot&gt;</code>元素的一个attribute绑定上去：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">v-bind:user</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>绑定在<code>&lt;slot&gt;</code>元素上的attribute被称为<strong>插槽prop</strong>。</p>
@@ -351,9 +351,9 @@
 <div class="note note-warning">
             <p><code>default</code>其实就是默认插槽，插槽不带名就等于<code>&lt;slot name=&quot;default&quot;&gt;</code></p>
           </div>
-<h3 id="具名插槽的缩写">具名插槽的缩写</h3>
+<h3 id="具名插槽的缩写"><a class="markdownIt-Anchor" href="#具名插槽的缩写"></a> 具名插槽的缩写</h3>
 <p>跟<code>v-on</code>和<code>v-bind</code>一样，<code>v-slot</code>也有缩写，即把参数之前的所有内容 (<code>v-slot:</code>) 替换为字符<code>#</code>。例如<code>v-slot:header</code>可以被重写为<code>#header</code>。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

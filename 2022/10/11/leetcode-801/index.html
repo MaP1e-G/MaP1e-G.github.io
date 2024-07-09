@@ -285,15 +285,15 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_801_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
-<h1>实现</h1>
-<p>今天这个动态规划，不会，摆了.jpg<br>
-之后看了下官方题解的思路，然后照着思路写了一下代码，下面贴大体思路和代码：<br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_801_2.png" srcset="/img/loading.gif" lazyload alt="思路"></p>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_801_1.png" srcset="/img/loading.gif" lazyload alt="第一张图" /></p>
+<h1 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h1>
+<p>今天这个动态规划，不会，摆了.jpg<br />
+之后看了下官方题解的思路，然后照着思路写了一下代码，下面贴大体思路和代码：<br />
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_801_2.png" srcset="/img/loading.gif" lazyload alt="思路" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">minSwap</span>(<span class="hljs-params">self, nums1: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], nums2: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        n = <span class="hljs-built_in">len</span>(nums1)<br>        dp0 = [<span class="hljs-number">0</span>] * n<br>        dp1 = [<span class="hljs-number">1</span>] * n<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, n):<br>            <span class="hljs-keyword">if</span> nums1[i] &gt; nums1[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums2[i] &gt; nums2[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums1[i] &gt; nums2[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums2[i] &gt; nums1[i - <span class="hljs-number">1</span>]:<br>                dp0[i] = <span class="hljs-built_in">min</span>(dp0[i - <span class="hljs-number">1</span>], dp1[i - <span class="hljs-number">1</span>])<br>                dp1[i] = <span class="hljs-built_in">min</span>(dp0[i - <span class="hljs-number">1</span>], dp1[i - <span class="hljs-number">1</span>]) + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span> nums1[i] &gt; nums2[i - <span class="hljs-number">1</span>] <span class="hljs-keyword">and</span> nums2[i] &gt; nums1[i - <span class="hljs-number">1</span>]:<br>                dp0[i] = dp1[i - <span class="hljs-number">1</span>]<br>                dp1[i] = dp0[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                dp0[i] = dp0[i - <span class="hljs-number">1</span>]<br>                dp1[i] = dp1[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(dp0[-<span class="hljs-number">1</span>], dp1[-<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
 <p>还是得多多练习动态规划呜呜</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

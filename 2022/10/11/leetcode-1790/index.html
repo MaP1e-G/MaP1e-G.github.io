@@ -284,16 +284,16 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1790_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
-<h1>思路及实现</h1>
-<p>首先考虑到特殊情况，如果两个字符串相等，那么直接返回True即可。<br>
-如果不相等，题目所给条件是仅交换一次，顺着这一点我们可以想到，找到需要进行交换的两个位置，如果交换后不相等，返回True即可。<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1790_1.png" srcset="/img/loading.gif" lazyload alt="第一张图" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<p>首先考虑到特殊情况，如果两个字符串相等，那么直接返回True即可。<br />
+如果不相等，题目所给条件是仅交换一次，顺着这一点我们可以想到，找到需要进行交换的两个位置，如果交换后不相等，返回True即可。<br />
 在我的代码中使用了变量<code>cnt</code>来寻找字符串中出现不匹配字符的次数，并且用了一个<code>scout</code>来保存第一次找到的不匹配的位置。如果<code>cnt &gt; 1</code>说明有两个地方不匹配了，此时将当前位置与<code>scout</code>位置的元素进行交换，再比较字符串即可知道一次交换是否相等。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">areAlmostEqual</span>(<span class="hljs-params">self, s1: <span class="hljs-built_in">str</span>, s2: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        <span class="hljs-keyword">if</span> s1 == s2:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            cnt = <span class="hljs-number">0</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s1)):<br>                <span class="hljs-keyword">if</span> s1[i] != s2[i]:<br>                    cnt += <span class="hljs-number">1</span><br>                    <span class="hljs-keyword">if</span> cnt &gt; <span class="hljs-number">1</span>:<br>                        s: <span class="hljs-built_in">str</span> = s2[<span class="hljs-number">0</span>: scout] + s2[i] + s2[scout + <span class="hljs-number">1</span>: i] + s2[scout] + s2[i + <span class="hljs-number">1</span>:]<br>                        <span class="hljs-keyword">if</span> s1 == s:<br>                            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>                        <span class="hljs-keyword">else</span>:<br>                            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>                    scout = i<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
-<p>其实可以使用两个变量和一组<code>if...elif</code>保存两个位置，<code>else</code>情况则是多于两个位置的字符不同，这种情况一次交换肯定无法导致两个字符串相同，返回<code>False</code>即可。<br>
+<p>其实可以使用两个变量和一组<code>if...elif</code>保存两个位置，<code>else</code>情况则是多于两个位置的字符不同，这种情况一次交换肯定无法导致两个字符串相同，返回<code>False</code>即可。<br />
 而且这样最后也不需要拼接字符串，只需要判断两个字符串两个位置（<code>s1[i]</code>对<code>s2[j]</code>，<code>s1[j]</code>对<code>s2[i]</code>）的字符是否相同。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

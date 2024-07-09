@@ -283,7 +283,7 @@
             
             <div class="markdown-body">
               
-              <h1>常用集合</h1>
+              <h1 id="常用集合"><a class="markdownIt-Anchor" href="#常用集合"></a> 常用集合</h1>
 <p>参见下表：</p>
 <table>
 <thead>
@@ -345,14 +345,14 @@
 </tr>
 </tbody>
 </table>
-<p>然后来总结一下规律，如果我们要使用线程安全或不可变集合（不可变类型其实就是线程安全的）的话，就加上<code>Concurrent</code>或者<code>Immutable</code>前缀即可。<br>
-（顺带一提 Java 的 <code>HashMap</code> 等同于 C# 的 <code>Dictionary</code>，我指用途，它们的底层实现还是不一样的）<br>
-所有集合都直接或间接基于<code>ICollection&lt;T&gt;</code>或<code>ICollection</code>接口。<code>IList</code>和<code>IDictionary</code>及其泛型对应项均派生自这两个接口。<br>
-在基于<code>IList</code>或直接基于<code>ICollection</code>的集合中，每个元素都只包含一个值。而在基于<code>IDictionary</code>接口的集合中，每个元素都只包含一个键和一个值。<br>
-需要高效的多线程集合访问时，请使用<code>System.Collections.Concurrent</code>命名空间中的泛型集合。<br>
+<p>然后来总结一下规律，如果我们要使用线程安全或不可变集合（不可变类型其实就是线程安全的）的话，就加上<code>Concurrent</code>或者<code>Immutable</code>前缀即可。<br />
+（顺带一提 Java 的 <code>HashMap</code> 等同于 C# 的 <code>Dictionary</code>，我指用途，它们的底层实现还是不一样的）<br />
+所有集合都直接或间接基于<code>ICollection&lt;T&gt;</code>或<code>ICollection</code>接口。<code>IList</code>和<code>IDictionary</code>及其泛型对应项均派生自这两个接口。<br />
+在基于<code>IList</code>或直接基于<code>ICollection</code>的集合中，每个元素都只包含一个值。而在基于<code>IDictionary</code>接口的集合中，每个元素都只包含一个键和一个值。<br />
+需要高效的多线程集合访问时，请使用<code>System.Collections.Concurrent</code>命名空间中的泛型集合。<br />
 建议总是使用泛型集合，因为使用泛型集合可获得类型安全的自动化优点而无需从基集合类型派生和实现特定类型的成员。而且使用泛型时也不必对元素进行装箱（除非是值类型）。</p>
-<h2 id="Array">Array</h2>
-<p>这个其实是 CLR 中所有数组的基类，比如：<code>int[]</code>等，也是只有系统和编译器才能显式从<code>Array</code>类派生。只要知道不同于<code>ArrayList</code>动态数组，<code>Array</code>具有固定的容量就行了。<br>
+<h2 id="array"><a class="markdownIt-Anchor" href="#array"></a> Array</h2>
+<p>这个其实是 CLR 中所有数组的基类，比如：<code>int[]</code>等，也是只有系统和编译器才能显式从<code>Array</code>类派生。只要知道不同于<code>ArrayList</code>动态数组，<code>Array</code>具有固定的容量就行了。<br />
 下面是一些常用的属性：</p>
 <table>
 <thead>
@@ -408,15 +408,15 @@
 </tbody>
 </table>
 <p>（OK那么到这里其实我发现一个问题，即使我在这里精简文档，它还是有那么多看上去就很有用很方便的方法，所以我觉得还是得平时多写和多看文档，在这里总结不下，所以我决定还是在文章中写一点文档中提到的小知识）</p>
-<h2 id="List-T">List<T></h2>
+<h2 id="listt"><a class="markdownIt-Anchor" href="#listt"></a> List<T></h2>
 <p>是<code>ArrayList</code>的泛型实现，可变数组，该咋用咋用。</p>
-<h2 id="Queue-Stack">Queue/Stack</h2>
+<h2 id="queuestack"><a class="markdownIt-Anchor" href="#queuestack"></a> Queue/Stack</h2>
 <p>就是队列和栈，该咋用咋用。</p>
-<h2 id="LinkedList-T">LinkedList<T></h2>
+<h2 id="linkedlistt"><a class="markdownIt-Anchor" href="#linkedlistt"></a> LinkedList<T></h2>
 <p>就是链表，往里面存元素其实是存<code>LinkedListNode&lt;T&gt;</code>，该咋用咋用。</p>
-<h2 id="Dictionary-TKey-TValue">Dictionary&lt;TKey, TValue&gt;</h2>
+<h2 id="dictionarytkey-tvalue"><a class="markdownIt-Anchor" href="#dictionarytkey-tvalue"></a> Dictionary&lt;TKey, TValue&gt;</h2>
 <p>就是字典，该咋用咋用。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

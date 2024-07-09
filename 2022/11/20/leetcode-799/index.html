@@ -289,24 +289,24 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_1.png" srcset="/img/loading.gif" lazyload alt="799"></p>
-<h1>思路及实现</h1>
-<p>OK看到这种题目首先我的思路就是找规律，先把每层数字列一下先：<br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_2.png" srcset="/img/loading.gif" lazyload alt="找规律！"><br>
-以及在倒入香槟的时候千万别把自己套进去了，我就是把自己套进去想着香槟一瓶一瓶倒下去再分配，结果压根没想到怎么做，其实一次性倒在最上边的杯子上，溢出了就往下分，效果是一样的。<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_1.png" srcset="/img/loading.gif" lazyload alt="799" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<p>OK看到这种题目首先我的思路就是找规律，先把每层数字列一下先：<br />
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_2.png" srcset="/img/loading.gif" lazyload alt="找规律！" /><br />
+以及在倒入香槟的时候千万别把自己套进去了，我就是把自己套进去想着香槟一瓶一瓶倒下去再分配，结果压根没想到怎么做，其实一次性倒在最上边的杯子上，溢出了就往下分，效果是一样的。<br />
 现在已经找到规律了，那么跟着规律走就容易出思路了。看到左边的图，可以发现我写出了两种下标，其实也可以说对应两种方法。</p>
-<h2 id="直接计算法">直接计算法</h2>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_3.png" srcset="/img/loading.gif" lazyload alt="直接计算法的思路"></p>
+<h2 id="直接计算法"><a class="markdownIt-Anchor" href="#直接计算法"></a> 直接计算法</h2>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_3.png" srcset="/img/loading.gif" lazyload alt="直接计算法的思路" /></p>
 <div class="note note-warning">
             <p>OK那么这里我想说的是，我在画这张图的时候还没发现他是从<code>0</code>开始计数的，所以在写代码的时候<code>row</code>变成了从<code>0</code>开始而不是<code>1</code>，所以后续手动补上<code>+1</code>，也因为这个原因代码看上去可能比较乱，比较难读，果咩那塞！</p>
           </div>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">champagneTower</span>(<span class="hljs-params">self, poured: <span class="hljs-built_in">int</span>, query_row: <span class="hljs-built_in">int</span>, query_glass: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>        glass_num = (<span class="hljs-number">1</span> + query_row + <span class="hljs-number">1</span>) * (query_row + <span class="hljs-number">1</span>) // <span class="hljs-number">2</span><br>        v = [<span class="hljs-number">0</span>] * glass_num<br>        v[<span class="hljs-number">0</span>] = poured<br>        i = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(query_row):<br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(row + <span class="hljs-number">1</span>):<br>                <span class="hljs-keyword">if</span> v[i] &gt; <span class="hljs-number">1</span>:<br>                    v[i + row + <span class="hljs-number">1</span>] += (v[i] - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span><br>                    v[i + row + <span class="hljs-number">2</span>] += (v[i] - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span><br>                i += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(v[-(query_row - query_glass + <span class="hljs-number">1</span>)], <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="计算每行法">计算每行法</h2>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_4.png" srcset="/img/loading.gif" lazyload alt="计算每行法的思路"><br>
+<h2 id="计算每行法"><a class="markdownIt-Anchor" href="#计算每行法"></a> 计算每行法</h2>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_799_4.png" srcset="/img/loading.gif" lazyload alt="计算每行法的思路" /><br />
 可以看到啊，其实这就是官解的思路和代码，非常简洁明了且快速。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">champagneTower</span>(<span class="hljs-params">self, poured: <span class="hljs-built_in">int</span>, query_row: <span class="hljs-built_in">int</span>, query_glass: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>        v = [poured]<br>        <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, query_row + <span class="hljs-number">1</span>):<br>            next_v = [<span class="hljs-number">0</span>] * (n + <span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(v)):<br>                <span class="hljs-keyword">if</span> v[i] &gt; <span class="hljs-number">1</span>:<br>                    next_v[i] += (v[i] - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span><br>                    next_v[i + <span class="hljs-number">1</span>] += (v[i] - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span><br>            v = next_v<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">min</span>(<span class="hljs-number">1</span>, v[query_glass])<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

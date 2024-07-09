@@ -283,9 +283,9 @@
             
             <div class="markdown-body">
               
-              <h1>Vue2.x 文档笔记-2</h1>
-<h2 id="计算属性和侦听器">计算属性和侦听器</h2>
-<h3 id="计算属性">计算属性</h3>
+              <h1 id="vue2x-文档笔记-2"><a class="markdownIt-Anchor" href="#vue2x-文档笔记-2"></a> Vue2.x 文档笔记-2</h1>
+<h2 id="计算属性和侦听器"><a class="markdownIt-Anchor" href="#计算属性和侦听器"></a> 计算属性和侦听器</h2>
+<h3 id="计算属性"><a class="markdownIt-Anchor" href="#计算属性"></a> 计算属性</h3>
 <p>计算属性在Vue实例的<code>computed</code>里边进行声明，如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  ...<br>  <span class="hljs-attr">computed</span>: &#123;<br>    <span class="hljs-attr">reversedMsg</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">message</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-title function_">reverse</span>().<span class="hljs-title function_">join</span>()<br>    &#125;<br>  &#125;,<br>  ...<br>&#125;)<br></code></pre></td></tr></table></figure>
 <p>在上面<code>reversedMsg</code>属性后面写的函数其实就是<code>reversedMsg</code>属性的<code>getter</code>方法。</p>
@@ -293,57 +293,57 @@
 <p>注意计算属性是基于响应式变量的！像：<code>return Date.now()</code>中的<code>Date.now()</code>不是响应式依赖，计算属性不会更新！</p>
 <p>我们也可以手动为计算属性添加一个<code>setter</code>方法：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">computed</span>: &#123;<br>  <span class="hljs-attr">reversedMsg</span>: &#123;<br>    <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        ...<br>    &#125;,<br>    <span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>        ...<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="侦听器">侦听器</h3>
+<h3 id="侦听器"><a class="markdownIt-Anchor" href="#侦听器"></a> 侦听器</h3>
 <p>侦听器就是会监控一个变量（数据）的变化然后执行回调函数的东西。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的</p>
-<h2 id="列表渲染">列表渲染</h2>
-<h3 id="v-for">v-for</h3>
+<h2 id="列表渲染"><a class="markdownIt-Anchor" href="#列表渲染"></a> 列表渲染</h2>
+<h3 id="v-for"><a class="markdownIt-Anchor" href="#v-for"></a> v-for</h3>
 <p>就当成是Vue提供的一个<code>foreach</code>语句吧，可以用它来基于一个数组来渲染一个列表，比如我们向后端发送请求，后端返回给我们数据库里的数据，我们要把这些数据渲染到表格或者列表上，就可以使用<code>v-for</code>指令，当然了，如果返回的是对象列表（数组），取出来的是一个对象，那我们也可以访问这个对象的拥有的属性：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in items&quot;</span>&gt;</span> &#123;&#123; item.value &#125;&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p><code>v-for</code>还支持一个可选的第二个参数，即当前项的索引（这里顺序和python相反，注意区分）：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item, index in items&quot;</span>&gt;</span> &#123;&#123; index &#125;&#125;：&#123;&#123; item.value &#125;&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="维护状态">维护状态</h3>
+<h3 id="维护状态"><a class="markdownIt-Anchor" href="#维护状态"></a> 维护状态</h3>
 <p>当 Vue 正在更新使用 <code>v-for</code> 渲染的元素列表时，它默认使用“就地更新”的策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是就地更新每个元素，并且确保它们在每个索引位置正确渲染。</p>
 <p>为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 <code>key</code> attribute：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in items&quot;</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span>&#123;&#123; item.value &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>总结一下：除非真的很卡（性能很差），不然就乖乖给每个<code>v-for</code>写<code>:key</code>，以避免莫名其妙的bug。</p>
-<h3 id="显示过滤-排序后的结果">显示过滤/排序后的结果</h3>
+<h3 id="显示过滤排序后的结果"><a class="markdownIt-Anchor" href="#显示过滤排序后的结果"></a> 显示过滤/排序后的结果</h3>
 <p>如果想将数组里的数据进行过滤或者排序，就对原数组使用<code>filter</code>方法，这个方法会返回一个新数组。当然了，为了保持响应式，可以创建一个计算属性，来返回过滤或排序后的数组，而且这样做不会改变原数组：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><br></code></pre></td></tr></table></figure>
 <p>但是在嵌套循环<code>v-for</code>中，计算属性就不适用了（毕竟我们没办法为数组中的数组来创建一个计算属性），所以在嵌套循环中，直接使用方法即可。（这也说明了方法和计算属性就是互通的，前者泛用广，后者性能高）：</p>
 <figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">```<br><br>## 事件处理<br><br>### v-on<br><br>`v-on`指令用于监听DOM事件，如果监听的事件被触发，那么将执行用于处理这个事件的代码。这些代码可以是表达式，也可以是一个事件处理方法。<br><br>```html<br>&lt;button @click=<span class="hljs-string">&quot;cnt += 1&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
-<h3 id="事件处理方法">事件处理方法</h3>
+<h3 id="事件处理方法"><a class="markdownIt-Anchor" href="#事件处理方法"></a> 事件处理方法</h3>
 <p>如果代码过多的话，就考虑用方法来对事件进行响应。对此，<code>v-on</code>可以接受一个需要调用的方法名称（<code>@</code>是<code>v-on:</code>的缩写！）：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;greet&quot;</span>&gt;</span>Greet<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">...<br><span class="hljs-attr">methods</span>: &#123;<br>  <span class="hljs-attr">greet</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) &#123;<br>    ...<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="事件修饰符">事件修饰符</h3>
+<h3 id="事件修饰符"><a class="markdownIt-Anchor" href="#事件修饰符"></a> 事件修饰符</h3>
 <p>Vue.js为<code>v-on</code>提供了一些特殊的事件修饰符，可以方便我们快速实现一些逻辑，比如阻止事件传播、让提交事件不再重载页面和点击事件只触发一次等等：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click.once</span>=<span class="hljs-string">&quot;doThis&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="按键修饰符">按键修饰符</h3>
+<h3 id="按键修饰符"><a class="markdownIt-Anchor" href="#按键修饰符"></a> 按键修饰符</h3>
 <p>Vue允许为<code>v-on</code>监听键盘事件时添加按键修饰符：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-on:keyup.enter</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="系统修饰符">系统修饰符</h3>
+<h3 id="系统修饰符"><a class="markdownIt-Anchor" href="#系统修饰符"></a> 系统修饰符</h3>
 <p>这些修饰符则是用来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。详细参考<a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/guide/events.html#%E7%B3%BB%E7%BB%9F%E4%BF%AE%E9%A5%B0%E9%94%AE">官方文档</a>。</p>
-<h2 id="组件基础">组件基础</h2>
+<h2 id="组件基础"><a class="markdownIt-Anchor" href="#组件基础"></a> 组件基础</h2>
 <p>其实就像安卓的那些小组件，需要时可以把这些小组件拖到桌面用，而Vue的组件也是如此，如果我们的界面需要某一个组件，那么可以直接引入这个组件，而且可以在同一个界面创建多个同一组件的实例，实例之间的数据互不影响。</p>
 <blockquote>
 <p>组件是可以复用的Vue实例</p>
 </blockquote>
-<h3 id="组件注册">组件注册</h3>
+<h3 id="组件注册"><a class="markdownIt-Anchor" href="#组件注册"></a> 组件注册</h3>
 <p>我们可以通过<code>Vue.component('component-name', &#123; ... &#125;)</code>来<strong>全局注册</strong>一个组件。</p>
-<h3 id="data必须是一个函数">data必须是一个函数</h3>
+<h3 id="data必须是一个函数"><a class="markdownIt-Anchor" href="#data必须是一个函数"></a> data必须是一个函数</h3>
 <p><strong>一个组件的 <code>data</code> 选项必须是一个函数</strong>，这样每个实例可以维护一份被返回对象的独立的拷贝：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">data</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">count</span>: <span class="hljs-number">0</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="通过Prop向子组件传递数据">通过Prop向子组件传递数据</h3>
+<h3 id="通过prop向子组件传递数据"><a class="markdownIt-Anchor" href="#通过prop向子组件传递数据"></a> 通过Prop向子组件传递数据</h3>
 <p>当一个值传递给一个 prop attribute 的时候，它就变成了那个组件实例的一个property。我们可以用一个 <code>props</code> 选项将我们需要传递的数据名包含在该组件可接受的<code>prop</code>列表中，并且我们可以像访问<code>data</code>中的值一样访问<code>props</code>中的<code>prop</code>，比如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">component</span>(<span class="hljs-string">&#x27;blog-test&#x27;</span>, &#123;<br>  <span class="hljs-attr">props</span>: [<span class="hljs-string">&#x27;title&#x27;</span>],<br>  <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;/h3&gt;&#x27;</span><br>&#125;)<br></code></pre></td></tr></table></figure>
 <p>要把数据作为一个自定义<code>attribute</code>传递进来，直接在组件标签中为对应的<code>prop</code>赋值即可：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-test</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;My First Blog&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-test</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>我们还可以使用<code>v-bind</code>来动态传递<code>prop</code>：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-test</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;post in posts&quot;</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">&quot;post.id&quot;</span> <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">&quot;post.title&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-test</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="单个根元素">单个根元素</h3>
+<h3 id="单个根元素"><a class="markdownIt-Anchor" href="#单个根元素"></a> 单个根元素</h3>
 <p>组件中只能拥有一个根元素，所以如果组件的模板中有多个html标签，我们就需要将这些标签用一个父元素包裹起来，比如<code>&lt;div&gt;</code>标签：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;blog-post&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="监听子组件事件">监听子组件事件</h3>
+<h3 id="监听子组件事件"><a class="markdownIt-Anchor" href="#监听子组件事件"></a> 监听子组件事件</h3>
 <p>子组件可以使用<code>$emit</code>来发射（直译的，你也可以理解为广播一个事件、抛出一个事件等等）一个事件，比如：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;$emit(&#x27;component-button-click&#x27;)&quot;</span>&gt;</span>Click here<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>然后在父组件中，同样地用<code>v-on</code>指令来监听子组件实例地任意事件：</p>
@@ -354,13 +354,13 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-test</span> <span class="hljs-attr">v-on:component-button-click</span>=<span class="hljs-string">&quot;count += $event&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-test</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>又或是成为作为第一个参数传入事件处理方法：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">methods</span>: &#123;<br>  <span class="hljs-attr">doSomething</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> += value<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>我们还可以在组件上使用<code>v-model</code>，不过这部分稍微有点复杂，涉及到<code>v-model</code>会被解释成什么样子（会被解释成<code>v-bind</code>和<code>v-on </code>），所以建议看<a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/guide/components.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model">官方文档</a>。</p>
-<h3 id="通过插槽分发内容">通过插槽分发内容</h3>
+<p>我们还可以在组件上使用<code>v-model</code>，不过这部分稍微有点复杂，涉及到<code>v-model</code>会被解释成什么样子（会被解释成<code>v-bind</code>和<code>v-on</code>），所以建议看<a target="_blank" rel="noopener" href="https://v2.cn.vuejs.org/v2/guide/components.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model">官方文档</a>。</p>
+<h3 id="通过插槽分发内容"><a class="markdownIt-Anchor" href="#通过插槽分发内容"></a> 通过插槽分发内容</h3>
 <p>如果我们要向组件里面插入额外的<code>html</code>标签，那就需要给组件添加一个插槽，如：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-test</span> <span class="hljs-attr">v-on:component-button-click</span>=<span class="hljs-string">&quot;doSomething&quot;</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><br>        Hello!<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">blog-test</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>如果要使组件能够正常工作，那么在组件的模板中，应该加入<code>&lt;slot&gt;</code>标签：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">component</span>(<span class="hljs-string">&#x27;blog-test&#x27;</span>, &#123;<br>  ...<br>  <span class="hljs-attr">template</span>: <span class="hljs-string">`</span><br><span class="hljs-string">    &lt;div&gt;</span><br><span class="hljs-string">      &lt;slot&gt;&lt;/slot&gt;</span><br><span class="hljs-string">    &lt;/div&gt;</span><br><span class="hljs-string">  `</span><br>  ...<br>&#125;)<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

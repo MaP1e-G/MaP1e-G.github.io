@@ -282,37 +282,37 @@
             
             <div class="markdown-body">
               
-              <h1>想说的话</h1>
-<p>本系列文章可能不会是你所期待的文章，在阅读的时候你可能会觉得该文章的问题包括但不限于：抽象、错误、跳跃，是因为我在写该系列文章的时候并没有像之前其他系列文章那样做。<br>
-该系列文章更多的是我对书中知识的大概概括。<br>
-阅读该系列文章可能会需要一定编程基础。<br>
+              <h1 id="想说的话"><a class="markdownIt-Anchor" href="#想说的话"></a> 想说的话</h1>
+<p>本系列文章可能不会是你所期待的文章，在阅读的时候你可能会觉得该文章的问题包括但不限于：抽象、错误、跳跃，是因为我在写该系列文章的时候并没有像之前其他系列文章那样做。<br />
+该系列文章更多的是我对书中知识的大概概括。<br />
+阅读该系列文章可能会需要一定编程基础。<br />
 敬请谅解。</p>
-<h1>第一章 入门</h1>
-<h2 id="命令"><code>./</code>命令</h2>
-<p>例子：<code>./hello</code><br>
+<h1 id="第一章-入门"><a class="markdownIt-Anchor" href="#第一章-入门"></a> 第一章 入门</h1>
+<h2 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> <code>./</code>命令</h2>
+<p>例子：<code>./hello</code><br />
 特别指示shell去执行当前目录下给定的名称的程序</p>
-<h2 id="gcc命令"><code>gcc</code>命令</h2>
-<p><code>-I + 位置</code><br>
-例子：<code>gcc -I/usr/openwin/include fred.c</code><br>
+<h2 id="gcc命令"><a class="markdownIt-Anchor" href="#gcc命令"></a> <code>gcc</code>命令</h2>
+<p><code>-I + 位置</code><br />
+例子：<code>gcc -I/usr/openwin/include fred.c</code><br />
 查找包含保存在子目录或非标准位置中的头文件</p>
-<h2 id="命令的简写">命令的简写</h2>
-<p><code>gcc -o fred fred.c /usr/lib/libm.a</code>可以写成<code>gcc -o fred fred.c -lm</code><br>
+<h2 id="命令的简写"><a class="markdownIt-Anchor" href="#命令的简写"></a> 命令的简写</h2>
+<p><code>gcc -o fred fred.c /usr/lib/libm.a</code>可以写成<code>gcc -o fred fred.c -lm</code><br />
 l == lib, m == 函数库名,即：<code>-l + 函数库名</code></p>
-<h2 id="L-位置"><code>-L + 位置</code></h2>
-<p>例子：<code>gcc -o x11fred -L/usr/openwin/lib x11fred.c -lX11</code><br>
+<h2 id="-l-位置"><a class="markdownIt-Anchor" href="#-l-位置"></a> <code>-L + 位置</code></h2>
+<p>例子：<code>gcc -o x11fred -L/usr/openwin/lib x11fred.c -lX11</code><br />
 为编译器增加库的搜索路径</p>
-<h2 id="c"><code>-c</code></h2>
+<h2 id="-c"><a class="markdownIt-Anchor" href="#-c"></a> <code>-c</code></h2>
 <p>作用是阻止编译器创建一个完整的程序(一般情况下输出一个<code>.o</code>文件</p>
-<h2 id="ar程序"><code>ar</code>程序</h2>
-<p>例子：<code>ar crv libfoo.a bill.o fred.o</code><br>
+<h2 id="ar程序"><a class="markdownIt-Anchor" href="#ar程序"></a> <code>ar</code>程序</h2>
+<p>例子：<code>ar crv libfoo.a bill.o fred.o</code><br />
 将若干单独的文件归并到一个大的文件中以创建归档文件或集合</p>
-<h2 id="grep命令"><code>grep</code>命令</h2>
-<p>搜索包含某些特定定义和函数原型的头文件<br>
-例子：<code>grep EXIT_ *.h</code><br>
+<h2 id="grep命令"><a class="markdownIt-Anchor" href="#grep命令"></a> <code>grep</code>命令</h2>
+<p>搜索包含某些特定定义和函数原型的头文件<br />
+例子：<code>grep EXIT_ *.h</code><br />
 在当前目录下的所有以<code>.h</code>结尾的文件中搜索字符串<code>EXIT_</code>。</p>
-<h2 id="nm命令"><code>nm</code>命令</h2>
+<h2 id="nm命令"><a class="markdownIt-Anchor" href="#nm命令"></a> <code>nm</code>命令</h2>
 <p>查看哪些函数被包含在目标文件、函数库或可执行文件里。</p>
-<h2 id="Linux和Windows环境下的文件格式区分">Linux和Windows环境下的文件格式区分</h2>
+<h2 id="linux和windows环境下的文件格式区分"><a class="markdownIt-Anchor" href="#linux和windows环境下的文件格式区分"></a> Linux和Windows环境下的文件格式区分</h2>
 <p>第一行为在Linux环境下对应的文件格式，第二行则是在Windows环境下产生的文件格式。</p>
 <table>
 <thead>
@@ -335,50 +335,50 @@ l == lib, m == 函数库名,即：<code>-l + 函数库名</code></p>
 </tr>
 </tbody>
 </table>
-<h2 id="man命令"><code>man</code>命令</h2>
-<p>例子：<code>man gcc</code><br>
+<h2 id="man命令"><a class="markdownIt-Anchor" href="#man命令"></a> <code>man</code>命令</h2>
+<p>例子：<code>man gcc</code><br />
 访问在线手册页，按空格键读下一页，按<code>Enter/Return</code>键读下一行，按<code>q</code>退出。</p>
-<h2 id="info命令"><code>info</code>命令</h2>
+<h2 id="info命令"><a class="markdownIt-Anchor" href="#info命令"></a> <code>info</code>命令</h2>
 <p>GNU软件使用的在线文档系统，按下<code>Ctrl+H</code>以获得帮助信息。</p>
-<h1>第二章 Shell程序设计</h1>
-<h2 id="2-1-重定向输出">2.1 重定向输出</h2>
+<h1 id="第二章-shell程序设计"><a class="markdownIt-Anchor" href="#第二章-shell程序设计"></a> 第二章 Shell程序设计</h1>
+<h2 id="21-重定向输出"><a class="markdownIt-Anchor" href="#21-重定向输出"></a> 2.1 重定向输出</h2>
 <p>文件描述符0代表一个程序的标准输入，文件描述符1代表标准输出，2代表标准错误输出。</p>
-<h3 id="操作符"><code>&gt;</code>操作符</h3>
-<p>例子：<code>ls -l &gt; lsoutput.txt</code><br>
+<h3 id="操作符"><a class="markdownIt-Anchor" href="#操作符"></a> <code>&gt;</code>操作符</h3>
+<p>例子：<code>ls -l &gt; lsoutput.txt</code><br />
 把命令的输出保存到文件中。如果文件已存在则覆盖，可使用命令<code>set -o noclobber</code>或<code>set -C</code>设置<code>noclobber</code>选项，从而阻止重定向操作对一个已有文件的覆盖。可以使用<code>set +o noclobber</code>命令取消该选项。</p>
-<h3 id="操作符-2"><code>&gt;&gt;</code>操作符</h3>
-<p>例子：<code>ps &gt;&gt; lsoutput.txt</code><br>
+<h3 id="操作符-2"><a class="markdownIt-Anchor" href="#操作符-2"></a> <code>&gt;&gt;</code>操作符</h3>
+<p>例子：<code>ps &gt;&gt; lsoutput.txt</code><br />
 把命令的输出附加到指定文件的尾部。</p>
-<h3 id="2"><code>2&gt;</code></h3>
-<p>例子：<code>kill -HUP 1234 &gt;killout.txt 2&gt;killerr.txt</code><br>
-对标准错误输出进行重定向。当需要丢弃错误信息并阻止它显示在屏幕上时，这个方法很有用(比如一些错误无伤大雅，不需要弹框提示，但是应该把它写进去log)。<br>
-在上面的例子中，标准输出和标准错误输出分别被重定向到不同的文件中了。<br>
-<code>kill -1 1234 &gt;killouterr.txt 2&gt;&amp;1</code><br>
+<h3 id="2"><a class="markdownIt-Anchor" href="#2"></a> <code>2&gt;</code></h3>
+<p>例子：<code>kill -HUP 1234 &gt;killout.txt 2&gt;killerr.txt</code><br />
+对标准错误输出进行重定向。当需要丢弃错误信息并阻止它显示在屏幕上时，这个方法很有用(比如一些错误无伤大雅，不需要弹框提示，但是应该把它写进去log)。<br />
+在上面的例子中，标准输出和标准错误输出分别被重定向到不同的文件中了。<br />
+<code>kill -1 1234 &gt;killouterr.txt 2&gt;&amp;1</code><br />
 两组输出都被重定向到一个文件中了。 <code>&gt;&amp;</code>操作符可以结合两个输出。</p>
-<h3 id="dev-null"><code>&gt;/dev/null</code></h3>
-<p>例子：<code>kill -l 1234 &gt;/dev/null 2&gt;&amp;1</code><br>
+<h3 id="devnull"><a class="markdownIt-Anchor" href="#devnull"></a> <code>&gt;/dev/null</code></h3>
+<p>例子：<code>kill -l 1234 &gt;/dev/null 2&gt;&amp;1</code><br />
 丢弃输出。</p>
-<h3 id="操作符-3"><code>|</code>操作符</h3>
-<p>例子：<code>ps &gt; psout.txt</code><br>
-你可以用管道操作符<code>|</code>来连接进程。<br>
+<h3 id="操作符-3"><a class="markdownIt-Anchor" href="#操作符-3"></a> <code>|</code>操作符</h3>
+<p>例子：<code>ps &gt; psout.txt</code><br />
+你可以用管道操作符<code>|</code>来连接进程。<br />
 比如<code>sort psout.txt &gt; pssort.out</code>可以写成：<code>ps | sort &gt; pssort.out</code></p>
-<h2 id="2-2-编写第一个脚本">2.2 编写第一个脚本</h2>
-<p>假设现在我们已经编写好了一个脚本文件<code>first</code>，我们可以这样使用：<code>/bin/sh first</code><br>
-看上去很麻烦，可以用<code>chmod</code>命令来改变这个文件的模式：<code>chmod +x first</code><br>
+<h2 id="22-编写第一个脚本"><a class="markdownIt-Anchor" href="#22-编写第一个脚本"></a> 2.2 编写第一个脚本</h2>
+<p>假设现在我们已经编写好了一个脚本文件<code>first</code>，我们可以这样使用：<code>/bin/sh first</code><br />
+看上去很麻烦，可以用<code>chmod</code>命令来改变这个文件的模式：<code>chmod +x first</code><br />
 然后就可以使用<code>first</code>(配置过环境变量PATH)或者<code>./first</code>(推荐)执行了。</p>
-<h2 id="2-3-shell的语法">2.3 shell的语法</h2>
-<h3 id="2-3-1-变量">2.3.1 变量</h3>
-<p>创建变量：<code>x=1</code>(在默认情况下，所有变量都被看作字符串并以字符串来存储。shell和一些工具程序会在需要时把数值型字符串转换为对应的数值以对它们进行操作。)<br>
-访问变量：通过在变量名前加一个<code>$</code>符号来访问它的内容。<br>
+<h2 id="23-shell的语法"><a class="markdownIt-Anchor" href="#23-shell的语法"></a> 2.3 shell的语法</h2>
+<h3 id="231-变量"><a class="markdownIt-Anchor" href="#231-变量"></a> 2.3.1 变量</h3>
+<p>创建变量：<code>x=1</code>(在默认情况下，所有变量都被看作字符串并以字符串来存储。shell和一些工具程序会在需要时把数值型字符串转换为对应的数值以对它们进行操作。)<br />
+访问变量：通过在变量名前加一个<code>$</code>符号来访问它的内容。<br />
 例子：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">salutation=Hello</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$salutation</span></span><br>Hello<br></code></pre></td></tr></table></figure>
 <p>注意，如果字符串里包含空格，就必须用引号把它们括起来。此外，等号两边不能有空格。</p>
-<h4 id="read命令">read命令</h4>
-<p>例子：<code>read salutation</code><br>
+<h4 id="read命令"><a class="markdownIt-Anchor" href="#read命令"></a> read命令</h4>
+<p>例子：<code>read salutation</code><br />
 将用户的输入赋值给一个变量。</p>
-<h4 id="引号的使用">引号的使用</h4>
+<h4 id="引号的使用"><a class="markdownIt-Anchor" href="#引号的使用"></a> 引号的使用</h4>
 <p>变量在引号中的行为取决于你所使用的引号类型。如果把<code>$</code>变量表达式放在双引号中，程序执行到这一行时就会把变量替换为它的值；如果放在单引号中，就不会替换。在<code>$</code>前面加上一个<code>\</code>字符会取消<code>$</code>的特殊含义。</p>
-<h4 id="环境变量">环境变量</h4>
+<h4 id="环境变量"><a class="markdownIt-Anchor" href="#环境变量"></a> 环境变量</h4>
 <p>当一个shell脚本程序开始执行时，一些变量会根据环境设置中的值进行初始化。下面列举一些主要的变量：</p>
 <table>
 <thead>
@@ -422,40 +422,40 @@ l == lib, m == 函数库名,即：<code>-l + 函数库名</code></p>
 </tr>
 </tbody>
 </table>
-<h4 id="参数变量">参数变量</h4>
+<h4 id="参数变量"><a class="markdownIt-Anchor" href="#参数变量"></a> 参数变量</h4>
 <p>如果脚本程序在调用时带有参数，一些额外的变量就会被创建。</p>
 <blockquote>
-<p>即使没有传递任何参数，环境变量<code>$#</code>也依然存在，只不过它的值时0罢了。<br>
-例子：<code>$ ./try_var foo bar baz</code><br>
-|参数变量|说明|<br>
-|:----:|:----:|<br>
-|<code>$1, $2, ...</code>|脚本程序的参数|<br>
-|<code>$*</code>|在一个变量中列出所有的参数，各个参数之间用环境变量<code>IFS</code>中的第一个字符分隔开。如果<code>IFS</code>被修改了，那么<code>$#</code>将命令行分割为参数的方式就将随之改变|<br>
+<p>即使没有传递任何参数，环境变量<code>$#</code>也依然存在，只不过它的值时0罢了。<br />
+例子：<code>$ ./try_var foo bar baz</code><br />
+|参数变量|说明|<br />
+|:----😐:----😐<br />
+|<code>$1, $2, ...</code>|脚本程序的参数|<br />
+|<code>$*</code>|在一个变量中列出所有的参数，各个参数之间用环境变量<code>IFS</code>中的第一个字符分隔开。如果<code>IFS</code>被修改了，那么<code>$#</code>将命令行分割为参数的方式就将随之改变|<br />
 |<code>$@</code>|它是<code>$*</code>的一种变体，它不使用<code>IFS</code>环境变量，所以即使<code>IFS</code>为空，参数也不会挤在一起|</p>
 </blockquote>
-<h3 id="2-3-2-条件">2.3.2 条件</h3>
-<h4 id="test或-命令"><code>test</code>或<code>[</code>命令</h4>
+<h3 id="232-条件"><a class="markdownIt-Anchor" href="#232-条件"></a> 2.3.2 条件</h3>
+<h4 id="test或命令"><a class="markdownIt-Anchor" href="#test或命令"></a> <code>test</code>或<code>[</code>命令</h4>
 <p>例子：检查一个文件是否存在</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if test -f fred.c<br>then<br>...<br>else<br>...<br>fi<br></code></pre></td></tr></table></figure>
 <p>或者写成：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if [ -f fred.c ]<br>then<br>...<br>else<br>...<br>fi<br></code></pre></td></tr></table></figure>
-<p>注意要在[符号和被检查的条件之间留出空格。<br>
+<p>注意要在[符号和被检查的条件之间留出空格。<br />
 可以把<code>if</code>和<code>then</code>放在同一行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if [ -f fred.c ]; then  <br>...<br>fi<br></code></pre></td></tr></table></figure>
 <p><code>test</code>命令可以使用的条件类型可以归为三类：字符串比较、算数比较和与文件有关的条件测试。</p>
-<h3 id="2-3-3控制结构">2.3.3控制结构</h3>
-<h4 id="if…elif…else语句">if…elif…else语句</h4>
+<h3 id="233控制结构"><a class="markdownIt-Anchor" href="#233控制结构"></a> 2.3.3控制结构</h3>
+<h4 id="ifelifelse语句"><a class="markdownIt-Anchor" href="#ifelifelse语句"></a> if…elif…else语句</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Shell">if condition<br>then<br>    statements<br>elif condition<br>then<br>    statements<br>else<br>    statements<br>fi<br></code></pre></td></tr></table></figure>
-<h4 id="for语句">for语句</h4>
+<h4 id="for语句"><a class="markdownIt-Anchor" href="#for语句"></a> for语句</h4>
 <p>我们可以用for结构来循环处理一组值，这组值可以是任意字符串的集合。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">for variable in values<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>
 <p>例子：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Shell">for foo in bar fud 43<br>do<br>    echo $foo<br>done<br>exit 0<br></code></pre></td></tr></table></figure>
-<h4 id="while语句">while语句</h4>
+<h4 id="while语句"><a class="markdownIt-Anchor" href="#while语句"></a> while语句</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">while condition<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>
-<h4 id="until语句">until语句</h4>
+<h4 id="until语句"><a class="markdownIt-Anchor" href="#until语句"></a> until语句</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Shell">until condition<br>do<br>    statements<br>done<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

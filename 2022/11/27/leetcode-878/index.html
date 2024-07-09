@@ -288,18 +288,18 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_878_1.png" srcset="/img/loading.gif" lazyload alt="878"></p>
-<h1>思路及实现</h1>
-<h2 id="找规律">找规律</h2>
-<p>看到这种和数学沾点关系的我就喜欢嗯找规律，多举几个例子再进行数学归纳，直接拿下！<br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_878_2.png" srcset="/img/loading.gif" lazyload alt="规律"></p>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_878_1.png" srcset="/img/loading.gif" lazyload alt="878" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<h2 id="找规律"><a class="markdownIt-Anchor" href="#找规律"></a> 找规律</h2>
+<p>看到这种和数学沾点关系的我就喜欢嗯找规律，多举几个例子再进行数学归纳，直接拿下！<br />
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_878_2.png" srcset="/img/loading.gif" lazyload alt="规律" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">nthMagicalNumber</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span>, a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        MOD = <span class="hljs-number">10</span> ** <span class="hljs-number">9</span> + <span class="hljs-number">7</span><br>        c = lcm(a, b)<br>        m = c // a + c // b - <span class="hljs-number">1</span><br>        r = n % m<br>        res = c * (n // m) % MOD<br>        <span class="hljs-keyword">if</span> r == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">return</span> res<br>        addA = a<br>        addB = b<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(r - <span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> addA &lt; addB:<br>                addA += a<br>            <span class="hljs-keyword">else</span>:<br>                addB += b<br>        <span class="hljs-keyword">return</span> (res + <span class="hljs-built_in">min</span>(addA, addB) % MOD) % MOD<br></code></pre></td></tr></table></figure>
-<h2 id="二分查找">二分查找</h2>
-<p>这个二分确实不看题解没想过，榆木脑袋是这样的呜呜<br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_878_3.png" srcset="/img/loading.gif" lazyload alt="二分查找"></p>
+<h2 id="二分查找"><a class="markdownIt-Anchor" href="#二分查找"></a> 二分查找</h2>
+<p>这个二分确实不看题解没想过，榆木脑袋是这样的呜呜<br />
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_878_3.png" srcset="/img/loading.gif" lazyload alt="二分查找" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">nthMagicalNumber</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span>, a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        MOD = <span class="hljs-number">10</span> ** <span class="hljs-number">9</span> + <span class="hljs-number">7</span><br>        l = <span class="hljs-built_in">min</span>(a, b)<br>        r = n * <span class="hljs-built_in">min</span>(a, b)<br>        c = lcm(a, b)<br>        <span class="hljs-keyword">while</span> l &lt;= r:<br>            mid = (l + r) // <span class="hljs-number">2</span><br>            cnt = mid // a + mid // b - mid // c<br>            <span class="hljs-keyword">if</span> cnt &gt;= n:<br>                r = mid - <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                l = mid + <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> (r + <span class="hljs-number">1</span>) % MOD<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

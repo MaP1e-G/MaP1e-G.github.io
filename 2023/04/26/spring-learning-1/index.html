@@ -286,31 +286,31 @@
             
             <div class="markdown-body">
               
-              <h1>开发环境搭建</h1>
-<p>我选择的<code>IDE</code>是<code>vscode</code>，原因是轻巧、简单、好用（最重要的是免费），不过在进行开发之前，我们需要对<code>vscode</code>进行一些环境搭建和配置。<br>
+              <h1 id="开发环境搭建"><a class="markdownIt-Anchor" href="#开发环境搭建"></a> 开发环境搭建</h1>
+<p>我选择的<code>IDE</code>是<code>vscode</code>，原因是轻巧、简单、好用（最重要的是免费），不过在进行开发之前，我们需要对<code>vscode</code>进行一些环境搭建和配置。<br />
 如何在<code>vscode</code>上面编写<code>Java</code>程序和编写<code>Spring Boot</code>项目，在<code>vscode</code>的官方文档中都能够找到，在这里放出链接：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/java/java-tutorial">Setting up VS Code for Java development</a></li>
-<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/java/java-spring-boot">Spring Boot in Visual Studio Code</a><br>
-在搭建环境过程中如果遇到问题，请善用搜索引擎<s>或者技术群群友</s>。<br>
-根据上面两个网站走完流程，应该能够成功启动一个<code>Spring Boot</code>项目。<br>
-当然了，如果不想自己创建一个<code>Spring Boot</code>应用的话，也可以直接使用<code>git clone</code>拉一个项目直接运行测试结果，这里以<code>https://github.com/spring-guides/gs-spring-boot.git</code>为例。<br>
-使用<code>Ctrl+Shift+P</code>打开命令面板，输入<code>git clone</code>，然后输入<code>https://github.com/spring-guides/gs-spring-boot.git</code>，选好文件夹，等待完成即可。<br>
-拉取完成之后，切换到左边侧栏的<code>Spring Boot Dashboard</code>面板，里面应该会自动更新，参考下图：<br>
-<img src="http://imagehost.map1e-g.cn/SpringBootLearning/1/dashboard.jpg" srcset="/img/loading.gif" lazyload alt="1638"><br>
-我们可以直接从<code>APPS</code>里面启动我们想要启动的应用，这里我启动的是<code>spring-boot-complete</code>，启动完成后参考下图：<br>
-<img src="http://imagehost.map1e-g.cn/SpringBootLearning/1/greet_from_vscode.jpg" srcset="/img/loading.gif" lazyload alt="1638"></li>
+<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/java/java-spring-boot">Spring Boot in Visual Studio Code</a><br />
+在搭建环境过程中如果遇到问题，请善用搜索引擎<s>或者技术群群友</s>。<br />
+根据上面两个网站走完流程，应该能够成功启动一个<code>Spring Boot</code>项目。<br />
+当然了，如果不想自己创建一个<code>Spring Boot</code>应用的话，也可以直接使用<code>git clone</code>拉一个项目直接运行测试结果，这里以<code>https://github.com/spring-guides/gs-spring-boot.git</code>为例。<br />
+使用<code>Ctrl+Shift+P</code>打开命令面板，输入<code>git clone</code>，然后输入<code>https://github.com/spring-guides/gs-spring-boot.git</code>，选好文件夹，等待完成即可。<br />
+拉取完成之后，切换到左边侧栏的<code>Spring Boot Dashboard</code>面板，里面应该会自动更新，参考下图：<br />
+<img src="http://imagehost.map1e-g.cn/SpringBootLearning/1/dashboard.jpg" srcset="/img/loading.gif" lazyload alt="1638" /><br />
+我们可以直接从<code>APPS</code>里面启动我们想要启动的应用，这里我启动的是<code>spring-boot-complete</code>，启动完成后参考下图：<br />
+<img src="http://imagehost.map1e-g.cn/SpringBootLearning/1/greet_from_vscode.jpg" srcset="/img/loading.gif" lazyload alt="1638" /></li>
 </ul>
-<h1>SpringBoot配置</h1>
-<h2 id="自定义配置类">自定义配置类</h2>
-<p>在<code>Spring 3.0</code>之后，不再需要<code>XML</code>配置文件了，可以使用<code>@Configuration</code>注解来代替<code>XML</code>配置文件。而<code>@SpringBootConfiguration</code>是Spring Boot应用的专用配置类注解，其作用等效于<code>@Configuration</code>，用哪个都可以。<br>
+<h1 id="springboot配置"><a class="markdownIt-Anchor" href="#springboot配置"></a> SpringBoot配置</h1>
+<h2 id="自定义配置类"><a class="markdownIt-Anchor" href="#自定义配置类"></a> 自定义配置类</h2>
+<p>在<code>Spring 3.0</code>之后，不再需要<code>XML</code>配置文件了，可以使用<code>@Configuration</code>注解来代替<code>XML</code>配置文件。而<code>@SpringBootConfiguration</code>是Spring Boot应用的专用配置类注解，其作用等效于<code>@Configuration</code>，用哪个都可以。<br />
 <code>Spring 3.0+</code>中有一整套的注解来代替<code>XML</code>配置文件中的定义，如<code>@Bean</code>等。</p>
-<h2 id="导入配置">导入配置</h2>
-<p><code>Spring Boot</code>会自动扫描当前包下的配置类，但是如果配置类在其他子包中，又或者在依赖的<code>jar</code>包中，我们就需要手动导入配置类，使用<code>@Import</code>注解来导入配置类。<br>
-不过<code>@SpringBootApplication</code>注解包含了<code>@ComponentScan</code>注解并扫描所有子包目录，所以一般来说即使配置类在其他子包中，我们也不需要自己导入配置类。必要时，直接使用<code>@ComponentScan</code>来添加要扫描的路径，会比<code>@Import</code>方便。<br>
-如果这些配置类都在类扫描路径下，就不需要通过<code>@Import</code>导入了。<br>
+<h2 id="导入配置"><a class="markdownIt-Anchor" href="#导入配置"></a> 导入配置</h2>
+<p><code>Spring Boot</code>会自动扫描当前包下的配置类，但是如果配置类在其他子包中，又或者在依赖的<code>jar</code>包中，我们就需要手动导入配置类，使用<code>@Import</code>注解来导入配置类。<br />
+不过<code>@SpringBootApplication</code>注解包含了<code>@ComponentScan</code>注解并扫描所有子包目录，所以一般来说即使配置类在其他子包中，我们也不需要自己导入配置类。必要时，直接使用<code>@ComponentScan</code>来添加要扫描的路径，会比<code>@Import</code>方便。<br />
+如果这些配置类都在类扫描路径下，就不需要通过<code>@Import</code>导入了。<br />
 <code>Spring</code>框架还提供了一个<code>@ImportResource</code>注解，可以用于导入额外的<code>XML</code>配置文件，指定要导入的文件路径即可。</p>
-<h2 id="配置文件">配置文件</h2>
+<h2 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h2>
 <p>配置文件有两种格式，一种是<code>.properties</code>格式：</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">spring.datasource.url</span>=<span class="hljs-string">jdbc:mysql://$&#123;MYSQL_HOST:localhost&#125;:3306/db_example</span><br><span class="hljs-attr">spring.datasource.username</span>=<span class="hljs-string">springuser</span><br><span class="hljs-attr">spring.datasource.password</span>=<span class="hljs-string">ThePassword</span><br><span class="hljs-attr">spring.datasource.driver-class-name</span>=<span class="hljs-string">com.mysql.cj.jdbc.Driver</span><br></code></pre></td></tr></table></figure>
 <p>另外一种是<code>.yml</code>格式：</p>
@@ -318,27 +318,27 @@
 <p><code>.yml</code>格式的格式说明：</p>
 <ul>
 <li>键冒号后面需要带一个空格</li>
-<li>每个层级的缩进用两个空格<br>
+<li>每个层级的缩进用两个空格<br />
 需要注意的是<code>.yml</code>配置文件不支持<code>@PropertySource</code>注解来导入配置，但是可以使用<code>@ConfigurationProperties</code>注解。</li>
 </ul>
-<h2 id="配置绑定">配置绑定</h2>
-<h3 id="参数绑定">参数绑定</h3>
+<h2 id="配置绑定"><a class="markdownIt-Anchor" href="#配置绑定"></a> 配置绑定</h2>
+<h3 id="参数绑定"><a class="markdownIt-Anchor" href="#参数绑定"></a> 参数绑定</h3>
 <p>首先编写<code>application.yml</code>配置文件：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">user:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">Maple</span><br>  <span class="hljs-attr">age:</span> <span class="hljs-number">18</span><br>  <span class="hljs-attr">params:</span><br>    <span class="hljs-attr">first:</span> <span class="hljs-string">China</span><br>    <span class="hljs-attr">second:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">accountInf:</span><br>    <span class="hljs-attr">account:</span> <span class="hljs-number">123456</span><br>    <span class="hljs-attr">password:</span> <span class="hljs-number">123456</span><br></code></pre></td></tr></table></figure>
 <p>然后新建<code>UserProperties</code>参数类进行参数绑定：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;user&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserProperties</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> age;<br>    <span class="hljs-keyword">private</span> Map&lt;String, String&gt; params;<br>    <span class="hljs-keyword">private</span> AccountInf accountInf;<br>&#125;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">AccountInf</span> &#123;<br>    <span class="hljs-keyword">private</span> String account;<br>    <span class="hljs-keyword">private</span> String password;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>注意一下一般参数类的命名规范：<code>XxxProperties</code>。<br>
-使用<code>@ConfigurationProperties</code>注解可以将配置参数映射到一个<code>Java Bean</code>上，该注解中的<code>prefix</code>或<code>value</code>参数用于指定要映射的参数前缀，前缀格式为英文小写，多个前缀以<code>-</code>分隔。<br>
-因为<code>@ConfigurationProperties</code>注解绑定配置参数需要用到类的<code>setter</code>方法，所以这里用了<code>@Data</code>注解。<code>Lombok</code>中的<code>@Data</code>注解用于在编译的时候生成类的<code>setter</code>、<code>getter</code>、构造器、<code>toString</code>等方法。<br>
+<p>注意一下一般参数类的命名规范：<code>XxxProperties</code>。<br />
+使用<code>@ConfigurationProperties</code>注解可以将配置参数映射到一个<code>Java Bean</code>上，该注解中的<code>prefix</code>或<code>value</code>参数用于指定要映射的参数前缀，前缀格式为英文小写，多个前缀以<code>-</code>分隔。<br />
+因为<code>@ConfigurationProperties</code>注解绑定配置参数需要用到类的<code>setter</code>方法，所以这里用了<code>@Data</code>注解。<code>Lombok</code>中的<code>@Data</code>注解用于在编译的时候生成类的<code>setter</code>、<code>getter</code>、构造器、<code>toString</code>等方法。<br />
 然后在启动类上添加<code>@EnableConfigurationProperties</code>注解，用于指定要启用的<code>@ConfigurationProperties</code>参数类，使其生效：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@RequiredArgsConstructor</span><br><span class="hljs-meta">@EnableConfigurationProperties(value = &#123; UserProperties.class &#125;)</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DemoApplication</span> &#123;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> UserProperties userProperties;<br><br>	<span class="hljs-meta">@Bean</span><br>	<span class="hljs-keyword">public</span> CommandLineRunner <span class="hljs-title function_">commandLineRunner</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-keyword">return</span> (args) -&gt; &#123;<br>			log.info(<span class="hljs-string">&quot;user properties: &#123;&#125;&quot;</span>, userProperties);<br>		&#125;;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>		SpringApplication.run(DemoApplication.class, args);<br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
-<h1>乱七八糟的</h1>
+<h1 id="乱七八糟的"><a class="markdownIt-Anchor" href="#乱七八糟的"></a> 乱七八糟的</h1>
 <p>其实这里放的是我看一个项目时候顺道学习的东西</p>
-<h2 id="AOP面向切面编程">AOP面向切面编程</h2>
-<p>先上在哪看的概念（公众号：CoderLi）：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/kX6T-WyJWUhOnj4cyEGHmg">AOP 概念篇</a><br>
-<code>AOP</code>就是<code>Aspect Oriented Programming</code>的缩写，也就是面向切面编程，是<code>Spring</code>（注意不是<code>Spring Boot</code>）框架中的一个重要内容。<br>
-ok，不整这些看了有的没的东西，对我来说，它十分像<code>C#</code>中的委托。首先，我们在某个业务类中有某个业务方法，在执行这个方法前，我们需要进行检查（或说执行某个方法），在执行完这个方法后，我们也需要进行检查（或说执行另一个方法），这时候我们还有另外一个业务类和业务方法，它也需要和前面所说的那样做，那为了这里能够减少重复工作量，<code>AOP</code>就是为此而生的（确信），它先把执行前和执行后要执行的检查提取出来，如果有什么地方需要用的，直接进行注入即可。<br>
-一个流行的<code>Java AOP</code>框架就是<code>AspectJ</code>，那么在我这个项目里用到的也是它。<br>
+<h2 id="aop面向切面编程"><a class="markdownIt-Anchor" href="#aop面向切面编程"></a> AOP面向切面编程</h2>
+<p>先上在哪看的概念（公众号：CoderLi）：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/kX6T-WyJWUhOnj4cyEGHmg">AOP 概念篇</a><br />
+<code>AOP</code>就是<code>Aspect Oriented Programming</code>的缩写，也就是面向切面编程，是<code>Spring</code>（注意不是<code>Spring Boot</code>）框架中的一个重要内容。<br />
+ok，不整这些看了有的没的东西，对我来说，它十分像<code>C#</code>中的委托。首先，我们在某个业务类中有某个业务方法，在执行这个方法前，我们需要进行检查（或说执行某个方法），在执行完这个方法后，我们也需要进行检查（或说执行另一个方法），这时候我们还有另外一个业务类和业务方法，它也需要和前面所说的那样做，那为了这里能够减少重复工作量，<code>AOP</code>就是为此而生的（确信），它先把执行前和执行后要执行的检查提取出来，如果有什么地方需要用的，直接进行注入即可。<br />
+一个流行的<code>Java AOP</code>框架就是<code>AspectJ</code>，那么在我这个项目里用到的也是它。<br />
 与<code>AOP</code>相关的概念有（此处出自上面文章，我怕上边文章哪天挂了看不到了）：</p>
 <ul>
 <li>连接点：程序执行的某个特定位置，比如某个方法调用前、调用后，方法抛出异常后，对类成员的访问以及异常处理程序块的执行等。一个类或一段程序代码拥有一些具有边界性质的特定点，这些代码中的特定点就是连接点。它自身还可以嵌套其他的 Joinpoint。AOP 中的 Joinpoint 可以有多种类型：构造方法调用，字段的设置和获取，方法的调用，方法的执行，异常的处理执行，类的初始化。Spring 仅支持方法执行类型的 Joinpoint。</li>
@@ -347,7 +347,7 @@ ok，不整这些看了有的没的东西，对我来说，它十分像<code>C#<
 <li>织入（注入）：织入是将Advice通知添加到目标类具体连接点上的过程。编译器织入、动态织入。</li>
 <li>Aspect 切面：Pointcut（切点）和Advice（通知）组成的</li>
 </ul>
-<h2 id="SpringBoot工程结构">SpringBoot工程结构</h2>
+<h2 id="springboot工程结构"><a class="markdownIt-Anchor" href="#springboot工程结构"></a> SpringBoot工程结构</h2>
 <p>这部分我直接向ChatGPT发起提问，以下是得到的回答：</p>
 <blockquote>
 <p>在一个Spring Boot工程中，通常会使用一些常见的文件夹来存放特定类型的文件，这样可以更好地组织代码和资源。以下是这些文件夹的作用及其用途的简要说明：</p>
@@ -358,46 +358,46 @@ ok，不整这些看了有的没的东西，对我来说，它十分像<code>C#<
 <li><code>handler</code> 文件夹：这个文件夹通常用来存放异常处理器（Exception Handler）类。异常处理器类用于捕获和处理应用程序中的异常，并将它们转换为适当的HTTP响应。异常处理器通常会拦截控制器抛出的异常，根据异常的类型生成适当的HTTP响应，并将其发送回客户端。</li>
 <li><code>service</code> 文件夹：这个文件夹通常用来存放服务层（Service）类。服务层类用于实现应用程序的业务逻辑。这些类通常封装了业务逻辑，并与其他层（例如数据访问层）进行协作，从而实现应用程序的功能。</li>
 <li><code>utils</code> 文件夹：这个文件夹通常用来存放工具类（Utility Class）。工具类通常包含了一些静态方法，用于执行一些通用的、可重用的功能。例如，可以编写一个<code>StringUtils</code>类，其中包含一些静态方法，用于执行字符串操作。</li>
-<li><code>vo</code> 文件夹：这个文件夹通常用来存放值对象（Value Object，VO）类。值对象通常是一些简单的Java类，用于传递数据。它们通常用于在不同层之间传递数据，例如在控制器层和服务层之间。值对象通常不具有行为，而只包含一些属性和getter/setter方法。<br>
-那么在某些文件夹中还存在子文件夹，同样的，我向ChatGPT发起提问，问它<code>dao</code>文件夹下的<code>mapper</code>和<code>pojo</code>文件夹是什么：<br>
+<li><code>vo</code> 文件夹：这个文件夹通常用来存放值对象（Value Object，VO）类。值对象通常是一些简单的Java类，用于传递数据。它们通常用于在不同层之间传递数据，例如在控制器层和服务层之间。值对象通常不具有行为，而只包含一些属性和getter/setter方法。<br />
+那么在某些文件夹中还存在子文件夹，同样的，我向ChatGPT发起提问，问它<code>dao</code>文件夹下的<code>mapper</code>和<code>pojo</code>文件夹是什么：<br />
 是的，通常情况下在 <code>dao</code> 文件夹下会再次细分为 <code>mapper</code> 和 <code>pojo</code> 文件夹。</li>
 <li><code>mapper</code> 文件夹：该文件夹通常包含一些MyBatis的 Mapper 接口，这些接口用于定义数据访问的 SQL 操作。MyBatis 是一种流行的持久化框架，它使用 XML 或注解来映射 Java 对象和数据库表之间的关系。在 <code>mapper</code> 文件夹中，通常会创建一个接口，该接口定义了一组与数据库交互的方法，例如插入数据、更新数据、查询数据等。同时，MyBatis 还提供了一些注解来描述 SQL 语句，例如 <code>@Select</code>、<code>@Update</code>、<code>@Insert</code> 等，这些注解通常会与接口方法一起使用。</li>
-<li><code>pojo</code> 文件夹：该文件夹通常包含一些与数据库表对应的 Java 类，也称为实体类或 POJO（Plain Old Java Object）类。这些类通常与数据库表的每个字段对应，每个字段通常会映射到类中的一个属性。这些类通常使用注解来描述它们与数据库表之间的映射关系，例如 <code>@Table</code>、<code>@Column</code> 等。在访问数据库时，这些类通常用于存储和传输数据。同时，为了方便使用，通常还会在这些类中提供一些 getter 和 setter 方法。<br>
-综上所述，<code>mapper</code> 文件夹通常包含与数据库交互相关的 MyBatis Mapper 接口和 SQL 语句的注解，而 <code>pojo</code> 文件夹通常包含与数据库表对应的 Java 实体类或 POJO 类。这两个文件夹通常一起使用，以实现应用程序与数据库的数据访问。<br>
-继续提问<code>service</code>文件夹下的子文件夹：<br>
+<li><code>pojo</code> 文件夹：该文件夹通常包含一些与数据库表对应的 Java 类，也称为实体类或 POJO（Plain Old Java Object）类。这些类通常与数据库表的每个字段对应，每个字段通常会映射到类中的一个属性。这些类通常使用注解来描述它们与数据库表之间的映射关系，例如 <code>@Table</code>、<code>@Column</code> 等。在访问数据库时，这些类通常用于存储和传输数据。同时，为了方便使用，通常还会在这些类中提供一些 getter 和 setter 方法。<br />
+综上所述，<code>mapper</code> 文件夹通常包含与数据库交互相关的 MyBatis Mapper 接口和 SQL 语句的注解，而 <code>pojo</code> 文件夹通常包含与数据库表对应的 Java 实体类或 POJO 类。这两个文件夹通常一起使用，以实现应用程序与数据库的数据访问。<br />
+继续提问<code>service</code>文件夹下的子文件夹：<br />
 通常情况下，在 <code>service</code> 文件夹下会再次细分为 <code>excel</code>、<code>impl</code> 和 <code>thread</code> 文件夹。</li>
 <li><code>excel</code> 文件夹：该文件夹通常包含一些处理 Excel 文件的类，例如读取 Excel 文件、写入 Excel 文件、生成 Excel 报表等。在这个文件夹中，通常会使用一些第三方的 Excel 处理库，例如 Apache POI、EasyExcel 等。通过这些库，我们可以方便地读取和写入 Excel 文件，并在应用程序中对 Excel 数据进行处理和分析。</li>
 <li><code>impl</code> 文件夹：该文件夹通常包含一些服务接口的实现类，这些实现类通常与数据库交互，并提供业务逻辑的处理。在这个文件夹中，通常会创建一些与服务接口相对应的实现类，这些实现类通常使用 Spring 框架的注解来标识自己，并与数据库访问相关的 DAO 层进行协作。通过这些实现类，我们可以将服务接口中定义的业务逻辑转化为实际的代码实现，并与数据库进行交互。</li>
-<li><code>thread</code> 文件夹：该文件夹通常包含一些与多线程编程相关的类，例如线程池、任务队列、定时任务等。在这个文件夹中，通常会使用 Java 的多线程编程机制来实现一些并发操作，例如通过线程池来管理并发请求，通过任务队列来实现异步处理等。通过这些类，我们可以提高应用程序的并发性能，并更好地利用多核 CPU 的计算资源。<br>
-综上所述，<code>excel</code> 文件夹通常包含处理 Excel 文件的类，<code>impl</code> 文件夹通常包含服务接口的实现类，<code>thread</code> 文件夹通常包含与多线程编程相关的类。这三个文件夹通常一起使用，以实现应用程序的业务逻辑处理和并发处理。<br>
-继续提问，<code>vo</code>文件夹下的<code>dos</code>、<code>excelVo</code>、<code>param</code>和<code>QuesVo</code>是什么：<br>
+<li><code>thread</code> 文件夹：该文件夹通常包含一些与多线程编程相关的类，例如线程池、任务队列、定时任务等。在这个文件夹中，通常会使用 Java 的多线程编程机制来实现一些并发操作，例如通过线程池来管理并发请求，通过任务队列来实现异步处理等。通过这些类，我们可以提高应用程序的并发性能，并更好地利用多核 CPU 的计算资源。<br />
+综上所述，<code>excel</code> 文件夹通常包含处理 Excel 文件的类，<code>impl</code> 文件夹通常包含服务接口的实现类，<code>thread</code> 文件夹通常包含与多线程编程相关的类。这三个文件夹通常一起使用，以实现应用程序的业务逻辑处理和并发处理。<br />
+继续提问，<code>vo</code>文件夹下的<code>dos</code>、<code>excelVo</code>、<code>param</code>和<code>QuesVo</code>是什么：<br />
 在 Spring Boot 项目中，通常会使用 VO（Value Object，值对象）模式来传递数据，这种模式可以将多个实体类的属性组合成一个对象，便于传递和操作。在 <code>vo</code> 文件夹中，通常会包含一些用于传递数据的 VO 类，例如：</li>
 <li><code>Do</code>：<code>Do</code> 表示 <code>Domain Object</code>，是实体类（Entity）的一种命名方式，通常用于表示数据库中的一张表或者一组相关的表。<code>Do</code> 对象通常包含数据库表的所有字段，以及相应的 getter 和 setter 方法。</li>
 <li><code>ExcelVo</code>：在实际开发中，经常需要将数据导出为 Excel 文件或者从 Excel 文件中导入数据。为了方便数据的导入导出，我们可以定义一个 <code>ExcelVo</code> 类，用于存储导出或者导入的数据，并在类中定义相应的属性和方法，以方便操作。</li>
 <li><code>Param</code>：<code>Param</code> 表示 <code>Parameter</code>，用于封装方法调用所需的参数，通常是一个 Java Bean，包含多个属性和相应的 getter 和 setter 方法。</li>
-<li><code>QuesVo</code>：在实际开发中，经常需要处理问卷调查相关的数据。为了方便数据的传递和操作，我们可以定义一个 <code>QuesVo</code> 类，用于封装问卷调查相关的数据，例如问卷标题、问题列表、答案选项等。<br>
+<li><code>QuesVo</code>：在实际开发中，经常需要处理问卷调查相关的数据。为了方便数据的传递和操作，我们可以定义一个 <code>QuesVo</code> 类，用于封装问卷调查相关的数据，例如问卷标题、问题列表、答案选项等。<br />
 综上所述，<code>vo</code> 文件夹下的 <code>Do</code>、<code>ExcelVo</code>、<code>Param</code> 和 <code>QuesVo</code> 分别表示数据库实体类、Excel 数据、方法参数和问卷调查相关数据的 VO 类，它们用于传递和操作相应的数据。</li>
 </ol>
 </blockquote>
-<h2 id="可能有用的写法">可能有用的写法</h2>
-<h3 id="List转换成流获取指定属性">List转换成流获取指定属性</h3>
+<h2 id="可能有用的写法"><a class="markdownIt-Anchor" href="#可能有用的写法"></a> 可能有用的写法</h2>
+<h3 id="list转换成流获取指定属性"><a class="markdownIt-Anchor" href="#list转换成流获取指定属性"></a> List转换成流获取指定属性</h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;User&gt; users = userMapper.selectList();<br>List&lt;String&gt; ids = users.stream().map(User::getId).collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
-<h3 id="List转换成流再用过滤器过滤获取指定数据">List转换成流再用过滤器过滤获取指定数据</h3>
+<h3 id="list转换成流再用过滤器过滤获取指定数据"><a class="markdownIt-Anchor" href="#list转换成流再用过滤器过滤获取指定数据"></a> List转换成流再用过滤器过滤获取指定数据</h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 假设用户类型type = 0为管理员，type = 1为普通用户</span><br>List&lt;User&gt; users = userMapper.selectList();<br>List&lt;User&gt; admin = users.stream().filter(e -&gt; Objects.equals(e.getType(), <span class="hljs-number">0</span>).collect(Collectors.toList());<br></code></pre></td></tr></table></figure>
-<h3 id="使用stream进行数据分组">使用stream进行数据分组</h3>
+<h3 id="使用stream进行数据分组"><a class="markdownIt-Anchor" href="#使用stream进行数据分组"></a> 使用stream进行数据分组</h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 根据用户的年龄进行分组</span><br>List&lt;User&gt; users = userMapper.selectList();<br>Map&lt;String, List&lt;User&gt;&gt; collect = users.stream().collect(Collectors.groupingBy(User::getAge));<br><span class="hljs-comment">// 再将其中所有值提取出来，重新组成一个List</span><br>List&lt;List&lt;User&gt;&gt; collectList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(collect.values());<br></code></pre></td></tr></table></figure>
-<h3 id="使用stream的groupBy统计数据">使用stream的groupBy统计数据</h3>
+<h3 id="使用stream的groupby统计数据"><a class="markdownIt-Anchor" href="#使用stream的groupby统计数据"></a> 使用stream的groupBy统计数据</h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 根据用户的性别进行分组，并统计个分组的数据总数</span><br>List&lt;User&gt; users = userMapper.selectList();<br>Map&lt;String, Long&gt; aLong = users.stream().collect(Collectors.groupingBy(User::getSex,Collectors.counting()));<br><span class="hljs-comment">// 要访问其中的数据，使用foreach</span><br><span class="hljs-keyword">for</span> (String key: aLong.keySet())&#123;<br>	System.out.println(key + <span class="hljs-string">&quot;: &quot;</span> + aLong.getKey(key));<br>&#125;<br>aLong.forEach((k, v) -&gt; &#123;<br>	System.out.println(k + <span class="hljs-string">&quot;: &quot;</span> + v);<br>&#125;);<br></code></pre></td></tr></table></figure>
-<h3 id="js计算百分比">js计算百分比</h3>
+<h3 id="js计算百分比"><a class="markdownIt-Anchor" href="#js计算百分比"></a> js计算百分比</h3>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 计算百分比</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span>   &#123;<span class="hljs-type">number</span>&#125; num   分子</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span>   &#123;<span class="hljs-type">number</span>&#125; total 分母</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">number</span>&#125; 返回数百分比</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Percentage</span>(<span class="hljs-params">num, total</span>) &#123; <br>    <span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span> || total == <span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(num / total * <span class="hljs-number">10000</span>) / <span class="hljs-number">100.00</span>);<span class="hljs-comment">// 小数点后两位百分比</span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="Excel表相关">Excel表相关</h3>
+<h3 id="excel表相关"><a class="markdownIt-Anchor" href="#excel表相关"></a> Excel表相关</h3>
 <p>合并相同垂直列写法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Excel(name=&#x27;xxx&#x27;, mergeVertical=true)</span><br></code></pre></td></tr></table></figure>
 <p>依赖某一列来合并写法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Excel(name = &quot;报表类型&quot;, mergeRely = &#123;0&#125;, mergeVertical = true)</span><br></code></pre></td></tr></table></figure>
-<h3 id="el-date-picker相关">el-date-picker相关</h3>
+<h3 id="el-date-picker相关"><a class="markdownIt-Anchor" href="#el-date-picker相关"></a> el-date-picker相关</h3>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html">以下两句不加的话，发送的载荷里面显示的日期会往前一天，但是到后端其实又没问题，不是很懂<br><span class="hljs-tag">&lt;<span class="hljs-name">el-date-picker</span></span><br><span class="hljs-tag">  <span class="hljs-attr">...</span></span><br><span class="hljs-tag">  <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span></span><br><span class="hljs-tag">  <span class="hljs-attr">value-format</span>=<span class="hljs-string">&quot;yyyy-MM-dd&quot;</span></span><br><span class="hljs-tag">&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">el-date-picker</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

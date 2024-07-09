@@ -284,15 +284,15 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1441_1.png" srcset="/img/loading.gif" lazyload alt="第一张图"></p>
-<h1>思路及实现</h1>
-<p>我们可以知道，<code>list</code>和<code>target</code>都是严格递增的，而我们取数也是按顺序：1、2、3…取下去，<br>
-所以用<code>for</code>循环遍历一遍<code>target</code>数组，并计算当前数字和前一数字的差，如果当前数字和前一个数字之差大于1，说明前一数字和当前数字之间还隔了几个数，那么我们需要进行数个<code>push</code>和<code>pop</code>操作，来达到<code>list</code>中当前数字的位置，并把它<code>push</code>进去；<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1441_1.png" srcset="/img/loading.gif" lazyload alt="第一张图" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<p>我们可以知道，<code>list</code>和<code>target</code>都是严格递增的，而我们取数也是按顺序：1、2、3…取下去，<br />
+所以用<code>for</code>循环遍历一遍<code>target</code>数组，并计算当前数字和前一数字的差，如果当前数字和前一个数字之差大于1，说明前一数字和当前数字之间还隔了几个数，那么我们需要进行数个<code>push</code>和<code>pop</code>操作，来达到<code>list</code>中当前数字的位置，并把它<code>push</code>进去；<br />
 如果差刚好为1，说明当前数字就是前一数字的下一位，直接<code>push</code>即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">buildArray</span>(<span class="hljs-params">self, target: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>], n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]:<br>        push = <span class="hljs-string">&quot;Push&quot;</span><br>        pop = <span class="hljs-string">&quot;Pop&quot;</span><br>        result = []<br>        pre_num = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(target):<br>            cnt = num - pre_num<br>            <span class="hljs-keyword">if</span> cnt &gt; <span class="hljs-number">1</span>:<br>                <span class="hljs-keyword">while</span> cnt != <span class="hljs-number">1</span>:<br>                    result.append(push)<br>                    result.append(pop)<br>                    cnt -= <span class="hljs-number">1</span><br>            result.append(push)<br>            pre_num = num<br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
 <p>额，这题难度中等不知道是怎么来的，十分朴素的栈模拟，一分钟就能出答案。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

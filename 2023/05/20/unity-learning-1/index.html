@@ -282,27 +282,27 @@
             
             <div class="markdown-body">
               
-              <h1>Essential Unity Concepts</h1>
-<h2 id="GameObject">GameObject</h2>
-<p>unity中最最基本的东西，可以说你放入游戏中的那些东西都是一个<code>GameObject</code>，什么玩家人物、障碍、摄像机之类的。<br>
-在一个<code>GameObject</code>中，又包含了<code>Components</code>，即它的组件（元件），<code>Components</code>可以为<code>GameObject</code>添加一些属性/性质，比如最基本的<code>Transform</code>组件可以控制<code>GameObject</code>的坐标（Position）、旋转（Rotation）和规模（Scale）等。<br>
+              <h1 id="essential-unity-concepts"><a class="markdownIt-Anchor" href="#essential-unity-concepts"></a> Essential Unity Concepts</h1>
+<h2 id="gameobject"><a class="markdownIt-Anchor" href="#gameobject"></a> GameObject</h2>
+<p>unity中最最基本的东西，可以说你放入游戏中的那些东西都是一个<code>GameObject</code>，什么玩家人物、障碍、摄像机之类的。<br />
+在一个<code>GameObject</code>中，又包含了<code>Components</code>，即它的组件（元件），<code>Components</code>可以为<code>GameObject</code>添加一些属性/性质，比如最基本的<code>Transform</code>组件可以控制<code>GameObject</code>的坐标（Position）、旋转（Rotation）和规模（Scale）等。<br />
 而脚本（<code>Scripts</code>）也算一种组件，脚本是用来控制<code>GameObject</code>的逻辑的，比如有一个<code>Player</code>的<code>GameObject</code>，要想使其进行移动，我们就需要编写一个<code>Move</code>的<code>Script</code>，然后将其添加到<code>Player</code>的<code>Components</code>中。</p>
-<h2 id="Prefabs">Prefabs</h2>
-<p>即预制件，可以理解为我们做好的<code>GameObject</code>的模板。在我们制作好一个<code>GameObject</code>之后，如果我们想要重复利用，就需要将其保存成<code>Prefab</code>，最简单的保存方法就是将<code>GameObject</code>从<code>Hierarchy</code>（层级）选项卡中拖到<code>Project</code>选项卡的<code>Prefabs</code>文件夹中。<br>
+<h2 id="prefabs"><a class="markdownIt-Anchor" href="#prefabs"></a> Prefabs</h2>
+<p>即预制件，可以理解为我们做好的<code>GameObject</code>的模板。在我们制作好一个<code>GameObject</code>之后，如果我们想要重复利用，就需要将其保存成<code>Prefab</code>，最简单的保存方法就是将<code>GameObject</code>从<code>Hierarchy</code>（层级）选项卡中拖到<code>Project</code>选项卡的<code>Prefabs</code>文件夹中。<br />
 保存完了后，什么时候我们想要用到这个<code>GameObject</code>了，就直接从<code>Prefabs</code>文件夹中把它拖到<code>Hierarchy</code>中即可。</p>
 <div class="note note-warning">
             <p>创建项目不会默认给你生成<code>Prefabs</code>文件夹！但是我们可以自己创建，一般是在<code>Assets</code>文件夹下创建，即<code>Assets/Prefabs</code>。</p>
           </div>
-<h2 id="Tags">Tags</h2>
-<p>即标签，其用于给<code>GameObject</code>贴上标签（从而使得其有一种更为广泛的分类），举个最简单的例子，如果我们想要判断一个<code>GameObject</code>是否为敌人，我们能怎么做呢？<s>（当然是看它是否继承自<code>Enemy</code>抽象类）</s>那就是检查它的标签是否为<code>Enemy</code>标签。<br>
-要为一个<code>GameObject</code>贴上<code>Tag</code>很简单，从<code>Hierarchy</code>中选中，然后在<code>Inspector</code>中就能找到<code>Tag</code>了。<br>
+<h2 id="tags"><a class="markdownIt-Anchor" href="#tags"></a> Tags</h2>
+<p>即标签，其用于给<code>GameObject</code>贴上标签（从而使得其有一种更为广泛的分类），举个最简单的例子，如果我们想要判断一个<code>GameObject</code>是否为敌人，我们能怎么做呢？<s>（当然是看它是否继承自<code>Enemy</code>抽象类）</s>那就是检查它的标签是否为<code>Enemy</code>标签。<br />
+要为一个<code>GameObject</code>贴上<code>Tag</code>很简单，从<code>Hierarchy</code>中选中，然后在<code>Inspector</code>中就能找到<code>Tag</code>了。<br />
 现在已经为<code>GameObject</code>添加完<code>Tag</code>了，在脚本中怎么去使用呢？举个简单的例子，现在创建一个行为脚本，让一个<code>GameObject</code>能够注视着有着名为<code>Player</code>的<code>Tag</code>的<code>GameObject</code>：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">GazeExample</span>: <span class="hljs-title">MonoBehaviour</span> &#123;<br>	GameObject player;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Start</span>()</span> &#123;<br>		<span class="hljs-comment">// 找到带有 Player 标签的 GameObject</span><br>		player = GameObject.FindWithTag(<span class="hljs-string">&quot;Player&quot;</span>);<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>()</span> &#123;<br>		<span class="hljs-comment">// 让当前 GameObject 的视角一直对着 player</span><br>		transform.LookAt(Player.transform);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="Layers">Layers</h2>
-<p>即层级。层级能允许我们在不相关的<code>GameObject</code>之间添加（定义）通用功能，比如在场景视图中绘制哪些对象应忽略光线投射、或者对相机不可见。要改变一个<code>GameObject</code>的层级，也是在<code>Hierarchy</code>中选中，转到<code>Inspector</code>中即可看见。<br>
-要单独选择哪些层级可见，可以在<code>Inspector</code>的上方的<code>Layers</code>（或者说在整个界面的右上角）中选择。<br>
+<h2 id="layers"><a class="markdownIt-Anchor" href="#layers"></a> Layers</h2>
+<p>即层级。层级能允许我们在不相关的<code>GameObject</code>之间添加（定义）通用功能，比如在场景视图中绘制哪些对象应忽略光线投射、或者对相机不可见。要改变一个<code>GameObject</code>的层级，也是在<code>Hierarchy</code>中选中，转到<code>Inspector</code>中即可看见。<br />
+要单独选择哪些层级可见，可以在<code>Inspector</code>的上方的<code>Layers</code>（或者说在整个界面的右上角）中选择。<br />
 <s>（个人觉得可以理解成画画里边的图层？）</s></p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

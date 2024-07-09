@@ -285,18 +285,18 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1668_1.png" srcset="/img/loading.gif" lazyload alt="1668"></p>
-<h1>思路和实现</h1>
-<p>看到这种题，熟悉的感觉，哎呦，这不KMP吗？计算每个字符的特征向量用以确定匹配失败时的回溯位置，思路清晰。<br>
-问题是我不会写KMP。（早就忘光了.jpg）<br>
-那行，那就最简单粗暴的遍历吧。<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1668_1.png" srcset="/img/loading.gif" lazyload alt="1668" /></p>
+<h1 id="思路和实现"><a class="markdownIt-Anchor" href="#思路和实现"></a> 思路和实现</h1>
+<p>看到这种题，熟悉的感觉，哎呦，这不KMP吗？计算每个字符的特征向量用以确定匹配失败时的回溯位置，思路清晰。<br />
+问题是我不会写KMP。（早就忘光了.jpg）<br />
+那行，那就最简单粗暴的遍历吧。<br />
 最喜欢的一集（一种做法）.jpg</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">maxRepeating</span>(<span class="hljs-params">self, sequence: <span class="hljs-built_in">str</span>, word: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        result = repeat_time = i = flag = <span class="hljs-number">0</span><br>        word_len = <span class="hljs-built_in">len</span>(word)<br>        s_len = <span class="hljs-built_in">len</span>(sequence)<br>        sequence += <span class="hljs-string">&quot; &quot;</span> * word_len  <span class="hljs-comment"># 防止下标越界罢了</span><br>        <span class="hljs-keyword">while</span> i &lt; s_len:<br>            <span class="hljs-keyword">if</span> sequence[i] == word[<span class="hljs-number">0</span>]:  <span class="hljs-comment"># 如果当前字母和word首字母相同</span><br>                <span class="hljs-keyword">while</span> sequence[i: i + word_len] == word:<br>                    flag = <span class="hljs-number">1</span><br>                    i = i + word_len<br>                    repeat_time += <span class="hljs-number">1</span>  <span class="hljs-comment"># 重复次数+1</span><br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> flag:<br>                    i += <span class="hljs-number">1</span><br>                <span class="hljs-keyword">else</span>:<br>                    i = i - word_len + <span class="hljs-number">1</span><br>                    flag = <span class="hljs-number">0</span><br>                result = <span class="hljs-built_in">max</span>(result, repeat_time)<br>                repeat_time = <span class="hljs-number">0</span><br>                <span class="hljs-keyword">continue</span><br>            i += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> result<br></code></pre></td></tr></table></figure>
-<p>上面代码中，因为懒所以我直接用切片进行比较，搞得我还得用了一个<code>flag</code>变量辅助回溯，属于是空间（内存）杀手了。<br>
-（其实是可以用动态规划+KMP的但是我不会这太高级了呜呜）<br>
+<p>上面代码中，因为懒所以我直接用切片进行比较，搞得我还得用了一个<code>flag</code>变量辅助回溯，属于是空间（内存）杀手了。<br />
+（其实是可以用动态规划+KMP的但是我不会这太高级了呜呜）<br />
 （简单题就应该用简单写法才对(x)）</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

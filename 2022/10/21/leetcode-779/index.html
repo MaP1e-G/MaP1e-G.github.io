@@ -285,106 +285,106 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_191_1.png" srcset="/img/loading.gif" lazyload alt="191"><br>
-<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_779_1.png" srcset="/img/loading.gif" lazyload alt="779"></p>
-<h1>思路及实现</h1>
-<h2 id="191-位1的个数">191.位1的个数</h2>
-<h3 id="作弊流写法">作弊流写法</h3>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_191_1.png" srcset="/img/loading.gif" lazyload alt="191" /><br />
+<img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_779_1.png" srcset="/img/loading.gif" lazyload alt="779" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<h2 id="191位1的个数"><a class="markdownIt-Anchor" href="#191位1的个数"></a> 191.位1的个数</h2>
+<h3 id="作弊流写法"><a class="markdownIt-Anchor" href="#作弊流写法"></a> 作弊流写法</h3>
 <p>除了学会一个新方法之外什么都学不到的写法（</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hammingWeight</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">return</span> n.bit_count()<br></code></pre></td></tr></table></figure>
-<h3 id="循环检查">循环检查</h3>
+<h3 id="循环检查"><a class="markdownIt-Anchor" href="#循环检查"></a> 循环检查</h3>
 <p>检查题目所给定的数中1的个数即可，每次检查1位，<code>i</code>从0取到31，每次都用<code>1 &lt;&lt; i</code>（1,10,100…）和<code>n</code>作与运算，如果n的二进制表示的当前位是1那么就是1，是0就是0。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hammingWeight</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        ret = <span class="hljs-built_in">sum</span>(<span class="hljs-number">1</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>) <span class="hljs-keyword">if</span> n &amp; (<span class="hljs-number">1</span> &lt;&lt; i))<br>        <span class="hljs-keyword">return</span> ret<br></code></pre></td></tr></table></figure>
-<h3 id="位运算优化">位运算优化</h3>
-<p>其实优化的关键就是一个式子：<code>n &amp; (n−1)</code>。大家可以举个例子试一下一个数和它自身减一的数做与运算会发生什么，没错，其运算结果恰为把<code>n</code>的二进制位中的最低位的1变为0之后的结果。<br>
+<h3 id="位运算优化"><a class="markdownIt-Anchor" href="#位运算优化"></a> 位运算优化</h3>
+<p>其实优化的关键就是一个式子：<code>n &amp; (n−1)</code>。大家可以举个例子试一下一个数和它自身减一的数做与运算会发生什么，没错，其运算结果恰为把<code>n</code>的二进制位中的最低位的1变为0之后的结果。<br />
 也就是说，我们只需要不断计算这个式子，<code>n</code>最后会变成0，而每次计算，<code>n</code>就少一个1，相应的结果（1的个数）计数加一就好。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hammingWeight</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        ret = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> n:<br>            n &amp;= n - <span class="hljs-number">1</span><br>            ret += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> ret<br></code></pre></td></tr></table></figure>
-<h3 id="奇偶校验">奇偶校验</h3>
-<p>额，说实话，翻来覆去看不懂代码，好不容易找到了个有解释的网站，转载一波explanation吧。<br>
-先上网站：<a target="_blank" rel="noopener" href="https://bits.stephan-brumme.com/countBits.html">Count bits set in parallel a.k.a. Population Count</a><br>
+<h3 id="奇偶校验"><a class="markdownIt-Anchor" href="#奇偶校验"></a> 奇偶校验</h3>
+<p>额，说实话，翻来覆去看不懂代码，好不容易找到了个有解释的网站，转载一波explanation吧。<br />
+先上网站：<a target="_blank" rel="noopener" href="https://bits.stephan-brumme.com/countBits.html">Count bits set in parallel a.k.a. Population Count</a><br />
 附赠网址：<a target="_blank" rel="noopener" href="https://graphics.stanford.edu/~seander/bithacks.html">Bit Twiddling Hacks</a></p>
 <blockquote>
-<p>countBits (line 1 − line 13):<br>
-Counting all set bits of an integer was part of many mainframe CPU’s assembler language but somehow<br>
+<p>countBits (line 1 − line 13):<br />
+Counting all set bits of an integer was part of many mainframe CPU’s assembler language but somehow<br />
 x86 CPUs ignored it for decades. Apparently Intel introduced the POPCNT opcode in its Core i7 design.</p>
-<p>Meanwhile, the population count has to be implemented by other means.<br>
-The main observations lies in the fact that you can subdivide any bitblock into smaller chunks,<br>
+<p>Meanwhile, the population count has to be implemented by other means.<br />
+The main observations lies in the fact that you can subdivide any bitblock into smaller chunks,<br />
 compute their population count and add all intermediate results.</p>
 <p>First, the code counts the bits of two adjacent bits:</p>
-<p>0b and 0b → 00b<br>
-0b and 1b → 01b<br>
-1b and 0b → 01b<br>
+<p>0b and 0b → 00b<br />
+0b and 1b → 01b<br />
+1b and 0b → 01b<br />
 1b and 1b → 10b</p>
-<p>The whole algorithm modifies the input in order to generate the output, that means it works in-place.<br>
+<p>The whole algorithm modifies the input in order to generate the output, that means it works in-place.<br />
 Line 4 performs the 2-bit count at once based on the observation:</p>
-<p>00b → unchanged, still 00b<br>
-01b → unchanged, still 01b<br>
-10b → must be converted to 01b<br>
+<p>00b → unchanged, still 00b<br />
+01b → unchanged, still 01b<br />
+10b → must be converted to 01b<br />
 11b → must be converted to 10b</p>
-<p>Whenever the higher bit of each 2-bit group is set, subtracting 01b gives the desired outcome.<br>
-Looks like branching … but as it turns out, the subtraction can be done always: just subtract the higher bit !<br>
-If it is 0, the result remains unchanged, if it is 1, then we get the right numbers, too.<br>
+<p>Whenever the higher bit of each 2-bit group is set, subtracting 01b gives the desired outcome.<br />
+Looks like branching … but as it turns out, the subtraction can be done always: just subtract the higher bit !<br />
+If it is 0, the result remains unchanged, if it is 1, then we get the right numbers, too.<br />
 The shift x &gt;&gt; 1 and the following mask of all odd bits (0x55 is 01010101b):</p>
-<p>00b → shifted: ?0b → masked: 00b → subtraction: 00b − 00b → 00b<br>
-01b → shifted: ?0b → masked: 00b → subtraction: 01b − 00b → 01b<br>
-10b → shifted: ?1b → masked: 01b → subtraction: 10b − 01b → 01b<br>
+<p>00b → shifted: ?0b → masked: 00b → subtraction: 00b − 00b → 00b<br />
+01b → shifted: ?0b → masked: 00b → subtraction: 01b − 00b → 01b<br />
+10b → shifted: ?1b → masked: 01b → subtraction: 10b − 01b → 01b<br />
 11b → shifted: ?1b → masked: 01b → subtraction: 11b − 01b → 10b</p>
 <p>Now the 2-bit count is done. As you can see, there are just three possible decimal results: 0, 1 or 2.</p>
 <p>Then, two adjacent 2-bit groups are joined to 4-bit groups (line 6):</p>
-<p>00b and 00b → 0000b<br>
-00b and 01b → 0001b<br>
-00b and 10b → 0010b<br>
-01b and 00b → 0001b<br>
-01b and 01b → 0010b<br>
-01b and 10b → 0011b<br>
-10b and 00b → 0010b<br>
-10b and 01b → 0011b<br>
+<p>00b and 00b → 0000b<br />
+00b and 01b → 0001b<br />
+00b and 10b → 0010b<br />
+01b and 00b → 0001b<br />
+01b and 01b → 0010b<br />
+01b and 10b → 0011b<br />
+10b and 00b → 0010b<br />
+10b and 01b → 0011b<br />
 10b and 10b → 0100b</p>
 <p>This time, the 2-bit groups are masked and shifted to match and then simply added. No overflow is possible.</p>
-<p>00b + 00b → 0000b<br>
-00b + 01b → 0001b<br>
-00b + 10b → 0010b<br>
-01b + 00b → 0001b<br>
-01b + 01b → 0010b<br>
-01b + 10b → 0011b<br>
-10b + 00b → 0010b<br>
-10b + 01b → 0011b<br>
+<p>00b + 00b → 0000b<br />
+00b + 01b → 0001b<br />
+00b + 10b → 0010b<br />
+01b + 00b → 0001b<br />
+01b + 01b → 0010b<br />
+01b + 10b → 0011b<br />
+10b + 00b → 0010b<br />
+10b + 01b → 0011b<br />
 10b + 10b → 0100b</p>
-<p>The same procedure is done for all 4-bit groups yielding the bit counts for each of the four bytes (line 8)<br>
-in their lower four bits. That means, each byte contains its bit count, however, the upper four bits may<br>
+<p>The same procedure is done for all 4-bit groups yielding the bit counts for each of the four bytes (line 8)<br />
+in their lower four bits. That means, each byte contains its bit count, however, the upper four bits may<br />
 contain junk and are masked out (line 10).</p>
 <p>Multiplying by 0x01010101 has an interesting property if we name the four bytes A, B, C, D:</p>
 <p>A, B, C, D → A+B+C+D, B+C+D, C+D, D</p>
 <p>Obviously the highest byte is what we are looking for. The right shift (line 12) returns just it.</p>
 </blockquote>
-<p>顺便附上代码里边十六进制数对应的二进制数。<br>
-0x55555555 = 01010101 01010101 01010101 01010101<br>
-0x33333333 = 00110011 00110011 00110011 00110011<br>
-0x0F0F0F0F = 00001111 00001111 00001111 00001111<br>
-0x00FF00FF = 00000000 11111111 00000000 11111111<br>
-0x0000FFFF = 00000000 00000000 11111111 11111111<br>
-0x01010101 = 00000001 00000001 00000001 00000001<br>
+<p>顺便附上代码里边十六进制数对应的二进制数。<br />
+0x55555555 = 01010101 01010101 01010101 01010101<br />
+0x33333333 = 00110011 00110011 00110011 00110011<br />
+0x0F0F0F0F = 00001111 00001111 00001111 00001111<br />
+0x00FF00FF = 00000000 11111111 00000000 11111111<br />
+0x0000FFFF = 00000000 00000000 11111111 11111111<br />
+0x01010101 = 00000001 00000001 00000001 00000001<br />
 0x0000003f = 00000000 00000000 00000000 00111111</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">hammingWeight</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        n = n - ((n &gt;&gt; <span class="hljs-number">1</span>) &amp; <span class="hljs-number">0x55555555</span>)<br>        n = (n &amp; <span class="hljs-number">0x33333333</span>) + ((n &gt;&gt; <span class="hljs-number">2</span>) &amp; <span class="hljs-number">0x33333333</span>)<br>        n = (n + (n &gt;&gt; <span class="hljs-number">4</span>)) &amp; <span class="hljs-number">0x0f0f0f0f</span><br>        n = n + (n &gt;&gt; <span class="hljs-number">8</span>)<br>        n = n + (n &gt;&gt; <span class="hljs-number">16</span>)<br>        <span class="hljs-keyword">return</span> n &amp; <span class="hljs-number">0x3f</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-comment">// you need to treat n as an unsigned value</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hammingWeight</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>		<span class="hljs-comment">// count bits of each 2-bit chunk</span><br>        n = n - ((n &gt;&gt;&gt; <span class="hljs-number">1</span>) &amp; <span class="hljs-number">0x55555555</span>);<br>		<span class="hljs-comment">// count bits of each 4-bit chunk</span><br>        n = (n &amp; <span class="hljs-number">0x33333333</span>) + ((n &gt;&gt;&gt; <span class="hljs-number">2</span>) &amp; <span class="hljs-number">0x33333333</span>);<br>		<span class="hljs-comment">// count bits of each 8-bit chunk:	x  = x + (x &gt;&gt; 4);</span><br>		<span class="hljs-comment">// mask out junk:	x &amp;= 0xF0F0F0F;</span><br>		<span class="hljs-comment">// add all four 8-bit chunks:	(x * 0x01010101) &gt;&gt; 24;</span><br>        <span class="hljs-keyword">return</span> ((n + (n &gt;&gt;&gt; <span class="hljs-number">4</span>) &amp; <span class="hljs-number">0xF0F0F0F</span>) * <span class="hljs-number">0x1010101</span>) &gt;&gt;&gt; <span class="hljs-number">24</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>建议还是用第三种循环法，好理解且复杂度不高。</p>
-<h2 id="779-第K个语法符号">779.第K个语法符号</h2>
-<h3 id="找规律，然后递归求解">找规律，然后递归求解</h3>
-<p>根据题目所给规则，我们先构造出前几个数：<br>
-0<br>
-0 1<br>
-01 10<br>
-0110 1001<br>
-01101001 10010110<br>
+<h2 id="779第k个语法符号"><a class="markdownIt-Anchor" href="#779第k个语法符号"></a> 779.第K个语法符号</h2>
+<h3 id="找规律然后递归求解"><a class="markdownIt-Anchor" href="#找规律然后递归求解"></a> 找规律，然后递归求解</h3>
+<p>根据题目所给规则，我们先构造出前几个数：<br />
+0<br />
+0 1<br />
+01 10<br />
+0110 1001<br />
+01101001 10010110<br />
 可以看到每一行的后半部分的数都是前半部分数的翻转，即：0变1，1变0。那么对k，如果k在后半部分，我们可以尝试求解上一行前半部分对应位置的数，然后将其翻转；如果k在前半部分，那么直接求上一行对应位置的数即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">kthGrammar</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span>, k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> k == <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>        <span class="hljs-keyword">if</span> k &gt; (<span class="hljs-number">1</span> &lt;&lt; (n - <span class="hljs-number">2</span>)):  <span class="hljs-comment"># 1 &lt;&lt; (n - 2) = 上一行长度的一半</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> ^ self.kthGrammar(n - <span class="hljs-number">1</span>, k - (<span class="hljs-number">1</span> &lt;&lt; (n - <span class="hljs-number">2</span>)))  <span class="hljs-comment"># k大于当前行长度一半，那么要返回的数就等于镜像位置的数字取反</span><br>        <span class="hljs-keyword">return</span> self.kthGrammar(n - <span class="hljs-number">1</span>, k)  <span class="hljs-comment"># k小于等于当前行长度一半，那么要返回的数就等于上一行当前位置的数字</span><br></code></pre></td></tr></table></figure>
-<h3 id="构造完全二叉树，然后递归求解">构造完全二叉树，然后递归求解</h3>
-<p>这个是看了别人的思路，发现好厉害，居然还有这种操作，还是我思维不行呜呜呜<br>
-上链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/k-th-symbol-in-grammar/solution/nao-jin-ji-zhuan-wan-by-heren1229-nvf5/">大佬的二叉树解题思路</a><br>
+<h3 id="构造完全二叉树然后递归求解"><a class="markdownIt-Anchor" href="#构造完全二叉树然后递归求解"></a> 构造完全二叉树，然后递归求解</h3>
+<p>这个是看了别人的思路，发现好厉害，居然还有这种操作，还是我思维不行呜呜呜<br />
+上链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/k-th-symbol-in-grammar/solution/nao-jin-ji-zhuan-wan-by-heren1229-nvf5/">大佬的二叉树解题思路</a><br />
 下边是按照思路写的代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">kthGrammar</span>(<span class="hljs-params">self, n: <span class="hljs-built_in">int</span>, k: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:<br>        <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 第一层，直接返回0</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>        num = self.kthGrammar(n - <span class="hljs-number">1</span>, (k + <span class="hljs-number">1</span>) // <span class="hljs-number">2</span>)  <span class="hljs-comment"># 找一下父节点是0还是1</span><br>        <span class="hljs-keyword">if</span> num == <span class="hljs-number">0</span>:  <span class="hljs-comment"># 父节点为0</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> k % <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>  <span class="hljs-comment"># 如果k是奇数，那就是左子节点；如果k是偶数，那就是右子节点</span><br>        <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 父节点为1</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> k % <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

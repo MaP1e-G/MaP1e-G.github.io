@@ -29,9 +29,9 @@
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Leetcode">
-<meta property="article:tag" content="数组">
 <meta property="article:tag" content="[object Object]">
 <meta property="article:tag" content="Solution">
+<meta property="article:tag" content="数组">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://imagehost.map1e-g.cn/Leetcode/leetcode_1752_1.png">
   
@@ -287,15 +287,15 @@
             
             <div class="markdown-body">
               
-              <h1>题目描述</h1>
-<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1752_1.png" srcset="/img/loading.gif" lazyload alt="1752"></p>
-<h1>思路及实现</h1>
-<p>题目的意思其实就是给你一个数组，然后如果这个数组不是完全单调递增的话，找到不能够单调递增的地方，然后从这个地方开始一直到最后的部分搬到最前边去，判断这样新产生的数组是否是单调递增的。<br>
+              <h1 id="题目描述"><a class="markdownIt-Anchor" href="#题目描述"></a> 题目描述</h1>
+<p><img src="http://imagehost.map1e-g.cn/Leetcode/leetcode_1752_1.png" srcset="/img/loading.gif" lazyload alt="1752" /></p>
+<h1 id="思路及实现"><a class="markdownIt-Anchor" href="#思路及实现"></a> 思路及实现</h1>
+<p>题目的意思其实就是给你一个数组，然后如果这个数组不是完全单调递增的话，找到不能够单调递增的地方，然后从这个地方开始一直到最后的部分搬到最前边去，判断这样新产生的数组是否是单调递增的。<br />
 所以思路也十分简单：</p>
 <ol>
 <li>找到需要进行分割的位置</li>
 <li>对数组进行重组</li>
-<li>将重组数组与排序后的数组进行比较<br>
+<li>将重组数组与排序后的数组进行比较<br />
 根据这个思路可以写出如下代码：</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        pre_num = <span class="hljs-number">0</span><br>        div_pos = -<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums):<br>            <span class="hljs-keyword">if</span> num &lt; pre_num:<br>                div_pos = i<br>                <span class="hljs-keyword">break</span><br>            pre_num = num<br>        <span class="hljs-keyword">if</span> div_pos == -<span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> nums[div_pos:] + nums[:div_pos] == <span class="hljs-built_in">sorted</span>(nums)<br></code></pre></td></tr></table></figure>
@@ -306,7 +306,7 @@
 <li>如果产生一次递减，若数组最后一位数大于数组第一位数则返回False，否则True</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>(<span class="hljs-params">self, nums: <span class="hljs-type">List</span>[<span class="hljs-built_in">int</span>]</span>) -&gt; <span class="hljs-built_in">bool</span>:<br>        pre_num = <span class="hljs-number">0</span><br>        flag = <span class="hljs-literal">False</span>  <span class="hljs-comment"># 检查是否出现递减</span><br>        <span class="hljs-keyword">for</span> i, num <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(nums):<br>            <span class="hljs-keyword">if</span> num &lt; pre_num:<br>                <span class="hljs-keyword">if</span> flag:<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>                <span class="hljs-keyword">else</span>:<br>                    flag = <span class="hljs-literal">True</span><br>            pre_num = num<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">not</span> flag <span class="hljs-keyword">or</span> flag <span class="hljs-keyword">and</span> nums[<span class="hljs-number">0</span>] &gt;= nums[-<span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -322,11 +322,11 @@
       
         <a href="/tags/Leetcode/">#Leetcode</a>
       
-        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
-      
         <a href="/tags/object-Object/">#[object Object]</a>
       
         <a href="/tags/Solution/">#Solution</a>
+      
+        <a href="/tags/%E6%95%B0%E7%BB%84/">#数组</a>
       
     </div>
   

@@ -284,35 +284,35 @@
             
             <div class="markdown-body">
               
-              <h1>想说的话</h1>
+              <h1 id="想说的话"><a class="markdownIt-Anchor" href="#想说的话"></a> 想说的话</h1>
 <p>不适合小白看，小白看可能会产生许多疑问。文章内容可能抽象，毕竟写给自己看的。</p>
-<h1>正文</h1>
-<h2 id="底部导航栏！">底部导航栏！</h2>
-<p>先来看看界面设计。<br>
-首先是实现底部导航栏，非常简单，左上角<code>File -&gt; New -&gt; New Project -&gt; Bottom Navigation Activity</code>，然后就自动为你创建好了一个现成的底部导航栏，在上面稍微做点改动即可拿来吧你！<br>
-效果图：<br>
-<img src="http://imagehost.map1e-g.cn/android-homework/Bottom_Nav_Result" srcset="/img/loading.gif" lazyload alt="底部导航栏实现"><br>
-那具体怎么改动？先看到<code>res</code>里边的<code>layout</code>，<code>Fragment</code>布局文件全部右键<code>Refactor -&gt; Rename</code>，就是改名，以我的导航栏为例：<code>fragment_home -&gt; fragment_memo</code>。<br>
+<h1 id="正文"><a class="markdownIt-Anchor" href="#正文"></a> 正文</h1>
+<h2 id="底部导航栏"><a class="markdownIt-Anchor" href="#底部导航栏"></a> 底部导航栏！</h2>
+<p>先来看看界面设计。<br />
+首先是实现底部导航栏，非常简单，左上角<code>File -&gt; New -&gt; New Project -&gt; Bottom Navigation Activity</code>，然后就自动为你创建好了一个现成的底部导航栏，在上面稍微做点改动即可拿来吧你！<br />
+效果图：<br />
+<img src="http://imagehost.map1e-g.cn/android-homework/Bottom_Nav_Result" srcset="/img/loading.gif" lazyload alt="底部导航栏实现" /><br />
+那具体怎么改动？先看到<code>res</code>里边的<code>layout</code>，<code>Fragment</code>布局文件全部右键<code>Refactor -&gt; Rename</code>，就是改名，以我的导航栏为例：<code>fragment_home -&gt; fragment_memo</code>。<br />
 然后看到工程文件里边的<code>ui</code>文件夹，里边分别存了三个界面的<code>Fragment</code>，只留下三个<code>Fragment</code>，<code>ViewModel</code>全删了，然后再把<code>Fragment</code>里边改成下边这样子。（图方便）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MemoFragment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Fragment</span> &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">(<span class="hljs-meta">@Nullable</span> Bundle savedInstanceState)</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate(savedInstanceState);<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> View <span class="hljs-title function_">onCreateView</span><span class="hljs-params">(<span class="hljs-meta">@NonNull</span> LayoutInflater inflater,</span><br><span class="hljs-params">                             ViewGroup container, Bundle savedInstanceState)</span> &#123;<br>        <span class="hljs-keyword">return</span> inflater.inflate(R.layout.fragment_memo, container, <span class="hljs-literal">false</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>接着去<code>res/navigation/mobile_navigation.xml</code>里进行改动，还是以下面代码为例。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">fragment</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/navigation_memo&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;com.example.bottonnavdemo.ui.memo.MemoFragment&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:label</span>=<span class="hljs-string">&quot;@string/title_memo&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">tools:layout</span>=<span class="hljs-string">&quot;@layout/fragment_memo&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
-<p>可以看到上面四项其实就是把全部<code>home</code>改为了<code>memo</code>，<code>Home</code>改为了<code>Memo</code>。<br>
+<p>可以看到上面四项其实就是把全部<code>home</code>改为了<code>memo</code>，<code>Home</code>改为了<code>Memo</code>。<br />
 最后一步，改<code>res/menu/bottom_nav_menu.xml</code>，看代码。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">item</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:id</span>=<span class="hljs-string">&quot;@+id/navigation_memo&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:icon</span>=<span class="hljs-string">&quot;@drawable/ic_memo_24&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:title</span>=<span class="hljs-string">&quot;@string/title_memo&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
 <p>同样是把全部<code>home</code>改为了<code>memo</code>。但是这里的图标文件要怎么获得呢？有两种方式：</p>
 <ol>
 <li>上网找一个合适的，然后copy进去<code>res/drawble</code>即可引用</li>
-<li><code>drawble</code>文件夹右键，<code>New -&gt; Vector Asset</code>创建一个<br>
+<li><code>drawble</code>文件夹右键，<code>New -&gt; Vector Asset</code>创建一个<br />
 我是用的方法二，挺方便的。</li>
 </ol>
 <div class="note note-warning">
             <p>可能<code>MainActivity</code>要改一下，具体如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">AppBarConfiguration</span> <span class="hljs-variable">appBarConfiguration</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AppBarConfiguration</span>.Builder(<br>                R.id.navigation_memo, R.id.navigation_music, R.id.navigation_setting)<br>                .build();<br></code></pre></td></tr></table></figure><p>就是里面的资源<code>R.id.xxx</code>要改成自己修改过后的而不是一开始它提供的。</p>
           </div>
 <div class="note note-warning">
-            <p>梅开二度！如果你已经创建好了一个<code>Fragment</code>并满怀期待地展示出来，打开应用，切换到对于界面，你可能会发现最底部的内容被导航栏挡住了！<br>对此，去<code>activity_main</code>里面找到<code>&lt;fragment&gt;</code>元素里面的<code>android:layout_height</code>属性，修改为<code>0dp</code>即可！即：<code>android:layout_height=&quot;0dp&quot;</code></p>
+            <p>梅开二度！如果你已经创建好了一个<code>Fragment</code>并满怀期待地展示出来，打开应用，切换到对于界面，你可能会发现最底部的内容被导航栏挡住了！<br />对此，去<code>activity_main</code>里面找到<code>&lt;fragment&gt;</code>元素里面的<code>android:layout_height</code>属性，修改为<code>0dp</code>即可！即：<code>android:layout_height=&quot;0dp&quot;</code></p>
           </div>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

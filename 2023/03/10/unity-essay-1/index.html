@@ -282,41 +282,41 @@
             
             <div class="markdown-body">
               
-              <h1>随便写写</h1>
-<h2 id="使用C-脚本">使用C#脚本</h2>
-<h3 id="创建C-脚本的三种方法：">创建C#脚本的三种方法：</h3>
+              <h1 id="随便写写"><a class="markdownIt-Anchor" href="#随便写写"></a> 随便写写</h1>
+<h2 id="使用c脚本"><a class="markdownIt-Anchor" href="#使用c脚本"></a> 使用C#脚本</h2>
+<h3 id="创建c脚本的三种方法"><a class="markdownIt-Anchor" href="#创建c脚本的三种方法"></a> 创建C#脚本的三种方法：</h3>
 <ol>
 <li><strong>资源(Assets)</strong> -&gt; <strong>创建(Create)</strong> -&gt; <strong>C#脚本(C# Script)</strong></li>
 <li>在<strong>项目(Project)<strong>选项卡中，选择</strong>创建(Create)</strong> -&gt; <strong>C#脚本(C# Script)</strong></li>
 <li>在<strong>层级(Hierarchy)<strong>窗口中选择一个GameObject，在</strong>检查器(Inspector)<strong>中，单击</strong>添加组件(Add Component)</strong> -&gt; <strong>New Script</strong></li>
 </ol>
-<h3 id="给GameObject添加脚本">给GameObject添加脚本</h3>
+<h3 id="给gameobject添加脚本"><a class="markdownIt-Anchor" href="#给gameobject添加脚本"></a> 给GameObject添加脚本</h3>
 <p>如果不是方法三创建的脚本，要添加到我们想添加到的GameObject中运行的话，直接从<strong>项目(Project)<strong>选项卡中选中脚本并拖放至GameObject上即可（如：将<code>Move.cs</code>脚本拖放到</strong>层级(Hierarchy)<strong>窗口中的</strong>Main Camera</strong>）。</p>
-<h2 id="将信息和反馈打印到Unity编辑器的Console窗口">将信息和反馈打印到Unity编辑器的Console窗口</h2>
+<h2 id="将信息和反馈打印到unity编辑器的console窗口"><a class="markdownIt-Anchor" href="#将信息和反馈打印到unity编辑器的console窗口"></a> 将信息和反馈打印到Unity编辑器的Console窗口</h2>
 <p>可以使用<code>Debug.Log()</code>或者<code>Debug.LogFormat()</code>方法。下面是例子：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C#">Debug.Log(<span class="hljs-string">&quot;Text goes here.&quot;</span>);<br>Debug.Log(yourVariable);<br>Debug.Format(<span class="hljs-string">&quot;Text goes here, add &#123;0&#125; and &#123;1&#125; as variable placeholders&quot;</span>, variable1, bariable2);<br></code></pre></td></tr></table></figure>
 <p>当然，<code>Debug.Log()</code>方法也支持字符串插值：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C#">Debug.Log(<span class="hljs-string">$&quot;A string can have variables like <span class="hljs-subst">&#123;firstName&#125;</span> inserted directly!&quot;</span>);<br></code></pre></td></tr></table></figure>
-<h2 id="Start-和Update-方法">Start()和Update()方法</h2>
-<h3 id="Start">Start()</h3>
+<h2 id="start和update方法"><a class="markdownIt-Anchor" href="#start和update方法"></a> Start()和Update()方法</h2>
+<h3 id="start"><a class="markdownIt-Anchor" href="#start"></a> Start()</h3>
 <p>Unity在启用脚本的第一帧时便调用此方法。**只会执行一次。**主要用于设置变量或执行首次运行Update()之前需要发生的逻辑。也可用于在Console面板上显示一次性信息。</p>
-<h3 id="Update">Update()</h3>
+<h3 id="update"><a class="markdownIt-Anchor" href="#update"></a> Update()</h3>
 <p>每帧显示后，<code>Update()</code>方法便由Unity调用（即每帧调用一次<code>Update()</code>）。非常适合用来<strong>监测鼠标和键盘输入</strong>或<strong>运行游戏逻辑</strong>。</p>
-<h2 id="C-中的数组、字典和列表">C#中的数组、字典和列表</h2>
-<h3 id="数组">数组</h3>
+<h2 id="c中的数组-字典和列表"><a class="markdownIt-Anchor" href="#c中的数组-字典和列表"></a> C#中的数组、字典和列表</h2>
+<h3 id="数组"><a class="markdownIt-Anchor" href="#数组"></a> 数组</h3>
 <p><strong>数组的特点</strong>：</p>
 <ul>
 <li>数组可以存储任何类型的值，但所有元素都必须是同一类型。</li>
 <li>数组的长度或可容纳元素的数量在创建数组时就已设置，之后无法修改。</li>
-<li>如果在创建时没有分配初始值，则每个元素将被赋予一个默认值。存储数字类型的数组默认为0，而任何其他类型都默认设置为null。<br>
-<strong>如何创建数组</strong><br>
+<li>如果在创建时没有分配初始值，则每个元素将被赋予一个默认值。存储数字类型的数组默认为0，而任何其他类型都默认设置为null。<br />
+<strong>如何创建数组</strong><br />
 通用模板：<code>elementType[] name = new elementType[numberOfElements];</code></li>
 </ul>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-comment">// example</span><br><span class="hljs-built_in">int</span>[] newArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[<span class="hljs-number">3</span>];<br><br><span class="hljs-comment">// Longhand initializer</span><br><span class="hljs-built_in">int</span>[] newArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[] &#123;<span class="hljs-number">713</span>, <span class="hljs-number">549</span>, <span class="hljs-number">984</span>&#125;;<br><br><span class="hljs-comment">// Shortcut initializer</span><br><span class="hljs-built_in">int</span>[] newArray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[] &#123;<span class="hljs-number">713</span>, <span class="hljs-number">549</span>, <span class="hljs-number">984</span>&#125;;<br></code></pre></td></tr></table></figure>
-<h3 id="列表">列表</h3>
-<p><strong>如何创建列表</strong><br>
-通用模板：<code>List&lt;elementType&gt; name = new List&lt;elementType&gt;() &#123;value1, value2&#125;;</code><br>
-<strong>列表中的操作</strong><br>
+<h3 id="列表"><a class="markdownIt-Anchor" href="#列表"></a> 列表</h3>
+<p><strong>如何创建列表</strong><br />
+通用模板：<code>List&lt;elementType&gt; name = new List&lt;elementType&gt;() &#123;value1, value2&#125;;</code><br />
+<strong>列表中的操作</strong><br />
 查找元素：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C#">name[index];<br></code></pre></td></tr></table></figure>
 <p>统计元素：</p>
@@ -327,11 +327,11 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C#">name.Insert(index, newElement);<br></code></pre></td></tr></table></figure>
 <p>删除元素：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C#">name.RemoveAt(index);<br>name.Remove(<span class="hljs-keyword">value</span>);<br></code></pre></td></tr></table></figure>
-<h3 id="字典">字典</h3>
-<p><strong>如何创建字典</strong><br>
+<h3 id="字典"><a class="markdownIt-Anchor" href="#字典"></a> 字典</h3>
+<p><strong>如何创建字典</strong><br />
 通用模板：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C#">Dictionary&lt;keyType, valueType&gt; name = <span class="hljs-keyword">new</span> Dictionary&lt;keyType, valueType&gt;()<br>&#123;<br>	&#123;key1, value1&#125;,<br>	&#123;key2, value2&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p><strong>操作字典</strong><br>
+<p><strong>操作字典</strong><br />
 统计键值对数量：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C#">name.Count();<br></code></pre></td></tr></table></figure>
 <p>添加键值对：</p>
@@ -344,30 +344,30 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C#">name.ContainKey(key);<br></code></pre></td></tr></table></figure>
 <p>在循环中捕获键值对：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">foreach</span>(KeyValuePair&lt;keyType, valueType&gt; kvp <span class="hljs-keyword">in</span> name)<br>&#123;<br>	kvp.Key;<br>	kvp.Value;<br>	code block;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="C-中的类、结构体与OOP">C#中的类、结构体与OOP</h2>
-<p>类的关键是它们是<strong>引用类型</strong>，也就是说，当类被赋值或传递给另一个变量时，系统引用的是原始对象，而不是创建一个新的脚本。<br>
-而结构体则是<strong>值类型</strong>，其特点有：变量不能在结构体声明的内部进行初始化，除非用static或是const修饰；不允许使用没有参数的构造函数。<br>
+<h2 id="c中的类-结构体与oop"><a class="markdownIt-Anchor" href="#c中的类-结构体与oop"></a> C#中的类、结构体与OOP</h2>
+<p>类的关键是它们是<strong>引用类型</strong>，也就是说，当类被赋值或传递给另一个变量时，系统引用的是原始对象，而不是创建一个新的脚本。<br />
+而结构体则是<strong>值类型</strong>，其特点有：变量不能在结构体声明的内部进行初始化，除非用static或是const修饰；不允许使用没有参数的构造函数。<br />
 结构体作为单独对象很容易被复制和修改（可直接<code>structObject1 = structObject2</code>），而类保留了对其原始对象的引用。</p>
-<h3 id="C-中的继承">C#中的继承</h3>
+<h3 id="c中的继承"><a class="markdownIt-Anchor" href="#c中的继承"></a> C#中的继承</h3>
 <p>如何创建继承？</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C#">accessModifier <span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span>: <span class="hljs-title">SuperClass</span><br>&#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>任何用<code>public</code>、<code>protected</code>或<code>internal</code>访问修饰符标记的基类成员都会自动成为派生类的一部分，但构造函数除外。类的构造函数总是属于包含它们的类，但仍可以从派生类中使用父类的构造函数：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ChildClass</span>: <span class="hljs-title">ParentClass</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ChildClass</span>(): <span class="hljs-title">base</span>()</span><br>	&#123;<br>		<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="C-中的多态">C#中的多态</h3>
-<p>一个方法可以通过调用类产生不同的行为，此即为<strong>多态</strong>。<br>
-派生类对象的处理方式与父类对象相同。例如，一个由<code>ParentClass</code>类对象构成的数组也可以存储<code>ChildClass</code>对象，因为它们派生自<code>ParentClass</code>。<br>
+<h3 id="c中的多态"><a class="markdownIt-Anchor" href="#c中的多态"></a> C#中的多态</h3>
+<p>一个方法可以通过调用类产生不同的行为，此即为<strong>多态</strong>。<br />
+派生类对象的处理方式与父类对象相同。例如，一个由<code>ParentClass</code>类对象构成的数组也可以存储<code>ChildClass</code>对象，因为它们派生自<code>ParentClass</code>。<br />
 父类可以将方法标记为虚拟方法（<code>virtual</code>，在访问修饰符和返回类型之间加入，如：<code>public virtual void</code>），这意味着派生类可以使用<code>override</code>（也是在访问修饰符和返回类型之间加入）关键字修改其命令（重载方法）。</p>
-<h2 id="访问组件">访问组件</h2>
-<p>组件是什么呢？比如，对于一个<code>GameObject</code>，这里以<code>MainCamera</code>为例，单击它，在右边检查器（Inspector）中的就是它的组件了：Transform、Camera、Audio Listener和我们自己加上去的Learning Curve。<br>
+<h2 id="访问组件"><a class="markdownIt-Anchor" href="#访问组件"></a> 访问组件</h2>
+<p>组件是什么呢？比如，对于一个<code>GameObject</code>，这里以<code>MainCamera</code>为例，单击它，在右边检查器（Inspector）中的就是它的组件了：Transform、Camera、Audio Listener和我们自己加上去的Learning Curve。<br />
 那要如何在自己编写的Learning Curve脚本中获取到Transform组件呢？可以用<code>GameObject</code>的类方法：<code>GetComponent()</code>或<code>Find()</code>。</p>
 <ol>
 <li>访问当前的Transform组件 -&gt; 使用<code>GetComponent()</code></li>
 </ol>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C#">GameObject.GetComponent&lt;ComponentType&gt;()<br>camTransform = <span class="hljs-keyword">this</span>.GetComponent&lt;Transform&gt;();<br></code></pre></td></tr></table></figure>
-<p>这里能用<code>this</code>关键字，是因为两者都附加到相同的<code>GameObject</code>组件上。<br>
+<p>这里能用<code>this</code>关键字，是因为两者都附加到相同的<code>GameObject</code>组件上。<br />
 2. 访问另外一个<code>GameObject</code>上的组件 -&gt; 使用<code>Find()</code> + <code>GetComponent()</code></p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C#">directionLight = GameObject.Find(<span class="hljs-string">&quot;Directional light&quot;</span>);<br>lightTransform = directionLight.GetComponent&lt;Transform&gt;();<br></code></pre></td></tr></table></figure>
-<h2 id="游戏设计入门">游戏设计入门</h2>
+<h2 id="游戏设计入门"><a class="markdownIt-Anchor" href="#游戏设计入门"></a> 游戏设计入门</h2>
 <p>对于我们想要构建的内容，我们需要规划好以下几点：</p>
 <ul>
 <li>概念：对游戏的全局理念和设计，包括游戏类型和玩法风格。</li>
@@ -377,7 +377,7 @@
 <li>艺术风格：游戏的总体观感，并体现在从角色、界面美术到关卡和环境设计的各方面。</li>
 <li>胜负条件：决定游戏输赢的规则，通常由一些可能会遭遇失败的目标构成。</li>
 </ul>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>

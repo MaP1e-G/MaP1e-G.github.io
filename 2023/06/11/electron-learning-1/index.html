@@ -26,8 +26,8 @@
 <meta property="article:published_time" content="2023-06-11T12:21:52.000Z">
 <meta property="article:modified_time" content="2023-06-11T16:21:30.865Z">
 <meta property="article:author" content="MaP1e-G">
-<meta property="article:tag" content="Elctron">
 <meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Elctron">
 <meta property="article:tag" content="Html">
 <meta property="article:tag" content="Css">
 <meta name="twitter:card" content="summary_large_image">
@@ -284,8 +284,8 @@
             
             <div class="markdown-body">
               
-              <h1>创建第一个Electron应用</h1>
-<h2 id="electron，启动">electron，启动</h2>
+              <h1 id="创建第一个electron应用"><a class="markdownIt-Anchor" href="#创建第一个electron应用"></a> 创建第一个Electron应用</h1>
+<h2 id="electron启动"><a class="markdownIt-Anchor" href="#electron启动"></a> electron，启动</h2>
 <div class="note note-warning">
             <p>需要安装<code>Node.js</code>！请使用<code>node -v</code>和<code>npm -v</code>检查！</p>
           </div>
@@ -293,29 +293,29 @@
 <div class="note note-warning">
             <p>注意：<code>entry point</code>应为<code>main.js</code>！</p>
           </div>
-<p>然后将<code>electron</code>包安装到应用的开发依赖中：<code>npm install --save-dev electron</code>。<br>
+<p>然后将<code>electron</code>包安装到应用的开发依赖中：<code>npm install --save-dev electron</code>。<br />
 安装好后，接着在<code>package.json</code>中增加一条命令：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;start&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;electron .&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<h2 id="创建页面">创建页面</h2>
-<p><strong>在<code>Electron</code>中，各个窗口显示的内容可以是本地<code>HTML</code>文件，也可以是一个远程<code>url</code>。</strong><br>
+<h2 id="创建页面"><a class="markdownIt-Anchor" href="#创建页面"></a> 创建页面</h2>
+<p><strong>在<code>Electron</code>中，各个窗口显示的内容可以是本地<code>HTML</code>文件，也可以是一个远程<code>url</code>。</strong><br />
 所以可以现在本地写一些<code>html</code>先，比如官网的例子<code>index.html</code>：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;Content-Security-Policy&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>你好!<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>你好!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    我们正在使用 Node.js <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;node-version&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>,<br>    Chromium <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;chrome-version&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>,<br>    和 Electron <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;electron-version&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h2 id="在窗口中打开页面">在窗口中打开页面</h2>
+<h2 id="在窗口中打开页面"><a class="markdownIt-Anchor" href="#在窗口中打开页面"></a> 在窗口中打开页面</h2>
 <p>要把页面加载进应用窗口中，需要两个<code>electron</code>模块：</p>
 <ul>
 <li><code>app</code>模块，控制应用程序的事件生命周期</li>
-<li><code>BrowserWindow</code>模块，创建和管理应用程序窗口<br>
-在<code>main.js</code>文件头部将它们导入作为<code>CommonJS</code>模块：<code>const &#123; app, BrowserWindow &#125; = require('electron')</code><br>
+<li><code>BrowserWindow</code>模块，创建和管理应用程序窗口<br />
+在<code>main.js</code>文件头部将它们导入作为<code>CommonJS</code>模块：<code>const &#123; app, BrowserWindow &#125; = require('electron')</code><br />
 然后写一个新的方法，在这个方法中，创建一个新的<code>BrowserWindow</code>实例，并把<code>index.html</code>加载到这个实例中：</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title function_">createWindow</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> win = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserWindow</span>(&#123;<br>    <span class="hljs-attr">width</span>: <span class="hljs-number">800</span>,<br>    <span class="hljs-attr">height</span>: <span class="hljs-number">600</span><br>  &#125;)<br><br>  win.<span class="hljs-title function_">loadFile</span>(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>然后调用这个方法就可以创建窗口了。只有在<code>app</code>模块的<code>ready</code>事件被激发后才能创建浏览器窗口。可以通过使用<code>app.whenReady()</code>来监听此事件，并在成功后调用创建窗口的方法。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">app.<span class="hljs-title function_">whenReady</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">createWindow</span>()<br>&#125;)<br></code></pre></td></tr></table></figure>
-<p>##打包和分发应用程序<br>
+<p>##打包和分发应用程序<br />
 可以使用<code>Electron Forge</code>。执行以下命令：</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> install --save-dev @electron-forge/cli<br>npx electron-forge <span class="hljs-keyword">import</span><br></code></pre></td></tr></table></figure>
 <p>完成上述步骤后，再执行<code>npm run make</code>即可创建可分发的应用程序，软件包在<code>out</code>文件夹下。</p>
-<hr>
+<hr />
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
             </div>
@@ -355,9 +355,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Elctron/">#Elctron</a>
-      
         <a href="/tags/JavaScript/">#JavaScript</a>
+      
+        <a href="/tags/Elctron/">#Elctron</a>
       
         <a href="/tags/Html/">#Html</a>
       
