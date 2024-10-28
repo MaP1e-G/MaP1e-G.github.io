@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="关于我一个星期速通pyqt这件事（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PYQT6疑难杂症解决方案">
+<meta property="og:url" content="https://map1e-g.github.io/2022/06/15/pyqt-essay-1/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="关于我一个星期速通pyqt这件事（">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-15T07:21:05.000Z">
+<meta property="article:modified_time" content="2022-06-23T08:25:20.783Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="PyQt6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>PYQT6疑难杂症解决方案 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="PYQT6疑难杂症解决方案"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-15 15:21" pubdate>
+          2022年6月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">PYQT6疑难杂症解决方案</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2022年6月23日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>谁能想到课程设计要用pyqt+qt来写呢？我是没想到的。还好是老师会给课件，这下一周速通了。问题是老师给的pyqt5，而我作死用pyqt6导致自己碰一大堆壁。<br>所以这篇随笔就是把碰的壁整合一下，不知道以后有没有机会用到（虽然我并不是很喜欢用python来干这种事情（指写GUI和操作数据库））。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="QPalette-setColor"><a href="#QPalette-setColor" class="headerlink" title="QPalette.setColor"></a>QPalette.setColor</h2><p>在pyqt5里边，是这么写的：<code>palette1.setColor(palette1.Background, QtGui.QColor(255,  210,  210))</code><br>但是在pyqt6里边，多了两个东西，ColorRole 和 ColorGroup，这就导致你要这么写：<code>palette1.setColor(palette1.ColorRole.Window, QtGui.QColor(&#39;gray&#39;))</code><br>上边的Background是被弃用了的，取而代之的是Window，而Window归于ColorRole，所以写法大大地不同（闷了）。</p>
+<div class="note note-warning">
+            <p>设置某些控件的字体颜色的时候不要用调色盘！！！比如QLabel和QPlainTextEdit，用他们自带的<code>setStyleSheet()</code>，向里面传字符串<code>&quot;color: xx&quot;</code>，xx替换成相应颜色。</p>
+          </div>
+
+<h2 id="关于鼠标相关的事件"><a href="#关于鼠标相关的事件" class="headerlink" title="关于鼠标相关的事件"></a>关于鼠标相关的事件</h2><p>其实每个组件都已经写好了相关事件，只不过有些组件本来就没必要和鼠标进行交互当然不会触发相关事件。但是我们可以自己编写自己的类，通过继承和重载来对鼠标的信号作出反应。<br>和鼠标事件有关的方法有：<code>mousePressEvent(self, event)</code>、<code>wheelEvent(self, event)</code>、<code>mouseDoubieCiickEvent(self, event)</code>、<code>mouseReleaseEvent(self, event)</code>、<code>mouseMoveEvent(self, event)</code>、<code>enterEvent(self, event)</code>和<code>leaveEvent(self, event)</code>。<br>分别是：鼠标按下事件、滚轮滚动事件、鼠标双击事件、鼠标释放事件、鼠标移动事件、鼠标进入控件事件和鼠标离开控件事件。鼠标按下事件中可以通过event来获取具体按下的键再来配置更详细的操作。  </p>
+<div class="note note-warning">
+            <p>如果要实现实时监测鼠标移动，需要<code>setMouseTracking(True)</code>，否则只会在<code>mousePress</code>的时候触发鼠标移动事件。</p>
+          </div>
+
+<h2 id="关于pyqt6把pyrcc删除了这件事"><a href="#关于pyqt6把pyrcc删除了这件事" class="headerlink" title="关于pyqt6把pyrcc删除了这件事"></a>关于pyqt6把pyrcc删除了这件事</h2><p>老师给的课件用的是pyqt5，此时还存在pyrcc5这种东西，但是到了6能编译资源文件的pyrcc就惨遭阉割（误）。结果弄到我在这里卡了挺久，找了个什么pyqt6rc装一下不仅没用还把我pyqt6搞崩了，郁闷。<br>但是我们可以用pyside6-rcc进行编译（我是没想到的）。我们需要先安装pyside6：<code>pip install pyside6</code>，安装成功后，进入到资源文件所在文件夹中，使用命令：<code>pyside6-rcc res.qrc -o res.py</code>即可编译。<br>但是pyuic6编译后的py文件中不会自带<code>import res</code>，需要我们手动写进去。</p>
+<h2 id="关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事"><a href="#关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事" class="headerlink" title="关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事"></a>关于我的电脑时区为了登上xbox改成了香港特别行政区结果数字全显示成苏州码子这件事</h2><p>如果你发现数字显示成苏州码子：〡〢〣〤〥〦〧〨〩<br>把电脑时区改回来！具体操作：控制面板 -&gt; 时钟和区域 -&gt; 区域，格式改成：中文(简体，中国)。</p>
+<h2 id="关于pyCharm读取数据库或文件导致程序崩溃报错-1073740791-0xC0000409"><a href="#关于pyCharm读取数据库或文件导致程序崩溃报错-1073740791-0xC0000409" class="headerlink" title="关于pyCharm读取数据库或文件导致程序崩溃报错-1073740791 (0xC0000409)"></a>关于pyCharm读取数据库或文件导致程序崩溃报错-1073740791 (0xC0000409)</h2><p>菜单栏Run -&gt; Edit Configuration，把Emulate terminal in output console勾选上。</p>
+<h2 id="关于pyqt6里边枚举类型是：类名-枚举名-枚举值这件事"><a href="#关于pyqt6里边枚举类型是：类名-枚举名-枚举值这件事" class="headerlink" title="关于pyqt6里边枚举类型是：类名.枚举名.枚举值这件事"></a>关于pyqt6里边枚举类型是：类名.枚举名.枚举值这件事</h2><p>简单的例子，pyqt5里边：<code>self.tabModel.setEditStrategy(QSqlTableModel.OnManualSubmit)</code>，pyqt6里边：<code>self.tabModel.setEditStrategy(QSqlTableModel.EditStrategy.OnManualSubmit)</code><br>就这么简单。虽然老师提醒过了但是我一开始根本就没想到这里面是枚举。查文档看到的确存在这种属性，然后又忽略了枚举。闷了很久，突然就灵光一闪这不是枚举值吗，不会是枚举的锅吧！然后就解决了。。。</p>
+<h2 id="关于某些时候一些行为触发两次相同的槽函数这件事"><a href="#关于某些时候一些行为触发两次相同的槽函数这件事" class="headerlink" title="关于某些时候一些行为触发两次相同的槽函数这件事"></a>关于某些时候一些行为触发两次相同的槽函数这件事</h2><p>本来是不想管的，但是open两次数据库就直接炸了啊我能不管吗？最简单的解决办法：给槽函数上@pyqtSlot()装饰器。</p>
+<h2 id="关于QSqlTableMode、QSqlQueryModel、QSqlRelationalTableMode、QSqlQuery这四个东西用来干嘛"><a href="#关于QSqlTableMode、QSqlQueryModel、QSqlRelationalTableMode、QSqlQuery这四个东西用来干嘛" class="headerlink" title="关于QSqlTableMode、QSqlQueryModel、QSqlRelationalTableMode、QSqlQuery这四个东西用来干嘛"></a>关于QSqlTableMode、QSqlQueryModel、QSqlRelationalTableMode、QSqlQuery这四个东西用来干嘛</h2><p>在课件里边，老师是这么用的：<code>QSqlTableMode</code>用来写了对数据库进行增删查改等操作的界面，<code>QSqlQueryModel</code>用来写对数据库进行查询的界面，从这里边我们就能很好地总结出：前者可以对数据库进行读写操作，而后者对数据库是只读的。<br>在网络上也找了一点说法：</p>
+<blockquote>
+<p>提供了一个sql查询结果的只读数据模型。它从查询QSqlQueryModel获取数据。可以方便的用于在QListView, QTableView, QTreeView等各种view上展示数据。但它是只读的，不能编辑。<br>继承于QSqlQueryModel，与QSqlQueryModel功能相似。比QSqlQueryModel的限制在于不能是任意sql语句，只是对单个数据表操作。拓展在于在各种view上展示表格数据的同时，还允许用户进行编辑操作。</p>
+</blockquote>
+<p>那<code>QSqlRelationalTableMode</code>是用来干什么的呢？在课件里边，它被用来做便捷的联合查询操作（也可以对数据表进行操作），且可以快速设置代理组件而不需要自己手写。<br>还有最后一个<code>QSqlQuery</code>，简单地说就是用来执行sql语句的。</p>
+<h2 id="关于pyqt6里的QChart没有axisX-这个东西"><a href="#关于pyqt6里的QChart没有axisX-这个东西" class="headerlink" title="关于pyqt6里的QChart没有axisX()这个东西"></a>关于pyqt6里的QChart没有axisX()这个东西</h2><p>这是课件里pyqt5的做法:<code>chart.removeAxis(chart.axisX())  # 删除坐标轴</code><br>但是pyqt6他没有啊，他又没有了啊！找了半天有个可以返回全部坐标轴列表的方法，于是我改成了下边的写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> chart.axes():<br>    <span class="hljs-keyword">for</span> axis <span class="hljs-keyword">in</span> chart.axes():<br>        chart.removeAxis(axis)  <span class="hljs-comment"># 删除坐标轴</span><br></code></pre></td></tr></table></figure>
+<p>你以为就结束了啊？你要把坐标轴加上去用的也不是<code>setAxisX()</code>而是<code>addAxis()</code>了。详细对比下面两句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">chart.addAxis(axisStud, Qt.AlignmentFlag.AlignLeft)  <span class="hljs-comment"># pyqt6写法</span><br>chart.setAxisY(axisStud, seriesBar)  <span class="hljs-comment"># pyqt5写法</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>做完课设人已经麻了，谢谢。</p>
+<hr>
+
+                <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Essay/" class="category-chain-item">Essay</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Essay/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/PyQt6/" class="print-no-link">#PyQt6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>PYQT6疑难杂症解决方案</div>
+      <div>https://map1e-g.github.io/2022/06/15/pyqt-essay-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/09/python-learning-4/" title="Python中的数据结构">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python中的数据结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/13/python-essay-4/" title="python随笔-4">
+                        <span class="hidden-mobile">python随笔-4</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
