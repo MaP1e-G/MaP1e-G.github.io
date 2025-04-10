@@ -1,0 +1,747 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="口也！一点也记不起来这些排序算法怎么写了口牙！参考书籍：《算法 第四版》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="归并排序与快速排序">
+<meta property="og:url" content="https://map1e-g.github.io/2023/11/11/algorithm-merge-sort-quick-sort/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="口也！一点也记不起来这些排序算法怎么写了口牙！参考书籍：《算法 第四版》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://algs4.cs.princeton.edu/22mergesort/images/mergesortTD.png">
+<meta property="og:image" content="https://algs4.cs.princeton.edu/22mergesort/images/mergesortBU.png">
+<meta property="article:published_time" content="2023-11-11T13:26:44.000Z">
+<meta property="article:modified_time" content="2023-12-03T14:59:16.642Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="归并排序">
+<meta property="article:tag" content="快速排序">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://algs4.cs.princeton.edu/22mergesort/images/mergesortTD.png">
+  
+  
+  
+  <title>归并排序与快速排序 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="归并排序与快速排序"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-11 21:26" pubdate>
+          2023年11月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          67 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">归并排序与快速排序</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年12月3日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>阅前警告</h1>
+<p>本文内容可能高度抽象，因为这段时间实在太忙，只能大概写个大致想法，想起一个引导的作用，没想过如何组织文章。</p>
+<h1>归并排序</h1>
+<p>归并排序的基本思想：要将一个数组排序，可以先（递归地）将它分成两半分别排序，然后将结果<strong>归并</strong>起来。其中的“归并”其实也是排序，方法是：通过比较左右两边数组的元素来进行排序。<br>
+那么要如何实现这种归并呢？一种简单的办法是使用额外的空间，然后把不同的两个有序数组归并到这一块空间中。但是这样做并不明智，因为每次归并时都需要创建新数组来存储排序结果，所以使用原地归并会更好，即将归并后的结果放回原数组中。（但即便是原地归并，我们仍然需要使用一个和原数组一样大的辅助数组来帮助我们进行归并。）</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Merge</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> mid, <span class="hljs-built_in">int</span> hi</span>)</span><br>&#123;<br>    <span class="hljs-built_in">int</span> i = lo, j = mid + <span class="hljs-number">1</span>;<br>	<br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> k = lo; k &lt;= hi; k++)<br>    &#123;<br>        aux[k] = a[k];  <span class="hljs-comment">// 复制原数组至辅助数组</span><br>    &#125;<br>	<br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> k = lo; k &lt;= hi; k++)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (i &gt; mid)<br>        &#123;   <span class="hljs-comment">// 左边处理完毕了</span><br>            a[k] = aux[j++];  <span class="hljs-comment">// 处理右边剩下的元素</span><br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (j &gt; hi)<br>        &#123;   <span class="hljs-comment">// 右边处理完毕了</span><br>            a[k] = aux[i++];  <span class="hljs-comment">// 处理左边剩下的元素</span><br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Less(aux[i], aux[j]))<br>        &#123;   <span class="hljs-comment">// 两边都没处理完毕，且左边元素比右边元素小</span><br>            a[k] = aux[i++];  <span class="hljs-comment">// 把左边元素放回原数组中</span><br>        &#125;<br>        <span class="hljs-keyword">else</span><br>        &#123;   <span class="hljs-comment">// 两边都没处理完毕，且右边元素比左边元素小</span><br>            a[k] = aux[j++];  <span class="hljs-comment">// 把右边元素放回原数组中</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="自顶向下的归并排序">自顶向下的归并排序</h2>
+<p>分治思想，递归实现。<br>
+<code>Sort</code>方法要做的事情就是将数组尽可能地切分，然后进行归并。<br>
+<img src="https://algs4.cs.princeton.edu/22mergesort/images/mergesortTD.png" srcset="/img/loading.gif" lazyload alt="Merge 方法的调用顺序"></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>&#123;<br>    <span class="hljs-keyword">if</span> (hi &lt;= lo)<br>    &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-built_in">int</span> mid = (lo + hi) / <span class="hljs-number">2</span>;  <span class="hljs-comment">// or: lo + (hi - lo) / 2</span><br>    Sort(a, lo, mid);  <span class="hljs-comment">// 将左半边排序</span><br>    Sort(a, mid + <span class="hljs-number">1</span>, hi);  <span class="hljs-comment">// 将右半边排序</span><br>    Merge(a, lo, mid, hi);  <span class="hljs-comment">// 归并结果</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>优化方式：</p>
+<ol>
+<li>对小规模数组使用插入排序</li>
+<li>测试数组是否有序</li>
+<li>不将元素复制到辅助数组<br>
+优化后的代码：</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a</span>)</span><br>&#123;<br>    aux = (T[])a.Clone();<br>    ImprovedSort(aux, a, <span class="hljs-number">0</span>, a.Length - <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ImprovedSort</span>(<span class="hljs-params">T[] src, T[] dst, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>&#123;<br>    <span class="hljs-keyword">if</span> (hi &lt;= lo + length)<br>    &#123;   <span class="hljs-comment">// 对小规模子数组使用插入排序</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt;= hi; i++)<br>        &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> j = i; j &gt; <span class="hljs-number">0</span> &amp;&amp; Less(src[j], src[j - <span class="hljs-number">1</span>]); j--)<br>            &#123;<br>                Exch(src, j, j - <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-built_in">int</span> mid = (lo + hi) / <span class="hljs-number">2</span>;  <span class="hljs-comment">// or: lo + (hi - lo) / 2</span><br>    ImprovedSort(dst, src, lo, mid);  <span class="hljs-comment">// 将左半边排序</span><br>    ImprovedSort(dst, src, mid + <span class="hljs-number">1</span>, hi);  <span class="hljs-comment">// 将右半边排序</span><br>    <span class="hljs-keyword">if</span> (!Less(src[mid + <span class="hljs-number">1</span>], src[mid]))  <span class="hljs-comment">// 如果 a[mid + 1] 大于等于 a[mid]，说明数组是有序的（因为a[mid]为左半部分最大元素，a[mid + 1]为右半部分最小元素）</span><br>    &#123;<br>        Array.Copy(src, lo, dst, lo, hi - lo + <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    ImprovedMerge(src, dst, lo, mid, hi);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ImprovedMerge</span>(<span class="hljs-params">T[] src, T[] dst, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> mid, <span class="hljs-built_in">int</span> hi</span>)</span><br>&#123;<br>    <span class="hljs-built_in">int</span> i = lo, j = mid + <span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> k = lo; k &lt;= hi; k++)<br>    &#123;<br>        <span class="hljs-keyword">if</span> (i &gt; mid)<br>        &#123;   <span class="hljs-comment">// 左边处理完毕了</span><br>            dst[k] = src[j++];  <span class="hljs-comment">// 处理右边剩下的元素</span><br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (j &gt; hi)<br>        &#123;   <span class="hljs-comment">// 右边处理完毕了</span><br>            dst[k] = src[i++];  <span class="hljs-comment">// 处理左边剩下的元素</span><br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Less(src[i], src[j]))<br>        &#123;   <span class="hljs-comment">// 两边都没处理完毕，且左边元素比右边元素小</span><br>            dst[k] = src[i++];  <span class="hljs-comment">// 把左边元素放回原数组中</span><br>        &#125;<br>        <span class="hljs-keyword">else</span><br>        &#123;   <span class="hljs-comment">// 两边都没处理完毕，且右边元素比左边元素小</span><br>            dst[k] = src[j++];  <span class="hljs-comment">// 把右边元素放回原数组中</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里最需要注意的点就是弄清楚两个数组的交换。<code>src</code>是 source 的缩写，也就是源；<code>dst</code>是 destination 的缩写，也就是目标。<strong>最后排好序的是目标，不是源</strong>，别搞错了。</p>
+<h2 id="自底向上的归并排序">自底向上的归并排序</h2>
+<p>同样的，也是分治思想，但是迭代实现。先归并好所有的小数组，然后增大数组，再归并增大后的所有数组，继续增大，继续归并…如此继续下去直至归并完成。<br>
+但是需要注意的是最后一个数组的长度可能会小于我们设定的要进行归并的子数组的长度，所以写代码的时候不要忘记这点。<br>
+<img src="https://algs4.cs.princeton.edu/22mergesort/images/mergesortBU.png" srcset="/img/loading.gif" lazyload alt="Merge 方法的调用顺序"></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a</span>)</span><br>&#123;<br>    <span class="hljs-built_in">int</span> length = a.Length;<br>    aux = <span class="hljs-keyword">new</span> T[length];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> sz = <span class="hljs-number">1</span>; sz &lt; length; sz += sz)  <span class="hljs-comment">// sz为需要归并的子数组的大小</span><br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> lo = <span class="hljs-number">0</span>; lo &lt; length - sz; lo += sz + sz)  <span class="hljs-comment">// lo为子数组的索引</span><br>        &#123;<br>            Merge(a, lo, lo + sz - <span class="hljs-number">1</span>, Math.Min((lo + sz + sz - <span class="hljs-number">1</span>), length - sz - <span class="hljs-number">1</span>));<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1>快速排序</h1>
+<p>分治思想，递归实现。<br>
+基本思路：选择一个“锚点”（<code>pivot</code>），一般选择打乱后（打乱是为了避免最差情况）的数组中的第一个元素；基于这个锚点，用双指针分别从左右边界开始，扫描元素，左边直到找到一个比<code>pivot</code>大的元素或是越界后停下，右边直到找到一个比<code>pivot</code>小的元素或是越界后停下，检查左指针是否小于右指针，若是，交换两个元素，重复此行为至扫描结束；<br>
+扫描结束后，需要把基准元素放在正确的位置上，也就是数组开头元素跟右指针上的元素进行交换，因为扫描结束后右指针指向的元素是小于<code>pivot</code>的；现在，在<code>pivot</code>左边的元素都小于<code>pivot</code>，在<code>pivot</code>右边的元素都大于<code>pivot</code>了，之后，再根据这个右指针的值（也就是<code>pivot</code>的位置），将数组切分成左右两个子数组，再对左右子数组进行找<code>pivot</code>排序的操作，如此递归下去，最后就能得到排好序的原数组了。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Quick</span>&lt;<span class="hljs-title">T</span>&gt; : <span class="hljs-title">Sorts</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">where</span> <span class="hljs-title">T</span> : <span class="hljs-title">IComparable</span>&lt;<span class="hljs-title">T</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a</span>)</span><br>    &#123;<br>        Sort(a, <span class="hljs-number">0</span>, a.Length - <span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (lo &gt;= hi)<br>        &#123;<br>            <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 单个元素不需要排序</span><br>        &#125;<br>        <span class="hljs-built_in">int</span> j = Partition(a, lo, hi);  <span class="hljs-comment">// 切分，这一步之后，j 左边的元素都小于 j，j 右边的元素都大于 j</span><br>        Sort(a, lo, j - <span class="hljs-number">1</span>);  <span class="hljs-comment">// 递归调用，将左半部分排序</span><br>        Sort(a, j + <span class="hljs-number">1</span>, hi);  <span class="hljs-comment">// 递归调用，将右半部分排序</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">int</span> <span class="hljs-title">Partition</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>    &#123;   <span class="hljs-comment">// 将数组切分为 a[lo, i - 1], a[i], a[i + 1, hi]</span><br>        <span class="hljs-built_in">int</span> i = lo, j = hi + <span class="hljs-number">1</span>;  <span class="hljs-comment">// 左右扫描指针</span><br>        T pivot = a[lo];  <span class="hljs-comment">// 基准，即切分元素</span><br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>)<br>        &#123;   <span class="hljs-comment">// 扫描左右，检查扫描是否结束并交换元素</span><br>            <span class="hljs-keyword">while</span> (Less(a[++i], pivot))<br>            &#123;<br>                <span class="hljs-keyword">if</span> (i == hi)<br>                &#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">while</span> (Less(pivot, a[--j]))<br>            &#123;<br>                <span class="hljs-keyword">if</span> (j == lo)<br>                &#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (i &gt;= j)<br>            &#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            Exch(a, i, j);<br>        &#125;<br>        Exch(a, lo, j);  <span class="hljs-comment">// 将基准元素放到正确的位置上</span><br>        <span class="hljs-keyword">return</span> j;  <span class="hljs-comment">// a[lo, j - 1] &lt;= a[j] &lt;= a[j + 1, hi]达成</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如何优化：</p>
+<ul>
+<li>切换到插入排序：跟归并排序一样，对小数组使用插入排序。</li>
+<li>三切分取样：使用子数组的一小部分元素的中位数来切分数组。</li>
+<li>熵最优的排序：改进算法在一个元素全部重复的子数组下继续切分为更小数组的情况。</li>
+</ul>
+<p>这里先讨论最后一个优化的实现方法。一个简单的想法是将数组切分为三部分，分别对应小于、等于和大于切分元素的数组元素，然后要排序的就是两边的元素，这样就能避免重复元素排序了。<br>
+这里介绍 Dijkstra 的解法：维护三个指针<code>lf</code>、<code>i</code>和<code>gt</code>，其中，<code>lt</code>使得<code>a[lo...lt - 1]</code>中的元素都小于<code>pivot</code>，<code>gt</code>使得<code>a[gt + 1...hi]</code>中的元素都大于<code>pivot</code>，<code>i</code>使得<code>a[lt...i - 1]</code>中的元素等于<code>pivot</code>，<code>a[i...gt]</code>中的元素还未确定。代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Quick3way</span>&lt;<span class="hljs-title">T</span>&gt; : <span class="hljs-title">Sorts</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">where</span> <span class="hljs-title">T</span> : <span class="hljs-title">IComparable</span>&lt;<span class="hljs-title">T</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a</span>)</span><br>    &#123;<br>        Sort(a, <span class="hljs-number">0</span>, a.Length - <span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (lo &gt;= hi)<br>        &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-built_in">int</span> lt = lo, i = lo + <span class="hljs-number">1</span>, gt = hi;  <span class="hljs-comment">// 维护三个指针</span><br>        T pivot = a[lo];<br>        <span class="hljs-keyword">while</span> (i &lt;= gt)<br>        &#123;<br>            <span class="hljs-built_in">int</span> tmp = a[i].CompareTo(pivot);  <span class="hljs-comment">// 用一个临时变量保存比较结果</span><br>            <span class="hljs-keyword">if</span> (tmp &lt; <span class="hljs-number">0</span>)<br>            &#123;   <span class="hljs-comment">// 如果 a[i] 小于 pivot，那就换去左边</span><br>                Exch(a, i++, lt++);<br>            &#125;<br>            <span class="hljs-keyword">if</span> (tmp &gt; <span class="hljs-number">0</span>)<br>            &#123;   <span class="hljs-comment">// 如果 a[i] 大于 pivot，那就换去右边</span><br>                Exch(a, i, gt--);<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;   <span class="hljs-comment">// 如果 a[i] 等于 pivot，不需交换，直接 i++ 即可</span><br>                i++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// 至此，a[lo...lt - 1] &lt; pivot = a[lt...gt] &lt; a[gt + 1...hi] 成立</span><br>        Sort(a, lo, lt - <span class="hljs-number">1</span>);<br>        Sort(a, gt + <span class="hljs-number">1</span>, hi);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后是根据第一点和第二点改进的二路快速排序算法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OptimizedQuick</span>&lt;<span class="hljs-title">T</span>&gt; : <span class="hljs-title">Sorts</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">where</span> <span class="hljs-title">T</span> : <span class="hljs-title">IComparable</span>&lt;<span class="hljs-title">T</span>&gt;<br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> LENGTH = <span class="hljs-number">9</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a</span>)</span><br>    &#123;<br>        Sort(a, <span class="hljs-number">0</span>, a.Length - <span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Sort</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (lo &gt;= hi)<br>        &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-built_in">int</span> n = hi - lo + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (n &lt;= LENGTH)<br>        &#123;   <span class="hljs-comment">// 对小规模数组使用插入排序</span><br>            Insertion&lt;T&gt;.Sort(a, lo, hi + <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-built_in">int</span> j = Partion(a, lo, hi);<br>        Sort(a, lo, j - <span class="hljs-number">1</span>);<br>        Sort(a, j + <span class="hljs-number">1</span>, hi);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">int</span> <span class="hljs-title">Partion</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> lo, <span class="hljs-built_in">int</span> hi</span>)</span><br>    &#123;<br>        <span class="hljs-comment">// 三切分取样</span><br>        <span class="hljs-built_in">int</span> n = Median3(a, lo, (hi + lo + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>, hi);<br>        Exch(a, lo, n);<br><br>        <span class="hljs-built_in">int</span> i = lo, j = hi + <span class="hljs-number">1</span>;<br>        T pivot = a[lo];<br><br>        <span class="hljs-keyword">while</span> (Less(a[++i], pivot))<br>        &#123;   <span class="hljs-comment">// pivot 是其中最大的元素</span><br>            <span class="hljs-keyword">if</span> (i == hi)<br>            &#123;<br>                Exch(a, lo, hi);<br>                <span class="hljs-keyword">return</span> hi;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (Less(pivot, a[--j]))<br>        &#123;   <span class="hljs-comment">// pivot 是其中最小的元素</span><br>            <span class="hljs-keyword">if</span> (j == lo + <span class="hljs-number">1</span>)<br>            &#123;<br>                <span class="hljs-keyword">return</span> lo;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">while</span> (i &lt; j)<br>        &#123;<br>            Exch(a, i, j);<br>            <span class="hljs-keyword">while</span> (Less(a[++i], pivot)) ;<br>            <span class="hljs-keyword">while</span> (Less(pivot, a[--j])) ;<br>        &#125;<br><br>        Exch(a, lo, j);<br>        <span class="hljs-keyword">return</span> j;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">int</span> <span class="hljs-title">Median3</span>(<span class="hljs-params">T[] a, <span class="hljs-built_in">int</span> i, <span class="hljs-built_in">int</span> j, <span class="hljs-built_in">int</span> k</span>)</span><br>    &#123;   <span class="hljs-comment">// 返回三个元素中的中位数</span><br>        <span class="hljs-keyword">return</span> (Less(a[i], a[j]) ?<br>               (Less(a[j], a[k]) ? j : Less(a[i], a[k]) ? k : i) :<br>               (Less(a[k], a[j]) ? j : Less(a[k], a[i]) ? k : i));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>最后是三点结合起来，也就是改进的三路快速排序算法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#"><br></code></pre></td></tr></table></figure>
+<h1>测试方法</h1>
+<p>尝试写一个从文本中读取待排序的内容的方法。本来想写好一点不过还是偷懒了，将就测试一下吧。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 向文件 TestData.txt 中随机写入 N 个数，每写入十个数便换一次行</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteRandomNumber</span>()</span><br>&#123;<br>    <span class="hljs-comment">// 设定生成测试数据的大小</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-built_in">long</span> N = <span class="hljs-number">100000</span>;<br>    <span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> left = <span class="hljs-number">-10000</span>;<br>    <span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> right = <span class="hljs-number">10000</span>;<br><br>    <span class="hljs-comment">// 重置测试数据文件</span><br>    <span class="hljs-keyword">if</span> (File.Exists(<span class="hljs-string">&quot;TestData.txt&quot;</span>))<br>    &#123;<br>        File.Delete(<span class="hljs-string">&quot;TestData.txt&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 生成测试用数据</span><br>    <span class="hljs-keyword">using</span> FileStream sw = <span class="hljs-keyword">new</span> FileStream(<span class="hljs-string">&quot;TestData.txt&quot;</span>, FileMode.Append);  <span class="hljs-comment">// 其实用 StreamWriter 会更好</span><br>    Random random = <span class="hljs-keyword">new</span> Random();<br>    <span class="hljs-keyword">try</span><br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">1</span>; i &lt;= N; i++)<br>        &#123;<br>            <span class="hljs-keyword">if</span> (i % <span class="hljs-number">20</span> == <span class="hljs-number">0</span>)<br>            &#123;<br>                sw.Write(Encoding.UTF8.GetBytes(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;random.Next(left, right)&#125;</span>\r\n&quot;</span>));<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                sw.Write(Encoding.UTF8.GetBytes(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;random.Next(left, right)&#125;</span> &quot;</span>));<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">catch</span> (Exception e)<br>    &#123;<br>        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;e.Message&#125;</span>&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> 从文件中读取数字转为 int 数组并排序</span><br><span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReadFromFileAndSort</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span>? tmp;<br>    ArrayList numsList = <span class="hljs-keyword">new</span>();<br>    <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> fileName = <span class="hljs-string">&quot;TestData.txt&quot;</span>;<br>    Stopwatch sw = <span class="hljs-keyword">new</span> Stopwatch();<br><br>    <span class="hljs-keyword">try</span><br>    &#123;<br>        <span class="hljs-comment">// 读取数字至数组</span><br>        <span class="hljs-keyword">using</span> StreamReader sr = <span class="hljs-keyword">new</span> StreamReader(fileName);<br>        <span class="hljs-keyword">while</span> (!<span class="hljs-built_in">string</span>.IsNullOrEmpty(tmp = sr.ReadLine()))<br>        &#123;<br>            numsList.AddRange(Array.ConvertAll(tmp.Split(<span class="hljs-string">&quot; &quot;</span>), <span class="hljs-built_in">int</span>.Parse));<br>        &#125;<br><br>        <span class="hljs-comment">// 转换数组类型</span><br>        <span class="hljs-built_in">int</span>[] numsArray = (<span class="hljs-built_in">int</span>[])numsList.ToArray(<span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">int</span>));<br><br>        <span class="hljs-comment">// 对数组进行排序</span><br>        Console.WriteLine(Sorts&lt;<span class="hljs-built_in">int</span>&gt;.IsSoreted(numsArray));<br>        sw.Start();<br>        Quick&lt;<span class="hljs-built_in">int</span>&gt;.Sort(numsArray);<br>        Console.WriteLine(sw.ElapsedMilliseconds);<br>        Console.WriteLine(Sorts&lt;<span class="hljs-built_in">int</span>&gt;.IsSoreted(numsArray));<br>    &#125;<br>    <span class="hljs-keyword">catch</span> (FileNotFoundException e)<br>    &#123;<br>        Console.WriteLine(<span class="hljs-string">$&quot;Cannot find the file named \&quot;<span class="hljs-subst">&#123;fileName&#125;</span>\&quot;&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">catch</span> (FormatException e)<br>    &#123;<br>        Console.WriteLine(<span class="hljs-string">$&quot;Cannot convert to a num : <span class="hljs-subst">&#123;e.Message&#125;</span>&quot;</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Solution/" class="category-chain-item">Solution</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">#归并排序</a>
+      
+        <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">#快速排序</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>归并排序与快速排序</div>
+      <div>https://map1e-g.github.io/2023/11/11/algorithm-merge-sort-quick-sort/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月11日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/25/git-quick-use/" title="Git 快速上手指北">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git 快速上手指北</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/08/CSharp-learning-12/" title="C#笔记——集合和数据结构">
+                        <span class="hidden-mobile">C#笔记——集合和数据结构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

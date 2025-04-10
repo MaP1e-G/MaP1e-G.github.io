@@ -18,23 +18,25 @@
   
     <meta name="description" content="今天也是看文档的一天。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C#笔记——继承和类和方法">
+<meta property="og:title" content="C#笔记——继承和类和方法和接口和转换">
 <meta property="og:url" content="https://map1e-g.github.io/2023/11/04/CSharp-learning-10/index.html">
 <meta property="og:site_name" content="楓葉的小窩">
 <meta property="og:description" content="今天也是看文档的一天。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-04T02:01:39.000Z">
-<meta property="article:modified_time" content="2023-11-06T08:39:41.405Z">
+<meta property="article:modified_time" content="2023-11-07T03:32:58.125Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="类">
 <meta property="article:tag" content="方法">
 <meta property="article:tag" content="继承">
+<meta property="article:tag" content="接口">
+<meta property="article:tag" content="转换">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>C#笔记——继承和类和方法 - 楓葉的小窩</title>
+  <title>C#笔记——继承和类和方法和接口和转换 - 楓葉的小窩</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="C#笔记——继承和类和方法"></span>
+            <span id="subtitle" data-typed-text="C#笔记——继承和类和方法和接口和转换"></span>
           
         </div>
 
@@ -222,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          3.6k 字
         
       </span>
     
@@ -233,7 +235,7 @@
         
         
         
-          23 分钟
+          30 分钟
         
       </span>
     
@@ -271,22 +273,26 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">C#笔记——继承和类和方法</h1>
+            <h1 style="display: none">C#笔记——继承和类和方法和接口和转换</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月6日 下午
+                    本文最后更新于：2023年11月7日 中午
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <p>#类<br>
-##访问修饰符<br>
-访问修饰符包括：<code>private</code>、<code>public</code>、<code>protected</code>、<code>internal</code>、<code>protected internal</code>。</p>
+              <h1>为什么会突然文艺复兴</h1>
+<p>因为我在写某个泛用模板类的时候发现实现接口的类居然不能转换成接口类型，就是：<code>int</code>类型无法转换为<code>IComparable</code>类型，而隔壁 java 则支持<code>int</code>类型转换为<code>Comparable</code>类型。<br>
+后来我直接改为了泛型方法，然后用了约束<code>where T : IComparable&lt;T&gt;</code>解决问题了。<br>
+那么感谢隔壁群大佬的解释，“这就是C#的问题了，[]不covariant”。</p>
+<h1>类</h1>
+<h2 id="访问修饰符">访问修饰符</h2>
+<p>访问修饰符包括：<code>private</code>、<code>public</code>、<code>protected</code>、<code>internal</code>、<code>protected internal</code>。</p>
 <table>
 <thead>
 <tr>
@@ -317,63 +323,79 @@
 </tr>
 </tbody>
 </table>
-<p>##静态量<br>
-静态量由<code>static</code>修饰。静态字段被类的实例共享，所有实例都访问同一内存位置。因此，如果该内存位置的值被一个实例改变了，这种改变对所有的实例都可见。<br>
+<h2 id="静态量">静态量</h2>
+<p>静态量由<code>static</code>修饰。静态字段被类的实例共享，所有实例都访问同一内存位置。因此，如果该内存位置的值被一个实例改变了，这种改变对所有的实例都可见。<br>
 访问静态成员有两种方式：</p>
 <ul>
 <li>使用类名，如：<code>Math.Sqrt(16)</code></li>
 <li>在调用该成员的类中包含一个<code>using static</code>声明，如：<code>using static System.Math; Sqrt(16);</code></li>
 </ul>
-<p>##常量<br>
-常量由<code>const</code>修饰符修饰。它们对类的每个实例都是可见的，不需要类的实例也可访问，不能对其进行修改。但常量没有自己的存储位置，会在编译时被编译器替换，类似于 C 与 CPP 的<code>#define</code>宏定义。</p>
-<p>##公共和私有构造函数，利用<code>this</code>调用其他构造函数<br>
-这其实是一个技巧。<br>
+<h2 id="常量">常量</h2>
+<p>常量由<code>const</code>修饰符修饰。它们对类的每个实例都是可见的，不需要类的实例也可访问，不能对其进行修改。但常量没有自己的存储位置，会在编译时被编译器替换，类似于 C 与 CPP 的<code>#define</code>宏定义。</p>
+<h2 id="公共和私有构造函数，利用this调用其他构造函数">公共和私有构造函数，利用<code>this</code>调用其他构造函数</h2>
+<p>这其实是一个技巧。<br>
 第一种应用情况是：<code>public MyClass(int x) : this(x, &quot;Using Default String&quot;)</code>，在这里，单参数的构造函数调用了同一个类中具有两个参数的构造函数，并为第二个参数提供了一个默认值。<br>
 第二种情况是，一个类有好几个构造函数，并且它们都需要在对象构造的过程中执行一些公共的代码，那我们就可以把这些公共的代码提取出来作为一个私有构造函数，用于被其他构造函数调用，例如：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span><br>&#123;<br>	<span class="hljs-keyword">readonly</span> <span class="hljs-built_in">int</span> firstVar;<br>	<span class="hljs-keyword">readonly</span> <span class="hljs-built_in">double</span> secondVar;<br>	<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> UserName;<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> UserIdNumber;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">MyClass</span>()</span><br>	&#123;<br>		firstVar = <span class="hljs-number">20</span>;<br>		secondVar = <span class="hljs-number">30.5</span>;<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyClass</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> firstName</span>) : <span class="hljs-title">this</span>()</span><br>	&#123;<br>		UserName = firstName;<br>		UserIdNumber = <span class="hljs-number">-1</span>;<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyClass</span>(<span class="hljs-params"><span class="hljs-built_in">int</span> idNumber</span>) : <span class="hljs-title">this</span>()</span><br>	&#123;<br>		UserName = <span class="hljs-string">&quot;Anonymous&quot;</span>;<br>		UserIdNumber = idNumber;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>#继承<br>
-##使用基类的引用<br>
-如果有一个派生类对象的引用，就可以获取该对象基类部分的引用（使用类型转换运算符或<code>as</code>运算符把该引用转换为基类类型）。例如：</p>
+<h1>继承</h1>
+<h2 id="使用基类的引用">使用基类的引用</h2>
+<p>如果有一个派生类对象的引用，就可以获取该对象基类部分的引用（使用类型转换运算符或<code>as</code>运算符把该引用转换为基类类型）。例如：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BaseClass</span> &#123;&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DerivedClass</span> : <span class="hljs-title">BaseClass</span> &#123;&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Example</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>	&#123;<br>		DerivedClass d = <span class="hljs-keyword">new</span> DerivedClass();<br>		<span class="hljs-comment">// 类型转换运算符</span><br>		BaseClass b1 = (BaseClass)d;<br>		<span class="hljs-comment">// as 运算符</span><br>		BaseClass b2 = d <span class="hljs-keyword">as</span> BaseClass;  <span class="hljs-comment">// d is BaseClass ? (BaseClass)d : (BaseClass)null</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>将派生类对象强制转换为基类对象的作用是产生的变量只能访问基类的成员（在被覆写方法中除外）。</p>
-<p>##虚方法和覆写方法<br>
-虚方法可以使基类的引用访问提升至派生类内。在基类中，使用<code>virtual</code>修饰符修饰的方法为虚方法。在其派生类中，使用<code>override</code>修饰符修饰的方法为覆写方法。<br>
+<h2 id="虚方法和覆写方法">虚方法和覆写方法</h2>
+<p>虚方法可以使基类的引用访问提升至派生类内。在基类中，使用<code>virtual</code>修饰符修饰的方法为虚方法。在其派生类中，使用<code>override</code>修饰符修饰的方法为覆写方法。<br>
 当使用对象基类的引用去调用一个虚方法时，调用的是被标记为<code>override</code>的方法的最高派生的版本。<br>
 如果我们不想覆写方法，则可以使用<code>new</code>修饰符修饰方法。</p>
-<p>##程序集间的引用<br>
-要从不同程序集中进行继承，需要添加对包含该基类的程序集的引用，可以在 Visual Studio 工程中的 References 节点中进行添加。注意这里的添加引用不是使用<code>using</code>指令。</p>
-<p>##抽象类<br>
-抽象类是指设计为被继承的类。抽象类只能被用作其他类的基类。使用<code>abstract</code>修饰符声明抽象类。关于抽象类，要注意以下几点：</p>
+<h2 id="程序集间的引用">程序集间的引用</h2>
+<p>要从不同程序集中进行继承，需要添加对包含该基类的程序集的引用，可以在 Visual Studio 工程中的 References 节点中进行添加。注意这里的添加引用不是使用<code>using</code>指令。</p>
+<h2 id="抽象类">抽象类</h2>
+<p>抽象类是指设计为被继承的类。抽象类只能被用作其他类的基类。使用<code>abstract</code>修饰符声明抽象类。关于抽象类，要注意以下几点：</p>
 <ul>
 <li>不能创建抽象类的实例。</li>
 <li>抽象类可以包含抽象成员或非抽象成员。</li>
 <li>抽象类可以派生自另一个抽象类。</li>
-<li>其派生类必须实现所有抽象成员，除非它自身也是个抽象类。<br>
-###抽象成员<br>
-抽象成员是指设计为被覆写的函数成员，并且只能在抽象类中声明。用<code>abstract</code>修饰符声明抽象成员。不能有实现代码块，用分号取代。必须被覆写。同样地，也是使用<code>override</code>对抽象成员进行覆写。</li>
+<li>其派生类必须实现所有抽象成员，除非它自身也是个抽象类。</li>
 </ul>
-<p>##密封类<br>
-其实就是无法被继承的类。用<code>sealed</code>修饰符声明密封类。</p>
-<p>##静态类<br>
-用<code>static</code>修饰符声明静态类。静态类中所有的成员都是静态的，用于存放不受实例数据影响的数据和函数（比如创建一个包含一组数学方法的计算类）。静态类是隐式密封的。</p>
-<p>#方法<br>
-##方法签名<br>
-方法的签名包括：方法名，参数个数、类型、顺序，参数修饰符；不包括：方法的返回值。</p>
-<p>##形参<br>
-形参是局部变量，它声明在方法的参数列表中，而不是在方法体中。例如：<code>public void PrintSum(int x, int y)</code>，其中<code>x</code>和<code>y</code>就是形参。</p>
-<p>##实参<br>
-当代码调用一个方法时，形参的值必须在方法的代码开始执行之前初始化。用于初始化形参的表达式或变量称作实参（actual parameter， 有时也称 argument）。例如：<code>PrintSum(5, a)</code>，其中<code>5</code>和<code>a</code>就是实参。</p>
-<p>##方法参数修饰符<br>
-###<code>ref</code>参数修饰符<br>
-用于声明引用参数。使用引用参数时，必须在方法的声明和调用中都使用<code>ref</code>修饰符。实参必须是变量，在用作实参前必须被赋值。<br>
+<h3 id="抽象成员">抽象成员</h3>
+<p>抽象成员是指设计为被覆写的函数成员，并且只能在抽象类中声明。用<code>abstract</code>修饰符声明抽象成员。不能有实现代码块，用分号取代。必须被覆写。同样地，也是使用<code>override</code>对抽象成员进行覆写。</p>
+<h2 id="密封类">密封类</h2>
+<p>其实就是无法被继承的类。用<code>sealed</code>修饰符声明密封类。</p>
+<h2 id="静态类">静态类</h2>
+<p>用<code>static</code>修饰符声明静态类。静态类中所有的成员都是静态的，用于存放不受实例数据影响的数据和函数（比如创建一个包含一组数学方法的计算类）。静态类是隐式密封的。</p>
+<h1>方法</h1>
+<h2 id="方法签名">方法签名</h2>
+<p>方法的签名包括：方法名，参数个数、类型、顺序，参数修饰符；不包括：方法的返回值。</p>
+<h2 id="形参">形参</h2>
+<p>形参是局部变量，它声明在方法的参数列表中，而不是在方法体中。例如：<code>public void PrintSum(int x, int y)</code>，其中<code>x</code>和<code>y</code>就是形参。</p>
+<h2 id="实参">实参</h2>
+<p>当代码调用一个方法时，形参的值必须在方法的代码开始执行之前初始化。用于初始化形参的表达式或变量称作实参（actual parameter， 有时也称 argument）。例如：<code>PrintSum(5, a)</code>，其中<code>5</code>和<code>a</code>就是实参。</p>
+<h2 id="方法参数修饰符">方法参数修饰符</h2>
+<h3 id="ref参数修饰符"><code>ref</code>参数修饰符</h3>
+<p>用于声明引用参数。使用引用参数时，必须在方法的声明和调用中都使用<code>ref</code>修饰符。实参必须是变量，在用作实参前必须被赋值。<br>
 引用参数不会在栈上为形参分配内存，而是将形参的参数名作为实参变量的别名，指向相同的内存位置。</p>
-<p>###<code>out</code>参数修饰符<br>
-用于声明输出参数。输出参数用于从方法体内把数据传出到调用代码。必须在方法的声明和调用中都使用修饰符。实参必须是变量，不需要提前赋值。<br>
+<h3 id="out参数修饰符"><code>out</code>参数修饰符</h3>
+<p>用于声明输出参数。输出参数用于从方法体内把数据传出到调用代码。必须在方法的声明和调用中都使用修饰符。实参必须是变量，不需要提前赋值。<br>
 在方法内部，给输出参数赋值之后才能读取它。<strong>这意味着参数的初始值是无关的，而且没有必要在方法调用之前为实参赋值。</strong></p>
-<p>###<code>in</code>参数修饰符<br>
-用于声明输入参数。输入参数用于从调用代码把数据传到方法体内，其传递的是<strong>只读引用</strong>。可以不在方法的调用中使用修饰符。实参必须是变量。</p>
-<p>###<code>param</code>参数修饰符<br>
-用于声明参数数组。一个参数列表中最多只能有一个参数数组，且必须位于最后。只能声明一维数组类型。</p>
+<h3 id="in参数修饰符"><code>in</code>参数修饰符</h3>
+<p>用于声明输入参数。输入参数用于从调用代码把数据传到方法体内，其传递的是<strong>只读引用</strong>。可以不在方法的调用中使用修饰符。实参必须是变量。</p>
+<h3 id="param参数修饰符"><code>param</code>参数修饰符</h3>
+<p>用于声明参数数组。一个参数列表中最多只能有一个参数数组，且必须位于最后。只能声明一维数组类型。</p>
+<h1>接口</h1>
+<p>接口是指定一组函数成员而不实现它们的引用类型。所以只能由类和结构来实现接口。<br>
+接口不能包含数据成员和动态成员。接口成员是隐式 public 的，不允许有任何访问修饰符，包括 public。<br>
+如果一个类实现了多个多个接口，并且其中的一些接口成员具有相同的签名和返回类型，那么类可以实现单个成员来满足所有包含重复成员的接口；也可以通过接口名和<code>.</code>运算符来创建显式接口成员实现，但是这样做的话，就不存在类级别的接口方法了，也就是说要调用这个接口方法的话，只能将类的实例的引用转换成接口的引用了（当然你也可以再实现一个类级别的相同方法）。</p>
+<h1>转换</h1>
+<h2 id="隐式引用转换">隐式引用转换</h2>
+<ul>
+<li>所有引用类型可以被隐式转换为<code>object</code>类型。</li>
+<li>任何接口可以隐式转换为它继承的接口。</li>
+<li>类可以隐式转换为它继承链中的任何类，或者是实现的任何接口。</li>
+</ul>
+<h2 id="装箱转换">装箱转换</h2>
+<p>装箱（boxing）转换是一种隐式转换，它接受值类型的值，根据这个值<strong>在堆上</strong>创建一个完整的引用类型对象并返回对象引用。在装箱之后，<strong>值有两份副本</strong>——原始值类型和引用类型副本，每一个都可以<strong>独立操作</strong>（也就是你改变值类型的值不会影响引用类型的值，同样的，改变引用类型的值不会影响值类型的值）。<br>
+任何值类型<code>ValueTypeS</code>都可以被隐式转换为<code>object</code>、<code>System.ValueType</code>或<code>InterfaceT</code>类型（如果<code>ValueTypeS</code>实现了<code>InterfaceT</code>）。</p>
+<h2 id="拆箱转换">拆箱转换</h2>
+<p>拆箱（unboxing）是把装箱后的对象转换回值类型的过程，是显示转换。如果尝试将一个值拆箱为非原始值类型的话，程序会抛出<code>InvaildCastException</code>异常。</p>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
@@ -422,6 +444,10 @@
       
         <a href="/tags/%E7%BB%A7%E6%89%BF/">#继承</a>
       
+        <a href="/tags/%E6%8E%A5%E5%8F%A3/">#接口</a>
+      
+        <a href="/tags/%E8%BD%AC%E6%8D%A2/">#转换</a>
+      
     </div>
   
 </div>
@@ -432,7 +458,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>C#笔记——继承和类和方法</div>
+      <div>C#笔记——继承和类和方法和接口和转换</div>
       <div>https://map1e-g.github.io/2023/11/04/CSharp-learning-10/</div>
     </div>
     <div class="license-meta">
@@ -474,6 +500,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/11/06/unity-learning-3/" title="Unity学习笔记-3">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Unity学习笔记-3</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

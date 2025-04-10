@@ -24,7 +24,7 @@
 <meta property="og:description" content="你说得对，但是我需要学习下在C#中如何序列化对象和将流反序列化为对象。其中包括了json、xml和二进制的序列化。参考官方文档。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-23T02:48:34.000Z">
-<meta property="article:modified_time" content="2023-10-03T16:03:20.650Z">
+<meta property="article:modified_time" content="2023-12-07T11:10:07.863Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="序列化">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          7.3k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          35 分钟
+          61 分钟
         
       </span>
     
@@ -276,7 +276,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年10月4日 凌晨
+                    本文最后更新于：2023年12月7日 晚上
                   
                 
               </p>
@@ -305,6 +305,9 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">var</span> options = <span class="hljs-keyword">new</span> JsonSerializerOptions &#123; WriteIndented = <span class="hljs-literal">true</span> &#125;;<br>srting jsonString = JsonSerializer.Serialize(personalInformation, options);<br></code></pre></td></tr></table></figure>
 <p>这将会产生如下输出：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;MaP1e&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;Age&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">18</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;Sex&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<div class="note note-warning">
+            <p>相信有细心的朋友已经发现不对劲的地方了，我们的<code>Sex</code>属性在序列化后直接输出整数值，也就是枚举类型值的原始类型，但是我们想要让其输出我们定义的值，该怎么办呢？请看到后面的“枚举类型的序列化”一节。</p>
+          </div>
 <h4 id="序列化需要注意的一些点">序列化需要注意的一些点</h4>
 <p>参照文档以获得更详细的信息：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/standard/serialization/system-text-json/how-to?pivots=dotnet-8-0#serialization-behavior">序列化行为</a></p>
 <h3 id="将-JSON-读取为-NET-对象（反序列化）">将 JSON 读取为 .NET 对象（反序列化）</h3>
@@ -326,9 +329,46 @@
             <p>其实还可以序列化成 UTF-8 和从 UTF-8 反序列化的，但是我懒而且觉得我没那么常用就没写了。</p>
           </div>
 <h3 id="HttpClient-和-HttpContent-扩展方法">HttpClient 和 HttpContent 扩展方法</h3>
+<p>我们可以使用<code>HttpClient</code>和<code>HttpContent</code>上的扩展方法来序列化和反序列化来自网络的 JSON 有效负载。分别使用<code>GetFromJsonAsync</code>和<code>PostAsJsonAsync</code>方法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Comment</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> PostId &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Email &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Body &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SerializeLearning</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">Main</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">using</span> HttpClient client = <span class="hljs-keyword">new</span>() &#123; BaseAddress = <span class="hljs-keyword">new</span> Uri(<span class="hljs-string">&quot;http://jsonplaceholder.typicode.com&quot;</span>) &#125;;<br><br>        <span class="hljs-comment">// Get the comment information.</span><br>        Comment? comment = <span class="hljs-keyword">await</span> client.GetFromJsonAsync&lt;Comment&gt;(<span class="hljs-string">&quot;comments/1&quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">$&quot;PostId: <span class="hljs-subst">&#123;comment?.PostId&#125;</span>&quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">$&quot;Id: <span class="hljs-subst">&#123;comment?.Id&#125;</span>&quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">$&quot;Name: <span class="hljs-subst">&#123;comment?.Name&#125;</span>&quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">$&quot;Email: <span class="hljs-subst">&#123;comment?.Email&#125;</span>&quot;</span>);<br>        Console.WriteLine(<span class="hljs-string">$&quot;Body: <span class="hljs-subst">&#123;comment?.Body&#125;</span>&quot;</span>);<br><br>        <span class="hljs-comment">// Post a new comment.</span><br>        HttpResponseMessage response = <span class="hljs-keyword">await</span> client.PostAsJsonAsync(<span class="hljs-string">&quot;comments&quot;</span>, comment);<br>        Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;(response.IsSuccessStatusCode ? <span class="hljs-string">&quot;Success&quot;</span> : <span class="hljs-string">&quot;Error&quot;</span>)&#125;</span> - <span class="hljs-subst">&#123;response.StatusCode&#125;</span>&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 控制台输出</span><br><span class="hljs-comment">//</span><br><span class="hljs-comment">// PostId: 1</span><br><span class="hljs-comment">// Id: 1</span><br><span class="hljs-comment">// Name: id labore ex et quam laborum</span><br><span class="hljs-comment">// Email: Eliseo@gardner.biz</span><br><span class="hljs-comment">// Body: laudantium enim quasi est quidem magnam voluptate ipsam eos</span><br><span class="hljs-comment">// tempora quo necessitatibus</span><br><span class="hljs-comment">// dolor quam autem quasi</span><br><span class="hljs-comment">// reiciendis et nam sapiente accusantium</span><br><span class="hljs-comment">// Success - Created</span><br></code></pre></td></tr></table></figure>
 <h3 id="枚举类型的序列化">枚举类型的序列化</h3>
-<h2 id="二进制序列化">二进制序列化</h2>
+<p>为了解决前面的枚举值序列化后变成了原始整数值类型的问题，我们可以使用<code>JsonStringEnumConverter</code>类。该类能将枚举值转换为字符串以及从字符串转换为枚举值:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">var</span> options = <span class="hljs-keyword">new</span> JsonSerializerOptions &#123; <br>    WriteIndented = <span class="hljs-literal">true</span>,<br>    Converters =<br>    &#123;<br>        <span class="hljs-keyword">new</span> JsonStringEnumConverter()<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>也可以通过<code>JsonConverterAttribute</code>属性来批注枚举，以此指定要使用的转换器（注意 .NET8 以上版本才能这么做，否则会报错）。如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">JsonConverter(typeof(JsonStringEnumConverter&lt;Gender&gt;))</span>]<br><span class="hljs-keyword">public</span> <span class="hljs-built_in">enum</span> Gender<br>&#123;<br>    male,<br>    female<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="XML和SOAP序列化">XML和SOAP序列化</h2>
+<h3 id="简单类的序列化">简单类的序列化</h3>
+<p>假设现在有这样一个类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderForm</span><br>&#123;<br>	<span class="hljs-keyword">public</span> DataTime OrderDate;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个类经过 XML 序列化后可能如下所示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">OrderForm</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">OrderDate</span>&gt;</span>12/12/01<span class="hljs-tag">&lt;/<span class="hljs-name">OrderDate</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">OrderForm</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="可序列化的项">可序列化的项</h3>
+<p>可使用 <code>XmlSerializer</code>类对以下各项进行序列化：</p>
+<ul>
+<li>公共类的公共读/写属性和字段</li>
+<li>执行<code>ICollection</code>或<code>IEnumerable</code>的类</li>
+</ul>
+<div class="note note-info">
+            <p>仅序列化集合，不序列化公共属性。</p>
+          </div>
+<ul>
+<li><code>XmlElement</code>对象</li>
+<li><code>XmlNode</code>对象</li>
+<li><code>DataSet</code>对象</li>
+</ul>
+<h3 id="如何：序列化对象">如何：序列化对象</h3>
+<ol>
+<li>创建对象并设置其公共字段和属性。</li>
+<li>使用对象的类型构造<code>XmlSerializer</code>。</li>
+<li>调用<code>Serializer</code>方法生成对象的公共属性和字段的<code>XML</code>流或文件表示形式。</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#">MySerializableClass myObject = <span class="hljs-keyword">new</span> MySerializableClass();<br><br><span class="hljs-comment">// Insert code to set properties and fields of the object.</span><br>XmlSerializer mySerializer = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(MySerializableClass));<br><br><span class="hljs-comment">// To write to a file, create a StreamWriter object.</span><br>StreamWriter myWriter = <span class="hljs-keyword">new</span> StreamWriter(<span class="hljs-string">&quot;myFileName.xml&quot;</span>);<br>mySerializer.Serialize(myWriter, myObject);<br>myWriter.Close();<br></code></pre></td></tr></table></figure>
+<h3 id="如何：反序列化对象">如何：反序列化对象</h3>
+<ol>
+<li>使用要反序列化的对象的类型构造<code>XmlSerializer</code>。</li>
+<li>调用<code>Deserialize</code>方法以生成该对象的副本。在反序列化时，必须将返回的对象强制转换为原始对象的类型。</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment">// Construct an instance of the XmlSerializer with the type</span><br><span class="hljs-comment">// of object that is being deserialized.</span><br><span class="hljs-keyword">var</span> mySerializer = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(MySerializableClass));<br><br><span class="hljs-comment">// To read the file, create a FileStream.</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">var</span> myFileStream = <span class="hljs-keyword">new</span> FileStream(<span class="hljs-string">&quot;myFileName.xml&quot;</span>, FileMode.Open);<br><br><span class="hljs-comment">// Call the Deserialize method and cast to the object type.</span><br><span class="hljs-keyword">var</span> myObject = (MySerializableClass)mySerializer.Deserialize(myFileStream);<br></code></pre></td></tr></table></figure>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>

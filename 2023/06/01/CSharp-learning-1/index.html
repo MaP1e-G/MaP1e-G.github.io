@@ -24,7 +24,7 @@
 <meta property="og:description" content="C#中一些很新（迫真）的东西。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-01T01:23:09.000Z">
-<meta property="article:modified_time" content="2023-11-05T11:16:05.604Z">
+<meta property="article:modified_time" content="2024-08-06T04:16:57.397Z">
 <meta property="article:author" content="MaP1e-G">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="泛型">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          14k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          109 分钟
+          119 分钟
         
       </span>
     
@@ -279,7 +279,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2023年11月5日 晚上
+                    本文最后更新于：2024年8月6日 中午
                   
                 
               </p>
@@ -289,11 +289,11 @@
               <h1>委托（Delegate）</h1>
 <h2 id="委托是什么？">委托是什么？</h2>
 <blockquote>
-<p>委托是一种引用类型，表示对具有特定参数列表和返回类型的方法的引用。——C#编程指南<br>
-用我的话来说，就是可以按顺序执行一系列方法的对象。<br>
+<p>委托是一种引用类型，表示对具有特定参数列表和返回类型的方法的引用。——C#编程指南</p>
+</blockquote>
+<p>用我的话来说，就是可以按顺序执行一系列方法的对象。<br>
 比如：现在有两个类，一个“肉铺”类，一个“蔬菜店”类，这两个类里边各自拥有名为“取得肉”和“取得蔬菜”的方法。现在你妈让你去“取得肉”和“取得蔬菜”，也就是调用这两个方法，我们可以怎么办呢？<br>
 最直接的办法就是直接调用，那要是你妈天天都有这个需求怎么办呢？我们或许会新创建一个方法，并把这两个方法放入这个方法的方法体中，然后调用这个新方法。当然，我们也能够创建一个委托，并把这两个方法交给委托，然后执行委托。</p>
-</blockquote>
 <h2 id="委托的食用方法">委托的食用方法</h2>
 <h3 id="最基本的食用方法">最基本的食用方法</h3>
 <p>首先我们需要使用<code>delegate</code>关键字来<strong>创建委托类型</strong>，然后<strong>实例化委托</strong>，最后<strong>调用委托</strong>。上面例子的完整代码如下：</p>
@@ -303,9 +303,9 @@
 <h3 id="委托作为实参或分配给一个属性">委托作为实参或分配给一个属性</h3>
 <p>因为实例化的委托也是一个对象，所以可以将其作为实参传入方法中，又或者将其分配给一个属性。</p>
 <blockquote>
-<p>这允许方法接受委托作为参数并在稍后调用委托。 这被称为异步回调，是在长进程完成时通知调用方的常用方法。——C#编程指南<br>
-依旧是上面的例子，不过这次要和朋友去买菜了，所以创建一个新方法<code>BuyWithFriend</code>，该方法接受三个参数，前两个是买菜人的名字，最后一个参数是一个委托。代码如下：</p>
+<p>这允许方法接受委托作为参数并在稍后调用委托。 这被称为异步回调，是在长进程完成时通知调用方的常用方法。——C#编程指南</p>
 </blockquote>
+<p>依旧是上面的例子，不过这次要和朋友去买菜了，所以创建一个新方法<code>BuyWithFriend</code>，该方法接受三个参数，前两个是买菜人的名字，最后一个参数是一个委托。代码如下：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">BuyWithFriend</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> name1, <span class="hljs-built_in">string</span> name2, Del del</span>)</span><br>&#123;<br>	del(name1 + <span class="hljs-string">&quot; and &quot;</span> + name2);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>然后在主程序使用<code>BuyWithFriend(myName, &quot;Tom&quot;, myDel)</code>来调用新方法，得到如下输出：</p>
 <figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">Congratulations!Maple and Tom get meet!<br>Congratulations!Maple and Tom get vegetables!<br><br>E:\Project\C#\CSharpLearning\Learning1\Learning1\bin\Debug\net6.<span class="hljs-number">0</span>\Learning1.exe (进程 <span class="hljs-number">21864</span>)已退出，代码为 <span class="hljs-number">0</span>。<br>要在调试停止时自动关闭控制台，请启用“工具”-&gt;“选项”-&gt;“调试”-&gt;“调试停止时自动关闭控制台”。<br>按任意键关闭此窗口. . .<br></code></pre></td></tr></table></figure>
@@ -316,7 +316,7 @@
 </blockquote>
 <h2 id="协变和逆变">协变和逆变</h2>
 <p><s>其实这一块应该放在泛型里面说的（？）。</s><br>
-所谓协变，就是定义的委托类型的返回类型，接受其派生类。如下代码：</p>
+所谓协变，就是<strong>定义的委托类型的返回类型，接受其派生类</strong>。如下代码：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CovarianceAndContravariance</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-built_in">delegate</span> T <span class="hljs-title">Factory</span>&lt;<span class="hljs-keyword">out</span> <span class="hljs-title">T</span>&gt;()</span>;<br><br>	<span class="hljs-function"><span class="hljs-keyword">static</span> Dog <span class="hljs-title">MakeDog</span>()</span><br>	&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Dog();<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-built_in">string</span>[] args</span>)</span><br>	&#123;<br>		<span class="hljs-comment">// Covariance</span><br>		Factory&lt;Dog&gt; dogMaker = MakeDog;<br>		Factory&lt;Animal&gt; animalMaker = dogMaker;<br><br>		Console.WriteLine(animalMaker().Legs.ToString());<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span><br>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Legs = <span class="hljs-number">4</span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> : <span class="hljs-title">Animal</span><br>&#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
 <p>在这里，如果把<code>out</code>关键字去掉的话，编译是不通过的，这是因为<code>Factory&lt;Dog&gt;</code>并不是从<code>Factory&lt;Animal&gt;</code>派生的。<br>
 所以这里的<code>out</code>关键字标记委托声明中的类型参数，可以让编译器知道<strong>在这里类型参数只用作于输出值</strong>。这就是协变。<br>
@@ -341,6 +341,10 @@
 <h3 id="通过委托生成自己的组件">通过委托生成自己的组件</h3>
 <p>下面定义了一个可用于大型系统中日志消息的组件。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs C#"><span class="hljs-keyword">public</span> <span class="hljs-built_in">enum</span> Severity<br>&#123;<br>    Verbose,<br>    Trace,<br>    Information,<br>    Warning,<br>    Error,<br>    Critical<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Logger</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Action&lt;<span class="hljs-built_in">string</span>&gt;? WriteMessage;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Severity LogLevel &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = Severity.Warning;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LogMessage</span>(<span class="hljs-params">Severity severity, <span class="hljs-built_in">string</span> component, <span class="hljs-built_in">string</span> message</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">if</span> (severity &lt; LogLevel)<br>            <span class="hljs-keyword">return</span>;<br><br>        <span class="hljs-keyword">var</span> outputMsg = <span class="hljs-string">$&quot;<span class="hljs-subst">&#123;DateTime.Now&#125;</span>\t<span class="hljs-subst">&#123;severity&#125;</span>\t<span class="hljs-subst">&#123;component&#125;</span>\t<span class="hljs-subst">&#123;message&#125;</span>&quot;</span>;<br>        WriteMessage?.Invoke(outputMsg);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LoggingMethod</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LogToConsole</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> message</span>)</span><br>    &#123;<br>        Console.Error.WriteLine(message);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">FileLogger</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">string</span> _logPath;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">FileLogger</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> logPath</span>)</span><br>    &#123;<br>        _logPath = logPath;<br>        Logger.WriteMessage += LogMessage;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DetachLog</span>()</span> =&gt; Logger.WriteMessage -= LogMessage;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">LogMessage</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> message</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">try</span><br>        &#123;<br>            <span class="hljs-keyword">using</span> (<span class="hljs-keyword">var</span> log = File.AppendText(_logPath))<br>            &#123;<br>                log.WriteLine(message);<br>                log.Flush();<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">catch</span> (Exception)<br>        &#123;<br><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Logger</code>的使用示例：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>()</span><br>&#123;<br>	FileLogger logger = <span class="hljs-keyword">new</span> FileLogger(<span class="hljs-string">@&quot;.\log.txt&quot;</span>);<br>	<span class="hljs-keyword">try</span><br>	&#123;<br>		<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">$&quot;Logger Test: <span class="hljs-subst">&#123;<span class="hljs-keyword">new</span> Random().Next(<span class="hljs-number">100</span>)&#125;</span>&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">catch</span> (Exception ex)<br>	&#123;<br>		Logger.LogMessage(Severity.Error, <span class="hljs-string">&quot;LoggerTest.Main&quot;</span>, ex.Message);<br>		LoggingMethod.LogToConsole(ex.Message);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>大致工作流程：首先，<code>new</code>一个<code>FileLogger</code>对象，指定要生成的日志的路径及名称，在<code>FileLogger</code>的构造方法中，会自动将自己的私有<code>LogMessage</code>方法挂载到<code>Logger</code>的静态委托<code>WriteMessage</code>上；<br>
+然后，在需要写入日志的地方（如捕获到异常）直接使用<code>Logger.LogMessage</code>，该方法中会执行委托的<code>Invoke</code>方法，开始处理委托。</p>
 <h1>事件（Event）</h1>
 <h2 id="什么是事件？">什么是事件？</h2>
 <blockquote>
@@ -506,6 +510,24 @@
 <p>标准查询运算符由一系列 API 方法组成，能让我们查询任何 .NET 数组和集合。例如以下两个查询是等效的：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;<span class="hljs-built_in">int</span>&gt; qurey1 = <span class="hljs-keyword">from</span> num <span class="hljs-keyword">in</span> numbers<br>						  <span class="hljs-keyword">where</span> num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span><br>						  <span class="hljs-keyword">orderby</span> num<br>						  <span class="hljs-keyword">select</span> num;<br><br>IEnumerable&lt;<span class="hljs-built_in">int</span>&gt; query2 = numbers.Where(num =&gt; num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>).OrderBy(n =&gt; n);<br></code></pre></td></tr></table></figure>
 <p>如果想要了解更多 API 请参考官方文档：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/linq/standard-query-operators-overview">标准查询运算符概述 (C#)</a></p>
+<h2 id="扩展：PLINQ">扩展：PLINQ</h2>
+<p>PLINQ 就是 LINQ 的并行实现，它会尝试充分利用系统上的所有处理器(来执行查询从而提升性能)。如果单独处理源集合中的每个元素，且各个代理之间不涉及共享状态，PLINQ 的性能最佳。</p>
+<blockquote>
+<p>在许多情况下，并行执行意味着查询运行速度显著提高。…但是，并行可能会引入其自身的复杂性，因此并非所有的查询操作的运行速度在 PLINQ 中都更快。 事实上，并行实际上会降低某些查询的速度。 因此，应了解排序等问题将如何对并行查询产生影响。</p>
+</blockquote>
+<h3 id="System-Linq-ParallelEnumerable类及其常用方法"><code>System.Linq.ParallelEnumerable</code>类及其常用方法</h3>
+<ul>
+<li><code>AsParallel</code>: PLINQ 的入口点。指定如果可能，应并行化查询的其余部分。</li>
+<li><code>AsSequential</code>: 指定查询的其余部分应像非并行的 LINQ查询一样按顺序运行。</li>
+<li><code>AsOrdered</code>: 指定 PLINQ 应为查询的其余部分保留源序列的排序</li>
+<li><code>WithCancellation</code>: 指定 PLINQ 应定期监视请求取消时所提供的取消标记的状态以及取消执行。</li>
+</ul>
+<h3 id="执行模式">执行模式</h3>
+<p>可以使用<code>WithExecutionMode</code>方法和<code>System.Linq.ParallelExecutionMode</code>枚举指示 PLINQ 选择并行算法。</p>
+<h3 id="并行度">并行度</h3>
+<p>默认情况下，PLINQ 使用主机计算机上的所有处理器。可以使用<code>WithDegreeOfParallelism</code>方法指示 PLINQ 使用不超过指定数量的处理器。</p>
+<h3 id="ForAll运算符">ForAll运算符</h3>
+<p>在 PLINQ 中，如果不在乎查询结果的最终排序，请使用<code>ForAll</code>方法执行 PLINQ 查询。(PLINQ 查询会将从每个工作线程中得到的结果合并回主线程上，但是<code>ForAll</code>不执行最终的这一合并步骤)</p>
 <hr>
 
               <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>

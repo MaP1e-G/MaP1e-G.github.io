@@ -1,0 +1,826 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="你知道怎么读取文件吗？知道怎么写入数据到文件中吗？不知道？没关系，我也不知道！那就一起来读文档吧！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#笔记——文件和流 I&#x2F;O">
+<meta property="og:url" content="https://map1e-g.github.io/2023/11/07/CSharp-learning-11/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="你知道怎么读取文件吗？知道怎么写入数据到文件中吗？不知道？没关系，我也不知道！那就一起来读文档吧！">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-07T03:33:13.000Z">
+<meta property="article:modified_time" content="2023-12-03T15:01:14.263Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="文件">
+<meta property="article:tag" content="流I&#x2F;O">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>C#笔记——文件和流 I/O - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C#笔记——文件和流 I/O"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-07 11:33" pubdate>
+          2023年11月7日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C#笔记——文件和流 I/O</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年12月3日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>什么是文件和流 I/O</h1>
+<p>文件是一个由字节组成的有序的命名集合，而流则是一个字节序列。文件和流（的） I/O 是指在存储媒介中传入或传出数据。<br>
+而在 .NET 中，<code>System.IO</code>命名空间包含允许以异步方式和同步方式对数据流和文件进行读取和写入操作的类型。下面就先来介绍一下这个命名空间中的各种东西。</p>
+<h2 id="文件和目录">文件和目录</h2>
+<p>下面是一些常用的文件和目录类：</p>
+<ul>
+<li><code>File</code>：提供用于创建、复制、删除、移动和打开文件的<strong>静态</strong>方法，并可帮助创建<code>FileStream</code>对象。</li>
+<li><code>FileInfo</code>：提供用于创建、复制、删除、移动和打开文件的<strong>实例</strong>方法，并可帮助创建<code>FileStream</code>对象。</li>
+<li><code>Direction</code>：提供用于创建、移动和枚举目录和子目录的<strong>静态</strong>方法。</li>
+<li><code>DirectionInfo</code>：提供用于创建、移动和枚举目录和子目录的<strong>实例</strong>方法。</li>
+<li><code>Path</code>：提供用于以跨平台的方式处理目录字符串的方法和属性。<br>
+很直白啊，带有<code>File</code>的就是处理文件的类，带有<code>Direction</code>的就是处理目录的类，默认都提供的是静态方法，类中带<code>Info</code>的则提供实例方法。</li>
+</ul>
+<h2 id="流">流</h2>
+<p>下面是一些常用的流类：</p>
+<ul>
+<li><code>FileStream</code>：用于对文件进行读取和写入操作。</li>
+<li><code>IsolatedStorageFileStream</code>：用于对独立存储中的文件进行读取和写入操作。不熟。</li>
+<li><code>MemoryStream</code>：用于作为后备存储对内存进行读取和写入操作。不熟。</li>
+<li><code>BufferedStream</code>：用于改进读取和写入操作的性能。不熟。</li>
+<li><code>NetworkStream</code>：用于通过网络套接字进行读取和写入。不熟。</li>
+<li><code>PipeStream</code>：用于通过匿名和命名管道进行读取和写入。不熟。</li>
+<li><code>CryptoStream</code>：用于将数据流链接到加密转换。不熟。<br>
+一圈下来就看懂第一个。</li>
+</ul>
+<h2 id="读取器和编写器">读取器和编写器</h2>
+<p>通常，流用于字节输入和输出。读取器和编写器则是处理编码字符与字节之间的来回转换，以便流可以完成操作。下面是一些常用的读取器和编写器类：</p>
+<ul>
+<li><code>BinaryReader</code>和<code>BinaryWriter</code>：用于将基元数据类型作为二进制值进行读取和写入。</li>
+<li><code>StreamReader</code>和<code>StreamWriter</code>：用于通过使用编码值在字符和字节之间来回转换来读取和写入字符。</li>
+<li><code>StringReader</code>和<code>StringWriter</code>：用于从字符串读取字符以及将字符写入字符串中。</li>
+<li><code>TextReader</code>和<code>TextWriter</code>：用作其他读取器和编写器（读取和写入字符和字符串，而不是二进制数据）的抽象基类。<br>
+其实也很好懂，啊，就是你要把一个字符串写入文件里边，啊，你还得搞个这个东西帮助你进行编码转换，啊。<s>哪来的狗，guna.jpg</s></li>
+</ul>
+<h2 id="压缩">压缩</h2>
+<p>用来对文件和流进行压缩或解压缩的类（这你都有？）。下面是一些常用类：</p>
+<ul>
+<li><code>ZipArchive</code>：用于在 zip 存档中创建和检索条目。</li>
+<li><code>ZipArchiveEntry</code>：用于表示压缩文件。</li>
+<li><code>ZipFile</code>：用于创建、提取和打开压缩包。</li>
+<li><code>ZipFileExtensions</code>：用于创建和提供压缩包中的条目。</li>
+<li><code>DeflateStream</code>： 用于使用 Deflate 算法对流进行压缩和解压缩。</li>
+<li><code>GZipStream</code>：用于采用 gzip 数据格式对流进行压缩和解压缩。</li>
+</ul>
+<h2 id="独立存储">独立存储</h2>
+<p>真不熟家人们，先不管这个东西了。</p>
+<h1>Windows 系统中的文件路径格式</h1>
+<p>想要准确地操作文件，那肯定得先明白对应操作系统中地文件路径格式啦！</p>
+<h2 id="传统-DOS-路径">传统 DOS 路径</h2>
+<p>标准的 DOS 路径可由以下三部分组成：</p>
+<ul>
+<li>卷号或驱动器号，后跟卷分隔符（:）。例如：<code>C:</code></li>
+<li>目录名称。目录分隔符（\）用来分隔嵌套目录层次结构中的子目录。例如：<code>\Program Files\Tencent</code></li>
+<li>可选的文件名。目录分隔符（\）用来分隔文件路径和文件名。例如：<code>\Tencent\QQ.exe</code><br>
+路径分为绝对路径和相对路径，前者指定了卷号或驱动器号，后者则没有。而后者的开头若为目录分隔符，则路径相对于当前驱动器根路径（<code>\Program Files\Tencent</code>），否则相对于当前目录（<code>Program Files\Tencent</code>）。</li>
+</ul>
+<div class="note note-warning">
+            <p>相对路径在多线程应用程序（也就是大多数应用程序）中很危险，因为当前目录是分进程的设置。</p>
+          </div>
+<p>好了，了解传统路径一般情况下够用了，至于其他的 UNC 路径、DOS 设备路径可以自行去文档看看。（什么？你说要给其他环境做适配？不会！.jpg）</p>
+<h1>通用 I/O 任务</h1>
+<h2 id="如何复制目录">如何复制目录</h2>
+<p>只记录一点关键步骤。首先获取源目录的信息，即创建一个源目录的<code>DirectoryInfo</code>对象：<code>var dir = new DirectoryInfo(sourceDir)</code>。得到源目录下的所有文件：<code>dir.GetFiles()</code>，该方法返回<code>FileInfo[]</code>类型。复制文件：<code>file.CopyTo(targetFilePath)</code>，这是<code>FileInfo</code>类的实例方法。如果要合并两个路径的话，可以使用<code>Path.Combine</code>方法，该方法接受两个字符串参数并将它们合并成一个路径（字符串）。<br>
+如果要将该目录及子目录下的所有文件都复制一遍，可以用递归。<br>
+代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">HowToCopyDir</span><br>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CopyDirectory</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> sourceDir, <span class="hljs-built_in">string</span> destinationDir, <span class="hljs-built_in">bool</span> recursive</span>)</span><br>	&#123;<br>		<span class="hljs-comment">// 获得源目录的信息</span><br>		<span class="hljs-keyword">var</span> dir = <span class="hljs-keyword">new</span> DirectoryInfo(sourceDir);<br><br>		<span class="hljs-comment">// 检查源目录是否存在</span><br>		<span class="hljs-keyword">if</span> (!dir.Exists)<br>		&#123;<br>			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> DirectoryNotFoundException(<span class="hljs-string">$&quot;Source directory not found: <span class="hljs-subst">&#123;dir.FullName&#125;</span>&quot;</span>);<br>		&#125;<br>		<span class="hljs-keyword">else</span><br>		&#123;<br>			Console.WriteLine(<span class="hljs-string">$&quot;Start to copy dir: <span class="hljs-subst">&#123;dir.FullName&#125;</span>&quot;</span>);<br>		&#125;<br><br>		<span class="hljs-comment">// 在开始复制之前缓存目录</span><br>		DirectoryInfo[] dirs = dir.GetDirectories();<br><br>		<span class="hljs-comment">// 创建目标目录</span><br>		Directory.CreateDirectory(destinationDir);<br><br>		<span class="hljs-comment">// 获得源目录下的所有文件，并将其复制到目标目录</span><br>		<span class="hljs-keyword">foreach</span> (FileInfo file <span class="hljs-keyword">in</span> dir.GetFiles())<br>		&#123;<br>			<span class="hljs-built_in">string</span> targetFilePath = Path.Combine(destinationDir, file.Name);<br>			file.CopyTo(targetFilePath);<br>			Console.WriteLine(<span class="hljs-string">$&quot;Copy file: <span class="hljs-subst">&#123;file.Name&#125;</span>&quot;</span>);<br>		&#125;<br><br>		<span class="hljs-comment">// 如果允许递归，则进行递归复制，将其子目录的文件也一同复制</span><br>		<span class="hljs-keyword">if</span> (recursive)<br>		&#123;<br>			<span class="hljs-keyword">foreach</span> (DirectoryInfo subDir <span class="hljs-keyword">in</span> dirs)<br>			&#123;<br>				<span class="hljs-built_in">string</span> newDestinationDir = Path.Combine(destinationDir, subDir.Name);<br>				CopyDirectory(subDir.FullName, newDestinationDir, <span class="hljs-literal">true</span>);<br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="如何枚举目录和文件">如何枚举目录和文件</h2>
+<p>下面是几个返回可枚举的文件和目录集合的常用方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">搜索并返回</th>
+<th style="text-align:center">使用方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">目录名称</td>
+<td style="text-align:center"><code>Directory.EnumerateDirectories</code></td>
+</tr>
+<tr>
+<td style="text-align:center">目录信息（<code>DirectoryInfo</code>）</td>
+<td style="text-align:center"><code>DirectoryInfo.EnumerateDirectories</code></td>
+</tr>
+<tr>
+<td style="text-align:center">文件名称</td>
+<td style="text-align:center"><code>Directory.EnumerateFiles</code></td>
+</tr>
+<tr>
+<td style="text-align:center">文件信息（<code>FileInfo</code>）</td>
+<td style="text-align:center"><code>DirectoryInfo.EnumerateFiles</code></td>
+</tr>
+</tbody>
+</table>
+<p>可以看到方法名简明扼要啊，点个赞先。至于剩下的文件系统条目，不熟，所以没写了。（但其实偷偷看了一眼文档，<code>FileSystemInfo</code>类其实是<code>FileInfo</code>和<code>DirectoryInfo</code>类的基类！）<br>
+示例代码没有，自行查阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/standard/io/how-to-enumerate-directories-and-files">官方文档</a>。</p>
+<h2 id="如何对新建的数据文件进行读取和写入">如何对新建的数据文件进行读取和写入</h2>
+<p>这一节其实是讲如何使用<code>BinaryReader</code>和<code>BinaryWriter</code>类来写入和读取字符串以外的数据的。这里就稍微根据文档里的示例代码来总结一下。<br>
+如果要写入数据，先打开（创建）一个文件流（<code>FileStream</code>），然后根据这个文件流来创建一个编写器（<code>BinaryWriter</code>），调用这个编写器的<code>Write</code>方法来写入数据，比如可以直接写入一个<code>int</code>值：<code>w.Write(1)</code>。如果要读取数据，同样地先打开一个<code>FileStream</code>流，然后根据这个文件流来创建<code>BinaryReader</code>读取器，用该类的实例方法来读取文件数据，例如：<code>r.ReadInt32()</code>。</p>
+<h2 id="如何打开并追加文本到日志文件">如何打开并追加文本到日志文件</h2>
+<p>注意这里是<strong>追加文本</strong>，也就是不会覆盖或修改文件中原有的文本。通过<code>File.AppendText</code>方法来获得一个<code>StreamWriter</code>对象，然后调用<code>StreamWriter</code>类型的<code>Write</code>或<code>WriteLine</code>方法即可追加文本。</p>
+<div class="note note-info">
+            <p>如果需要换行并将光标置于行首，应该向流写入<code>\r\n</code>。</p>
+          </div>
+<p>我们也可以用另一种方法来追加文本，那就是将信息存储为一个字符串或字符串数组，并使用<code>File.WriteAllText</code>或<code>File.WriteAllLines</code>方法追加文本。</p>
+<h2 id="如何将文本写入文件">如何将文本写入文件</h2>
+<p>这一章节介绍的是<code>StreamWriter</code>的使用方法，包括：同步写入文本、同步追加文本（上一节已经讲过）、异步写入文本。另外也讲到了使用文件类编写和追加文本。</p>
+<ul>
+<li><code>StreamWriter</code>提供：<code>Write</code>/<code>WriteLine</code>/<code>WriteAsync</code>/<code>WriteAsync</code>方法。</li>
+<li><code>File</code>提供：<code>WriteAllLines</code>/<code>WriteAllText</code>/<code>AppendAllLines</code>/<code>AppendAllText</code>/<code>AppendText</code><strong>静态</strong>方法。</li>
+</ul>
+<p>如果是写入文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;)))</code>。<br>
+如果是追加文本，那么就这样创建<code>StreamWriter</code>对象：<code>using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, &quot;WriteLines.txt&quot;), true))</code>。</p>
+<h1>异步文件访问</h1>
+<p>如果不需要对文件 I/O 进行精细的控制，那么直接参照下面使用<code>File.WriteAllTextAsync</code>和<code>File.ReadAllTextAsync</code>即可。如果需要，请使用<code>FileStream</code>类。</p>
+<h2 id="写入文本">写入文本</h2>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SimpleWriteAsync</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span> filePath = <span class="hljs-string">&quot;simple.txt&quot;</span>;<br>    <span class="hljs-built_in">string</span> text = <span class="hljs-string">$&quot;Hello World&quot;</span>;<br><br>    <span class="hljs-keyword">await</span> File.WriteAllTextAsync(filePath, text2);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="读取文本">读取文本</h2>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SimpleReadAsync</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span> filePath = <span class="hljs-string">&quot;simple.txt&quot;</span>;<br>    <span class="hljs-built_in">string</span> text = <span class="hljs-keyword">await</span> File.ReadAllTextAsync(filePath);<br><br>    Console.WriteLine(text);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="并行异步-I-O">并行异步 I/O</h2>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task <span class="hljs-title">SimpleParallelWriteAsync</span>()</span><br>&#123;<br>    <span class="hljs-built_in">string</span> folder = Directory.CreateDirectory(<span class="hljs-string">&quot;tempfolder&quot;</span>).Name;<br>    IList&lt;Task&gt; writeTaskList = <span class="hljs-keyword">new</span> List&lt;Task&gt;();<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> index = <span class="hljs-number">11</span>; index &lt;= <span class="hljs-number">20</span>; index++)<br>    &#123;<br>        <span class="hljs-built_in">string</span> fileName = <span class="hljs-string">$&quot;file-<span class="hljs-subst">&#123;index:<span class="hljs-number">00</span>&#125;</span>.txt&quot;</span>;<br>        <span class="hljs-built_in">string</span> filePath = <span class="hljs-string">$&quot;<span class="hljs-subst">&#123;folder&#125;</span>/<span class="hljs-subst">&#123;fileName&#125;</span>&quot;</span>;<br>        <span class="hljs-built_in">string</span> text = <span class="hljs-string">$&quot;In file <span class="hljs-subst">&#123;index&#125;</span><span class="hljs-subst">&#123;Environment.NewLine&#125;</span>&quot;</span>;<br><br>        writeTaskList.Add(File.WriteAllTextAsync(filePath, text));<br>    &#125;<br><br>    <span class="hljs-keyword">await</span> Task.WhenAll(writeTaskList);<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning-Log/" class="category-chain-item">Learning Log</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Learning-Log/CSharp/" class="category-chain-item">CSharp</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/%E6%96%87%E4%BB%B6/">#文件</a>
+      
+        <a href="/tags/%E6%B5%81I-O/">#流I/O</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C#笔记——文件和流 I/O</div>
+      <div>https://map1e-g.github.io/2023/11/07/CSharp-learning-11/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月7日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/08/CSharp-learning-12/" title="C#笔记——集合和数据结构">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C#笔记——集合和数据结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/06/unity-learning-3/" title="Unity学习笔记-3">
+                        <span class="hidden-mobile">Unity学习笔记-3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

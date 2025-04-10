@@ -1,0 +1,1535 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="并非教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在&#96;Winform&#96;中读取晶圆测试档案并绘制晶圆图">
+<meta property="og:url" content="https://map1e-g.github.io/2025/04/10/%E5%9C%A8Winform%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%99%B6%E5%9C%86%E6%B5%8B%E8%AF%95%E6%A1%A3%E6%A1%88%E5%B9%B6%E7%BB%98%E5%88%B6%E6%99%B6%E5%9C%86%E5%9B%BE/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="并非教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2VnBV.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2VMAU.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2nBZt.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2VVcn.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2VZXq.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2Vmn0.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2Vu7T.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2nyi8.png">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2nrIf.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2nDdP.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2VE1s.jpg">
+<meta property="og:image" content="https://s21.ax1x.com/2025/04/10/pE2VApj.jpg">
+<meta property="article:published_time" content="2025-04-10T12:27:55.000Z">
+<meta property="article:modified_time" content="2025-04-10T12:30:42.695Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="WinForm">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s21.ax1x.com/2025/04/10/pE2VnBV.png">
+  
+  
+  
+  <title>在`Winform`中读取晶圆测试档案并绘制晶圆图 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="在`Winform`中读取晶圆测试档案并绘制晶圆图"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-10 20:27" pubdate>
+          2025年4月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          100 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">在`Winform`中读取晶圆测试档案并绘制晶圆图</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2025年4月10日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>在 Winform 中读取晶圆测试档案并绘制晶圆图</h1>
+<h2 id="写在最前面">写在最前面</h2>
+<p>在摸鱼的时候想到什么就写什么的一个小程序，功能并不完善，以及 Bug 频发（总之先叠甲吧）。主要是为以后设计此类程序提供一个大致思路。（？</p>
+<p>仓库地址：<strong><a target="_blank" rel="noopener" href="https://github.com/MaP1e-G/DrawWaferMapApp">DrawWaferMapApp</a></strong>（由于某些原因仓库已经更改为 Private，源码请联系邮箱：Centaurea_G@hotmail.com）</p>
+<p>本文比较有用的部分：<a href="###WaferMap">晶圆图控件 <code>WaferMap</code> 介绍</a></p>
+<p>（但是写完本文后我发现本文起到的作用更多是文档而不是教程，呃，这就有点尴尬了）</p>
+<h2 id="CSV-处理工具介绍">CSV 处理工具介绍</h2>
+<h3 id="Coordinate"><code>Coordinate</code></h3>
+<p>用于表示坐标的类，跟 <code>Point</code> 类没啥区别。</p>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Coordinate</code></td>
+<td>初始化一个 <code>Coordinate</code> 类的新实例</td>
+</tr>
+<tr>
+<td><code>Coordinate(int, int)</code></td>
+<td>使用指定的值初始化一个 <code>Coordinate</code> 类的新实例</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>X</code></td>
+<td>表示平面直角坐标系横坐标</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Y</code></td>
+<td>表示平面直角坐标系纵坐标</td>
+</tr>
+</tbody>
+</table>
+<h3 id="CsvTemplate"><code>CsvTemplate</code></h3>
+<p>帮助解析 csv 文件用，它告诉 <code>CsvProcessTool</code> 该如何解析 csv 文件。</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HeaderRowStartNumber</code></td>
+<td>获取或设置表头行起始行号, 行号从 1 开始计数</td>
+</tr>
+<tr>
+<td><code>HeaderRowEndNumber</code></td>
+<td>获取或设置表头行结束行号, 行号从 1 开始计数</td>
+</tr>
+<tr>
+<td><code>HeaderKeyColumnNumber</code></td>
+<td>获取或设置表头信息列号, 列号从 1 开始计数, 默认为 1</td>
+</tr>
+<tr>
+<td><code>HeaderValueColumnNumber</code></td>
+<td>获取或设置表头信息值起始列号, 列号从 1 开始计数, 默认为 2</td>
+</tr>
+<tr>
+<td><code>ColumnNameRowNumber</code></td>
+<td>获取或设置数据列列名行号, 行号从 1 开始计数</td>
+</tr>
+<tr>
+<td><code>DataRowStartNumber</code></td>
+<td>获取或设置数据行起始行号, 行号从 1 开始计数</td>
+</tr>
+<tr>
+<td><code>XCoordinateColumnNumber</code></td>
+<td>获取或设置横坐标列号, 列号从 1 开始计数</td>
+</tr>
+<tr>
+<td><code>YCoordinateColumnNumber</code></td>
+<td>获取或设置纵坐标列号, 列号从 1 开始计数</td>
+</tr>
+<tr>
+<td><code>ColumnNames</code></td>
+<td>获取或设置文件列名</td>
+</tr>
+<tr>
+<td><code>ColumnsMap</code></td>
+<td>获取或设置列名映射，用于将列名映射到该列的索引</td>
+</tr>
+</tbody>
+</table>
+<p>针对不同的测试档，可以写一个派生类继承此类。</p>
+<h3 id="CsvDetail"><code>CsvDetail</code></h3>
+<p>用来存放解析后的 csv 数据，支持存入到 <code>Dictionary</code> 或是 <code>Matrix</code> 中。</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BodyInfo</code></td>
+<td>获取或设置测试档中的数据，以 <code>Dictionary</code> 形式存储</td>
+</tr>
+<tr>
+<td><code>BodyInfo_Matrix</code></td>
+<td>获取或设置测试档中的数据，以矩阵形式存储</td>
+</tr>
+<tr>
+<td><code>DataType</code></td>
+<td>获取或设置数据存储的形式，<code>Dictionary</code>  或  <code>Matrix</code></td>
+</tr>
+<tr>
+<td><code>XMax</code></td>
+<td>获取或设置晶圆测试档中横坐标的最大值</td>
+</tr>
+<tr>
+<td><code>XMin</code></td>
+<td>获取或设置晶圆测试档中横坐标的最小值</td>
+</tr>
+<tr>
+<td><code>YMax</code></td>
+<td>获取或设置晶圆测试档中纵坐标的最大值</td>
+</tr>
+<tr>
+<td><code>YMin</code></td>
+<td>获取或设置晶圆测试档中纵坐标的最小值</td>
+</tr>
+</tbody>
+</table>
+<p>其中，<code>BodyInfo</code> 的类型是 <code>Dictionary&lt;Coordinate, string[]&gt;</code>，以晶圆上的每个 Die 的坐标为 <code>Key</code>，其 <code>Value</code> 按顺序存储所读取的 <code>csv</code> 测试档案中的电性数据。而 <code>BodyInfo_Matrix</code> 的类型是 <code>string[,][]</code>，是一个多维交错数组，其将晶圆上每个 Die 的坐标存储在二维数组 <code>[,]</code> 中，而对应的电性测试数据则存储在一维数组 <code>[]</code> 中。</p>
+<p>针对不同的测试档，可以写一个派生类继承此类。</p>
+<h3 id="CsvProcessTool"><code>CsvProcessTool</code></h3>
+<p>用于处理 csv 文件，提供各种处理 csv 文件的方法。</p>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CsvProcessTool()</code></td>
+<td>初始化一个 <code>Coordinate</code> 类的新实例</td>
+</tr>
+<tr>
+<td><code>CsvProcessTool(string)</code></td>
+<td>初始化一个 <code>Coordinate</code> 类的新实例，并设置指定的 <code>Pattern</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Pattern</code></td>
+<td>获取或设置正则表达式的 Pattern，默认为 “,(?=(?:[^”]*“[^]*)*[^”]*$)&quot;</td>
+</tr>
+<tr>
+<td><code>SplitChar</code></td>
+<td>获取或设置 csv 文件的分隔符，默认为 “,”</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ReadCsvFile(string)</code></td>
+<td>读取指定的 CSV 文件, 并将文件每一行的内容根据 <code>SplitChar</code> 指定的分隔符进行分隔，产生的字符串数组将被放入 List 中。</td>
+</tr>
+<tr>
+<td><code>ReadCsvFile(string, bool)</code></td>
+<td>读取指定的 CSV 文件, 第二个参数指定根据 <code>SplitChar</code> 指定的分隔符进行分隔，还是使用指定的正则表达式进行分隔。结果将被放入 <code>List</code> 中。</td>
+</tr>
+<tr>
+<td><code>ReadCsvFileToDictionary(string, CsvTemplate, CsvDetail)</code></td>
+<td>读取指定的 CSV 文件, 并将信息存入到 <code>CsvDetail</code> 的 <code>BodyInfo</code> 属性中</td>
+</tr>
+<tr>
+<td><code>ReadCsvFileToMatrix(string, CsvTemplate, CsvDetail)</code></td>
+<td>读取指定的 CSV 文件, 并将信息存入到 <code>CsvDetail</code> 的 <code>BodyInfo_Matrix</code> 属性中</td>
+</tr>
+<tr>
+<td><code>ReadCsvFileAsync(string)</code></td>
+<td><code>ReadCsvFile(string)</code> 的异步版本</td>
+</tr>
+<tr>
+<td><code>GetHeaderInfoToDictionary(List&lt;string[]&gt;, CsvTemplate)</code></td>
+<td>提取已解析的 CSV 文件中的表头信息</td>
+</tr>
+<tr>
+<td><code>GetBodyInfoToDictionary(List&lt;string&gt;[], CsvTemplate)</code></td>
+<td>提取已解析的 CSV 文件中的表身(单身)信息</td>
+</tr>
+<tr>
+<td><code>IsInRange&lt;T&gt;(T, T, T)</code></td>
+<td>判断给定的 T 是否在范围内</td>
+</tr>
+<tr>
+<td><code>IsOutOfRange&lt;T&gt;(T, T, T)</code></td>
+<td>判断给定的 T 是否不在范围内</td>
+</tr>
+<tr>
+<td><code>ParseCsvLine(string, char)</code></td>
+<td>根据指定的分隔符对传入的 <code>string</code> 进行解析</td>
+</tr>
+<tr>
+<td><code>ParseCsvLineByRegex(string)</code></td>
+<td>根据指定的正则表达式对传入的 <code>string</code> 进行解析</td>
+</tr>
+</tbody>
+</table>
+<p>针对不同的测试档，可以写一个派生类继承此类。</p>
+<h2 id="晶圆图控件介绍">晶圆图控件介绍</h2>
+<h3 id="WaferMap"><code>WaferMap</code></h3>
+<p>用于显示晶圆图的自定义控件。</p>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WaferMap()</code></td>
+<td>初始化一个 <code>WaferMap</code> 类的新实例</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XMax</code></td>
+<td>获取或设置测试档中的最大横坐标</td>
+</tr>
+<tr>
+<td><code>XMin</code></td>
+<td>获取或设置测试档中的最小横坐标</td>
+</tr>
+<tr>
+<td><code>YMax</code></td>
+<td>获取或设置测试档中的最大纵坐标</td>
+</tr>
+<tr>
+<td><code>YMin</code></td>
+<td>获取或设置测试档中的最小纵坐标</td>
+</tr>
+<tr>
+<td><code>TranslationX</code></td>
+<td>获取横坐标上的偏移量</td>
+</tr>
+<tr>
+<td><code>TranslationY</code></td>
+<td>获取纵坐标上的偏移量</td>
+</tr>
+<tr>
+<td><code>Zoom</code></td>
+<td>获取缩放比例</td>
+</tr>
+<tr>
+<td><code>ScaleFactor</code></td>
+<td>获取或设置缩放系数</td>
+</tr>
+<tr>
+<td><code>DieSize</code></td>
+<td>获取或设置绘制 Die 的尺寸</td>
+</tr>
+<tr>
+<td><code>Detail</code></td>
+<td>获取或设置 <code>CsvDetail</code></td>
+</tr>
+<tr>
+<td><code>Colors</code></td>
+<td>获取或设置 Bin 的颜色</td>
+</tr>
+<tr>
+<td><code>DrawCross</code></td>
+<td>获取或设置是否在晶圆图上绘制十字线。</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_waferWidth</code></td>
+<td>实际晶圆图的宽度</td>
+</tr>
+<tr>
+<td><code>_waferHeight</code></td>
+<td>实际晶圆图的长度</td>
+</tr>
+<tr>
+<td><code>_isDrawBin</code></td>
+<td>当前是否处于画 Bin 模式，画 Bin 模式下不允许除了描点以外的操作</td>
+</tr>
+<tr>
+<td><code>_canModifyBin</code></td>
+<td>是否可以修改 Bin</td>
+</tr>
+<tr>
+<td><code>_squareSize</code></td>
+<td>右键固定后绘制的小正方形方框的大小</td>
+</tr>
+<tr>
+<td><code>_opacity</code></td>
+<td>设置右键固定后出来的正方形框的透明度，0-255之间</td>
+</tr>
+<tr>
+<td><code>_squareCenter</code></td>
+<td>右键固定后出来的正方形框的中心点</td>
+</tr>
+<tr>
+<td><code>_fixed</code></td>
+<td>固定某一个点</td>
+</tr>
+<tr>
+<td><code>lastX</code></td>
+<td>记录上次鼠标点击的位置</td>
+</tr>
+<tr>
+<td><code>lastY</code></td>
+<td>记录上次鼠标点击的位置</td>
+</tr>
+<tr>
+<td><code>drawBinPoints</code></td>
+<td>记录画 Bin 的点</td>
+</tr>
+<tr>
+<td><code>drawBinPen</code></td>
+<td>画 Bin 时使用的画笔</td>
+</tr>
+<tr>
+<td><code>binGraphics</code></td>
+<td>画 Bin 时使用的 <code>Graphics</code> 对象</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WaferMapMouseMove</code></td>
+<td>当鼠标在控件上移动时发生</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnPaint(PaintEventArgs)</code></td>
+<td>重载的绘制方法，将绘制晶圆图的逻辑放在此方法中</td>
+</tr>
+<tr>
+<td><code>WaferMap_Load(object, MouseEventArgs)</code></td>
+<td>控件<code>Load</code>事件触发时调用此方法</td>
+</tr>
+<tr>
+<td><code>WaferMap_MouseDown(object, MouseEventArgs)</code></td>
+<td>鼠标按键按下事件触发时调用此方法，用于判断拖拽动作及记录拖拽起点</td>
+</tr>
+<tr>
+<td><code>WaferMap_MouseMove(object, MouseEventArgs)</code></td>
+<td>鼠标移动事件触发时调用此方法，用于 <code>WaferMapMouseMove.Invoke</code> 以及在拖动时触发重绘</td>
+</tr>
+<tr>
+<td><code>WaferMap_MouseUp(object, MouseEventArgs)</code></td>
+<td>鼠标按键抬起事件触发时调用此方法，用于判断拖拽动作</td>
+</tr>
+<tr>
+<td><code>WaferMap_MouseWheel(object, MouseEventArgs)</code></td>
+<td>鼠标滚轮事件触发时调用此方法，处理晶圆图的放大缩小</td>
+</tr>
+<tr>
+<td><code>WaferMap_MouseClick(object, MouseEventArgs)</code></td>
+<td>鼠标按键点击事件触发时调用此方法，处理画 Bin 模式下的绘制及右键菜单的显示</td>
+</tr>
+<tr>
+<td><code>RegisterEvents()</code></td>
+<td>为控件注册事件的方法</td>
+</tr>
+<tr>
+<td><code>tsmiFixed_CheckedChanged(object, EventArgs)</code></td>
+<td>右键菜单中的固定选项的 <code>Checked</code> 属性的值发生更改时调用此方法，根据 <code>Checked</code> 的值决定是否绘制小正方形框</td>
+</tr>
+<tr>
+<td><code>tsmiFixed_Click(object, EventArgs)</code></td>
+<td>右键菜单中的固定选项被点击时调用此方法，用于切换其 <code>Checked</code> 属性的值</td>
+</tr>
+<tr>
+<td><code>RedrawWaferMap()</code></td>
+<td>令控件执行重绘，是个没什么用的方法</td>
+</tr>
+<tr>
+<td><code>SetBinColor(Colors[])</code></td>
+<td>根据传入的 <code>Colors[]</code> 设置各个 Bin 等级的颜色</td>
+</tr>
+<tr>
+<td><code>SetBinColorDefault()</code></td>
+<td>用控件设定的默认值设置各个 Bin 等级的颜色</td>
+</tr>
+<tr>
+<td><code>SetPosition(int, int)</code></td>
+<td>根据传入的坐标去定位 Wafer 上的某个点，将该点移至控件的中心</td>
+</tr>
+<tr>
+<td><code>DrawBin()</code></td>
+<td>用于进入和退出画 Bin 模式</td>
+</tr>
+<tr>
+<td><code>DrawBinUndo()</code></td>
+<td>用于画 Bin 模式下的撤销</td>
+</tr>
+<tr>
+<td><code>CleanDrawBinHistory()</code></td>
+<td>清理画 Bin 记录</td>
+</tr>
+<tr>
+<td><code>ModifyBin()</code></td>
+<td>画 Bin 完成后修改 Bin 值（此方法并没有完成）</td>
+</tr>
+<tr>
+<td><code>CrossProduct(Point, Point, Point)</code></td>
+<td>计算叉积 (P2 - P1) x (P3 - P1)</td>
+</tr>
+<tr>
+<td><code>IsPointOnSegment(Point, Point, Point)</code></td>
+<td>判断点 P3 是否在线段 P1P2 上（注意：调用此方法判断的前提是三点共线，即它们的叉积为 0）</td>
+</tr>
+<tr>
+<td><code>AreSegmentsIntersecting(Point, Point, Point, Point)</code></td>
+<td>判断线段 P1P2 和 P3P4 是否相交</td>
+</tr>
+<tr>
+<td><code>IsValidPolygon(List&lt;Points&gt;)</code></td>
+<td>判断一组点是否构成有效的多边形</td>
+</tr>
+<tr>
+<td><code>IsInPolygon2(Point, List&lt;Point&gt;)</code></td>
+<td>判断点是否在多边形内</td>
+</tr>
+<tr>
+<td><code>GetBinColor(int)</code></td>
+<td>返回传入的 Bin 等级对应的 Color</td>
+</tr>
+<tr>
+<td><code>GetBinColor(string)</code></td>
+<td>返回传入的 Bin 等级对应的 Color</td>
+</tr>
+</tbody>
+</table>
+<p>这里对该控件的部分功能的实现做一下详细解析。</p>
+<h4 id="晶圆图的绘制">晶圆图的绘制</h4>
+<p>我选择直接在控件上的 <code>Graphics</code> 进行绘制，而不是使用绘制在 <code>BitMap</code> 上，然后以 <code>PictureBox</code> 作为载体进行绘制。这么做有几个原因：</p>
+<ol>
+<li><code>BitMap</code> 需要消耗额外内存。</li>
+<li>方便实现晶圆图的放大、缩小、移动等功能（坐标、偏移量等容易计算出来）。</li>
+</ol>
+<p>那么要如何绘制晶圆图呢？首先要清楚控件的坐标系，是以左上角为原点 (0, 0) 的，且向右和向下分别为横坐标与纵坐标的正增量，并非我们熟知的向右和向上。其次，我们需要在控件的范围内来绘制整张晶圆图，这就涉及到绘制的比例，这个比例也很好算，<strong>“控件的大小 / 晶圆的大小”</strong>。有了比例之后，就能够算出晶圆的某个 Die 在控件上的位置了，<strong>Die 对应的横纵坐标减去晶圆的最小横纵坐标，再乘上比例</strong>，就得到了 Die 在控件上的坐标。</p>
+<h4 id="缩放与移动">缩放与移动</h4>
+<p>介绍完了基本的绘制，接下来再讲讲缩放和移动这些功能是如何实现的。</p>
+<p>先来说说移动，其实移动很简单，我们只需要知道“<strong>偏移量（Translation）</strong>”即可，举个例子会好理解很多。比如，在下面这张图中，我们将鼠标从 A 点移动到了 B 点，鼠标的移动方向是左上方，所以晶圆图的移动方向也应该是左上方，这样才符合直觉。而本次移动的“偏移量”其实就是 <strong>“B 点 - A 点”</strong>，所以本次移动在横纵坐标上的“偏移量”都是负的。那么在绘制的时候，我们就需要将偏移后的坐标作为<code>Graphics</code>的原点，如图所示，偏移后的原点实际上就是<strong>当前原点 + 偏移量</strong>。为什么我们只用<code>Graphics.TranslateTransform</code>改动了原点，没有改动其他代码，也能正确绘制呢？ 你可以理解成我们现在所有绘制的内容都自动加上了这个偏移量。下面来看看相关代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WaferMap_MouseMove</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, MouseEventArgs e</span>)</span><br>&#123;<br>    ...<br>    <span class="hljs-comment">// 检查鼠标是否在移动，如果位置没有变化，直接返回</span><br>    <span class="hljs-keyword">if</span> (e.Location == _lastMousePosition)<br>        <span class="hljs-keyword">return</span>;<br><br>    <span class="hljs-comment">// 更新鼠标上次位置</span><br>    _lastMousePosition = e.Location;<br>    <br>    ...<br>    <span class="hljs-keyword">if</span> (_isDragging &amp;&amp; !_isDrawBin)<br>    &#123;<br>        TranslationX += e.X - _dragStart.X;<br>        TranslationY += e.Y - _dragStart.Y;<br><br>        _dragStart = e.Location;  <span class="hljs-comment">// 更新拖动起点</span><br>        Invalidate();  <span class="hljs-comment">// 重新绘制</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果侦测到了用户正在拖动鼠标，控件便会更新<code>TranslationX</code>与<code>TranslationY</code>，并执行重绘。在重绘方法中，将使用新的<code>TranslationX</code>与<code>TranslationY</code>来重设原点，并计算偏移后的坐标系上限，这样在检查到某一个 Die 的坐标超出了当前控件的坐标系范围时，可以直接跳过绘制（因为就算画了也看不见，但是资源却实实在在地消耗了）（你问为什么能画控件客户端区域外的东西？我也不知道）。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PaintByBin</span>(<span class="hljs-params">PaintEventArgs e</span>)</span><br>&#123;<br>    ...<br>    e.Graphics.Clear(Color.White);  <span class="hljs-comment">// 清除所有绘制内容，并用白色填充背景</span><br><br>    <span class="hljs-comment">// 对于 Graphics 而言，新的原点 = (TranslationX, TranslationY)；对于控件而言，新的原点 = (0, 0) - (TranslationX, TranslationY)</span><br>    e.Graphics.TranslateTransform(TranslationX, TranslationY);  <span class="hljs-comment">// 重设原点</span><br><br>    ...<br>    <span class="hljs-comment">// 记录偏移后的坐标系上限</span><br>    <span class="hljs-built_in">float</span> translationWidth = Width - (TranslationX);<br>    <span class="hljs-built_in">float</span> translationHeight = Height - (TranslationY);<br><br>    <span class="hljs-comment">// 遍历 bodyInfo，绘制每个数据点</span><br>    <span class="hljs-keyword">if</span> (Detail.DataType == DataStorageType.Dictionary)<br>    &#123;<br>        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> entry <span class="hljs-keyword">in</span> Detail.BodyInfo)<br>        &#123;<br>            ...<br>            <span class="hljs-comment">// 不需要绘制控件外的点</span><br>            <span class="hljs-keyword">if</span> (xPos &lt; <span class="hljs-number">0</span> - TranslationX || yPos &lt; <span class="hljs-number">0</span> - TranslationY || xPos &gt; translationWidth || yPos &gt; translationHeight)<br>            &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            ...<br>        &#125;<br>    &#125;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后是缩放。其实缩放也很简单，缩放要处理的其实就是一个“<strong>缩放比例（Zoom）</strong>”，然后在控件重绘计算绘制比例的时候，<strong>乘以缩放比例</strong>即可。难的地方是计算缩放后的位置，因为我想做到晶圆图缩放后，鼠标指向的 Die 是同一个 Die。先从处理鼠标滚轮事件的相关代码说起吧：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WaferMap_MouseWheel</span>(<span class="hljs-params"><span class="hljs-built_in">object</span> sender, MouseEventArgs e</span>)</span><br>&#123;<br>    ...<br>    <span class="hljs-comment">// 记录旧的缩放比例</span><br>    <span class="hljs-built_in">float</span> oldZoom = Zoom;<br><br>    <span class="hljs-comment">// 更新 Zoom</span><br>    <span class="hljs-keyword">if</span> (e.Delta &gt; <span class="hljs-number">0</span>)<br>    &#123;<br>        Zoom += ScaleFactor;  <span class="hljs-comment">// 放大</span><br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.Delta &lt; <span class="hljs-number">0</span>)<br>    &#123;<br>        Zoom = Math.Max(<span class="hljs-number">1.0f</span>, Zoom - ScaleFactor);  <span class="hljs-comment">// 缩小，确保缩放比例不小于1.0</span><br>    &#125;<br><br>    <span class="hljs-comment">// 计算缩放前的鼠标相对于整个wafer图的坐标</span><br>    <span class="hljs-built_in">float</span> oldXPos = (e.X - TranslationX) / (oldZoom * ((<span class="hljs-built_in">float</span>)Width / _waferWidth));<br>    <span class="hljs-built_in">float</span> oldYPos = (e.Y - TranslationY) / (oldZoom * ((<span class="hljs-built_in">float</span>)Height / _waferHeight));<br><br>    <span class="hljs-comment">// 计算缩放后的鼠标相对于整个wafer图的坐标</span><br>    <span class="hljs-built_in">float</span> newXPos = (e.X - TranslationX) / (Zoom * ((<span class="hljs-built_in">float</span>)Width / _waferWidth));<br>    <span class="hljs-built_in">float</span> newYPos = (e.Y - TranslationY) / (Zoom * ((<span class="hljs-built_in">float</span>)Height / _waferHeight));<br><br>    <span class="hljs-comment">// 通过平移调整，使鼠标相对位置不变</span><br>    TranslationX += (newXPos - oldXPos) * Zoom * ((<span class="hljs-built_in">float</span>)Width / _waferWidth);<br>    TranslationY += (newYPos - oldYPos) * Zoom * ((<span class="hljs-built_in">float</span>)Height / _waferHeight);<br><br>    <span class="hljs-comment">// 请求重绘</span><br>    Invalidate();<br><br>    <span class="hljs-comment">// 获取当前wafer的X和Y位置</span><br>    <span class="hljs-built_in">int</span> waferX = (<span class="hljs-built_in">int</span>)((e.X - TranslationX) / (Zoom * ((<span class="hljs-built_in">float</span>)Width / _waferWidth)) + XMin);<br>    <span class="hljs-built_in">int</span> waferY = (<span class="hljs-built_in">int</span>)((e.Y - TranslationY) / (Zoom * ((<span class="hljs-built_in">float</span>)Height / _waferHeight)) + YMin);<br><br>    <span class="hljs-comment">// 触发鼠标移动事件</span><br>    WaferMapMouseMove?.Invoke(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">new</span> WaferMapMouseMoveEventArgs(waferX.ToString(), waferY.ToString()));<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以发现这段代码中有个常出现的计算量：<code>Zoom * ((float)Width / _waferWidth)</code> 和 <code>Zoom * ((float)Height / _waferHeight)</code>，可以理解为“Die 的绘制比例”，因为缩放后，每颗 Die 的尺寸也会跟着变化。稍后你会发现这个计算量同样用于重绘方法中。</p>
+<p>保持缩放前后鼠标指向同一个 Die 的代码可能难以理解，可以结合下面的示意图来理解：</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2VnBV.png" srcset="/img/loading.gif" lazyload alt="缩放定位示意图"></p>
+<p>接着就是将相关参数合并到绘制方法中：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PaintByBin</span>(<span class="hljs-params">PaintEventArgs e</span>)</span><br>&#123;<br>    ...<br>    e.Graphics.Clear(Color.White);  <span class="hljs-comment">// 清除所有绘制内容，并用白色填充背景</span><br><br>    <span class="hljs-comment">// 对于 Graphics 而言，新的原点 = (TranslationX, TranslationY)；对于控件而言，新的原点 = (0, 0) - (TranslationX, TranslationY)</span><br>    e.Graphics.TranslateTransform(TranslationX, TranslationY);  <span class="hljs-comment">// 重设原点</span><br>    Console.WriteLine(TranslationX + <span class="hljs-string">&quot; &quot;</span> + TranslationY);<br>    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;  <span class="hljs-comment">// 抗锯齿</span><br><br>    <span class="hljs-comment">// 计算图像的绘制比例</span><br>    <span class="hljs-built_in">float</span> xScale = (<span class="hljs-built_in">float</span>)Width / _waferWidth * Zoom;<br>    <span class="hljs-built_in">float</span> yScale = (<span class="hljs-built_in">float</span>)Height / _waferHeight * Zoom;<br><br>    <span class="hljs-comment">// 记录偏移后的坐标系上限</span><br>    <span class="hljs-built_in">float</span> translationWidth = Width - (TranslationX);<br>    <span class="hljs-built_in">float</span> translationHeight = Height - (TranslationY);<br><br>    <span class="hljs-comment">// 遍历 bodyInfo，绘制每个数据点</span><br>    <span class="hljs-keyword">if</span> (Detail.DataType == DataStorageType.Dictionary)<br>    &#123;<br>        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> entry <span class="hljs-keyword">in</span> Detail.BodyInfo)<br>        &#123;<br>            Coordinate coord = entry.Key;<br>            <span class="hljs-built_in">string</span>[] data = entry.Value;<br><br>            <span class="hljs-comment">// 根据 x 和 y 计算位置</span><br>            <span class="hljs-built_in">float</span> xPos = (coord.X - XMin) * xScale;<br>            <span class="hljs-built_in">float</span> yPos = (coord.Y - YMin) * yScale;<br><br>            <span class="hljs-comment">// 不需要绘制控件外的点</span><br>            <span class="hljs-keyword">if</span> (xPos &lt; <span class="hljs-number">0</span> - TranslationX || yPos &lt; <span class="hljs-number">0</span> - TranslationY || xPos &gt; translationWidth || yPos &gt; translationHeight)<br>            &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br><br>            <span class="hljs-comment">// 绘制每个点(椭圆)</span><br>            <span class="hljs-keyword">if</span> (_canModifyBin &amp;&amp; !IsInPolygon2(<span class="hljs-keyword">new</span> Point((<span class="hljs-built_in">int</span>)xPos, (<span class="hljs-built_in">int</span>)yPos), _drawBinPoints))<br>            &#123;<br>                e.Graphics.FillEllipse(<span class="hljs-keyword">new</span> SolidBrush(Color.Pink), xPos, yPos, DieSize.Width * xScale, DieSize.Height * yScale);<br>            &#125;<br>            <span class="hljs-keyword">else</span><br>            &#123;<br>                e.Graphics.FillEllipse(<span class="hljs-keyword">new</span> SolidBrush(GetBinColor(data[<span class="hljs-number">2</span>])), xPos, yPos, DieSize.Width * xScale, DieSize.Height * yScale);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以发现各个功能都挺简单的，最重要的是将他们一一拆开来实现，最后再组合在一起（然而并非简单，我再回头看都要看半天）。</p>
+<h4 id="WaferMapMouseMoveEventArgs"><code>WaferMapMouseMoveEventArgs</code></h4>
+<p>用于向其他控件传递当前鼠标所处的晶圆的坐标。</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WaferX</code></td>
+<td>晶圆图横坐标</td>
+</tr>
+<tr>
+<td><code>WaferY</code></td>
+<td>晶圆图纵坐标</td>
+</tr>
+</tbody>
+</table>
+<h4 id="画-Bin">画 Bin</h4>
+<p>由于本功能并未全部完成所以我决定先摆烂不写嘿嘿嘿~</p>
+<p>建议直接看代码~</p>
+<h3 id="MiniWaferMap"><code>MiniWaferMap</code></h3>
+<p>相当于放大镜，用来看晶圆图的某一块区域的 Bin 分布情况。</p>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MiniWaferMap()</code></td>
+<td>初始化一个 <code>MiniWaferMap</code> 类的新实例</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Detail</code></td>
+<td>获取或设置 <code>CsvDetail</code></td>
+</tr>
+<tr>
+<td><code>Colors</code></td>
+<td>获取或设置 Bin 的颜色</td>
+</tr>
+<tr>
+<td><code>X</code></td>
+<td>中心 Die 在晶圆上的实际横坐标</td>
+</tr>
+<tr>
+<td><code>Y</code></td>
+<td>中心 Die 在晶圆上的实际纵坐标</td>
+</tr>
+<tr>
+<td><code>HalfOfTheSide</code></td>
+<td>要显示的中心点周边的 Die 的个数</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetBinColor()</code></td>
+<td>设置各个 Bin 等级的颜色</td>
+</tr>
+<tr>
+<td><code>SetBinColorDefault()</code></td>
+<td>用程序默认值设置各个 Bin 等级的颜色</td>
+</tr>
+<tr>
+<td><code>GetBinColor(int)</code></td>
+<td>返回传入的 Bin 等级对应的 Color</td>
+</tr>
+<tr>
+<td><code>GetBinColor(string)</code></td>
+<td>返回传入的 Bin 等级对应的 Color</td>
+</tr>
+<tr>
+<td><code>DrawWhitePicture(Graphics)</code></td>
+<td>绘制白布</td>
+</tr>
+<tr>
+<td><code>DrawMiniMap(Graphics)</code></td>
+<td>绘制迷你晶圆图</td>
+</tr>
+<tr>
+<td><code>Redraw()</code></td>
+<td>提供给外部使用，调用控件的 <code>Invalidate()</code> 方法进行重绘</td>
+</tr>
+</tbody>
+</table>
+<p>你可能会在代码中发现一些额外的此处没有列出的属性或方法等，无需在意，因为那些八成是我没删掉的无用代码。</p>
+<p>这个实现就没什么难点了，直接根据数据画图就行了。（这可比那<code>WaferMap</code>好写多了！）</p>
+<h3 id="ElectricalMap"><code>ElectricalMap</code></h3>
+<p>是一个通过 <code>PictureBox</code> 与 <code>Bitmap</code> 来展示抽/全测某个电性参数的测试数据的晶圆图的通用（并非）控件。这个时候就有吴彦祖要问了：主包主包，你不是不用 <code>Bitmap</code> 吗？确实，但是这抽全测看图它不需要花里胡哨的缩放和拖动功能，所以最适合展示的方式又变成了绘制 <code>Bitmap</code> 并用 <code>PictureBox</code> 进行展示。</p>
+<p>由于赶工的原因，一些地方可能做了写死处理，不过都是小问题，图（及核心功能）没问题就是了！</p>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ElectricalMap()</code></td>
+<td>初始化一个 <code>ElectricalMap</code> 类的新实例</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Detail</code></td>
+<td>获取或设置 <code>CsvDetail</code></td>
+</tr>
+<tr>
+<td><code>Colors</code></td>
+<td>获取或设置 Bin 的颜色</td>
+</tr>
+<tr>
+<td><code>ElectricalMapName</code></td>
+<td>所显示的图的电性参数的名称</td>
+</tr>
+<tr>
+<td><code>MinValue</code></td>
+<td>电性参数范围设置的最小值</td>
+</tr>
+<tr>
+<td><code>MaxValue</code></td>
+<td>电性参数范围设置的最大值</td>
+</tr>
+<tr>
+<td><code>StepValue</code></td>
+<td>电性参数范围设置的步长</td>
+</tr>
+<tr>
+<td><code>DrawBorder</code></td>
+<td>是否为 Die 绘制白色边框，可以使得每个抽测点变得更清楚，不建议全测使用</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_bitmap</code></td>
+<td>晶圆图</td>
+</tr>
+<tr>
+<td><code>_lastMousePosition</code></td>
+<td>记录上次的鼠标位置</td>
+</tr>
+<tr>
+<td><code>_sendMouseInfo</code></td>
+<td>是否回传坐标信息</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ElectricalMapMouseMove</code></td>
+<td>当鼠标在控件上移动时发生</td>
+</tr>
+<tr>
+<td><code>ElectricalMapDoubleClick</code></td>
+<td>当鼠标在控件上双击时发生</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DrawMap(string, int, CsvDetail, int, float, int)</code></td>
+<td>绘制指定的电性参数的 Map</td>
+</tr>
+<tr>
+<td><code>DrawMiniMap(string, int, CsvDetail, int, int, int, int, int, bool)</code></td>
+<td>绘制指定的 (x,y) 旁的指定的 X 颗 Die</td>
+</tr>
+<tr>
+<td><code>LoadMap(Bitmap, string)</code></td>
+<td>直接加载传入的位图</td>
+</tr>
+<tr>
+<td><code>GetBinColor(double)</code></td>
+<td>根据传入的值，在指定的最大最小值及步长，找到其对应的颜色并返回</td>
+</tr>
+</tbody>
+</table>
+<p>其实画图方法没什么好讲的，我已经在代码里面用注释写得很清楚了（连公式也给你交代了！），建议直接看代码再配合画图工具理解。（其实是因为要说明的东西太多了，而且有很多相关逻辑放在了调用该控件的窗体上！<s>另外这是后面完成的所以我开摆了。说不定什么时候心情好就再写写。</s>）</p>
+<h4 id="ElectricalMapMoveEventArgs"><code>ElectricalMapMoveEventArgs</code></h4>
+<p>用于向其他控件传递当前鼠标所处的晶圆的坐标。</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WaferX</code></td>
+<td>晶圆图横坐标</td>
+</tr>
+<tr>
+<td><code>WaferY</code></td>
+<td>晶圆图纵坐标</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ElectricalMapDoubleClickEventArgs"><code>ElectricalMapDoubleClickEventArgs</code></h4>
+<p>用于向其他控件传递电性参数的名称以及对应的位图。</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ElectricalName</code></td>
+<td>当前 <code>ElectricalMap</code> 显示的电性参数名称</td>
+</tr>
+<tr>
+<td><code>Map</code></td>
+<td>当前 <code>ElectricalMap</code> 显示的晶圆图</td>
+</tr>
+</tbody>
+</table>
+<h2 id="两个界面的简单介绍">两个界面的简单介绍</h2>
+<h3 id="用户界面1（Form1）">用户界面1（<code>Form1</code>）</h3>
+<p>用来读档案的界面。单独写一个界面只是为了方便自己测试什么的。</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2VMAU.jpg" srcset="/img/loading.gif" lazyload alt="用户界面1"></p>
+<h3 id="用户界面2（WaferMapDisplayForm）">用户界面2（<code>WaferMapDisplayForm</code>）</h3>
+<p>展示 AOI 图的。</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2nBZt.jpg" srcset="/img/loading.gif" lazyload alt="用户界面2"></p>
+<h2 id="实际看图效果展示">实际看图效果展示</h2>
+<h3 id="AOI">AOI</h3>
+<p>读档完成并绘制完毕后的画面：</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2VVcn.jpg" srcset="/img/loading.gif" lazyload alt="AOI看图效果"></p>
+<p>放大和拖动效果：</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2VZXq.jpg" srcset="/img/loading.gif" lazyload alt="AOI看图缩放及拖动"></p>
+<p>可以放得很大很大！</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2Vmn0.jpg" srcset="/img/loading.gif" lazyload alt="AOI看图缩放及拖动2"></p>
+<h3 id="画-Bin-2">画 Bin</h3>
+<p>目前只是简单地完成了多边形的判断已经写死的改 Bin 方法。点击 <code>Draw Bin(Start)</code> 就可以开始绘制多边形了，同时按钮会变为 <code>Draw Bin(End)</code>，<code>Draw Bin Undo</code> 与 <code>Draw Bin Clean</code> 按钮分别提供了撤销与清除功能。绘制完毕后，点击 <code>Draw Bin(End)</code> 按钮，会自动判断是否能够形成多边形并连接初始点与最后一个点。</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2Vu7T.png" srcset="/img/loading.gif" lazyload alt="绘制多边形"></p>
+<p>接着点击 <code>Modify Bin</code> 即可改 Bin。</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2nyi8.png" srcset="/img/loading.gif" lazyload alt="将某个Bin转换为指定Bin后"></p>
+<h3 id="全测">全测</h3>
+<p>九宫格</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2nrIf.jpg" srcset="/img/loading.gif" lazyload alt="全测九宫格效果图"></p>
+<p>大图，全测档案右下角会有放大镜（迷你晶圆图）</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2nDdP.jpg" srcset="/img/loading.gif" lazyload alt="全测大图效果图"></p>
+<h3 id="抽测">抽测</h3>
+<p>九宫格</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2VE1s.jpg" srcset="/img/loading.gif" lazyload alt="抽测九宫格效果图"></p>
+<p>大图</p>
+<p><img src="https://s21.ax1x.com/2025/04/10/pE2VApj.jpg" srcset="/img/loading.gif" lazyload alt="抽测大图效果图"></p>
+<h2 id="展望">展望</h2>
+<p>这部分主要记录想要实现的其他功能。</p>
+<ol>
+<li>改一下在控件中绘制晶圆的区域，目前是占满了整个控件，看看能不能改成可以手动设定什么的。</li>
+<li>电性资料的显示。</li>
+<li>描 Bin 功能并没有做完（说是没做完实际上核心功能如描点已经完成了，只剩下修改 Bin 的部分没完成罢了）。</li>
+<li>设置跟随鼠标的半透明正方形，以方便确认🔍的位置。（直接在原有的 <code>Graphics</code> 上进行绘制并不方便，因为貌似无法进行局部重绘…）（Ok 我放弃了 由于 <code>Winform</code> 的渲染机制无论如何都无法避免重绘整个控件 所以我决定改成右键点击固定的时候显示）</li>
+</ol>
+<p>其他想说的：项目结构管理得也太烂了，为什么我当时把所有东西都写在一个 Project 里了我请问了？拆都难拆。还有就是这代码写的也太烂了，回过头一看设计得是真烂，感觉还是过于耦合了，而且可扩展性并没有看上去的那么高。为什么这么多东西出不来一个接口？好吧实际上是因为我想到什么就写什么而且也并不清楚用户的实际需求导致最后实际需求与我所做的偏差有点大但是这东西不应该本身就由开发者来定制规范吗kuso。罚重新读一遍框架设计指南！</p>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Essay/" class="category-chain-item">Essay</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Essay/CSharp/" class="category-chain-item">CSharp</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/WinForm/">#WinForm</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>在`Winform`中读取晶圆测试档案并绘制晶圆图</div>
+      <div>https://map1e-g.github.io/2025/04/10/在Winform中读取晶圆测试档案并绘制晶圆图/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月10日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/05/how-to-use-openai-dotnet/" title="在 .NET 中使用 OpenAI 包接入 LLM">
+                        <span class="hidden-mobile">在 .NET 中使用 OpenAI 包接入 LLM</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

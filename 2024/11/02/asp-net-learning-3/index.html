@@ -1,0 +1,776 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="参考书籍：《ASP.NET Core技术内幕与项目实战》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core学习笔记-3：Web API 基础、基础组件">
+<meta property="og:url" content="https://map1e-g.github.io/2024/11/02/asp-net-learning-3/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="参考书籍：《ASP.NET Core技术内幕与项目实战》">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s21.ax1x.com/2024/11/04/pArsSCF.png">
+<meta property="article:published_time" content="2024-11-02T09:10:52.000Z">
+<meta property="article:modified_time" content="2025-03-05T12:18:26.749Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="dotNET Core">
+<meta property="article:tag" content="ASP.NET Core">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s21.ax1x.com/2024/11/04/pArsSCF.png">
+  
+  
+  
+  <title>ASP.NET Core学习笔记-3：Web API 基础、基础组件 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ASP.NET Core学习笔记-3：Web API 基础、基础组件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-02 17:10" pubdate>
+          2024年11月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ASP.NET Core学习笔记-3：Web API 基础、基础组件</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2025年3月5日 晚上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>第一个 Web API 项目！</h1>
+<h2 id="项目结构">项目结构</h2>
+<p><img src="https://s21.ax1x.com/2024/11/04/pArsSCF.png" srcset="/img/loading.gif" lazyload alt="项目结构"></p>
+<h2 id="Controller">Controller</h2>
+<p>Web API 中的控制器类都继承自<code>ControllerBase</code>类，并为其添加<code>[ApiController]</code>这个<code>Attribute</code>。示例代码中的另外一个<code>[Route(&quot;[controller]&quot;)]</code>，用于设定路由规则，其中的<code>[controller]</code>代表控制器的名字，也就是等于<code>WeatherForecast</code>。</p>
+<h2 id="Restful">Restful</h2>
+<p>“幂等”操作：对于一个接口采用同样的参数请求一次和请求多次的结果是一致的，不会因多次请求而产生副作用。例如：发表评论成功，服务器返回结果给客户端，但是由于网络波动，客户端没能收到“发表成功”的返回结果，此时再次进行发表评论的操作，如果最终只发表了一次评论，那么这个操作就是幂等的；否则就不是。</p>
+<h2 id="Swagger">Swagger</h2>
+<p>可以理解成提供了对应接口的文档的内置的 Postman（提供接口测试）。<br>
+注意：如果控制器中存在一个没有添加<code>[HttpGet]</code>、<code>[HttpPost]</code>等<code>Attribute</code>的<code>public</code>方法，Swagger 就会报错“Failed to load API definition”。解决办法：对应方法添加：<code>[ApiExplorerSettings(IgnoreApi = true)]``Attribute</code>。</p>
+<h2 id="ActionResult-T">ActionResult<T></h2>
+<p><code>ActionResult&lt;T&gt;</code>通过隐式转换重载来完成<code>BadRequest</code>、<code>NotFound</code>等方法返回的非泛型的<code>ActionResult</code>到<code>ActionResult&lt;T&gt;</code>的转换，它也会完成具体值（比如某一实体类）到<code>ActionResult&lt;T&gt;</code>的隐式转换。因此在操作方法中，我们可以直接：<code>return new Book()</code>、<code>return NotFound()</code>等。</p>
+<h2 id="操作方法的参数来源">操作方法的参数来源</h2>
+<h3 id="URL">URL</h3>
+<p>在<code>[HttpGet]</code>、<code>[HttpPost]</code>等<code>Attribute</code>中使用占位符<code>&#123;ParameterName&#125;</code>来捕捉路径中的内容：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpGet(<span class="hljs-string">&quot;bookTitle/&#123;title&#125;/bookAuthor/&#123;author&#125;&quot;</span>)</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> ActionResult&lt;Book&gt; <span class="hljs-title">GetBookInfo</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> title, [FromRoute(Name = <span class="hljs-string">&quot;author&quot;</span></span>)]<span class="hljs-built_in">string</span> mainAuthor)</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="QueryString">QueryString</h3>
+<p>对于使用 QueryString 传递的参数，则是使用<code>[FromQuery]</code>来获取值：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment">// 每页五条数据，获取第十页数据的 QueryString: pNum=10&amp;pageSize=5</span><br><span class="hljs-keyword">public</span> ActionResult&lt;Book[]&gt; GetBooks([FromQuery(Name = <span class="hljs-string">&quot;pNum&quot;</span>)]<span class="hljs-built_in">string</span> pageNum, [FromQuery]<span class="hljs-built_in">string</span> pageSize);<br></code></pre></td></tr></table></figure>
+<h3 id="请求报文体">请求报文体</h3>
+<p>注意 Content-Type，在 Web API 开发中一般都是<code>application/json</code></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpPost</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> ActionResult <span class="hljs-title">AddNewPerson</span>(<span class="hljs-params">Person person</span>)</span>;<br></code></pre></td></tr></table></figure>
+<h2 id="允许跨域">允许跨域</h2>
+<p>在 Program.cs 的<code>var app = builder.Build();</code>前添加：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span>[] urls = <span class="hljs-keyword">new</span>[] &#123; <span class="hljs-string">&quot;http://localhost:5173&quot;</span> &#125;;<br>builder.Services.AddCors(options =&gt; options.AddDefaultPolicy(builder =&gt; builder.WithOrigins(urls).AllowAnyMethod().AllowAnyHeader().AllowCredentials()));<br></code></pre></td></tr></table></figure>
+<p>再在<code>app.UseHttpsRedirection();</code>前添加：<code>app.UseCors();</code></p>
+<h1><a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 基础组件</h1>
+<h2 id="ASP-NET-Core-中的依赖注入"><a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 中的依赖注入</h2>
+<p>在 Program.cs 中，<code>WebApplication.CreateBuilder(args)</code>所返回的对象类型为<code>WebApplicationBuilder</code>，它的<code>Services</code>属性的类型则是<code>IServiceCollection</code>，所以也拥有<code>AddScoped()</code>等方法。一般把服务注册到这里就行。</p>
+<h3 id="食用指北">食用指北</h3>
+<p>首先，创建一个服务类<code>MyExampleService</code>，并随便实现一个方法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyExampleService</span><br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IEnumerable&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">GetNames</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">string</span>[] &#123; <span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-string">&quot;Joe&quot;</span>, <span class="hljs-string">&quot;Maple&quot;</span> &#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后，在 Program.cs 中注册服务：<code>builder.Services.AddScoped&lt;MyExampleService&gt;();</code><br>
+最后，就可以在需要用到该服务的控制器的构造函数(Constructor)中注入服务啦：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">Route(<span class="hljs-string">&quot;api/[controller]/[action]&quot;</span>)</span>]<br>[<span class="hljs-meta">ApiController</span>]<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonsController</span> : <span class="hljs-title">ControllerBase</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> MyExampleService exampleService;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonsController</span>(<span class="hljs-params">MyExampleService exampleService</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">this</span>.exampleService = exampleService;<br>    &#125;<br><br>    [<span class="hljs-meta">HttpGet</span>]<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">Test</span>()</span><br>    &#123;<br>        <span class="hljs-keyword">var</span> names = exampleService.GetNames();<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>.Join(<span class="hljs-string">&quot;, &quot;</span>, names);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>但是有时候可能遇到特殊情况：如果一个操作方法（比如上面的<code>Test()</code>就是一个操作方法）用到的服务（在上面的例子中，<code>Test()</code>方法需要用到<code>MyExampleService</code>服务）的注入比较消耗资源，而这个操作方法被调用到的频率又很低，那么在调用这个控制器中的其他方法时，又会重复注入这个服务，就很浪费资源。<br>
+为了避免这种情况，我们可以把调用方法所用到的服务，通过调用方法的参数来注入：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpGet</span>]<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">Test</span>(<span class="hljs-params">[FromServices]exampleService</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">var</span> names = exampleService.GetNames();<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>.Join(<span class="hljs-string">&quot;, &quot;</span>, names);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h2 id="将配置系统集成到-ASP-NET-Core-中">将配置系统集成到 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 中</h2>
+<h3 id="多环境设置">多环境设置</h3>
+<p>为了确定运行时环境，<a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 会从环境变量中读取名字为<code>ASPNETCORE_ENVIRONMENT</code>的值，这个值就是程序运行环境的名字。推荐采用如下3个值来：Development（开发环境）、Staging（测试环境）、Production（生产环境）。如果没有设置，则认为程序运行在生产环境。<br>
+我们可以分别为各个环境创建配置文件：<code>appsettings.Development.json</code>、<code>appsettings.Staging.json</code>、<code>appsettings.Production.json</code></p>
+<h3 id="用“用户机密”来避免信息泄露">用“用户机密”来避免信息泄露</h3>
+<p>对应项目点击右键，选择“管理用户机密”，Visual Studio 会自动打开<code>secrets.json</code>文件，在这个文件里就可以进行机密信息的配置了。</p>
+<h2 id="EF-Core-与-ASP-NET-Core-的集成">EF Core 与 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 的集成</h2>
+<p>我们可能会将 EF Core 的项目与 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> 项目分开开发，以达到项目职责的清晰划分的目的，这个时候，我们如果要在 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> 用上下文，就需要用依赖注入的方式来配置数据库连接了，并添加对 EF Core 项目的依赖。<br>
+为了能在 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> 项目运行的时候再确定上下文对象需要连接到的数据库，我们需要修改一下上下文类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyDbContext</span> : <span class="hljs-title">DbContext</span><br>&#123;<br>    <span class="hljs-keyword">public</span> DbSet&lt;Book&gt; Books &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyDbContext</span>(<span class="hljs-params">DbContextOptions&lt;MyDbContext&gt; options</span>) : <span class="hljs-title">base</span>(<span class="hljs-params">options</span>)</span> &#123; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnModelCreating</span>(<span class="hljs-params">ModelBuilder modelBuilder</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">base</span>.OnModelCreating(modelBuilder);<br>        modelBuilder.ApplyConfigurationsFromAssembly(<span class="hljs-keyword">this</span>.GetType().Assembly);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以看到现在的上下文类不再重写<code>OnConfiguring</code>方法来设置数据库了，而是增加了一个<code>MyDbContext(DbContextOptions&lt;MyDbContext&gt;)</code>类型参数的构造方法。<code>DbContextOptions</code>是一个数据库连接配置对象，所以接下来，我们将在 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> 项目中（通过依赖注入的方法）提供对<code>DbContextOptions</code>的配置：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">builder.Services.AddDbContext&lt;MyDbContext&gt;(opt =&gt;<br>&#123;<br>    <span class="hljs-built_in">string</span> connStr = builder.Configuration.GetConnectionString(<span class="hljs-string">&quot;Default&quot;</span>);<br>    opt.UseSqlServer(connStr);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>别忘了在<code>application.json</code>中配置连接字符串：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;ConnectionStrings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;Default&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Server=.;Database=demo2;Trusted_Connection=True;TrustServerCertificate=True;&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>如果我们需要进行迁移，就需要为 EF Core 项目额外配置数据库连接。但是由于在 EF Core 项目中很难使用<code>IConfiguration</code>来读取配置，所以我们可以通过添加系统环境变量来配置数据库连接字串，并在项目中添加一个实现<code>IDesignTimeDbContextFactory</code>接口的实现类（数据库迁移工具会调用这个实现类的<code>CreateDbContext</code>方法来获取上下文对象，并使用这个对象来连接数据库）来帮助进行迁移：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyDesignTimeDbContextFactory</span> : <span class="hljs-title">IDesignTimeDbContextFactory</span>&lt;<span class="hljs-title">MyDbContext</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> MyDbContext <span class="hljs-title">CreateDbContext</span>(<span class="hljs-params"><span class="hljs-built_in">string</span>[] args</span>)</span><br>    &#123;<br>        DbContextOptionsBuilder&lt;MyDbContext&gt; builder = <span class="hljs-keyword">new</span>();<br>        <span class="hljs-built_in">string</span> connStr = Environment.GetEnvironmentVariable(<span class="hljs-string">&quot;ConnectString:BookEFCore&quot;</span>);<br>        builder.UseSqlServer(connStr);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MyDbContext(builder.Options);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="小上下文策略">小上下文策略</h3>
+<p>“不要把项目中所有的实体类都放到同一个上下文类中，而是只把关系紧密的实体类放到同一个上下文类中…也就是项目中存在多个上下文类。”<br>
+批量注册上下文：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> IServiceCollection <span class="hljs-title">AddAllDbContexts</span>(<span class="hljs-params"><span class="hljs-keyword">this</span> IServiceCollection services, Action&lt;DbContextOptionsBuilder&gt; builder, IEnumerable&lt;Assembly&gt; assemblies</span>)</span><br>&#123;<br>    Type[] types = <span class="hljs-keyword">new</span> Type[]<br>    &#123;<br>        <span class="hljs-keyword">typeof</span>(IServiceCollection),<br>        <span class="hljs-keyword">typeof</span>(Action&lt;IServiceCollection&gt;),<br>        <span class="hljs-keyword">typeof</span>(ServiceLifetime),<br>        <span class="hljs-keyword">typeof</span>(ServiceLifetime)<br>    &#125;;<br>    <span class="hljs-keyword">var</span> methodAddDbContext = <span class="hljs-keyword">typeof</span>(EntityFrameworkServiceCollectionExtensions).GetMethod(<span class="hljs-string">&quot;AddDbContext&quot;</span>, <span class="hljs-number">1</span>, types);<br>    <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> asmToLoad <span class="hljs-keyword">in</span> assemblies)<br>    &#123;<br>        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> dbCtxType <span class="hljs-keyword">in</span> asmToLoad.GetTypes().Where(t =&gt; !t.IsAbstract &amp;&amp; <span class="hljs-keyword">typeof</span>(DbContext).IsAssignableFrom(t)))<br>        &#123;<br>            <span class="hljs-keyword">var</span> methodGenericAddDbContext = methodAddDbContext.MakeGenericMethod(dbCtxType);<br>            methodGenericAddDbContext.Invoke(<span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>[] &#123; services, builder, ServiceLifetime.Scoped, ServiceLifetime.Scoped &#125;);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> services;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="缓存">缓存</h2>
+<p><a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> 不仅提供了把 Web 服务器的内存用作缓存的内存缓存（in-memory cache），还提供了把 Redis、数据库等用作缓存的分布式缓存（distributed cache）。</p>
+<h3 id="客户端响应缓存">客户端响应缓存</h3>
+<p><code>cache-control</code>响应报文头能够控制浏览器对请求返回内容的缓存时间等，在 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> 中，我们可以手动控制这个响应报文头，如添加<code>ResponseCacheAttribute</code>：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">HttpGet</span>]<br>[<span class="hljs-meta">ResponseCache(Duration=60)</span>]<br><span class="hljs-function"><span class="hljs-keyword">public</span> DateTime <span class="hljs-title">Now</span>()</span>&#123;<br>	<span class="hljs-keyword">return</span> DateTime.Now;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这样浏览器就会把相应内容缓存60s。</p>
+<div class="note note-info">
+            <p>如果客户端不支持客户端缓存，那么这个设置不会生效。</p>
+          </div>
+<h3 id="服务器端响应缓存">服务器端响应缓存</h3>
+<p>如果在 <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Core 中安装了“响应缓存中间件”（response cache middleware），那么设置<code>[ResponseCache]</code>不仅会设置客户端缓存，还会设置服务端缓存。</p>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Essay/" class="category-chain-item">Essay</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Essay/ASP-NET-Core/" class="category-chain-item">ASP.NET Core</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/dotNET-Core/">#dotNET Core</a>
+      
+        <a href="/tags/ASP-NET-Core/">#ASP.NET Core</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ASP.NET Core学习笔记-3：Web API 基础、基础组件</div>
+      <div>https://map1e-g.github.io/2024/11/02/asp-net-learning-3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月2日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/03/algorithm-search/" title="查找">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">查找</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/18/asp-net-learning-2/" title="ASP.NET Core学习笔记-2：EF Core 进阶知识">
+                        <span class="hidden-mobile">ASP.NET Core学习笔记-2：EF Core 进阶知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

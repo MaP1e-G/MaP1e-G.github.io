@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.jpg">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="MaP1e-G">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="参考书籍：《ASP.NET Core技术内幕与项目实战》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core学习笔记-1：.NET Core 核心基础组件与 EF Core 基础知识">
+<meta property="og:url" content="https://map1e-g.github.io/2024/04/30/asp.net-learning-1/index.html">
+<meta property="og:site_name" content="楓葉的小窩">
+<meta property="og:description" content="参考书籍：《ASP.NET Core技术内幕与项目实战》">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-30T04:12:06.000Z">
+<meta property="article:modified_time" content="2024-11-02T09:03:38.344Z">
+<meta property="article:author" content="MaP1e-G">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="dotNET Core">
+<meta property="article:tag" content="ASP.NET Core">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ASP.NET Core学习笔记-1：.NET Core 核心基础组件与 EF Core 基础知识 - 楓葉的小窩</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.15.2/katex.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"map1e-g.github.io","root":"/","version":"1.9.0","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>MaP1e-G&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-books"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-th-large"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ASP.NET Core学习笔记-1：.NET Core 核心基础组件与 EF Core 基础知识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-30 12:12" pubdate>
+          2024年4月30日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          114 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ASP.NET Core学习笔记-1：.NET Core 核心基础组件与 EF Core 基础知识</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2024年11月2日 下午
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1>.NET Core 核心基础组件</h1>
+<h2 id="依赖注入">依赖注入</h2>
+<p><code>Microsoft.Extension.DependencyInjection</code></p>
+<h3 id="什么是依赖注入">什么是依赖注入</h3>
+<p>我们把负责提供对象的注册和获取功能的框架叫做“容器”，注册到容器中的对象叫做“服务”(<code>service</code>)。<br>
+依赖注入框架时根据服务的类型来获取服务的，因此在获取服务的时候必须指定获取什么类型的服务。依赖注入框架中注册服务的时候可以分别指定服务类型和实现类型，两者可能相同，也可能不同。比如：<code>services.AddScoped&lt;IUserDAO, UserDAO&gt;();</code>，<code>IUserDAO</code>就是服务类型，<code>UserDAO</code>就是实现类型，所以推荐面向接口编程，这样代码就依赖于服务接口，而不是实现类。<br>
+现在有一个<code>User</code>类，运行在一个框架中，创建这个<code>User</code>类的对象之后，框架会自动为其中的<code>Conn</code>属性赋值一个合适的对象，这种框架自动创建(<code>Conn</code>)对象的动作就叫做“注入”(<code>injection</code>)。<br>
+个人觉得需要结合例子才好明白。<br>
+详细代码示例请参考书本 P58~P60。</p>
+<h3 id="什么是IoC-控制反转">什么是IoC(控制反转)</h3>
+<p>控制反转的目的就是把“创建和组装对象”操作的控制权从业务逻辑的代码中转移到框架中，这样业务代码中只要说明“我需要某个类型的对象”，框架就会帮我们创建这个对象。</p>
+<h3 id="依赖注入框架中的生命周期">依赖注入框架中的生命周期</h3>
+<ul>
+<li>瞬态(<code>transient</code>)：每次被请求的时候都会创建一个新对象。</li>
+<li>范围(<code>scoped</code>)：在给定的范围内，多次请求共享同一个服务对象，服务每次被请求的时候都会返回同一个对象；在不同的范围内，服务每次被请求的时候会返回不同的对象。</li>
+<li>单例(<code>singleton</code>)：全局共享同一个服务对象。</li>
+</ul>
+<div class="note note-warning">
+            <p>不同的服务之间可能有依赖关系，比如 A 服务中有一个 B 服务的属性，那么被依赖的 B 的生命周期不能比 A 的生命周期短，否则会出现 B 失效了，A 还可用的问题。</p>
+          </div>
+<p>如何在这三种生命周期中进行选择？请参考书本 P55。</p>
+<h2 id="配置系統">配置系統</h2>
+<p><code>Microsoft.Extension.Configuration</code></p>
+<h3 id="手动读取配置">手动读取配置</h3>
+<p><code>Microsoft.Extension.Configuration.Json</code></p>
+<div class="note note-info">
+            <p>我们需要把<code>config.json</code>文件设置为生成项目的时候自动被复制到生成目录：右击<code>config.json</code>，选择【属性】，将【复制到输出目录】修改为“如果较新则复制”</p>
+          </div>
+<p>代码参考书本 P61</p>
+<h3 id="使用选项方式读取配置">使用选项方式读取配置</h3>
+<p><code>Microsoft.Extension.Options</code> &amp; <code>Microsoft.Extension.Configuration.Binder</code><br>
+可以从文件、命令行或是环境变量中读取配置文件<br>
+需要创建一个类用于获取注入的选项值。但是声明接受选项注入的对象不能直接使用该类，而是需要使用<code>IOptions&lt;T&gt;</code>、<code>IOptionsMonitor&lt;T&gt;</code>、<code>IOptionsSnapShot&lt;T&gt;</code>等泛型接口类型，因为它们可以帮我们处理容器生命周期、配置刷新等。</p>
+<ul>
+<li><code>IOptions&lt;T&gt;</code>：在配置改变后，无法读到新的值，必须重启程序才可以读到新的值</li>
+<li><code>IOptionsMonitor&lt;T&gt;</code>：在配置改变后，可以读到新的值</li>
+<li><code>IOptionsSnapShot&lt;T&gt;</code>：在配置改变后，可以读到新的值，且在同一个范围内会保持一致性</li>
+</ul>
+<h2 id="日志">日志</h2>
+<h3 id="Net-Core-提供的日志">.Net Core 提供的日志</h3>
+<p><code>Microsoft.Extension.Logging</code></p>
+<h3 id="第三方文件日志提供程序">第三方文件日志提供程序</h3>
+<p>建议使用<code>NLog</code></p>
+<h3 id="集中式日志">集中式日志</h3>
+<p><code>Exceptionless</code></p>
+<h1>EF Core</h1>
+<h2 id="Getting-Start">Getting Start</h2>
+<p>通常的开发环节都是先创建好数据库，再根据<code>Schema</code>来创建实体类，这种开发模式叫做“数据驱动开发”；但是使用<code>EF Core</code>进行开发的话，可以使用“模型驱动开发”的开发模式，即：先创建实体类，通过<code>EF Core</code>来帮助我们创建数据库表（这种操作叫“迁移(Migration)”）。</p>
+<h3 id="安装相关包">安装相关包</h3>
+<p><code>Microsoft.EntityFrameworkCore.SqlServer</code>，<code>Microsoft.EntityFrameworkCore.Tools</code></p>
+<h3 id="创建实体类">创建实体类</h3>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Book</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Title &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> DateTime PubTime &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">double</span> Price &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> AuthorName &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="创建实体类的配置类">创建实体类的配置类</h3>
+<p>用于配置实体类和数据库表的对应关系</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">BookEntityConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Book</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Book&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Books&quot;</span>);  <span class="hljs-comment">// 对应的数据库表</span><br>        builder.Property(e =&gt; e.Title).HasMaxLength(<span class="hljs-number">50</span>).IsRequired();<br>        builder.Property(e =&gt; e.AuthorName).HasMaxLength(<span class="hljs-number">20</span>).IsRequired();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>通过接口类型<code>IEntityTypeConfiguration</code>的泛型参数类指定这个类要对哪个实体类进行配置，然后在<code>Configure</code>方法中对实体类和数据库表的关系做详细的配置。若没有配置各个属性在数据库中的列名和数据类型，EF Core 将会默认把属性的名字作为列名，并且根据属性的类型来推断数据库表中各列的数据类型。</p>
+<h3 id="创建上下文-Context-类">创建上下文(Context)类</h3>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">class</span> <span class="hljs-title">TestDbContext</span> : <span class="hljs-title">DbContext</span><br>&#123;<br>    <span class="hljs-keyword">public</span> DbSet&lt;Book&gt; Books &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnConfiguring</span>(<span class="hljs-params">DbContextOptionsBuilder optionsBuilder</span>)</span><br>    &#123;<br>        <span class="hljs-built_in">string</span> connStr = <span class="hljs-string">&quot;Server=.;Database=demo1;Trusted_Connection=True&quot;</span>;  <span class="hljs-comment">// 数据库连接字串</span><br>        optionsBuilder.UseSqlServer(connStr);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnModelCreating</span>(<span class="hljs-params">ModelBuilder modelBuilder</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">base</span>.OnModelCreating(modelBuilder);<br>        modelBuilder.ApplyConfigurationsFromAssembly(<span class="hljs-keyword">this</span>.GetType().Assembly);  <span class="hljs-comment">// 加载当前程序集中所有实现了 IEntityTypeConfiguration 接口的类</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>OnConfiguration</code>方法用于对程序要连接的数据库进行配置。</p>
+<h3 id="进行迁移">进行迁移</h3>
+<p>在【程序包管理器控制台】中执行命令：<code>Add-Mirgration InitialCreate</code>，<code>InitialCreate</code>是本次迁移的名字。<br>
+然后执行：<code>Update-database</code>命令编译并且执行数据库迁移代码。</p>
+<div class="note note-info">
+            <p>若遇到错误：<code>Microsoft.Data.SqlClient.SqlException (0x80131904): A connection was successfully established with the server, but then an error occurred during the login process.</code>，可以尝试在数据库连接字串中加入<code>TrustServerCertificate=true</code>或是<code>encrypy=false</code></p>
+          </div>
+<div class="note note-info">
+            <p>如果命令执行失败，提示<code>Build failed.</code>，不妨看看输出窗口中的信息。<br>如果创建出来的迁移代码中发现并没有生成对应代码，不妨检查一下是否缺失了配置，如：<code>DbContext</code>中是否加入了对应类的<code>DbSet</code>属性。</p>
+          </div>
+<h2 id="EF-Core-基本操作">EF Core 基本操作</h2>
+<p>要对数据进行操作，其实就是对<code>Context</code>中的各个<code>DbSet</code>属性进行操作。</p>
+<h3 id="插入数据">插入数据</h3>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">using</span> TestDbContext ctx = <span class="hljs-keyword">new</span> TestDbContext();<br><span class="hljs-keyword">var</span> b1 = <span class="hljs-keyword">new</span> Book &#123; AuthorName = <span class="hljs-string">&quot;XYZ&quot;</span>, Title = <span class="hljs-string">&quot;Test&quot;</span>, Price = <span class="hljs-number">59.8</span>, PubTime = DateTime.Now &#125;;<br>ctx.Books.Add(b1);<br><span class="hljs-keyword">await</span> ctx.SaveChangesAsync();<br></code></pre></td></tr></table></figure>
+<p>由于<code>DbContext</code>实现了<code>IDisposable</code>接口，因此需要使用<code>using</code>语句确保资源的释放。</p>
+<h3 id="使用-LINQ-查询数据">使用 LINQ 查询数据</h3>
+<p><code>DbSet</code>实现了<code>IEnumerable&lt;T&gt;</code>接口，所以可以直接使用<code>LINQ</code>来查询数据</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">IEnumerable&lt;T&gt; books2 = ctx.Books.Where(b =&gt; b.Price &gt; <span class="hljs-number">80</span>);<br><span class="hljs-keyword">foreach</span> (Book b <span class="hljs-keyword">in</span> books2)<br>&#123;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="修改和删除数据">修改和删除数据</h3>
+<p>要修改数据，直接对<code>DbSet</code>中的实体类对象进行修改，最后用<code>SaveChangesAsync()</code>方法即可同步修改至数据库。<br>
+要删除数据，同样也是对<code>DbSet</code>中的实体类对象进行删除，将要删除的对象作为参数传入<code>Remove()</code>方法即可，例如：<code>ctx.Remove(b)</code>/<code>ctx.Books.Remove(b)</code>。</p>
+<h2 id="EF-Core-的实体类配置">EF Core 的实体类配置</h2>
+<p><code>EF Core</code>采用了“约定大于配置”的设计原则，下面是几条主要规则：</p>
+<ol>
+<li>数据库表名采用上下文类中对应的<code>DbSet</code>的属性名</li>
+<li>数据库表列的名字采用实体类属性的名字，列的数据类型采用和实体类属性类型兼容的类型。</li>
+<li>数据库表列的可空性取决于对应实体类属性的可空性。</li>
+<li>名字为<code>Id</code>的属性为主键，如果主键为<code>short</code>、<code>int</code>或<code>long</code>类型，则主键默认采用自动增长类型的列。</li>
+</ol>
+<div class="note note-warning">
+            <p>在使用<code>Guid</code>类型的主键时，一定不要把主键设置为聚集索引，否则在数据量大的时候将会导致非常糟糕的数据插入性能！</p>
+          </div>
+<h3 id="Data-Annotation">Data Annotation</h3>
+<p>Data Annotation(数据注释)指的是使用 .NET 提供的<code>Attribute</code>来对实体类、属性等进行标注的方式来实现实体类配置，如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c#">[<span class="hljs-meta">Table(<span class="hljs-string">&quot;T_Authors&quot;</span>)</span>]<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Author</span><br>&#123;<br>    [<span class="hljs-meta">Key</span>]<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    [<span class="hljs-meta">MaxLength(20)</span>]<br>    [<span class="hljs-meta">Required</span>]<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    [<span class="hljs-meta">MaxLength(50)</span>]<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Country &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    [<span class="hljs-meta">MaxLength(50)</span>]<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Email &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br><br>    <span class="hljs-keyword">public</span> ICollection&lt;BookAuthor&gt; BookAuthors &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="Fluent-API">Fluent API</h3>
+<p>编写专门对应的、实现了<code>IEntityTypeConfiguration</code>接口的<code>Config</code>类来配置实体类，就是<code>Fluent API</code>的一种体现方式，比如上面的<code>BookEntityConfig</code>类。其另一种体现方式是，在<code>Context</code>类中使用<code>ModelBuilder</code>类的对象来对实体类进行配置，例如：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnModelCreating</span>(<span class="hljs-params">ModelBuilder modelBuilder</span>)</span><br>&#123;<br>	modelBuilder.Entity&lt;Book&gt;()<br>		.Ignore(b =&gt; b.PubTime)<br>&#125;<br></code></pre></td></tr></table></figure>
+<div class="note note-info">
+            <p>DataAnnotation 和 Fluent API 是可以一起使用的，但后者的优先级比前者高</p>
+          </div>
+<p>仔细看就会发现，其实在继承了<code>DbContext</code>的上下文类中使用 Fluent API ，和在实现了<code>IEntityTypeConfiguration</code>接口的配置类中进行配置后再在继承了<code>DbContext</code>的上下文类中使用<code>modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);</code>是等效的，不过后者会直接加载所有配置类。<br>
+下面是一些 Fluent API 的基本配置：</p>
+<ul>
+<li>表与实体类映射: <code>modelBuilder.Entity&lt;Book&gt;().ToTable(&quot;T_Books&quot;);</code></li>
+<li>视图与实体类映射: <code>modelBuilder.Entity&lt;Book&gt;().ToView(&quot;BookView&quot;);</code></li>
+<li>排除属性映射: <code>modelBuilder.Entity&lt;Book&gt;().Ignore(b =&gt; b.PubTime);</code></li>
+<li>数据库表列名: <code>modelBuilder.Entity&lt;Book&gt;().Property(b =&gt; b.PubTime).HasColumnName(&quot;CreateTime&quot;);</code></li>
+<li>列数据类型: <code>modelBuilder.Entity&lt;Book&gt;().Property(b =&gt; b.PubTime).HasColumnType(&quot;Varchar(200)&quot;);</code></li>
+<li>主键: <code>modelBuilder.Entity&lt;BookAuthors&gt;().HasKey(ba =&gt; new &#123; ba.BookId, ba.AuthorId &#125;);</code></li>
+<li>索引: <code>modelBuilder.Entity&lt;Person&gt;().HasIndex(p =&gt; new &#123; p.FirstName, p.LastName &#125;).HasDatabaseName(&quot;IX_PERSON_1&quot;);</code></li>
+</ul>
+<h3 id="主键的选择">主键的选择</h3>
+<ol>
+<li>普通自增：直接使用自增<code>long</code>类型作为主键</li>
+<li><code>Guid</code>算法：直接使用<code>Guid</code>类型作为主键</li>
+<li>自增 + <code>Guid</code>算法：使用自增<code>long</code>类型作为物理主键，<code>Guid</code>类型作为逻辑主键。在数据库表结构的设计上，把<code>long</code>类型自增列设置为主键，但是在和其他表关联及对外通信上，都使用<code>Guid</code>列。</li>
+<li>Hi/Lo 算法：EF Core 支持使用 Hi/Lo 算法来优化自增列的性能。</li>
+</ol>
+<h2 id="数据库迁移">数据库迁移</h2>
+<h3 id="控制台命令">控制台命令</h3>
+<p>除常用的<code>Add-migration</code>和<code>Update-datebase</code>外，还有一些（可能是常用的）有用命令：</p>
+<ul>
+<li><code>Remove-migration</code>: 删除最后一次的迁移脚本</li>
+<li><code>Script-Migration</code>: 根据迁移代码来生成 SQL 脚本</li>
+<li><code>Scaffold-DbContext</code>: 根据数据库表来生成实体类</li>
+</ul>
+<h2 id="查看-EF-Core-生成的-SQL-语句">查看 EF Core 生成的 SQL 语句</h2>
+<h3 id="将日志输出到控制台">将日志输出到控制台</h3>
+<p>在<code>DbContext</code>类的<code>OnConfiguring</code>方法中加入语句：<code>optionsBuilder.LogTo(Console.WriteLine);</code>即可。<br>
+如果只想输出 SQL 语句，使用下面的代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#">optionsBuilder<br>    .LogTo(Console.WriteLine, <span class="hljs-keyword">new</span>[] &#123; DbLoggerCategory.Database.Command.Name &#125;,Microsoft.Extensions.Logging.LogLevel.Information)  <span class="hljs-comment">// 在控制台输出 SQL 语句</span><br>    .EnableSensitiveDataLogging()  <span class="hljs-comment">// 可选：显示实际参数值</span><br>    .EnableDetailedErrors();  <span class="hljs-comment">// 可选：详细错误信息;</span><br></code></pre></td></tr></table></figure>
+<h2 id="关系配置">关系配置</h2>
+<h3 id="一对一、一对多、多对多">一对一、一对多、多对多</h3>
+<p>EF Core 中实体类之间关系的配置采用如下的模式：<code>HasXXX(...).WithYYY(...);</code>，代表“A 实体类对象有 XXX 个 B 实体类对象，B 实体类对象有 YYY 个 A 实体类对象”。XXX 和 YYY 有<code>One</code>和<code>Many</code>两个可选值。<br>
+在配置实体类之间关系映射的时候，不仅需要在<code>Config</code>类中编写<code>HasXXX(...).WithYYY(...);</code>，还需要在<code>Entity</code>类中设置其对应的其他实体类的对象(或对象集合)。</p>
+<h4 id="一对多">一对多</h4>
+<p><code>Entity</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Article</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Title &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Content &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> List&lt;Comment&gt; Comments &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-keyword">new</span> List&lt;Comment&gt;();<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Comment</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Message &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> Article Article &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-literal">null</span>!;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Config</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ArticleConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Article</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Article&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Articles&quot;</span>);<br>        builder.HasKey(a =&gt; a.Id);<br>        builder.Property(a =&gt; a.Title).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">50</span>);<br>        builder.Property(a =&gt; a.Content).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">2000</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CommentConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Comment</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Comment&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Comments&quot;</span>);<br>        builder.HasKey(c =&gt; c.Id);<br>        builder.Property(c =&gt; c.Message).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">200</span>);<br>        builder.HasOne(c =&gt; c.Article).WithMany(a =&gt; a.Comments).IsRequired();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>插入数据：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#">Article a1 = <span class="hljs-keyword">new</span> Article();<br>a1.Title = <span class="hljs-string">&quot;EF Core&quot;</span>;<br>a1.Content = <span class="hljs-string">&quot;EF Core 是一个轻量级、可扩展、跨平台的对象关系映射 (ORM) 框架，支持 .NET Core。&quot;</span>;<br>Comment c1 = <span class="hljs-keyword">new</span> Comment &#123; Message = <span class="hljs-string">&quot;EF Core 是一个轻量级的 ORM 框架。&quot;</span> &#125;;<br>Comment c2 = <span class="hljs-keyword">new</span> Comment &#123; Message = <span class="hljs-string">&quot;EF Core 支持 .NET Core。&quot;</span> &#125;;<br>a1.Comments.Add(c1);<br>a1.Comments.Add(c2);<br>ctx.Articles.Add(a1);<br><span class="hljs-keyword">await</span> ctx.SaveChangesAsync();<br></code></pre></td></tr></table></figure>
+<h4 id="一对一">一对一</h4>
+<p><code>Entity</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Order</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Address &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> Delivery? Delivery &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Delivery</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> CompanyName &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Number &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> Order Order &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-literal">null</span>!;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> OrderId &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Config</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">OrderConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Order</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Order&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Orders&quot;</span>);<br>        builder.HasKey(o =&gt; o.Id);<br>        builder.Property(o =&gt; o.Name).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">50</span>);<br>        builder.Property(o =&gt; o.Address).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">200</span>);<br>        builder.HasOne(o =&gt; o.Delivery).WithOne(d =&gt; d.Order).HasForeignKey&lt;Delivery&gt;(d =&gt; d.OrderId);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DeliveryConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Delivery</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Delivery&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Deliveries&quot;</span>);<br>        builder.HasKey(d =&gt; d.Id);<br>        builder.Property(d =&gt; d.CompanyName).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">50</span>);<br>        builder.Property(d =&gt; d.Number).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">50</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>插入数据：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">Order order = <span class="hljs-keyword">new</span> Order &#123; Name = <span class="hljs-string">&quot;订单1&quot;</span>, Address = <span class="hljs-string">&quot;地址1&quot;</span> &#125;;<br>Delivery delivery = <span class="hljs-keyword">new</span> Delivery &#123; CompanyName = <span class="hljs-string">&quot;顺丰&quot;</span>, Number = <span class="hljs-string">&quot;SF123456&quot;</span> &#125;;<br>order.Delivery = delivery;<br>ctx.Orders.Add(order);<br><span class="hljs-keyword">await</span> ctx.SaveChangesAsync();<br></code></pre></td></tr></table></figure>
+<h4 id="多对多">多对多</h4>
+<p><code>Entity</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Student</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> List&lt;Teacher&gt; Teachers &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-keyword">new</span> List&lt;Teacher&gt;();<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> List&lt;Student&gt; Students &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-keyword">new</span> List&lt;Student&gt;();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Config</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TeacherConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Teacher</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Teacher&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Teachers&quot;</span>);<br>        builder.HasKey(t =&gt; t.Id);<br>        builder.Property(t =&gt; t.Name).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">50</span>);<br>        builder.HasMany(t =&gt; t.Students).WithMany(s =&gt; s.Teachers);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">StudentConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Student</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">EntityTypeBuilder&lt;Student&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Students&quot;</span>);<br>        builder.HasKey(s =&gt; s.Id);<br>        builder.Property(s =&gt; s.Name).IsRequired().IsUnicode().HasMaxLength(<span class="hljs-number">50</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>插入数据：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c#">Student s1 = <span class="hljs-keyword">new</span> Student &#123; Name = <span class="hljs-string">&quot;张三&quot;</span> &#125;;<br>Student s2 = <span class="hljs-keyword">new</span> Student &#123; Name = <span class="hljs-string">&quot;李四&quot;</span> &#125;;<br>Student s3 = <span class="hljs-keyword">new</span> Student &#123; Name = <span class="hljs-string">&quot;王五&quot;</span> &#125;;<br>Teacher t1 = <span class="hljs-keyword">new</span> Teacher &#123; Name = <span class="hljs-string">&quot;王老师&quot;</span> &#125;;<br>Teacher t2 = <span class="hljs-keyword">new</span> Teacher &#123; Name = <span class="hljs-string">&quot;李老师&quot;</span> &#125;;<br>t1.Students.Add(s1);<br>t1.Students.Add(s2);<br>t2.Students.Add(s2);<br>t2.Students.Add(s3);<br>ctx.AddRange(t1, t2);<br><span class="hljs-keyword">await</span> ctx.SaveChangesAsync();<br></code></pre></td></tr></table></figure>
+<h3 id="关联数据的获取">关联数据的获取</h3>
+<p>如果需要进行关联查询(join)，可以使用<code>Include</code>方法，比如：查询 Id 为 1 的 Teacher 所拥有的 Student，就可以像下面这么写：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">ctx.Teachers.Include(t =&gt; t.Students).Where(t =&gt; t.Id == <span class="hljs-number">1</span>).ToList().ForEach(t =&gt;<br>&#123;<br>    Console.WriteLine(<span class="hljs-string">$&quot;<span class="hljs-subst">&#123;t.Name&#125;</span> has students: &quot;</span>);<br>    t.Students.ForEach(s =&gt; Console.WriteLine(s.Name));<br>&#125;);<br></code></pre></td></tr></table></figure>
+<h3 id="单向导航属性">单向导航属性</h3>
+<p>在上面列举的三个例子，它们的实体类中都存在其映射的另一个实体类的对象或对象集合属性，能够很方便地获取另一个实体类的信息，这种称为双向导航。<br>
+而单项导航其实就是：在存在映射关系的两个实体类中，只在其中一个类里配置另一个实体类的属性；并且，对应的<code>Config</code>类中不向<code>WithMany()</code>方法传参。下面是一个例子<br>
+<code>Entity</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">User</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-literal">null</span>!;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Leave</span><br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> Id &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> User Requester &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-literal">null</span>!;<br>    <span class="hljs-keyword">public</span> User? Approver &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Remarks &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125; = <span class="hljs-built_in">string</span>.Empty;<br>    <span class="hljs-keyword">public</span> DateTime From &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> DateTime To &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Status &#123; <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>Config</code>类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">UserConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">User</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder&lt;User&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Users&quot;</span>);<br>        builder.HasKey(u =&gt; u.Id);<br>        builder.Property(u =&gt; u.Name).IsUnicode().IsRequired().HasMaxLength(<span class="hljs-number">50</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">LeaveConfig</span> : <span class="hljs-title">IEntityTypeConfiguration</span>&lt;<span class="hljs-title">Leave</span>&gt;<br>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Configure</span>(<span class="hljs-params">Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder&lt;Leave&gt; builder</span>)</span><br>    &#123;<br>        builder.ToTable(<span class="hljs-string">&quot;T_Leaves&quot;</span>);<br>        builder.HasOne&lt;User&gt;(l =&gt; l.Requester).WithMany().IsRequired();<br>        builder.HasOne&lt;User&gt;(l =&gt; l.Approver).WithMany().IsRequired(<span class="hljs-literal">false</span>);<br>        builder.Property(l =&gt; l.Remarks).IsUnicode().IsRequired().HasMaxLength(<span class="hljs-number">200</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>数据的插入及查询：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c#">User u1 = <span class="hljs-keyword">new</span> User() &#123; Name = <span class="hljs-string">&quot;Maple&quot;</span> &#125;;<br>Leave l1 = <span class="hljs-keyword">new</span> Leave() &#123; Requester = u1, Remarks = <span class="hljs-string">&quot;Sick&quot;</span>, From = DateTime.Now, To = DateTime.Now.AddDays(<span class="hljs-number">1</span>), Status = <span class="hljs-number">0</span> &#125;;<br>ctx.Leaves.Add(l1);<br><span class="hljs-keyword">await</span> ctx.SaveChangesAsync();<br><br>User u = <span class="hljs-keyword">await</span> ctx.Users.SingleAsync(u =&gt; u.Name == <span class="hljs-string">&quot;Maple&quot;</span>);<br><span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> l <span class="hljs-keyword">in</span> ctx.Leaves.Where(l =&gt; l.Requester == u))<br>&#123;<br>    Console.WriteLine(l.Remarks);<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr>
+
+              <p align="center"><img src="/img/alice_happy.jpg" srcset="/img/loading.gif" lazyload alt="这里有一只爱丽丝" style="width:150px; height:150px;"></p><p align="center">希望本文章能够帮到您~</p>
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Essay/" class="category-chain-item">Essay</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Essay/ASP-NET-Core/" class="category-chain-item">ASP.NET Core</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C#</a>
+      
+        <a href="/tags/dotNET-Core/">#dotNET Core</a>
+      
+        <a href="/tags/ASP-NET-Core/">#ASP.NET Core</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ASP.NET Core学习笔记-1：.NET Core 核心基础组件与 EF Core 基础知识</div>
+      <div>https://map1e-g.github.io/2024/04/30/asp.net-learning-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>MaP1e-G</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月30日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/09/NLog-manual/" title="NLog 食用指北">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NLog 食用指北</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/15/WinForm-learning-1/" title="WinForm学习笔记-1">
+                        <span class="hidden-mobile">WinForm学习笔记-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> with <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> </div> <div> Copyright <i class="iconfont icon-copyright"></i> 2022  <a href="https://map1e-g.github.io/about/" target="_blank" rel="nofollow noopener">MaP1e-G</a> All Rights Reserved. </div> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
